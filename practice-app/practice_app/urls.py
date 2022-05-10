@@ -35,7 +35,7 @@ urlpatterns = [
     # path('category/', include(category_urls)),
     # path('category-info/', include(category_info_urls)),
     # path('comment/', include(comment_urls)),
-    # path('comment-info/', include(comment_info_urls)),
+    path('comment-info/', include(comment_info_urls)),
     # path('post/', include(post_urls)),
     # path('post-info/', include(post_info_urls)),
     # path('rate-article/', include(rate_article_urls)),
