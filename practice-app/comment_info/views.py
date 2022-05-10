@@ -23,21 +23,38 @@ class commentList(APIView):
     def post(self, request, *args, **kwargs):
         id=self.kwargs["id"]
 
+        queryset = Comment.objects.filter(id=id)
+        if(queryset):
+            body = request.POST["body"]
+            timestamp = datetime.datetime.now()
+            city_name = request.POST["city_name"]
 
-        body = request.POST["body"]
-        timestamp = datetime.datetime.now()
-        city_name = request.POST["city_name"]
-        r = requests.get(f"https://community-open-weather-map.p.rapidapi.com/weather?q={city_name}&units=metric",headers={"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key" : "c014e97b45mshfcf2fa729f382a2p10fd63jsn96c65393f10a"}).json()
-        weather = r["weather"][0]["main"]
+            # From here using the external API to fetch weather data.
+            url = "https://weatherapi-com.p.rapidapi.com/current.json"
+            querystring = {"q":city_name}
 
+            headers = {
+            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+            "X-RapidAPI-Key": "ab60675eb2msh1e4a5cb6e387b12p19a699jsnf1fda92ea63f"}   
 
-        comment = Comment.objects.get(id=id)
-        comment.body = body
-        comment.timestamp = timestamp
-        comment.city_name = city_name
-        comment.weather = weather
+            r = requests.request("GET", url, headers=headers, params=querystring).json()
+            
+            if("current" in r):
+                weather = r["current"]["condition"]["text"]
+            else:
+                weather = "There is no matching location. Weather information could not be found."
+            # Weather data fetched.
 
-        comment.save()
+            comment = Comment.objects.get(id=id)
+            comment.body = body
+            comment.timestamp = timestamp
+            comment.city_name = city_name
+            comment.weather = weather
 
-        serializedObject = commentInfoSerializer(comment)
-        return Response(data=serializedObject.data,status=status.HTTP_200_OK)
+            comment.save()
+
+            serializedObject = commentInfoSerializer(comment)
+            return Response(data=serializedObject.data,status=status.HTTP_200_OK)
+
+        else:
+            return Response(data={"message" : f"There is no such comment with id: {id}"}, status = status.HTTP_404_NOT_FOUND)
