@@ -1,33 +1,56 @@
 from django.shortcuts import render
 # Create your views here.
 from django.contrib.auth.models import User
+from rest_framework.views import APIView
 from .serializers import * 
 from rest_framework import generics,status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from email_validator import validate_email, EmailNotValidError
+
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def post(self,req):
-        user = User.objects.create_user(username=req.POST['username'],
-                                 email=req.POST['email'],
-                                 password=req.POST['password'])
+        usernames = User.objects.values_list('username', flat=True)
+        emails = User.objects.values_list('email',flat=True)
+        if req.data["username"] in usernames:
+            return Response(data={"message":"Username is taken!"},status=status.HTTP_409_CONFLICT)
+        if req.data["email"] in emails:
+            return Response(data={"message":"Email is already used!"},status=status.HTTP_409_CONFLICT)
+        if(len(req.data["username"])<6):
+            return Response(data={"message":"Username is too short!"},status=status.HTTP_400_BAD_REQUEST)
+        if(len(req.data["password"])<6):
+            return Response(data={"message":"Password is too short!"},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            email = validate_email(req.data["email"]).email
+        except EmailNotValidError as e:
+            # email is not valid, exception message is human-readable
+            error=str(e)
+            return Response(data={"message":error},status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = User.objects.create_user(username=req.data['username'],
+                                    email=req.data['email'],
+                                    password=req.data['password'])
+        except:
+            return Response(data={"message":"User can not be created"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+        
         data = {
             "username":user.username,
             "email":user.email,
             "password": user.password
         }
         return Response(data=data,status=status.HTTP_201_CREATED)
+class userDetail(APIView):
 
-@api_view(['GET', 'POST'])
-def userDetail(request):
-    user = User.objects.get(username=request.GET.get('username', ''))
-    data = {
-            "username":user.username,
-            "email":user.email,
-            "password": user.password
-        }
-    if request.method == 'GET':
-        return Response(data=data)
-    return Response({"message": "Only GET Method Allowed"})
+    def get(self, *args, **kwargs):
+        username=self.kwargs["username"]
+        queryset = User.objects.filter(username=username)
+
+        if(queryset):
+            serializedObject = UserSerializer(queryset[0])
+            return Response(data=serializedObject.data,status=status.HTTP_200_OK)
+        else:
+            return Response(data={"message" : f"There is no such User with id: {id}"}, status = status.HTTP_404_NOT_FOUND)
