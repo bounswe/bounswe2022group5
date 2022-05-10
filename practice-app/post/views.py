@@ -26,13 +26,18 @@ def post(req):
         user = req.POST['user']
         p_user = User.objects.get(username=user)
 
+        covid19 = {
+            'death': 100,
+            'case': 500
+        }
+
         data = {
             'title' : req.POST['title'],
             'body' : req.POST['body'],
             'category' : p_category,
             'user' : p_user,
-            'country' : req.POST['country'],                #country name should be fetched from location
-            'covid19cases' : int(req.POST['covid19cases'])
+            'country' : req.POST['country'],    #country name should be fetched from location
+            'covid19cases' : covid19
         }
         
         _post = Post.objects.create(**data)
