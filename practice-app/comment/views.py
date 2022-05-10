@@ -4,15 +4,26 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework.decorators import api_view
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 from post.models import Post
 from .serializers import CommentSerializer
 import requests
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+import os
+
+# Important Note: There should be a valid rapid api key stored
+# in the environment variable X_RAPIDAPI_KEY to get weather info.
+
+class ReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.method in SAFE_METHODS
 
 class CommentApiView(APIView):
     
-    permission_classes = [permissions.IsAuthenticated]
+    # This API is read-only, which means everyone can parform a GET, but
+    # only authenticated users can perform a POST:
+    permission_classes = [IsAuthenticated|ReadOnly]
 
     def get_post_object(self, post_id):
         try:
@@ -48,23 +59,20 @@ class CommentApiView(APIView):
             )
 
         city_name = request.data.get('city_name')
-        try:
+        url = "https://weatherapi-com.p.rapidapi.com/current.json"
 
-            url = "https://weatherapi-com.p.rapidapi.com/current.json"
+        querystring = {"q":city_name}
 
-            querystring = {"q":city_name}
+        headers = {
+            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+            "X-RapidAPI-Key": os.environ.get("X_RAPIDAPI_KEY")
+        }
 
-            headers = {
-                "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-                "X-RapidAPI-Key": "f258fa18e7msh6828d6e1336a89ap159e8ajsn6aab2bc173b1"
-            }
+        response = requests.request("GET", url, headers=headers, params=querystring)
 
-            response = requests.request("GET", url, headers=headers, params=querystring)
+        weather = response.json()["current"]["condition"]["text"]
+        city_name = response.json()["location"]["name"]
 
-            weather = response.json()["current"]["condition"]["text"]
-            city_name = response.json()["location"]["name"]
-        except:
-            weather = request.data.get('weather')
 
         data = {
             'body': request.data.get('body'), 
