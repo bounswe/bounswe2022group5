@@ -1,7 +1,7 @@
-from collections import UserList
+
 from django.urls import path, include
 from .views import  UserList, userDetail
 urlpatterns = [
-    path('userList',UserList.as_view()),
-    path('userDetail',userDetail),
+    path('api',UserList.as_view()),
+    path('api/<str:username>',userDetail.as_view()),
 ]
