@@ -5,6 +5,7 @@ from rest_framework import generics,status
 from rest_framework.response import Response
 from rest_framework.views import APIView 
 from .serializers import * 
+import requests
 import datetime
 import json
 class commentList(APIView):
@@ -26,7 +27,9 @@ class commentList(APIView):
         body = request.POST["body"]
         timestamp = datetime.datetime.now()
         city_name = request.POST["city_name"]
-        weather = "Cloudy"
+        r = requests.get(f"https://community-open-weather-map.p.rapidapi.com/weather?q={city_name}&units=metric",headers={"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key" : "c014e97b45mshfcf2fa729f382a2p10fd63jsn96c65393f10a"}).json()
+        weather = r["weather"][0]["main"]
+
 
         comment = Comment.objects.get(id=id)
         comment.body = body
