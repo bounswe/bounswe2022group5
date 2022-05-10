@@ -48,7 +48,23 @@ class CommentApiView(APIView):
             )
 
         city_name = request.data.get('city_name')
-        weather = request.data.get('weather')
+        try:
+
+            url = "https://weatherapi-com.p.rapidapi.com/current.json"
+
+            querystring = {"q":city_name}
+
+            headers = {
+                "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+                "X-RapidAPI-Key": "f258fa18e7msh6828d6e1336a89ap159e8ajsn6aab2bc173b1"
+            }
+
+            response = requests.request("GET", url, headers=headers, params=querystring)
+
+            weather = response.json()["current"]["condition"]["text"]
+            city_name = response.json()["location"]["name"]
+        except:
+            weather = request.data.get('weather')
 
         data = {
             'body': request.data.get('body'), 
