@@ -12,6 +12,7 @@ class commentList(APIView):
 
     def get(self, *args, **kwargs):
         id=self.kwargs["id"]
+        # In order to check whether the given comment ID exists or not.
         queryset = Comment.objects.filter(id=id)
         
         if(queryset):
@@ -26,6 +27,10 @@ class commentList(APIView):
         queryset = Comment.objects.filter(id=id)
         if(queryset):
             body = request.POST["body"]
+            # To prevent empty bodies and very small bodies.
+            if(len(body) < 5):
+                return Response(data={"message" : f"Please insert a longer body message"}, status = status.HTTP_406_NOT_ACCEPTABLE)
+            
             timestamp = datetime.datetime.now()
             city_name = request.POST["city_name"]
 
@@ -43,6 +48,8 @@ class commentList(APIView):
                 weather = r["current"]["condition"]["text"]
             else:
                 weather = "There is no matching location. Weather information could not be found."
+                # Note that we could've return another response and do not change the body also.
+                # Instead of that, we simply leave the weather place with this message.
             # Weather data fetched.
 
             comment = Comment.objects.get(id=id)
