@@ -5,4 +5,4 @@ class Category(models.Model):
     definition = models.CharField(max_length = 1800, null = False)
 
     def __str__(self):
-        return self.title
+        return self.name

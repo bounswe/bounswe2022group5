@@ -1,5 +1,7 @@
 from django.urls import path, include
 from .views import commentList
+
 urlpatterns = [
-    path('comment-info',commentList.as_view()),
+    path('api/<int:id>',commentList.as_view()),
+    #r'^api/(?P<id>/$
 ]
