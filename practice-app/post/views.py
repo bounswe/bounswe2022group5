@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import requests
 from .models import Post
 from category.models import Category
 from django.contrib.auth.models import User
@@ -6,6 +7,8 @@ from .serializers import PostSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+
+EXTERNAL_COVID_API_URL = f'https://coronavirus.m.pipedream.net/'
 
 @api_view(["GET", "POST"])
 def post(req):
@@ -26,18 +29,24 @@ def post(req):
         user = req.POST['user']
         p_user = User.objects.get(username=user)
 
-        covid19 = {
-            'death': 100,
-            'case': 500
-        }
+        covid19 = {}
+
+        country = req.POST['country']
+        if country:
+            covidInfo = covidApi(country)
+
+            covid19 = {
+                'death': covidInfo[1],
+                'case': covidInfo[0],
+            }
 
         data = {
             'title' : req.POST['title'],
             'body' : req.POST['body'],
             'category' : p_category,
             'user' : p_user,
-            'country' : req.POST['country'],    #country name should be fetched from location
-            'covid19cases' : covid19
+            'country' : country, #req.POST['country'],    #country name should be fetched from location
+            'covid19cases' : covid19    #req.POST['covid19cases']
         }
         
         _post = Post.objects.create(**data)
@@ -46,7 +55,13 @@ def post(req):
 
 
 
+def covidApi(country):
+    result = requests.get(EXTERNAL_COVID_API_URL).json()
+    countries = result["rawData"]
 
+    country_info = [info for info in countries if info["Country_Region"] == country][0]
+
+    return [country_info['Confirmed'], country_info['Deaths']]
 
 
 
