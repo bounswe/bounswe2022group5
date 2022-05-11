@@ -19,20 +19,29 @@ def post(req):
 
     if req.method == "POST":
 
-        #username = req.session['username']
+        try:
+            title = req.POST['title']
+            body = req.POST['body']
+            category = req.POST['category']
+            user = req.POST['user']
+        except:
+            return Response('Missing input', status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            country = req.POST['country']
+        except:
+            country = ''
 
         #category of the post will be given as dropdown menu
-        category = req.POST['category']
         p_category = Category.objects.get(name=category)
 
+        #username = req.session['username']
         #username should be fetched from session, it will not be entered
-        user = req.POST['user']
         p_user = User.objects.get(username=user)
 
         covid19 = {}
 
-        country = req.POST['country']
-        if country:
+        if not country == '':
             covidInfo = covidApi(country)
 
             covid19 = {
@@ -41,12 +50,12 @@ def post(req):
             }
 
         data = {
-            'title' : req.POST['title'],
-            'body' : req.POST['body'],
+            'title' : title,
+            'body' : body,
             'category' : p_category,
             'user' : p_user,
-            'country' : country, #req.POST['country'],    #country name should be fetched from location
-            'covid19cases' : covid19    #req.POST['covid19cases']
+            'country' : country,   #country name should be fetched from location
+            'covid19cases' : covid19    
         }
         
         _post = Post.objects.create(**data)
