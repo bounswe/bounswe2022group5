@@ -7,6 +7,7 @@ django-crispy-forms==1.14.0
 django-rest-framework==0.1.0
 djangorestframework==3.13.1
 idna==3.3
+python-dotenv==0.20.0
 pytz==2022.1
 requests==2.27.1
 sqlparse==0.4.2

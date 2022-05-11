@@ -7,6 +7,12 @@ from rest_framework import generics,status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from email_validator import validate_email, EmailNotValidError
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+EXTERNAL_API_HOST = "mailcheck.p.rapidapi.com"
+MAIL_DOMAIN_VALIDATE_API_KEY= os.getenv('MAIL_DOMAIN_VALIDATE_API_KEY')
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
@@ -29,6 +35,25 @@ class UserList(generics.ListAPIView):
             # email is not valid, exception message is human-readable
             error=str(e)
             return Response(data={"message":error},status=status.HTTP_400_BAD_REQUEST)
+        
+        import requests
+
+        url = "https://mailcheck.p.rapidapi.com/"
+
+        querystring = {"domain":req.data["email"].split("@")[1]}
+
+        headers = {
+            "X-RapidAPI-Host": EXTERNAL_API_HOST,
+            "X-RapidAPI-Key": MAIL_DOMAIN_VALIDATE_API_KEY
+        }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        isValid = response.json()["valid"]
+        
+        if(isValid==False): 
+            return Response(data={"message":"Email domain is not valid!"},status=status.HTTP_400_BAD_REQUEST)
+
         try:
             user = User.objects.create_user(username=req.data['username'],
                                     email=req.data['email'],
