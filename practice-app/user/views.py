@@ -50,9 +50,10 @@ class UserList(generics.ListAPIView):
         response = requests.request("GET", url, headers=headers, params=querystring)
 
         isValid = response.json()["valid"]
-        
-        if(isValid==False): 
-            return Response(data={"message":"Email domain is not valid!"},status=status.HTTP_400_BAD_REQUEST)
+        explanation = response.json()["text"]
+        print(response.json())
+        if(isValid==False or explanation=="Should be blocked"): 
+            return Response(data={"message":f"Email domain is not valid! {explanation}!"},status=status.HTTP_400_BAD_REQUEST)
 
         try:
             user = User.objects.create_user(username=req.data['username'],
