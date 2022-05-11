@@ -32,7 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('article/', include(article_urls)),
     # path('article-info/', include(article_info_urls)),
-    # path('category/', include(category_urls)),
+    path('category/', include(category_urls)),
     # path('category-info/', include(category_info_urls)),
     # path('comment/', include(comment_urls)),
     # path('comment-info/', include(comment_info_urls)),

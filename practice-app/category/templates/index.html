@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h3>Welcome to Category API</h3>
+    <p>Please choose an operation to continue</p>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <div class="buttons">
+        <button type="button" class="btn btn-primary">
+            <a href="/category/list" class="opt_button">
+                List all Categories
+            </a>
+        </button>
+        <button type="button" class="btn btn-primary">
+            <a href="/category/create" class="opt_button">
+                Create a new Category
+            </a>
+        </button>
+    </div>
+</div>
+{% endblock %}
