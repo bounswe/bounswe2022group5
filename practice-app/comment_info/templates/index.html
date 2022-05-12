@@ -1,29 +1,69 @@
-<div>
-    <form id="postform" method="POST" action="{%url 'requestGetter' %}">
-        {%csrf_token%}
-        <br>
-        <label>Insert comment ID to Get:</label>
-        <br>
-        <input type="number" name="id" placeholder="id" required>
-        
-        <br>
-        <input type="submit" name="submit" value="Find Comment">
-        <br>
-    </form>
-</div>
-<div>
-    <form id="postform" method="POST" action="{%url 'requestPoster' %}">
-        {%csrf_token%}
-        <br>
-        <label>Insert comment ID and fields to Update:</label>
-        <br>
-        <input type="number" name="id" placeholder="id" required>
-        <br>
-        <input type="text" name="body" placeholder="body" required>
-        <br>
-        <input type="text" name="city_name" placeholder="city_name" required>
-        <br>
-        <input type="submit" name="submit" value="Update Comment">
-        <br>
-    </form>
-</div>
+<!-- <ul class="tilesWrap" id="list"  style="display:none; top: 0px; left: 0px; opacity: 1;">
+    {% for profile in profiles %}
+    <li>
+    <h3>{{profile.id}}</h3>
+    <h3>{{ profile.username }}</h3>
+    <p>{{profile.email}}</p>
+    </li>
+    {% endfor %}
+</ul> -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>comment Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="message signup">
+          <div class="btn-wrapper">
+            <button class="button" id="signup">Get Part</button>
+            <button class="button" id="login"> Post Part</button>
+          </div>
+        </div>
+        <div class="form form--get-comment-ID">
+          <div class="form--heading">Type the ID of the <br>comment that you want!</div>
+          <form method="POST" action="{%url 'requestGetter' %}">
+            {%csrf_token%}
+            <input type="number" name="id" placeholder="id" required>
+            <input type="submit" name="submit" value="Find Comment">
+          </form>
+        </div>
+        <div class="form form--Post-comment-ID">
+          <div class="form--heading">Update the comment that you want!</div>
+          <form method="POST" action="{%url 'requestPoster' %}">
+            {%csrf_token%}
+            <input type="number" name="id" placeholder="id" required>
+            <input type="text" name="body" placeholder="body" required>
+            <input type="text" name="city_name" placeholder="city_name" required>
+            <input type="submit" name="submit" value="Update Comment">
+          </form>
+        </div>
+      </div>
+</body>
+
+
+<script type="text/javascript">
+$("#signup").click(function() {
+  $(".message").css("transform", "translateX(100%)");
+  if ($(".message").hasClass("login")) {
+    $(".message").removeClass("login");
+  }
+  $(".message").addClass("signup");
+});
+
+$("#login").click(function() {
+  $(".message").css("transform", "translateX(0)");
+  if ($(".message").hasClass("login")) {
+    $(".message").removeClass("signup");
+  }
+  $(".message").addClass("login");
+});
+
+</script>
+
+
+</html>

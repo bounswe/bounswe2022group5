@@ -19,16 +19,14 @@ def index(req):
 # This is for rendering the first form, which is used for getting a comment with a spesific ID.
 # Calls the GET part of the API in the below in order to get the data from the database.
 def requestGetter(req):
-    print("asdadasdadsada")
     id=req.POST["id"]
     url = baseAPIURL + str(id)
     r = requests.request("GET" , url).json()
-    print(r)
     if("error" in r):
         message = [r["error"]]
         return render(req, "error.html", {"comment": message})
     else:
-        array = [r["id"], r["body"], r["timestamp"], r["city_name"], r["weather"], r["user"], r["user"]]
+        array = [r["id"], r["body"], r["timestamp"], r["city_name"], r["weather"], r["user"], r["post"]]
         return render(req, "result.html", {"comment": array})
 
 # This is for rendering the second form in the html. Used for updating a comment with a spesific ID.
@@ -42,7 +40,7 @@ def requestPoster(req):
         message = [r["error"]]
         return render(req, "error.html", {"comment": message})
     else:
-        array = [r["id"], r["body"], r["timestamp"], r["city_name"], r["weather"], r["user"], r["user"]]
+        array = [r["id"], r["body"], r["timestamp"], r["city_name"], r["weather"], r["user"], r["post"]]
         return render(req, "result.html", {"comment": array})
 
 # Our API lies here.
