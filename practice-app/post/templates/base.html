@@ -28,11 +28,13 @@
                                                 <h4 class="mb-4 pb-3">Use Get Endpoint</h4>
                                                 <h6 class="mb-4 pb-3">By using the button below, you can see all the posts!</h6>
                                                 <!-- <a href="#" class="btn mt-4">GET POSTS</a> -->
-                                                <form id="postform" class="btn mt-4" method="get" action="{%url 'get' %}">
+                                                <form method="get" action="{%url 'get' %}">
                                                     {%csrf_token%}
-                                                    <br>
-                                                    <input type="submit" name="submit" value="View Posts">
-                                                    <br>
+                                                    <div class="form-actions">
+                                                        <br>
+                                                        <input type="submit" name="submit" value="View Posts" class="btn btn-primary" id="submit-id-submit">
+                                                        <br>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>

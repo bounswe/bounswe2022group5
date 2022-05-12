@@ -1,4 +1,66 @@
-<div class="container">
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Created Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" type="text/css" href="../static/table.css">
+    <style>
+        .button {
+            background-color: #ffeba7;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>POSTS</h2>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Category ID</th>
+                    <th>User ID</th>
+                    <th>Timestamp</th>
+                    <th>Country</th>
+                    <th>Covid19cases</th>
+                    <th># of upvotes</th>
+                    <th># of downvotes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in response %}
+                <tr>
+                    {% for value in row %}
+                    <td>
+                        {{value}}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            <tbody>
+        </table>
+    </div>
+    <button class="button">
+        <a href="http://127.0.0.1:8000/post/">Back</a>
+    </button>
+
+</body>
+
+</html>
+
+<!-- <div class="container">
     <table class="center">
         <colgroup>
             <col span="1" style="width: 10%;">
@@ -31,4 +93,4 @@
     </table>
 
     <a href="http://127.0.0.1:8000/post/">Back</a>
-</div>
+</div> -->
