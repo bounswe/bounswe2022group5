@@ -17,15 +17,11 @@ def index(req):
     context = {'form':postForm}
     return render(req, 'index.html', context)
 
-# response = Response(serializer.data)
-#     get = {'response':response}
-#     return render(req, 'get.html', get)
-
 def create(req):
     response = poster(req).data
-    print(response)
+    if response == 'Missing input': return render(req, 'notfound.html')
+
     post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"], response["covid19cases"], response["nof_upvotes"], response["nof_downvotes"]]
-    print(post)
 
     context = {'response':post}
     return render(req, 'create.html', context)
@@ -54,7 +50,6 @@ def poster(req):
             title = req.POST['title']
             body = req.POST['body']
             category = req.POST['category']
-            print('\n\n\n\n',category,'\n\n\n\n')
             user = req.POST['user']
         except:
             return Response('Missing input', status=status.HTTP_400_BAD_REQUEST)
@@ -64,7 +59,8 @@ def poster(req):
         except:
             country = ''
 
-        #category of the post will be given as dropdown menu
+        if(category == '' or user == ''): return Response('Missing input', status=status.HTTP_400_BAD_REQUEST)
+
         p_category = Category.objects.get(pk=category)
 
         #username = req.session['username']
@@ -97,8 +93,6 @@ def poster(req):
         _post = Post.objects.create(**data)
         serializer = PostSerializer(_post, partial=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
 
 def covidApi(country):
     result = requests.get(EXTERNAL_COVID_API_URL).json()
