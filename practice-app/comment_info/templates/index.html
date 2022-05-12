@@ -1,0 +1,29 @@
+<div>
+    <form id="postform" method="POST" action="{%url 'requestGetter' %}">
+        {%csrf_token%}
+        <br>
+        <label>Insert comment ID to Get:</label>
+        <br>
+        <input type="number" name="id" placeholder="id" required>
+        
+        <br>
+        <input type="submit" name="submit" value="Find Comment">
+        <br>
+    </form>
+</div>
+<div>
+    <form id="postform" method="POST" action="{%url 'requestPoster' %}">
+        {%csrf_token%}
+        <br>
+        <label>Insert comment ID and fields to Update:</label>
+        <br>
+        <input type="number" name="id" placeholder="id" required>
+        <br>
+        <input type="text" name="body" placeholder="body" required>
+        <br>
+        <input type="text" name="city_name" placeholder="city_name" required>
+        <br>
+        <input type="submit" name="submit" value="Update Comment">
+        <br>
+    </form>
+</div>
