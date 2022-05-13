@@ -20,15 +20,17 @@ class CategoryView(generics.ListAPIView):
         r = requests.get(url)
 
         if r.status_code == 200:
-            category = Category.objects.create(
-                name = req.data.get('name'),
-                definition = r.json()[0]['meanings'][0]['definitions'][0]['definition']
-            )
-            response = { "name": category.name, "definition": category.definition }
-            print(response)
-            return Response(data=response, status=status.HTTP_201_CREATED)
+            try:
+                category = Category.objects.create(
+                    name = req.data.get('name'),
+                    definition = r.json()[0]['meanings'][0]['definitions'][0]['definition']
+                )
+                response = { "name": category.name, "definition": category.definition }
+                print(response)
+                return Response(data=response, status=status.HTTP_201_CREATED)
+            except:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
-            print("error")
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
