@@ -14,32 +14,39 @@ from article.serializers import ArticleSerializer
 class ArticleInfo(APIView):
 
     def get(self,request,id):
-        article = Article.objects.get(id=id)
+        article = Article.objects.filter(id=id)
         if(article):
             serializer =ArticleSerializer(article)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(data = {"error": f"There is no such article with id: {id}"}, status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, *args, **kwargs):
-        id = self.kwargs["id"]
-        article = Article.objects.get(id=id)
+    def post(self, request,id):
+
+        article = Article.objects.filter(id=id)
         if (article):
             title = request.data.get('title')
-            # print(title)
-            # body = request.POST["body"]
-            # category = request.POST["category"]
-            # timestamp = datetime.datetime.now()
-            article = Article.objects.get(id=id)
-            article.title = title
-            # article.body = body
-            # article.category = category
-            # article.timestamp = timestamp
-            #article.save()
+            if not title:
+                return Response(data={"error": f"Please insert a Title"},
+                                status=status.HTTP_406_NOT_ACCEPTABLE)
+            if (len(title) < 5):
+                return Response(data={"error": f"Please insert a longer Title"},
+                                status=status.HTTP_406_NOT_ACCEPTABLE)
+            body = request.data.get('body')
+            if not body:
+                return Response(data={"error": f"Please insert a Body"},
+                                status=status.HTTP_406_NOT_ACCEPTABLE)
+            if (len(body) < 10):
+                return Response(data={"error": f"Please insert a longer Body"},
+                                status=status.HTTP_406_NOT_ACCEPTABLE)
+            category = request.data.get('category')
+            if not category:
+                return Response(data={"error": f"Please Select a Category"},
+                                status=status.HTTP_406_NOT_ACCEPTABLE)
             data = {
-                "title": request.data.get('title'),
-                "body": request.data.get('body'),
-                "category": request.data.get('category'),
+                "title": title,
+                "body": body,
+                "category": category,
                 "user": request.user.id,
                 "timestamp": datetime.datetime.now(),
                 "nof_upvotes": article.nof_upvotes,
@@ -51,13 +58,3 @@ class ArticleInfo(APIView):
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(data={"error": f"There is no such article with id: {id}"}, status=status.HTTP_404_NOT_FOUND)
-"""
-    def post(self, request, id):
-        article = Article.objects.get(id=id)
-        serializer = ArticleSerializer(article, data=request.data)
-        print(serializer.data.get("title"))
-        if(serializer.is_valid()):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-"""
