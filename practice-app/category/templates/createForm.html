@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+	<h3 class="mb-4">Create a new Category</h3>
+	<p>Definition of the category will be filled with dictinary definition of the category name.</p>
+    <form class="form-group" method="POST" novalidate action="{% url 'postCategory' %}">
+        {{post_form|crispy}}
+        {% csrf_token %}
+        <div class="d-flex p-2"></div>
+        <button type="submit" class="btn btn-info">Submit</button>
+     </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<h3 class="mb-4">List of all Categories</h3>
+	<table class="table w-auto">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col" style="width: 100%;">Definition</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for category in categories %}
+				<tr>
+					<th scope="row">{{ forloop.counter }}</th>
+					<td>{{ category.name }}</td>
+					<td>{{ category.definition }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
