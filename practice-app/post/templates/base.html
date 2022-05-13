@@ -27,7 +27,6 @@
                                             <div class="section text-center">
                                                 <h4 class="mb-4 pb-3">Use Get Endpoint</h4>
                                                 <h6 class="mb-4 pb-3">By using the button below, you can see all the posts!</h6>
-                                                <!-- <a href="#" class="btn mt-4">GET POSTS</a> -->
                                                 <form method="get" action="{%url 'get' %}">
                                                     {%csrf_token%}
                                                     <div class="form-actions">
@@ -43,7 +42,7 @@
                                         <div class="center-wrap">
                                             <div class="section text-center">
                                                 <h4 class="mb-4 pb-3">Use Post Endpoint</h4>
-                                                <h6 class="mb-4 pb-3">By filling the blanks below, you can create a post! While creating a post, the COVID19 data is being fetched. So, hold tight. This may take a while.</h6>
+                                                <h6 class="mb-4 pb-3">By filling the blanks below, you can create a post! While creating a post, the COVID19 data is being fetched. So, hold tight. This may take a while. If the country does not exist in the database, it will automatically be defined as Not Found.</h6>
                                                 <div class="container mt-4">
                                                     {% block cont %}
                                                     {% endblock %}

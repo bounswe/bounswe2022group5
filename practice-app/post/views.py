@@ -21,8 +21,10 @@ def create(req):
     response = poster(req).data
     if response == 'Missing input': return render(req, 'notfound.html')
 
-    post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"], response["covid19cases"], response["nof_upvotes"], response["nof_downvotes"]]
-
+    if(response["covid19cases"] == {}):
+        post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"],  'No Data', 'No Data', response["nof_upvotes"], response["nof_downvotes"]]
+    else:
+        post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"],  response["covid19cases"]["death"], response["covid19cases"]["case"], response["nof_upvotes"], response["nof_downvotes"]]
     context = {'response':post}
     return render(req, 'create.html', context)
 
@@ -31,7 +33,10 @@ def get(req):
     
     posts = []
     for response in responses:
-        post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"], response["covid19cases"], response["nof_upvotes"], response["nof_downvotes"]]
+        if(response["covid19cases"] == {}):
+            post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"],  'No Data', 'No Data', response["nof_upvotes"], response["nof_downvotes"]]
+        else:
+            post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"],  response["covid19cases"]["death"], response["covid19cases"]["case"], response["nof_upvotes"], response["nof_downvotes"]]
         posts.append(post)
 
     context = {'response':posts}
@@ -86,7 +91,7 @@ def poster(req):
             'body' : body,
             'category' : p_category,
             'user' : p_user,
-            'country' : country,   #country name should be fetched from location
+            'country' : country,
             'covid19cases' : covid19    
         }
         

@@ -1,4 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>The Post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/cards.css">
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="header">CREATED POST</div>
+
+        <div class="cards_wrap">
+            <div class="card_item">
+                <div class="card_inner">
+                    <div class="role_name">{{response.0}}</div>
+                    <br>
+                    <div class="film">{{response.1}}</div>
+                    <div class="real_name">Category ID: {{response.2}}</div>
+                    <div class="real_name">User ID: {{response.3}}</div>
+                    <div class="real_name">Sent at time: {{response.4}}</div>
+                    <div class="real_name">From country: {{response.5}}</div>
+                    <br>
+                    <div class="real_name">COVID19 Data</div>
+                    <div class="real_name">Deaths: {{response.6}}</div>
+                    <div class="real_name">Cases: {{response.7}}</div>
+                    <br>
+                    <div class="wrap">
+                        <div class="vote up">
+                          <i class="fa fa-angle-up"></i>
+                          {{response.8}}
+                        </div>
+                        <div class="vote inactive">
+                          <i class="fa fa-angle-down"></i>
+                          {{response.9}}
+                        </div>
+                      </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="http://127.0.0.1:8000/post/">Back</a>
+</body>
+
+</html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -56,4 +107,4 @@
     
 </body>
 
-</html>
+</html> -->
