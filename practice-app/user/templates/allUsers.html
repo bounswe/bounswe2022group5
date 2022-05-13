@@ -1,0 +1,50 @@
+<!-- <ul class="tilesWrap" id="list"  style="display:none; top: 0px; left: 0px; opacity: 1;">
+    {% for profile in profiles %}
+    <li>
+    <h3>{{profile.id}}</h3>
+    <h3>{{ profile.username }}</h3>
+    <p>{{profile.email}}</p>
+    </li>
+    {% endfor %}
+</ul> -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Users Page</title>
+        
+</head>    
+
+<body>
+    <div class="topnav">
+        <a href="http://localhost:8000/user/">Back</a>
+        
+       
+      </div>
+    <h1 style="color: antiquewhite;text-align: center;">Users</h1>
+    <div class="table-wrapper">
+    <table class="rwd-table">
+        <thead>
+        <tr>
+            <th>username</th>
+            <th>email</th>
+        
+        </tr>
+        </thead>
+        {% for n in profiles %}
+            <tr>
+            {% for k in n %}
+                <td style="width:33%;border:1px solid black;">{{ k }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <footer>
+        <p>made by <a href="https://github.com/bounswe/bounswe2022group5/wiki/Mehmet-Emre-Akbulut"> Mehmet Emre Akbulut</a> ♡
+    </footer>
+
+    </body>
+    
+    </html>
