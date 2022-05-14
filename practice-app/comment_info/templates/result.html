@@ -1,12 +1,5 @@
-<!-- <ul class="tilesWrap" id="list"  style="display:none; top: 0px; left: 0px; opacity: 1;">
-    {% for profile in profiles %}
-    <li>
-    <h3>{{profile.id}}</h3>
-    <h3>{{ profile.username }}</h3>
-    <p>{{profile.email}}</p>
-    </li>
-    {% endfor %}
-</ul> -->
+<!-- Note that, for this page, the corresponding css file (resultStyle.css) is the one in this page. https://codepen.io/Creative_Srijon/pen/vLVxEx -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,18 +9,15 @@
 </head>
 
 <body>
-    <!-- this is the markup. you can change the details (your own name, your own avatar etc.) but don’t change the basic structure! -->
 
-<div class="profile-card" style="border-radius: 50px; border-collapse: separate;">
+<div class="profile-card" style="border-radius: 50px; ">
 
 	<header>
 
-
-		<!-- the username -->
         <br>
 		<h1>User ID: {{comment.5}}</h1>
         <br>
-		<!-- and role or location -->
+
 		<h2 style="text-align: left;">Post ID: {{comment.6}}</h2>
         <h2 style="text-align: left;">timestamp: {{comment.2}}</h2>
         <h2 style="text-align: left;">City: {{comment.3}}</h2>
@@ -36,7 +26,6 @@
 
 	</header>
 
-	<!-- bit of a bio; who are you? -->
 	<div class="profile-bio">
 
 		<p>{{comment.1}}</p>
@@ -49,10 +38,8 @@
             <input type="submit" name="submit" value="Go back">
           </form>
     </div>
-	<!-- some social links to show off -->
 
 </div>
-<!-- that’s all folks! -->
 </body>
 
 
