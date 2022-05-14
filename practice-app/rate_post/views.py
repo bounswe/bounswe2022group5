@@ -29,8 +29,9 @@ class postVote(APIView):
         id=self.kwargs["post_id"]
 
         queryset = Post.objects.filter(id=id)
+
         if(queryset):
-            data = json.loads(request.body)
+            data = request.data
             vote = data["vote"]
             if(vote != 1 and vote != -1):
                 return Response(data={"message" : f"You must send 1 for upvote, -1 for downvote."}, status = status.HTTP_406_NOT_ACCEPTABLE)
@@ -43,6 +44,7 @@ class postVote(APIView):
             elif(vote == -1):
                 post.nof_downvotes += 1
 
+            # post.timestamp = timestamp
             post.save()
 
             serializedObject = ratePostSerializer(post)
