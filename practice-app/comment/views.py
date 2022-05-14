@@ -11,9 +11,11 @@ import requests
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import os
+from dotenv import load_dotenv
 
 # Important Note: There should be a valid rapid api key stored
-# in the environment variable X_RAPIDAPI_KEY to get weather info.
+# in an environment variable in .env file to get weather info.
+load_dotenv()
 
 class ReadOnly(BasePermission):
     def has_permission(self, request, view):
@@ -65,7 +67,7 @@ class CommentApiView(APIView):
 
         headers = {
             "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-            "X-RapidAPI-Key": os.environ.get("X_RAPIDAPI_KEY")
+            "X-RapidAPI-Key": os.getenv("X_RAPIDAPI_KEY")
         }
 
         response = requests.request("GET", url, headers=headers, params=querystring)

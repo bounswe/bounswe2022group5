@@ -1,3 +1,73 @@
 from django.shortcuts import render
+import requests
+from .models import Category
+from .serializers import CategorySerializer
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .forms import *
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
-# Create your views here.
+
+class CategoryView(generics.ListAPIView):
+
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def post(self, req):
+        url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + req.data.get('name')
+        r = requests.get(url)
+
+        if r.status_code == 200:
+            category = Category.objects.create(
+                name = req.data.get('name'),
+                definition = r.json()[0]['meanings'][0]['definitions'][0]['definition']
+            )
+            response = { "name": category.name, "definition": category.definition }
+            print(response)
+            return Response(data=response, status=status.HTTP_201_CREATED)
+        else:
+            print("error")
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+    def get(self, req):
+        categories = Category.objects.all()
+        response = [{ "name": category.name, "definition": category.definition } for category in categories]
+        return Response(data=response, status=status.HTTP_200_OK)
+
+
+# User Interface:
+def index(request):
+    success = request.GET.get('success')
+    if success == "True":
+        messages.success(request, 'Category created successfully.')
+    elif success == "False":
+        messages.error(request, 'Category could not be created!')
+    return render(request, "index.html")
+
+
+@api_view(['GET'])
+def getCategories(request):
+    view = CategoryView()
+    categories = view.get(req=request).data
+    
+    return render(
+        request, 
+        "listCategories.html", 
+        {"categories": categories}
+    )
+
+
+@api_view(['GET', 'POST'])
+def postCategory(request):
+    print(request.method)
+    if request.method == 'GET':
+        postForm = categoriesPostForm()
+        return render(request, "createForm.html", {"post_form":postForm})
+    elif request.method == 'POST':
+        view = CategoryView()
+        response = view.post(req=request)
+        return HttpResponseRedirect(f"..?success={response.status_code == 201}")
+    
