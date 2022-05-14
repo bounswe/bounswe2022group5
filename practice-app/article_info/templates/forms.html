@@ -13,7 +13,6 @@
 <body>
 
 	<div class="container">
-			<div class="d-flex justify-content-around" style="display:flex;">
 
 			<form class="form-group" method="GET" novalidate action="{% url 'getArticle' %}">
 				<h2>View an Article</h2>
@@ -22,6 +21,7 @@
 				<div class="d-flex p-2"></div>
 				<button type="submit" class="btn btn-info">Submit</button>
 			</form>
+			<br />
 			<form class="form-group" method="POST" novalidate action="{% url 'postArticle' %}">
 				<h2>Update an Article</h2>
 				{{postForm|crispy}}

@@ -55,7 +55,7 @@ class ArticleInfo(APIView):
                 "title": title,
                 "body": body,
                 "category": category,
-                "user": request.user.id,
+                "user": id,
                 "timestamp": datetime.datetime.now(),
                 "nof_upvotes": article.nof_upvotes,
                 "nof_downvotes": article.nof_downvotes
@@ -64,28 +64,51 @@ class ArticleInfo(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(data=serializer.data, status=status.HTTP_200_OK)
+            return Response(data=serializer.errors, status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
             return Response(data={"error": f"There is no such article with id: {id}"}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['GET', 'POST'])
 def getArticle(request):
+    if not request.GET["article_id"]:
+        return render(request, "error.html",
+                      {"message": "Please Enter ID", "status_code": "404", "status_message": "Not Found"})
+
     a = ArticleInfo()
     article_id = request.GET["article_id"]
-    # article_id = 1
     d = a.get(request=request, id=article_id).data
     print(d)
-    art = []
-    arts = []
+    articleData = []
     for data in d:
-        art.append(d[data])
-    arts.append(art)
-    print(art)
-    return render(request, "view.html", {"articles":arts})
+        articleData.append(d[data])
+    if("error" in d):
+        status_code=a.get(request=request, id=article_id).status_code
+        status_message=a.get(request=request, id=article_id).status_text
+        return render(request, "error.html",{"message":d["error"],"status_code":status_code,"status_message":status_message})
+    return render(request, "view.html", {"articles":articleData})
 
 @api_view(['GET', 'POST'])
 def postArticle(request):
+    if not request.POST["article_id"]:
+        return render(request, "error.html",
+                      {"message": "Please Enter ID", "status_code": "404", "status_message": "Not Found"})
+
     a = ArticleInfo()
-    article_id = request.POST["article_id"]
-    a.post(request=request, id=article_id)
-    return HttpResponseRedirect("..?success=true")
+    try:
+        article_id = request.POST["article_id"]
+        print(article_id)
+    except:
+        return render(request, "error.html",
+                      {"message":"Enter ID", "status_code": status_code, "status_message": status_message})
+
+    d = a.post(request=request, id=article_id).data
+    # d = a.get(request=request, id=article_id).data
+    if ("error" in d):
+        status_code = a.post(request=request, id=article_id).status_code
+        status_message = a.post(request=request, id=article_id).status_text
+        return render(request, "error.html",{"message": d["error"], "status_code": status_code, "status_message": status_message})
+    articleData = []
+    for data in d:
+        articleData.append(d[data])
+    return render(request, "updated.html", {"articles": articleData})
