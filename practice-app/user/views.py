@@ -1,3 +1,6 @@
+from ast import Return
+from distutils.log import error
+from django.shortcuts import redirect
 from django.shortcuts import render
 # Create your views here.
 from django.contrib.auth.models import User
@@ -7,12 +10,30 @@ from rest_framework import generics,status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from email_validator import validate_email, EmailNotValidError
+from rest_framework.renderers import TemplateHTMLRenderer
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from dotenv import load_dotenv
+import requests
+import os
+load_dotenv()
+
+EXTERNAL_API_HOST = "mailcheck.p.rapidapi.com"
+MAIL_DOMAIN_VALIDATE_API_KEY= os.getenv('MAIL_DOMAIN_VALIDATE_API_KEY')
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
+    def get(self,request):
+        queryset = User.objects.all()
+        data = []
+        for i in queryset:
+            serialized = UserSerializer(i)
+            data.append(serialized.data)
+        
+        return Response(data=data)
     def post(self,req):
+        
         usernames = User.objects.values_list('username', flat=True)
         emails = User.objects.values_list('email',flat=True)
         if req.data["username"] in usernames:
@@ -29,6 +50,26 @@ class UserList(generics.ListAPIView):
             # email is not valid, exception message is human-readable
             error=str(e)
             return Response(data={"message":error},status=status.HTTP_400_BAD_REQUEST)
+        
+        import requests
+
+        url = "https://mailcheck.p.rapidapi.com/"
+
+        querystring = {"domain":req.data["email"].split("@")[1]}
+
+        headers = {
+            "X-RapidAPI-Host": EXTERNAL_API_HOST,
+            "X-RapidAPI-Key": MAIL_DOMAIN_VALIDATE_API_KEY
+        }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        isValid = response.json()["valid"]
+        explanation = response.json()["text"]
+        print(response.json())
+        if(isValid==False or explanation=="Should be blocked"): 
+            return Response(data={"message":f"Email domain is not valid! {explanation}!"},status=status.HTTP_400_BAD_REQUEST)
+
         try:
             user = User.objects.create_user(username=req.data['username'],
                                     email=req.data['email'],
@@ -54,3 +95,36 @@ class userDetail(APIView):
             return Response(data=serializedObject.data,status=status.HTTP_200_OK)
         else:
             return Response(data={"message" : f"There is no such User with id: {id}"}, status = status.HTTP_404_NOT_FOUND)
+
+def userView(request):
+    isFailed=request.GET.get("fail",False)
+    isSuccess=request.GET.get("success",False)
+    errorMessage = request.GET.get("error","No Error")
+    return render(request,"user.html",{"action_fail":isFailed,"action_success":isSuccess,"error_message":errorMessage})
+
+def allUsers(req):
+    ##calling api inside the server
+    response = UserList.as_view()(request=req).data
+    array = []
+    for i in response:
+        object=[]
+        object.append(i["username"])
+        object.append(i["email"])
+
+        array.append(object)
+    print(array)
+    return render(req,"allUsers.html",{'profiles':array})
+
+def createUser(req):
+    data = {'username': req.POST["username"],
+    'email': req.POST["email"],
+    'password': req.POST["password"]}
+
+    x = requests.post("http://localhost:8000/user/api", data = data)
+
+    if(x.status_code==201):
+            
+        return HttpResponseRedirect("http://localhost:8000/user/?success=true")
+    else:
+        message = x.json()['message']
+        return HttpResponseRedirect(f"http://localhost:8000/user/?fail=true&error={message}")
