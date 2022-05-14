@@ -3,16 +3,15 @@ import datetime
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import generics,status
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from article.models import Article
 from article.serializers import ArticleSerializer
 from .forms import *
-from django.http import HttpResponseRedirect
 
-# Create your views here.
+
 def index(request):
     getForm = articleGetForm()
     postForm = articlePostForm()
@@ -74,11 +73,9 @@ def getArticle(request):
     if not request.GET["article_id"]:
         return render(request, "error.html",
                       {"message": "Please Enter ID", "status_code": "404", "status_message": "Not Found"})
-
     a = ArticleInfo()
     article_id = request.GET["article_id"]
     d = a.get(request=request, id=article_id).data
-    print(d)
     articleData = []
     for data in d:
         articleData.append(d[data])
@@ -93,17 +90,8 @@ def postArticle(request):
     if not request.POST["article_id"]:
         return render(request, "error.html",
                       {"message": "Please Enter ID", "status_code": "404", "status_message": "Not Found"})
-
     a = ArticleInfo()
-    try:
-        article_id = request.POST["article_id"]
-        print(article_id)
-    except:
-        return render(request, "error.html",
-                      {"message":"Enter ID", "status_code": status_code, "status_message": status_message})
-
     d = a.post(request=request, id=article_id).data
-    # d = a.get(request=request, id=article_id).data
     if ("error" in d):
         status_code = a.post(request=request, id=article_id).status_code
         status_message = a.post(request=request, id=article_id).status_text
