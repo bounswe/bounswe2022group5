@@ -20,13 +20,16 @@ class CategoryView(generics.ListAPIView):
         r = requests.get(url)
 
         if r.status_code == 200:
-            category = Category.objects.create(
-                name = req.data.get('name'),
-                definition = r.json()[0]['meanings'][0]['definitions'][0]['definition']
-            )
-            response = { "name": category.name, "definition": category.definition }
-            print(response)
-            return Response(data=response, status=status.HTTP_201_CREATED)
+            try:
+                category = Category.objects.create(
+                    name = req.data.get('name'),
+                    definition = r.json()[0]['meanings'][0]['definitions'][0]['definition']
+                )
+                response = { "name": category.name, "definition": category.definition }
+                print(response)
+                return Response(data=response, status=status.HTTP_201_CREATED)
+            except:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             print("error")
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -45,7 +48,7 @@ def index(request):
         messages.success(request, 'Category created successfully.')
     elif success == "False":
         messages.error(request, 'Category could not be created!')
-    return render(request, "index.html")
+    return render(request, "index_category.html")
 
 
 @api_view(['GET'])
@@ -55,7 +58,7 @@ def getCategories(request):
     
     return render(
         request, 
-        "listCategories.html", 
+        "listCategories_category.html", 
         {"categories": categories}
     )
 
@@ -65,7 +68,7 @@ def postCategory(request):
     print(request.method)
     if request.method == 'GET':
         postForm = categoriesPostForm()
-        return render(request, "createForm.html", {"post_form":postForm})
+        return render(request, "createForm_category.html", {"post_form":postForm})
     elif request.method == 'POST':
         view = CategoryView()
         response = view.post(req=request)
