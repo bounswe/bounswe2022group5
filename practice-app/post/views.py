@@ -66,11 +66,17 @@ def poster(req):
 
         if(category == '' or user == ''): return Response('Missing input', status=status.HTTP_400_BAD_REQUEST)
 
-        p_category = Category.objects.get(pk=category)
+        try:
+            p_category = Category.objects.get(pk=category)
+        except:
+            return Response('Category does not exist', status=status.HTTP_404_NOT_FOUND)
 
         #username = req.session['username']
         #username should be fetched from session, it will not be entered
-        p_user = User.objects.get(pk=user)
+        try:
+            p_user = User.objects.get(pk=user)
+        except:
+            return Response('User does not exist', status=status.HTTP_404_NOT_FOUND)
 
         covid19 = {}
 
