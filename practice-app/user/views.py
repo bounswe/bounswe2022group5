@@ -1,4 +1,5 @@
-from ast import Return
+
+from django.urls import resolve,reverse
 from distutils.log import error
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -17,7 +18,7 @@ from dotenv import load_dotenv
 import requests
 import os
 load_dotenv()
-
+BASE_URL = "http://localhost:8000"
 EXTERNAL_API_HOST = "mailcheck.p.rapidapi.com"
 MAIL_DOMAIN_VALIDATE_API_KEY= os.getenv('MAIL_DOMAIN_VALIDATE_API_KEY')
 
@@ -36,6 +37,12 @@ class UserList(generics.ListAPIView):
         
         usernames = User.objects.values_list('username', flat=True)
         emails = User.objects.values_list('email',flat=True)
+        if req.data["username"]=="":
+            return Response(data={"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
+        if req.data["email"]=="":
+            return Response(data={"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
+        if req.data["password"]=="":
+            return Response(data={"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
         if req.data["username"] in usernames:
             return Response(data={"message":"Username is taken!"},status=status.HTTP_409_CONFLICT)
         if req.data["email"] in emails:
@@ -61,14 +68,17 @@ class UserList(generics.ListAPIView):
             "X-RapidAPI-Host": EXTERNAL_API_HOST,
             "X-RapidAPI-Key": MAIL_DOMAIN_VALIDATE_API_KEY
         }
+        try:
+            response = requests.request("GET", url, headers=headers, params=querystring)
+            isValid = response.json()["valid"]
+            explanation = response.json()["text"]
+            print(response.json())
+            if(isValid==False or explanation=="Should be blocked"): 
+                return Response(data={"message":f"Email domain is not valid! {explanation}!"},status=status.HTTP_400_BAD_REQUEST)
+        except:
+            print("external api problem")
 
-        response = requests.request("GET", url, headers=headers, params=querystring)
-
-        isValid = response.json()["valid"]
-        explanation = response.json()["text"]
-        print(response.json())
-        if(isValid==False or explanation=="Should be blocked"): 
-            return Response(data={"message":f"Email domain is not valid! {explanation}!"},status=status.HTTP_400_BAD_REQUEST)
+        ##IMPORTANT
 
         try:
             user = User.objects.create_user(username=req.data['username'],
@@ -119,12 +129,13 @@ def createUser(req):
     data = {'username': req.POST["username"],
     'email': req.POST["email"],
     'password': req.POST["password"]}
-
-    x = requests.post("http://localhost:8000/user/api", data = data)
-
+    urltoUse = BASE_URL+reverse('api')
+    x = requests.post(urltoUse, data = data)
+    print(x)
+    userURL=BASE_URL + reverse('userMain')
     if(x.status_code==201):
-            
-        return HttpResponseRedirect("http://localhost:8000/user/?success=true")
+        
+        return HttpResponseRedirect(f"{userURL}?success=true")
     else:
         message = x.json()['message']
-        return HttpResponseRedirect(f"http://localhost:8000/user/?fail=true&error={message}")
+        return HttpResponseRedirect(f"{userURL}?fail=true&error={message}")
