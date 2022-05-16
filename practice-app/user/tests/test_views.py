@@ -38,8 +38,42 @@ class TestViews(TestCase):
             'password':''
         }
 
+        self.username_taken = {
+            'username':'testUsername2',
+            'email': 'unique@gmail.com',
+            'password': "unique"
+        }
         
+
+        self.email_taken = {
+            'username':'unique',
+            'email': 'testEmail2@gmail.com',
+            'password': "unique"
+
+        }
+
+        self.username_short = {
+            'username':'uniq',
+            'email': 'unique@gmail.com',
+            'password': "unique"
+        }
+
+        self.password_short = {
+            'username':'unique',
+            'email': 'uniqu@gmail.com',
+            'password': "uniq"
+        }
         
+        self.email_not_valid = {
+            'username':'unique',
+            'email': 'emailWithNoDomain@com',
+            'password': "unique"
+        } 
+        self.email_not_valid_2 = {
+            'username':'unique',
+            'email': 'emailWithInvalidDomain@gmali.com',
+            'password': "unique"
+        } 
 
     def test_user_GET(self):
         response = self.client.get(self.user_url)
@@ -74,7 +108,42 @@ class TestViews(TestCase):
         response = self.client.post(self.userAPI_url,self.invalid_data)
        
         self.assertEquals(response.status_code, 400)
-        self.assertEquals(response.data["message"], 'Invalid Data')
+        self.assertEquals(response.data["error_code"], 1)
+    
+    def test_poster_POST_username_taken(self):
+        response = self.client.post(self.userAPI_url,self.username_taken)
+        usernames = User.objects.values_list('username', flat=True)
+    
+        self.assertEquals(response.status_code, 409)
+        self.assertEquals(response.data["error_code"], 2)
+    
+    def test_poster_POST_email_taken(self):
+        response = self.client.post(self.userAPI_url,self.email_taken)
+        
+        self.assertEquals(response.status_code, 409)
+        self.assertEquals(response.data["error_code"], 3)
+    def test_poster_POST_username_short(self):
+        response = self.client.post(self.userAPI_url,self.username_short)
+        
+        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.data["error_code"], 4)
+    def test_poster_POST_password_short(self):
+        response = self.client.post(self.userAPI_url,self.password_short)
+        
+        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.data["error_code"], 5)
+    def test_poster_POST_email_not_valid(self):
+        response = self.client.post(self.userAPI_url,self.email_not_valid)
+        
+        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.data["error_code"], 6)
+    def test_poster_POST_email_not_valid(self):
+        response = self.client.post(self.userAPI_url,self.email_not_valid_2)
+        print(response.content)
+        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.data["error_code"], 7)
+    
+    
 
     def test_poster_GET(self):
         

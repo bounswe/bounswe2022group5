@@ -34,29 +34,30 @@ class UserList(generics.ListAPIView):
         
         return Response(data=data)
     def post(self,req):
-        
+       
         usernames = User.objects.values_list('username', flat=True)
+        
         emails = User.objects.values_list('email',flat=True)
         if req.data["username"]=="":
-            return Response(data={"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message":"Invalid Data","error_code":1},status=status.HTTP_400_BAD_REQUEST)
         if req.data["email"]=="":
-            return Response(data={"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message":"Invalid Data","error_code":1},status=status.HTTP_400_BAD_REQUEST)
         if req.data["password"]=="":
-            return Response(data={"message":"Invalid Data"},status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message":"Invalid Data","error_code":1},status=status.HTTP_400_BAD_REQUEST)
         if req.data["username"] in usernames:
-            return Response(data={"message":"Username is taken!"},status=status.HTTP_409_CONFLICT)
+            return Response(data={"message":"Username is taken!","error_code":2},status=status.HTTP_409_CONFLICT)
         if req.data["email"] in emails:
-            return Response(data={"message":"Email is already used!"},status=status.HTTP_409_CONFLICT)
+            return Response(data={"message":"Email is already used!","error_code":3},status=status.HTTP_409_CONFLICT)
         if(len(req.data["username"])<6):
-            return Response(data={"message":"Username is too short!"},status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message":"Username is too short!","error_code":4},status=status.HTTP_400_BAD_REQUEST)
         if(len(req.data["password"])<6):
-            return Response(data={"message":"Password is too short!"},status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message":"Password is too short!","error_code":5},status=status.HTTP_400_BAD_REQUEST)
         try:
             email = validate_email(req.data["email"]).email
         except EmailNotValidError as e:
             # email is not valid, exception message is human-readable
             error=str(e)
-            return Response(data={"message":error},status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"message":error,"error_code":6},status=status.HTTP_400_BAD_REQUEST)
         
         import requests
 
@@ -74,7 +75,7 @@ class UserList(generics.ListAPIView):
             explanation = response.json()["text"]
             print(response.json())
             if(isValid==False or explanation=="Should be blocked"): 
-                return Response(data={"message":f"Email domain is not valid! {explanation}!"},status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={"message":f"Email domain is not valid! {explanation}!","error_code":7},status=status.HTTP_400_BAD_REQUEST)
         except:
             print("external api problem")
 
@@ -85,7 +86,7 @@ class UserList(generics.ListAPIView):
                                     email=req.data['email'],
                                     password=req.data['password'])
         except:
-            return Response(data={"message":"User can not be created"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={"message":"User can not be created","error_code":8},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
         
         data = {
