@@ -34,6 +34,15 @@ def requestGetter(req):
 def requestPoster(req):
     id=req.POST["id"]
     url = baseAPIURL + str(id)
+    try:
+        req.POST["body"]
+    except:
+        return render(req, "comment-info-error.html", {"comment" : "Missing input body"})
+    
+    try:
+        req.POST["city_name"]
+    except:
+        return render(req, "comment-info-error.html", {"comment" : "Missing input city name"})
     data = {"body": req.POST["body"], "city_name": req.POST["city_name"]}
     r = requests.request("POST", url, data=data).json()
     if("error" in r):

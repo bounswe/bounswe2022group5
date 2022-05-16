@@ -24,7 +24,7 @@ class TestURLs(TestCase):
         url = reverse('base',args=[1])
         self.assertEquals(resolve(url).func.view_class, commentList)
 
-"""
+
 class TestViews(TestCase):
 
     def setUp(self):
@@ -47,7 +47,10 @@ class TestViews(TestCase):
             category = category,
             user = user,
             country = "Turkey",
-            covid19cases = 100
+            covid19cases = {
+                "death" : 100,
+                "case" : 100,
+            }
         )
 
         comment = Comment.objects.create(
@@ -60,11 +63,11 @@ class TestViews(TestCase):
 
     def test_index(self):
 
-        url = reverse('commentInfoIndex')
+        url = reverse('comment-info-index')
         
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "index.html")
+        self.assertTemplateUsed(response, "comment-info-index.html")
     
     def test_requestGetter_success(self):
 
@@ -74,5 +77,131 @@ class TestViews(TestCase):
         }
         response = self.client.post(url, data)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "result.html")
-"""
+        self.assertTemplateUsed(response, "comment-info-result.html")
+    
+    def test_requestGetter_error(self):
+
+        url = reverse("requestGetter")
+        data = {
+            "id" : 100
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "comment-info-error.html")
+    
+    def test_requestPoster_success(self):
+
+        url = reverse("requestPoster")
+        data = {
+            "id" : 1,
+            "body" : "hello this is a unit test",
+            "city_name" : "Istanbul",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "comment-info-result.html")
+    
+    def test_requestPoster_error_InvalidID(self):
+
+        url = reverse("requestPoster")
+        data = {
+            "id" : 100,
+            "body" : "hello this is a unit test",
+            "city_name" : "Istanbul",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "comment-info-error.html")
+
+    def test_requestPoster_error_smallBody(self):
+
+        url = reverse("requestPoster")
+        data = {
+            "id" : 1,
+            "body" : "a",
+            "city_name" : "Istanbul",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "comment-info-error.html")
+    
+    def test_requestPoster_error_missingInput_cityName(self):
+
+        url = reverse("requestPoster")
+        data = {
+            "id" : 1,
+            "body" : "a",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "comment-info-error.html")
+    
+    def test_requestPoster_error_missingInput_body(self):
+
+        url = reverse("requestPoster")
+        data = {
+            "id" : 1,
+            "city_name" : "Ankara"
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "comment-info-error.html")
+    
+    def test_API_GET_success(self):
+
+        url = reverse('base',args=[1])
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+    
+    def test_API_GET_failure(self):
+        url = reverse('base',args=[100])
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 404)
+    
+    def test_API_POST_success(self):
+
+        url = reverse('base',args=[1])
+        data = {
+            "body" : "This is a unit test",
+            "city_name" : "Istanbul",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 200)
+
+    def test_API_POST_failure_InvalidID(self):
+
+        url = reverse('base',args=[100])
+        data = {
+            "body" : "This is a unit test",
+            "city_name" : "Istanbul",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 404)
+
+    def test_API_POST_failure_smallBody(self):
+
+        url = reverse('base',args=[1])
+        data = {
+            "body" : "a",
+            "city_name" : "Istanbul",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 406)
+    
+    def test_API_POST_failure_missingInput_city_name(self):
+
+        url = reverse('base',args=[1])
+        data = {
+            "body" : "this is a unit test",
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 406)
+
+    def test_API_POST_failure_missingInput_body(self):
+        
+        url = reverse('base',args=[1])
+        data = {
+            "city_name" : "Ankara"
+        }
+        response = self.client.post(url, data)
+        self.assertEquals(response.status_code, 406)
