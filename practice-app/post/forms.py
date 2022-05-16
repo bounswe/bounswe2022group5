@@ -20,11 +20,11 @@ class PostForm(forms.ModelForm):
         fields = ('title','body','category','user','country')
 
         widgets = {
-            'title': forms.TextInput(attrs={'class':'form-style'}),
-            'body': forms.Textarea(attrs={'class':'form-style'}),
+            'title': forms.TextInput(attrs={'class':'form-style', 'placeholder':'Insert the title of the post'}),
+            'body': forms.Textarea(attrs={'class':'form-style', 'placeholder':'Write your post here...'}),
             'category': forms.Select(attrs={'class':'form-style'}),
             'user': forms.Select(attrs={'class':'form-style'}),
-            'country': forms.TextInput(attrs={'class':'form-style'}),
+            'country': forms.TextInput(attrs={'class':'form-style', 'placeholder':'Ex: United Kingdom'}),
         }
 
     # COUNTRY_CHOICES = (

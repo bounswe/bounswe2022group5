@@ -1,10 +1,11 @@
-{% extends "base.html" %}
+{% extends "base_category.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
 	<h3 class="mb-4">Create a new Category</h3>
 	<p>Definition of the category will be filled with dictinary definition of the category name.</p>
+    <span style="font-size: 12px; color: #FFB63C">You must specify a one-word name and your entry must have a dictionary equivalent!</span>
     <form class="form-group" method="POST" novalidate action="{% url 'postCategory' %}">
         {{post_form|crispy}}
         {% csrf_token %}
