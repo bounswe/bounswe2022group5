@@ -3,7 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('api/<int:id>',commentList.as_view(), name="base"),
-    path('', index, name="index"),
+    path('', commentInfoIndex, name="comment-info-index"),
     path('SearchResult', requestGetter, name="requestGetter"),
     path('UpdatedResult', requestPoster, name="requestPoster"),
 ]
