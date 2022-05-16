@@ -9,6 +9,8 @@ class Comment(models.Model):
     timestamp = models.DateTimeField(auto_now_add = True, auto_now = False)
     city_name = models.CharField(max_length = 500, null=True)
     weather = models.CharField(max_length = 500, null=True)
+    nof_upvotes = models.IntegerField(default = 0)
+    nof_downvotes = models.IntegerField(default = 0)
 
     def __str__(self):
         return self.body

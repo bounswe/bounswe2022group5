@@ -58,6 +58,7 @@ class PostInfo(APIView):
         post = self.get_object(pk)
         #serializer = PostSerializer(post, data=request.data)
 
+
         if not post:
             return Response(
                 {"res": "Object with post id does not exists"},
@@ -94,12 +95,13 @@ class PostInfo(APIView):
             'covid19cases': covid19cases
         }
 
+
         serializer = PostSerializer(post, data=data)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-
+        #print("nooo")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

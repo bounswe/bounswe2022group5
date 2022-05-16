@@ -1,0 +1,46 @@
+<!-- Note that, for this page, the corresponding css file (resultStyle.css) is the one in this page. https://codepen.io/Creative_Srijon/pen/vLVxEx -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/resultStyle.css">
+    <title>Users Page</title>
+</head>
+
+<body>
+
+<div class="profile-card" style="border-radius: 50px; ">
+
+	<header>
+
+        <br>
+		<h1>User ID: {{comment.5}}</h1>
+        <br>
+
+		<h2 style="text-align: left;">Post ID: {{comment.6}}</h2>
+        <h2 style="text-align: left;">timestamp: {{comment.2}}</h2>
+        <h2 style="text-align: left;">City: {{comment.3}}</h2>
+        <h2 style="text-align: left;">Weather: {{comment.4}}</h2>
+        <h2 style="text-align: left;">Comment ID: {{comment.0}}</h2>
+
+	</header>
+
+	<div class="profile-bio">
+
+		<p>{{comment.1}}</p>
+
+	</div>
+
+    <div style="text-align: center;">
+        <form method="GET" action="{%url 'index' %}">
+            {%csrf_token%}
+            <input type="submit" name="submit" value="Go back">
+          </form>
+    </div>
+
+</div>
+</body>
+
+
+</html>
