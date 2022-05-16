@@ -16,22 +16,23 @@ class CategoryView(generics.ListAPIView):
     serializer_class = CategorySerializer
 
     def post(self, req):
-        url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + req.data.get('name')
-        r = requests.get(url)
 
-        if r.status_code == 200:
-            try:
-                category = Category.objects.create(
-                    name = req.data.get('name'),
-                    definition = r.json()[0]['meanings'][0]['definitions'][0]['definition']
-                )
-                response = { "name": category.name, "definition": category.definition }
-                print(response)
-                return Response(data=response, status=status.HTTP_201_CREATED)
-            except:
-                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        else:
-            print("error")
+        try:
+            url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + req.data.get('name')
+            r = requests.get(url)
+            definition = r.json()[0]['meanings'][0]['definitions'][0]['definition']
+
+        except:
+            definition = req.data.get('definition')
+
+        try:
+            category = Category.objects.create(
+                name = req.data.get('name'),
+                definition = definition
+            )
+            response = { "name": category.name, "definition": category.definition }
+            return Response(data=response, status=status.HTTP_201_CREATED)
+        except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -42,6 +43,7 @@ class CategoryView(generics.ListAPIView):
 
 
 # User Interface:
+@api_view(['GET'])
 def index(request):
     success = request.GET.get('success')
     if success == "True":
