@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rate_comment',
     'rate_post',
     'user',
+    '_main'
 ]
 
 

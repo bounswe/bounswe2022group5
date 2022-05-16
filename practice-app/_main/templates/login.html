@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="../static/styleLogin.css">
+</head>    
+
+<body>
+
+    
+    <p>Login Page</p>
+    
+              
+     <div class="login-box">
+                <h2>Login</h2>
+                <form method="POST" action="login">
+                    {%csrf_token%}
+                    <input type="hidden" name="next" value="{{ request.path }}">  
+                  <div class="user-box">
+                    <input id="username" type="text" name="username" required="true">
+                    <label>Username</label>
+                  </div>
+                  <div class="user-box">
+                    <input id="password" type="password" name="password" required="true">
+                    <label>Password</label>
+                  </div>
+                  <button style="background: transparent; border: none;" type="submit">
+                    <a type="submit">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Submit
+                        
+                      </a>
+                
+                </button>
+                  
+                </form>
+    </div>
+            
+            
+    
+    </body>
+    
+    </html>
