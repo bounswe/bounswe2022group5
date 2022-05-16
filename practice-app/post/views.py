@@ -15,18 +15,18 @@ EXTERNAL_COVID_API_URL = f'https://coronavirus.m.pipedream.net/'
 def index(req):
     postForm = PostForm()
     context = {'form':postForm}
-    return render(req, 'index.html', context)
+    return render(req, 'post_index.html', context)
 
 def create(req):
     response = poster(req).data
-    if response == 'Missing input': return render(req, 'notfound.html')
+    if response == 'Missing input': return render(req, 'post_notfound.html')
 
     if(response["covid19cases"] == {}):
         post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"],  'No Data', 'No Data', response["nof_upvotes"], response["nof_downvotes"]]
     else:
         post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"],  response["covid19cases"]["death"], response["covid19cases"]["case"], response["nof_upvotes"], response["nof_downvotes"]]
     context = {'response':post}
-    return render(req, 'create.html', context)
+    return render(req, 'post_create.html', context)
 
 def get(req):
     responses = poster(req).data
@@ -40,7 +40,7 @@ def get(req):
         posts.append(post)
 
     context = {'response':posts}
-    return render(req, 'get.html', context)
+    return render(req, 'post_get.html', context)
 
 @api_view(["GET", "POST"])
 def poster(req):
