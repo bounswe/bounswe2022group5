@@ -11,7 +11,7 @@ class PostForm(forms.ModelForm):
         super().__init__(*args,**kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'POST'
-        self.helper.form_action = reverse_lazy('create')
+        self.helper.form_action = reverse_lazy('post_create')
         self.helper.add_input(Submit('submit', 'Create Post'))
         #self.helper.layout()
 

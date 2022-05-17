@@ -77,8 +77,6 @@ def poster(req):
         except:
             return Response('Category does not exist', status=status.HTTP_404_NOT_FOUND)
 
-        #username = req.session['username']
-        #username should be fetched from session, it will not be entered
         try:
             p_user = User.objects.get(pk=user)
         except:

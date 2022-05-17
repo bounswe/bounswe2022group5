@@ -12,7 +12,7 @@ class TestForms(TestCase):
             definition = 'definition'
         )
 
-        self.user = User.objects.create(
+        self.user = User.objects.create_user(
             username='username',
             password='password',
             email='email'
@@ -23,12 +23,12 @@ class TestForms(TestCase):
             'title': 'title',
             'body': 'body',
             'category': self.category,
-            'user': self.user,
             'country': 'country',
         })
 
         self.assertTrue(form.is_valid())
 
     def test_post_form_missing_input(self):
+        self.client.login(username='username', password='password')
         form = PostForm(data={})
         self.assertFalse(form.is_valid())
