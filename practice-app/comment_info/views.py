@@ -13,8 +13,8 @@ baseAPIURL = "http://localhost:8000/comment-info/api/"
 weatherAPIKEY = "ab60675eb2msh1e4a5cb6e387b12p19a699jsnf1fda92ea63f"
 
 # Rendering index of the page
-def index(req):
-    return render(req, "index.html")
+def commentInfoIndex(req):
+    return render(req, "comment-info-index.html")
 
 # This is for rendering the first form, which is used for getting a comment with a spesific ID.
 # Calls the GET part of the API in the below in order to get the data from the database.
@@ -24,24 +24,33 @@ def requestGetter(req):
     r = requests.request("GET" , url).json()
     if("error" in r):
         message = [r["error"]]
-        return render(req, "error.html", {"comment": message})
+        return render(req, "comment-info-error.html", {"comment": message})
     else:
         array = [r["id"], r["body"], r["timestamp"], r["city_name"], r["weather"], r["user"], r["post"]]
-        return render(req, "result.html", {"comment": array})
+        return render(req, "comment-info-result.html", {"comment": array})
 
 # This is for rendering the second form in the html. Used for updating a comment with a spesific ID.
 # Calls the POST part of the API in the below.
 def requestPoster(req):
     id=req.POST["id"]
     url = baseAPIURL + str(id)
+    try:
+        req.POST["body"]
+    except:
+        return render(req, "comment-info-error.html", {"comment" : "Missing input body"})
+    
+    try:
+        req.POST["city_name"]
+    except:
+        return render(req, "comment-info-error.html", {"comment" : "Missing input city name"})
     data = {"body": req.POST["body"], "city_name": req.POST["city_name"]}
     r = requests.request("POST", url, data=data).json()
     if("error" in r):
         message = [r["error"]]
-        return render(req, "error.html", {"comment": message})
+        return render(req, "comment-info-error.html", {"comment": message})
     else:
         array = [r["id"], r["body"], r["timestamp"], r["city_name"], r["weather"], r["user"], r["post"]]
-        return render(req, "result.html", {"comment": array})
+        return render(req, "comment-info-result.html", {"comment": array})
 
 # Our API lies here.
 # It has 2 functions as GET and POST.
