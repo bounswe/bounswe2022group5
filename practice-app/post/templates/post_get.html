@@ -3,46 +3,49 @@
 
 <head>
     <meta charset="utf-8">
-    <title>The Post</title>
+    <title>Posts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/cards.css">
+    <link rel="stylesheet" type="text/css" href="../static/post_cards.css">
 
 </head>
 
 <body>
 
     <div class="wrapper">
-        <div class="header">CREATED POST</div>
+        <div class="header">POSTS</div>
 
         <div class="cards_wrap">
+            {% for json in response %}
             <div class="card_item">
                 <div class="card_inner">
-                    <div class="role_name">{{response.0}}</div>
+                    <div class="role_name">{{json.0}}</div>
                     <br>
-                    <div class="film">{{response.1}}</div>
-                    <div class="real_name">Category ID: {{response.2}}</div>
-                    <div class="real_name">User ID: {{response.3}}</div>
-                    <div class="real_name">Sent at time: {{response.4}}</div>
-                    <div class="real_name">From country: {{response.5}}</div>
+                    <div class="film">{{json.1}}</div>
+                    <div class="real_name">Category ID: {{json.2}}</div>
+                    <div class="real_name">User ID: {{json.3}}</div>
+                    <div class="real_name">Sent at time: {{json.4}}</div>
+                    <div class="real_name">From country: {{json.5}}</div>
                     <br>
                     <div class="real_name">COVID19 Data</div>
-                    <div class="real_name">Deaths: {{response.6}}</div>
-                    <div class="real_name">Cases: {{response.7}}</div>
+                    <div class="real_name">Deaths: {{json.6}}</div>
+                    <div class="real_name">Cases: {{json.7}}</div>
                     <br>
-                    <div class="wrap">
+                    <div class="wrap real_name">
                         <div class="vote up">
                           <i class="fa fa-angle-up"></i>
-                          {{response.8}}
+                          {{json.8}}
                         </div>
+                        
                         <div class="vote inactive">
                           <i class="fa fa-angle-down"></i>
-                          {{response.9}}
+                          {{json.9}}
                         </div>
                       </div>
 
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
     <a href="http://127.0.0.1:8000/post/">Back</a>
@@ -53,7 +56,7 @@
 <html>
 
 <head>
-    <title>Created Post</title>
+    <title>Posts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -70,11 +73,11 @@
             font-size: 16px;
             border-radius: 12px;
         }
-    </style>
+    </styl>
 </head>
 
 <body>
-    <h2>CREATED POST</h2>
+    <h2>POSTS</h2>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
@@ -91,12 +94,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for value in response %}
-                <td>
-
-                    {{value}}
-
-                </td>
+                {% for row in response %}
+                <tr>
+                    {% for value in row %}
+                    <td>
+                        {{value}}
+                    </td>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
             <tbody>
         </table>
@@ -104,7 +109,7 @@
     <button class="button">
         <a href="http://127.0.0.1:8000/post/">Back</a>
     </button>
-    
+
 </body>
 
 </html> -->

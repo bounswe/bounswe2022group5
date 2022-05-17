@@ -17,7 +17,7 @@ To run the app:
 		
 - Make migrations and migrate:
 		
-		<fill here for unix>
+		python3 manage.py makemigrations, python3 manage.py migrate
 		python manage.py makemigrations, python manage.py migrate
 		
 - Create an admin user if not exists:

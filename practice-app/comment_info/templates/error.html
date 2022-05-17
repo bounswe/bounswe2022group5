@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/errorStyle.css">
+    <title>comment Page</title>
+</head>
+<body>
+<div class="container">
+    <table class="center">
+        {% for value in comment %}
+            <tr>
+                <div class="alert">
+                    <span class="closebtn">
+                        <form method="GET" action="{%url 'index' %}">
+                        {%csrf_token%}
+                        <input type="submit" name="submit" value="X">
+                      </form>
+                    </span>
+                    {{value}}.
+                  </div>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>
