@@ -11,43 +11,42 @@
 	<title></title>
 </head>
 <body>
-<div class="container">
+  <div class="container">
 
-      <div class="container">
-        <div class="row">
-          <div class="d-flex p-3"></div>
-        </div>
-        <a class="btn btn-secondary" href="../" role="button">Back</a>
-
-        <p class="h2 text-center">Comments of the Post with post-id {{post_id}}</p>
-        <div class="row">
-          <div class="d-flex p-3"></div>
-        </div>
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                  <th scope="col">Body</th>
-                  <th scope="col">User</th>
-                  <th scope="col">City</th>
-                  <th scope="col">Weather</th>
-                  <th scope="col">Upvotes</th>
-                  <th scope="col">Downvotes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for row in comments %}
-              <tr>
-                  {% for value in row %}
-                  <td>
-                      {{value}}
-                  </td>
-                  {% endfor %}
-              </tr>
-              {% endfor %}  
-            </tbody>
-        </table>
-      </div>
-        
+    <div class="row">
+      <div class="d-flex p-3"></div>
     </div>
+    <a class="btn btn-secondary" href="../" role="button">Back</a>
+
+    <p class="h2 text-center">Comments of the Post with post-id {{post_id}}</p>
+    <div class="row">
+      <div class="d-flex p-3"></div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Time Stamp</th>
+              <th scope="col">Body</th>
+              <th scope="col">User</th>
+              <th scope="col">City</th>
+              <th scope="col">Weather</th>
+              <th scope="col">Upvotes</th>
+              <th scope="col">Downvotes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in comments %}
+          <tr>
+              {% for value in row %}
+              <td>
+                  {{value}}
+              </td>
+              {% endfor %}
+          </tr>
+          {% endfor %}  
+        </tbody>
+    </table>
+  </div>
 </body>
 </html>

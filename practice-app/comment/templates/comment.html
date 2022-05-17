@@ -15,20 +15,34 @@
 		<div class="row">
 			<div class="d-flex p-3"></div>
 		</div>
+		<a class="btn btn-secondary" href="../" role="button">Home</a>
+
 		<p class="h2 text-center">Welcome to Comment API</p>
 		<div class="row">
 			<div class="d-flex p-3"></div>
 		</div>
+		{% if error %}
+			<div class="alert alert-danger" role="danger">
+				<h4 class="alert-heading">Error</h4>
+				<p>Check the input again.</p>
+			</div>
+		{% endif %}
 		{% if success %}
 			<div class="alert alert-success" role="success">
 				<h4 class="alert-heading">Success</h4>
 				<p>Comment is created successfully.</p>
 			</div>
 		{% endif %}
+		{% if nopost %}
+			<div class="alert alert-danger" role="danger">
+				<h4 class="alert-heading">Error</h4>
+				<p>There is no such post.</p>
+			</div>
+		{% endif %}
 		<div class="row">
 			<div class="col"></div>
 			<div class="col">
-				<p class="h5 text-center">Get All Comments Of a Post</p>
+				<p class="h4 text-center">Get All Comments Of a Post</p>
 				<form class="form-group" method="GET" novalidate action="{% url 'getComments' %}">
 					{{getForm|crispy}}
 					{% csrf_token %}
@@ -37,7 +51,7 @@
 				 </form>	
 			</div>
 			<div class="col">
-				<p class="h5 text-center">Create A New Comment Under a Post</p>
+				<p class="h4 text-center">Create A New Comment Under a Post</p>
 				<form class="form-group" method="POST" novalidate action="{% url 'postComment' %}">
 					{{postForm|crispy}}
 					{% csrf_token %}
