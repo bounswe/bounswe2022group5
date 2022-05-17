@@ -27,8 +27,9 @@ from rate_article import urls as rate_article_urls
 from rate_comment import urls as rate_comment_urls
 from rate_post import urls as rate_post_urls
 from user import urls as user_urls
-
+from _main import urls as _main_urls
 urlpatterns = [
+    path('',include(_main_urls)),
     path('admin/', admin.site.urls),
     # path('article/', include(article_urls)),
     # path('article-info/', include(article_info_urls)),

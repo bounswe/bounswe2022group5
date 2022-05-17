@@ -17,11 +17,11 @@ class TestUrls(TestCase):
 
     def test_index_url_resolves(self):
         url = reverse('api')
-        self.assertEquals(resolve(url).func.__name__, UserList.as_view().__name__)
+        self.assertEquals(resolve(url).func.view_class, UserList)
 
     def test_get_url_resolves(self):
         url = reverse('detailView',args=[self._user.username,])
-        self.assertEquals(resolve(url).func.__name__, userDetail.as_view().__name__)
+        self.assertEquals(resolve(url).func.view_class, userDetail)
     
     def test_create_url_resolves(self):
         url = reverse('allUsers')

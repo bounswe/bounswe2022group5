@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="../static/styleMain.css">
+    
+</head>    
+
+<body">
+    
+    <div><p style="text-align: center;color: aliceblue;padding: 10px;">Home Page</p></div>
+    <div style="width: 100%;text-align: center;color: aliceblue;">
+        <form  class="form" method="POST" action="logout">
+            {%csrf_token%}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button style="background: aliceblue; border: none;border-radius: 10px;" type="submit"><p style="padding:10px;">Logout</p></button>            
+    
+    
+        </form>
+
+    </div>
+    <div class="container">
+        <div class="card">
+          <div class="box">
+            <div class="content">
+              <h2>01</h2>
+              <h3>Alper Canberk Balcı</h3>
+              <p>This app will handle /article/api endpoint. <br> Get All Articles <br> Crate an Article
+              </p>
+              <a href="/article/">Go to Endpoint</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>02</h2>
+                <h3>Bever Bengin Beştaş</h3>
+                <p>This app will handle /rate-article/api/&lt;article-id&gt; endpoint.<br>Get number of upvotes and downvotes<br>Upvote or downvote an article 
+                </p>
+                <a href="/rate-article/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>03</h2>
+                <h3>Burak Mert</h3>
+                <p>This app will handle /category/api endpoint..<br>Get all categories <br>Create a category 
+                </p>
+                <a href="/category/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+      
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>04</h2>
+                <h3>Halil Burak Pala</h3>
+                <p>This app will handle /comment/api/&lt;post-id&gt; endpoint<br>	Get all comments of the post<br>Create a comment under the post  
+                </p>
+                <a href="/comment/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>05</h2>
+                <h3>Kardelen Demiral</h3>
+                <p>This app will handle /post-info/api/&lt;post-id&gt; endpoint.<br>Get post with id post-id<br>Update the post with id post-id
+                </p>
+                <a href="/post-info/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>06</h2>
+                <h3>Mehmet Akif Yılmaz</h3>
+                <p>This app will handle /article-info/api/&lt;article-id&gt; endpoint.<br>Get article with id article-id<br>Update the article with id article-id
+                </p>
+                <a href="/article-info/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>07</h2>
+                <h3>Sinan Kerem Gündüz</h3>
+                <p>This app will handle /comment-info/api/&lt;comment-id&gt; endpoint.<br>Get comment with id comment-id<br>Update the comment with id comment-id
+                </p>
+                <a href="/comment-info/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>08</h2>
+                <h3>Yavuz Samet Topçuoğlu</h3>
+                <p> This app will handle /post/api endpoint.<br>Get all posts<br>Create a post
+                </p>
+                <a href="/post/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>09</h2>
+                <h3>Mehmet Emre Akbulut</h3>
+                <p>This app will handle /user/api endpoint.<br>Get all users<br>	Create a new user
+                </p>
+                <a href="/user/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>10</h2>
+                <h3>Oğuzhan Demirel</h3>
+                <p>This app will handle /rate-post/api/&lt;post-id&gt; endpoint.<br>Get number of upvotes and downvotes of a post<br>Upvote or downvote a post 
+                </p>
+                <a href="/rate-post/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>11</h2>
+                <h3>Engin Oğuzhan Şenol</h3>
+                <p>This app will handle /rate-comment/api/<comment-id> endpoint.<br>Get number of upvotes and downvotes of a comment <br>Upvote or downvote a comment 
+                </p>
+                <a href="/rate-comment/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="box">
+              <div class="content">
+                <h2>12</h2>
+                <h3>Buse Tolunay</h3>
+                <p>This app will handle /category-info/api/&lt;category-id&gt; endpoint.<br>Get posts with category<br>Update the category
+                </p>
+                <a href="/category-info/">Go to Endpoint</a>
+              </div>
+            </div>
+          </div>
+      
+
+
+
+
+
+
+    
+    </body>
+    
+    </html>
