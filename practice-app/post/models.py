@@ -9,7 +9,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = False)
     timestamp = models.DateTimeField(auto_now_add = False, auto_now = True)
     country = models.CharField(max_length = 180)
-    covid19cases = models.IntegerField(default=0)
+    covid19cases = models.JSONField(default=dict)
     nof_upvotes = models.IntegerField(default = 0)
     nof_downvotes = models.IntegerField(default = 0)
 
