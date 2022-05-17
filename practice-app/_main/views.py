@@ -16,10 +16,10 @@ def Login(request):
         print(next)
         return HttpResponseRedirect(next)
        
-        ...
+        
     else:
-        print("DONT")
-        return
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next+"?isFailed=True")
 
 def Logout(request):
     if request.user.is_authenticated:
@@ -30,6 +30,9 @@ def Logout(request):
 def main(request):
     print("darari")
     if not request.user.is_authenticated:
+        is_failed = request.GET.get("isFailed",False) 
+        if is_failed:
+            return render(request,'login.html',{"is_failed":is_failed})
         return render(request, 'login.html')
     else:
         return render(request,"HomePage.html")

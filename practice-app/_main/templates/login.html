@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="../static/styleLogin.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 </head>    
 
 <body>
 
     
-    <p>Login Page</p>
     
+    
+    {% if is_failed %}
+    <div class="alert danger-alert">
+        <h3>Danger Alert Message</h3>
+        <a class="close" id="close">&times;</a>
+      </div>
+
+    {% endif %}
               
      <div class="login-box">
                 <h2>Login</h2>
@@ -43,5 +51,12 @@
             
     
     </body>
-    
+    <script>
+        $(".close").click(function() {
+        $(this)
+            .parent(".alert")
+            .fadeOut();
+        });
+
+    </script>
     </html>
