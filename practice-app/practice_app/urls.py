@@ -40,7 +40,7 @@ urlpatterns = [
     path('post/', include(post_urls)),
     path('post-info/', include(post_info_urls)),
     # path('rate-article/', include(rate_article_urls)),
-    # path('rate-comment/', include(rate_comment_urls)),
+    path('rate-comment/', include(rate_comment_urls)),
     # path('rate-post/', include(rate_post_urls)),
     path('user/', include(user_urls)),
 ]
