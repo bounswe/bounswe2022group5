@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from .views import (
     index,
     getComments,
@@ -7,8 +7,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path('', index, name="index"),
+    path('', index, name="commentIndex"),
     path('list/', getComments, name="getComments"),
     path('create/', postComment, name="postComment"),
-    path('api/<int:post_id>/', CommentApiView.as_view()),
+    path('api/<int:post_id>/', CommentApiView.as_view(), name="commentApi"),
 ]
