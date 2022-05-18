@@ -67,9 +67,17 @@ class CommentApiView(APIView):
             return Response(
                 {'error':'Missing input'}, 
                 status=status.HTTP_400_BAD_REQUEST)
-        if request.data['body'] == '':
+
+        try:
+            request.data['body']
+        except:
             return Response(
                 {'error':'Missing body of the comment'}, 
+                status=status.HTTP_400_BAD_REQUEST)
+        
+        if request.data['body'] == '':
+            return Response(
+                {'error':'Body of the comment cannot be empty'}, 
                 status=status.HTTP_400_BAD_REQUEST)
 
         city_name = request.data.get('city_name')
