@@ -16,6 +16,10 @@
           <div class="btn-wrapper">
             <button class="button" id="signup">Get Part</button>
             <button class="button" id="login"> Post Part</button>
+            <form method="POST" action="../">
+            {%csrf_token%}
+            <button class="button" type = submit>Go Home Page</button>
+          </form>
           </div>
         </div>
         <div class="form form--get-comment-ID">
