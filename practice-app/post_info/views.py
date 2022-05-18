@@ -22,7 +22,7 @@ from .forms import *
 def index(request):
     getForm = postGetForm()
     postForm = postPostForm()
-    return render(request, "forms.html", {"getForm":getForm, "postForm":postForm})
+    return render(request, "forms.html", {"getForm":getForm, "postForm":postForm, "action_fail":False})
 
 
 class PostInfo(APIView):
@@ -66,16 +66,17 @@ class PostInfo(APIView):
             )
 
         country = request.data.get('country')
+        country = country.lower()
+        country = country.capitalize()
 
         try:
-            result = requests.get(f"https://coronavirus.m.pipedream.net/").json()
-            data = result["rawData"]
-            output_dict = [x for x in data if x['Country_Region'] == country]
+            result = requests.get(f"https://api.covid19api.com/summary").json()
+            data = result["Countries"]
+            output_dict = [x for x in data if x['Country'] == country]
             output = output_dict[0]
 
-
-            death = output['Deaths']
-            case = output['Confirmed']
+            death = output['NewDeaths']
+            case = output['NewConfirmed']
 
             covid19cases = {
                 'death': death,
@@ -91,7 +92,7 @@ class PostInfo(APIView):
             'category': request.data.get('category'),
             'user': request.user.id,
             'timestamp': django.utils.timezone.now(),
-            'country': request.data.get('country'),
+            'country': country,
             'covid19cases': covid19cases
         }
 
@@ -101,7 +102,7 @@ class PostInfo(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-        #print("nooo")
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -122,5 +123,12 @@ def getPost(request):
 def postPost(request):
     a = PostInfo()
     post_id = request.POST["post_id"]
-    a.post(request=request, pk=post_id)
-    return HttpResponseRedirect("..?success=true")
+    response = a.post(request=request, pk=post_id)
+
+    if response.status_code == 200:
+        return HttpResponseRedirect("..?success=true")
+
+    else:
+        getForm = postGetForm()
+        postForm = postPostForm()
+        return render(request, "forms.html", {"getForm":getForm, "postForm":postForm, "action_fail":True})
