@@ -10,13 +10,7 @@ body{
 	background-color: #1f2029;
 	overflow-x: hidden;
 }
-a {
-	cursor: pointer;
-  transition: all 200ms linear;
-}
-a:hover {
-	text-decoration: none;
-}
+
 .link {
   color: #c4c3ca;
 }
@@ -287,3 +281,4 @@ h6 span{
 	width: auto;
 	display: block;
 }
+

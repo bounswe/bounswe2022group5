@@ -11,19 +11,18 @@ class PostForm(forms.ModelForm):
         super().__init__(*args,**kwargs)
         self.helper = FormHelper(self)
         self.helper.form_method = 'POST'
-        self.helper.form_action = reverse_lazy('create')
+        self.helper.form_action = reverse_lazy('post_create')
         self.helper.add_input(Submit('submit', 'Create Post'))
         #self.helper.layout()
 
     class Meta:
         model = Post
-        fields = ('title','body','category','user','country')
+        fields = ('title','body','category','country')
 
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-style', 'placeholder':'Insert the title of the post'}),
             'body': forms.Textarea(attrs={'class':'form-style', 'placeholder':'Write your post here...'}),
             'category': forms.Select(attrs={'class':'form-style'}),
-            'user': forms.Select(attrs={'class':'form-style'}),
             'country': forms.TextInput(attrs={'class':'form-style', 'placeholder':'Ex: United Kingdom'}),
         }
 

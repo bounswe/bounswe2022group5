@@ -9,13 +9,13 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, poster)
 
     def test_index_url_resolves(self):
-        url = reverse('index')
+        url = reverse('post_index')
         self.assertEquals(resolve(url).func, index)
 
     def test_get_url_resolves(self):
-        url = reverse('get')
+        url = reverse('post_get')
         self.assertEquals(resolve(url).func, get)
     
     def test_create_url_resolves(self):
-        url = reverse('create')
+        url = reverse('post_create')
         self.assertEquals(resolve(url).func, create)

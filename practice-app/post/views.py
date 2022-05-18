@@ -19,7 +19,8 @@ def index(req):
 
 def create(req):
     response = poster(req).data
-    if response == 'Missing input': return render(req, 'post_notfound.html')
+    if response in ['Missing input', 'Missing category info', 'User should be logged in', 'Category does not exist', 'User does not exist']: 
+        return render(req, 'post_notfound.html', {'context':response})
 
     if(response["covid19cases"] == {}):
         post = [response["title"], response["body"], response["category"], response["user"], response["timestamp"], response["country"],  'No Data', 'No Data', response["nof_upvotes"], response["nof_downvotes"]]
@@ -50,12 +51,11 @@ def poster(req):
         return Response(data=serializer.data)
 
     if req.method == "POST":
-
+        
         try:
             title = req.POST['title']
             body = req.POST['body']
             category = req.POST['category']
-            user = req.POST['user']
         except:
             return Response('Missing input', status=status.HTTP_400_BAD_REQUEST)
         
@@ -64,15 +64,19 @@ def poster(req):
         except:
             country = ''
 
-        if(category == '' or user == ''): return Response('Missing input', status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = req.user.id
+        except:
+            return Response('User should be logged in', status=status.HTTP_400_BAD_REQUEST)
+
+        if(category == ''): return Response('Missing category info', status=status.HTTP_400_BAD_REQUEST)
+        if(user == None): return Response('User should be logged in', status=status.HTTP_400_BAD_REQUEST)
 
         try:
             p_category = Category.objects.get(pk=category)
         except:
             return Response('Category does not exist', status=status.HTTP_404_NOT_FOUND)
 
-        #username = req.session['username']
-        #username should be fetched from session, it will not be entered
         try:
             p_user = User.objects.get(pk=user)
         except:

@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,32 +12,20 @@
 </head>
 <body>
 
-	</div>
-          {% if action_fail %}
-    <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Error</h4>
-        <p>Please enter valid values.</p>
-    </div>
-
-		 {% endif %}
-
-    </div>
 	<div class="container">
 			<div class="d-flex justify-content-around" style="display:flex;">
 
-			<form class="form-group" method="GET" novalidate action="{% url 'getPost' %}">
-				<h2>View a Post</h2>
+			<form class="form-group" method="GET" novalidate action="{% url 'getVoteApi' %}">
+				<h2>View Votes of a Post</h2>
 				{{getForm|crispy}}
 				{% csrf_token %}
 				<div class="d-flex p-2"></div>
 				<button type="submit" class="btn btn-info">Submit</button>
 			</form>
-			<form class="form-group" method="POST" novalidate action="{% url 'postPost' %}">
-				<h2>Update a Post</h2>
+			<form class="form-group" method="POST" novalidate action="{% url 'postVoteApi' %}">
+				<h2>Give a Vote</h2>
 				{{postForm|crispy}}
 				{% csrf_token %}
-				<p></p>
-				<p>Note: Please provide the id of the category, not the name of it.</p>
 				<div class="d-flex p-2"></div>
 				<button type="submit" class="btn btn-info">Submit</button>
 			</form>
