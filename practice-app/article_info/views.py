@@ -22,10 +22,10 @@ class ArticleInfo(APIView):
     def get(self,request,id):
         article = Article.objects.filter(id=id)
         if(article):
-            serializer =ArticleSerializer(article[0])
+            serializer = ArticleSerializer(article[0])
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
-            return Response(data = {"error": f"There is no such article with id: {id}"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={"error": f"There is no such article with id: {id}"}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request,id):
 
@@ -46,9 +46,9 @@ class ArticleInfo(APIView):
             if (len(body) < 10):
                 return Response(data={"error": f"Please insert a longer Body"},
                                 status=status.HTTP_406_NOT_ACCEPTABLE)
-            category = request.data.get('category')
+            category = request.data.get('category_id')
             if not category:
-                return Response(data={"error": f"Please Select a Category"},
+                return Response(data={"error": f"Please insert a Category ID"},
                                 status=status.HTTP_406_NOT_ACCEPTABLE)
             data = {
                 "title": title,
@@ -66,7 +66,6 @@ class ArticleInfo(APIView):
             return Response(data=serializer.errors, status=status.HTTP_501_NOT_IMPLEMENTED)
         else:
             return Response(data={"error": f"There is no such article with id: {id}"}, status=status.HTTP_404_NOT_FOUND)
-
 
 @api_view(['GET', 'POST'])
 def getArticle(request):
