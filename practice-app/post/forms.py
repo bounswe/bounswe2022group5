@@ -2,7 +2,7 @@ from django import forms
 from django.urls import reverse_lazy
 from .models import Post
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout
+from crispy_forms.layout import Submit
 
 
 class PostForm(forms.ModelForm):
@@ -13,8 +13,7 @@ class PostForm(forms.ModelForm):
         self.helper.form_method = 'POST'
         self.helper.form_action = reverse_lazy('post_create')
         self.helper.add_input(Submit('submit', 'Create Post'))
-        #self.helper.layout()
-
+        
     class Meta:
         model = Post
         fields = ('title','body','category','country')

@@ -2,6 +2,9 @@ from django.test import SimpleTestCase
 from django.urls import resolve,reverse
 from post.views import poster, index, get, create
 
+#this class tests all urls in the folder /post/urls.py
+#checks for every urls corresponding function is matches
+
 class TestUrls(SimpleTestCase):
 
     def test_poster_url_resolves(self):
