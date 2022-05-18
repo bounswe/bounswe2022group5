@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class TestModels(TestCase):
 
+    #creates a category, a user, a post and necessary data to be tested.
     def setUp(self):
 
         category = Category.objects.create(
@@ -34,5 +35,6 @@ class TestModels(TestCase):
 
         self._post = Post.objects.create(**post_data)
 
+    #tests whether model returns the correct field with correct data
     def test_str(self):
         self.assertEquals(self._post.__str__(), 'title_of_the_model')
