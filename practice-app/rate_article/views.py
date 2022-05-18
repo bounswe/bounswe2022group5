@@ -42,11 +42,11 @@ class articleVotes(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, pk, *args, **kwargs):
-        article = Article.objects.get(pk=pk)
-        #article = self.get_object(pk)
+        #article = Article.objects.get(pk=pk)
+        article = self.get_object(pk)
         if not article:
             return Response(
-                {"message": "Please enter a valid article-id. No articles were found with the given id."},
+                {"message": "Please enter a valid article-id. No articles were found with the given idddddd."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
