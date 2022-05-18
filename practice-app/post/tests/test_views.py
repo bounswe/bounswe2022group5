@@ -9,9 +9,9 @@ class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.index_url = reverse('index')
-        self.get_url = reverse('get')
-        self.create_url = reverse('create')
+        self.index_url = reverse('post_index')
+        self.get_url = reverse('post_get')
+        self.create_url = reverse('post_create')
         self.poster_url = reverse('poster')
 
         category = Category.objects.create(
@@ -19,7 +19,7 @@ class TestViews(TestCase):
             definition = 'definition'
         )
 
-        user = User.objects.create(
+        user = User.objects.create_user(
             username='username',
             password='password',
             email='email'
@@ -43,7 +43,6 @@ class TestViews(TestCase):
             'title' : 'title_ui_data',
             'body' : 'body',
             'category' : 1,
-            'user' : 1,
             'country' : 'turkey',
         }
 
@@ -58,25 +57,27 @@ class TestViews(TestCase):
 
         self._post = Post.objects.create(**post_data)
 
+        self.client.login(username='username', password='password')
+
     def test_index_GET(self):
         response = self.client.get(self.index_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
+        self.assertTemplateUsed(response, 'post_index.html')
 
     def test_get_GET(self):
         response = self.client.get(self.get_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'get.html')
+        self.assertTemplateUsed(response, 'post_get.html')
 
     def test_create_POST_create_post(self):
         response = self.client.post(self.create_url, self.ui_data)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'create.html')
+        self.assertTemplateUsed(response, 'post_create.html')
 
     def test_create_POST_missing_input(self):
         response = self.client.post(self.create_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'notfound.html')
+        self.assertTemplateUsed(response, 'post_notfound.html')
 
     def test_poster_POST_create_post(self):
         response = self.client.post(self.poster_url, self.data)
