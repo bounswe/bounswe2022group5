@@ -67,6 +67,7 @@
     </div>
      <form class="form" method="POST" action="createUser">
         {%csrf_token%}
+        <input type="hidden" name="next" value="{{ request.path }}"> 
         <div class="title">Welcome</div>
         <div class="subtitle">Let's add a User!</div>
         <div class="input-container ic1">
@@ -85,8 +86,9 @@
           <label for="password" class="placeholder">password</label>
         </div>
         <button style="background: transparent; border: none;" type="submit" class="submit"><a class="bn39" href="/"><span class="bn39span">Submit</span></a></button>
-       
+        
     </form>
+    <button style="background: transparent; border: none;text-align: center;" type="submit" class="submit"><a class="bn39" href="../.."><span class="bn39span">Main Screen</span></a></button>
     <footer>
         <p>made by <a href="https://github.com/bounswe/bounswe2022group5/wiki/Mehmet-Emre-Akbulut"> Mehmet Emre Akbulut</a> ♡
       </footer>

@@ -85,7 +85,7 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'allUsers.html')
     
-
+    #doesn't need to test views
     """ def test_create_POST_create_user(self):
         response = self.client.post(self.createUser_url, self.data)
         print(response.url)
