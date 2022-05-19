@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from matplotlib.font_manager import json_load
 from comment.models import Comment
 from rate_comment.serializers import RateCommentSerializer
 from rest_framework import status
