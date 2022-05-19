@@ -1,5 +1,4 @@
 from django.shortcuts import render
-# Create your views here.
 from article.models import Article
 from django.http import HttpResponse, HttpResponseRedirect
 from rest_framework import generics,status
@@ -13,6 +12,7 @@ import datetime
 import json
 from .forms import *
 
+# indexRateArticle
 def indexRateArticle(request):
     getForm = articleGetForm()
     postForm = articlePostForm()
@@ -42,11 +42,10 @@ class articleVotes(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, pk, *args, **kwargs):
-        #article = Article.objects.get(pk=pk)
         article = self.get_object(pk)
         if not article:
             return Response(
-                {"message": "Please enter a valid article-id. No articles were found with the given idddddd."},
+                {"message": "Please enter a valid article-id. No articles were found with the given id."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
