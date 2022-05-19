@@ -83,7 +83,7 @@ def poster(req):
         #assigns country as empty string if fails
         try:
             country = req.POST['country']
-            country = re.sub("(^|\s)(\S)", convert_into_uppercase, country).replace('Of', 'of')
+            country = re.sub("(^|\s)(\S)", convert_into_uppercase, country.lower()).replace('Of', 'of')
         except:
             country = ''
 
