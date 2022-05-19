@@ -12,7 +12,7 @@ from rate_comment.forms import *
 def index(request):
     a = commentGetForm()   
     b = commentPostForm()
-    return render(request, "formsratecomment.html", {"getForm":a, "postForm":b})
+    return render(request, "formsratecomment.html", {"getCommentForm":a, "postCommentForm":b})
 
 class CommentRating(APIView):
     
@@ -45,8 +45,8 @@ class CommentRating(APIView):
         else:
             return Response(data={"message" : f"There is no such comment with this id"}, status = status.HTTP_404_NOT_FOUND)
 
-    
-    def getVoteApi(request):
+    @api_view(['GET', 'POST'])
+    def getCommentVoteApi(request):
         view = CommentRating()
         if 'comment_id' in request.GET:
             comment_id = request.GET['comment_id']
@@ -58,15 +58,11 @@ class CommentRating(APIView):
             comment.append(d[data])
         return render(request, "viewratecomment.html", {"post":comment})
     @api_view(['GET', 'POST'])
-    def postVoteApi(request):
+    def postCommentVoteApi(request):
         view = CommentRating()
         comment_id = request.POST["comment_id"]
         test = view.post(request=request, pk=comment_id)
         if (test.status_code == 200):
             return HttpResponseRedirect("..?success=true")
         else:
-            comment=[]
             return render(request, "viewratecomment.html",{"action_fail":True})
-
-
-# Create your views here.

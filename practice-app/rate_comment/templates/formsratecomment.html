@@ -13,16 +13,16 @@
 <body>
 	<div class="container">
 		<div class="d-flex justify-content-around" style="display:flex;">
-			<form class="form-group" method="GET" novalidate action="{% url 'getVoteApi' %}">
+			<form class="form-group" method="GET" novalidate action="{% url 'getCommentVoteApi' %}">
 				<h2>View Votes of a Comment</h2>
-				{{getForm|crispy}}
+				{{getCommentForm|crispy}}
 				{% csrf_token %}
 				<div class="d-flex p-2"></div>
 				<button type="submit" class="btn btn-info">Submit</button>
 			</form>
-			<form class="form-group" method="POST" novalidate action="{% url 'postVoteApi' %}">
+			<form class="form-group" method="POST" novalidate action="{% url 'postCommentVoteApi' %}">
 				<h2>Give a Vote</h2>
-				{{postForm|crispy}}
+				{{postCommentForm|crispy}}
 				{% csrf_token %}
 				<div class="d-flex p-2"></div>
 				<button type="submit" class="btn btn-info">Submit</button>
