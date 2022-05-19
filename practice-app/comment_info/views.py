@@ -8,8 +8,15 @@ from .serializers import *
 import requests
 import datetime
 import json
+import os
+from dotenv import load_dotenv
 
-weatherAPIKEY = "ab60675eb2msh1e4a5cb6e387b12p19a699jsnf1fda92ea63f"
+
+# Important Note: There should be a valid rapid api key stored
+# in an environment variable in .env file to get weather info.
+load_dotenv()
+
+weatherAPIKEY = os.getenv("X-RapidAPI-Key-comment-info")
 
 # Rendering index of the page
 def commentInfoIndex(req):
