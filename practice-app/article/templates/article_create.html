@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>The Article</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="header">CREATED ARTICLE</div>
+
+        <div class="cards_wrap">
+            <div class="card_item">
+                <div class="card_inner">
+                    <div class="role_name">{{response.0}}</div>
+                    <br>
+                    <div class="film">{{response.1}}</div>
+                    <div class="real_name">Category ID: {{response.2}}</div>
+                    <div class="real_name">User ID: {{response.3}}</div>
+                    <div class="real_name">Sent at time: {{response.4}}</div>
+                    <br>
+                    <div class="wrap">
+                        <div class="vote up">
+                          <i class="fa fa-angle-up"></i>
+                          {{response.5}}
+                        </div>
+                        <div class="vote inactive">
+                          <i class="fa fa-angle-down"></i>
+                          {{response.6}}
+                        </div>
+                      </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="../">Back</a>
+    <a href="../../">Home Page</a>
+</body>
+
+</html>

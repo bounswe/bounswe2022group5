@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practice-App Article</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.5/css/unicons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../static/article_index.css">
+        
+    </head>
+    
+    <body>
+        <div class="section">
+            <div class="container">
+                <div class="row full-height justify-content-center">
+                    <div class="col-12 text-center align-self-center py-5">
+                        <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                            <h6 class="mb-0 pb-3"><span>GET</span><span>POST</span></h6>
+                            <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+                            <label for="reg-log"></label>
+                            <div class="card-3d-wrap mx-auto">
+                                <div class="card-3d-wrapper">
+                                    <div class="card-front">
+                                        <div class="center-wrap">
+                                            <div class="section text-center">
+                                                <h4 class="mb-4 pb-3">Use Get Endpoint</h4>
+                                                <h6 class="mb-4 pb-3">By using the button below, you can see all the articles!</h6>
+                                                <form method="getArticles" action="{%url 'article_get' %}">
+                                                    {%csrf_token%}
+                                                    <div class="form-actions">
+                                                        <br>
+                                                        <input type="submit" name="submit" value="View Articles" class="btn btn-primary" id="submit-id-submit">
+                                                        <br>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-back">
+                                        <div class="center-wrap">
+                                            <div class="section text-center">
+                                                <h4 class="mb-4 pb-3">Use Article Endpoint</h4>
+                                                <h6 class="mb-4 pb-3">Create an Article by filling the form! </h6>
+                                                <div class="container mt-4">
+                                                    {% block cont %}
+                                                    {% endblock %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary" href="../">Home page</a>
+                </div>
+                
+            </div>
+            
+        </div>
+    </body>
+</html>
