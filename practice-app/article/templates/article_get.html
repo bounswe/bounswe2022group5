@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Articles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="header">Articles</div>
+        
+        <a href="../">Back</a>
+        <a href="../../">Home Page</a>
+        
+        <div class="cards_wrap">
+            {% for json in response %}
+            <div class="card_item">
+                <div class="card_inner">
+                    <div class="role_name">{{json.0}}</div>
+                    <br>
+                    <div class="film">{{json.1}}</div>
+                    <div class="real_name">Category ID: {{json.2}}</div>
+                    <div class="real_name">User ID: {{json.3}}</div>
+                    <div class="real_name">Sent at time: {{json.4}}</div>
+                    <br>
+                    <div class="wrap real_name">
+                        <div class="vote up">
+                          <i class="fa fa-angle-up"></i>
+                          {{json.5}}
+                        </div>
+                        
+                        <div class="vote inactive">
+                          <i class="fa fa-angle-down"></i>
+                          {{json.6}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

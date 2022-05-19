@@ -4,8 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', index, name="index"),
-    path('get/', get, name="get"),
-    path('create/', create, name="create"),
+    path('', articleIndex, name="article_index"),
+    path('get/', getArticles, name="article_get"),
+    path('create/', createArticle, name="article_create"),
     path('api/',  getpost, name='getpost'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
