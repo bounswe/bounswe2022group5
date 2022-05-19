@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 import requests
 import os
 load_dotenv()
-BASE_URL = "http://localhost:8000"
+
 EXTERNAL_API_HOST = "mailcheck.p.rapidapi.com"
 MAIL_DOMAIN_VALIDATE_API_KEY= os.getenv('MAIL_DOMAIN_VALIDATE_API_KEY')
 
@@ -127,16 +127,19 @@ def allUsers(req):
     return render(req,"allUsers.html",{'profiles':array})
 
 def createUser(req):
-    data = {'username': req.POST["username"],
+    """ data = {'username': req.POST["username"],
     'email': req.POST["email"],
-    'password': req.POST["password"]}
-    urltoUse = BASE_URL+reverse('api')
-    x = requests.post(urltoUse, data = data)
+    'password': req.POST["password"]} """
+    
+    
+   
+    x = UserList.as_view()(request=req)
+    #x = requests.post(f"{next}/api", data = data)
     print(x)
-    userURL=BASE_URL + reverse('userMain')
+    
     if(x.status_code==201):
         
-        return HttpResponseRedirect(f"{userURL}?success=true")
+        return HttpResponseRedirect("../user?success=true")
     else:
-        message = x.json()['message']
-        return HttpResponseRedirect(f"{userURL}?fail=true&error={message}")
+        message = x.data['message']
+        return HttpResponseRedirect(f"../user?fail=true&error={message}")
