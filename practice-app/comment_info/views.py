@@ -8,9 +8,15 @@ from .serializers import *
 import requests
 import datetime
 import json
+import os
+from dotenv import load_dotenv
 
-baseAPIURL = "http://localhost:8000/comment-info/api/"
-weatherAPIKEY = "ab60675eb2msh1e4a5cb6e387b12p19a699jsnf1fda92ea63f"
+
+# Important Note: There should be a valid rapid api key stored
+# in an environment variable in .env file to get weather info.
+load_dotenv()
+
+weatherAPIKEY = os.getenv("X-RapidAPI-Key-comment-info")
 
 # Rendering index of the page
 def commentInfoIndex(req):
@@ -20,8 +26,9 @@ def commentInfoIndex(req):
 # Calls the GET part of the API in the below in order to get the data from the database.
 def requestGetter(req):
     id=req.POST["id"]
-    url = baseAPIURL + str(id)
-    r = requests.request("GET" , url).json()
+    a = commentList()
+    r = a.get(req = req, pk = id).data
+
     if("error" in r):
         message = [r["error"]]
         return render(req, "comment-info-error.html", {"comment": message})
@@ -33,7 +40,8 @@ def requestGetter(req):
 # Calls the POST part of the API in the below.
 def requestPoster(req):
     id=req.POST["id"]
-    url = baseAPIURL + str(id)
+    a = commentList()
+
     try:
         req.POST["body"]
     except:
@@ -43,8 +51,9 @@ def requestPoster(req):
         req.POST["city_name"]
     except:
         return render(req, "comment-info-error.html", {"comment" : "Missing input city name"})
+    
     data = {"body": req.POST["body"], "city_name": req.POST["city_name"]}
-    r = requests.request("POST", url, data=data).json()
+    r = a.post(request = req, pk = id).data
     if("error" in r):
         message = [r["error"]]
         return render(req, "comment-info-error.html", {"comment": message})
@@ -59,8 +68,9 @@ def requestPoster(req):
 # Both functions make necessary parameter checks.
 class commentList(APIView):
 
-    def get(self, *args, **kwargs):
-        id=self.kwargs["id"]
+    def get(self, req, pk, *args, **kwargs):
+
+        id=pk
         # In order to check whether the given comment ID exists or not.
 
         queryset = Comment.objects.filter(id=id)
@@ -71,9 +81,9 @@ class commentList(APIView):
             return Response(data={"error" : f"There is no such comment with id: {id}"}, status = status.HTTP_404_NOT_FOUND)
 
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, pk, *args, **kwargs):
 
-        id=self.kwargs["id"]
+        id=pk
         queryset = Comment.objects.filter(id=id)
 
         if(queryset):

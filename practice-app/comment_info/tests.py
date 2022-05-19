@@ -6,6 +6,8 @@ from post.models import Post
 from category.models import Category
 from django.contrib.auth.models import User
 
+
+# Some tests for testing URLS.
 class TestURLs(TestCase):
 
     def test_index_url_resolves(self):
@@ -23,10 +25,12 @@ class TestURLs(TestCase):
     def test_baseURL_resolves(self):
         url = reverse('base',args=[1])
         self.assertEquals(resolve(url).func.view_class, commentList)
-
-
+        
+# Some tests for testing functions in the views. Including API and html renderer functions.
 class TestViews(TestCase):
 
+    # Since they are self explanatory, we did not feel necessary to explain each one individually.
+    
     def setUp(self):
         self.client = Client()
 
