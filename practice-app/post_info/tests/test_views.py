@@ -10,7 +10,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.index_url = reverse('index')
+        self.index_url = reverse('index_post_info')
         self.get_url = reverse('getPost')
         self.post_url = reverse('postPost')
 
@@ -56,7 +56,7 @@ class TestViews(TestCase):
         }
 
         self.post_ = Post.objects.create(**post_data)
-        self.api_url = reverse('api', args=[1])
+        self.api_url = reverse('api_post_info', args=[1])
 
     def test_index_GET(self):
         response = self.client.get(self.index_url)

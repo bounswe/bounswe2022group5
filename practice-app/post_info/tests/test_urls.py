@@ -9,7 +9,7 @@ class TestUrls(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.index_url = reverse('index')
+        self.index_url = reverse('index_post_info')
         self.get_url = reverse('getPost')
         self.post_url = reverse('postPost')
 
@@ -44,7 +44,7 @@ class TestUrls(TestCase):
 
 
     def test_index_url_resolves(self):
-        url = reverse('index')
+        url = reverse('index_post_info')
         self.assertEquals(resolve(url).func, index)
 
     def test_get_url_resolves(self):
@@ -56,6 +56,6 @@ class TestUrls(TestCase):
         self.assertEquals(resolve(url).func, postPost)
 
     def test_api_url_resolves(self):
-        url = reverse('api', args=[1])
+        url = reverse('api_post_info', args=[1])
         self.assertEquals(resolve(url).func.view_class, PostInfo)
 
