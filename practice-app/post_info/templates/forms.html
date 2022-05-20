@@ -30,7 +30,7 @@
 				{{getForm|crispy}}
 				{% csrf_token %}
 				<div class="d-flex p-2"></div>
-				<button type="submit" class="btn btn-info">Submit</button>
+				<button style="background-color: #4ec07d" type="submit" class="btn btn-info">View</button>
 			</form>
 			<form class="form-group" method="POST" novalidate action="{% url 'postPost' %}">
 				<h2>Update a Post</h2>
@@ -39,10 +39,11 @@
 				<p></p>
 				<p>Note: Please provide the id of the category, not the name of it.</p>
 				<div class="d-flex p-2"></div>
-				<button type="submit" class="btn btn-info">Submit</button>
+				<button style="background-color: #4ec07d" type="submit" class="btn btn-info">Update</button>
 			</form>
 
 		</div>
+		<a class="btn btn-secondary" style="background-color: #5E5694" href="../" role="button">Home</a>
 	</div>
 </body>
 </html>
