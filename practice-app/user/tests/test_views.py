@@ -139,7 +139,6 @@ class TestViews(TestCase):
         self.assertEquals(response.data["error_code"], 6)
     def test_poster_POST_email_not_valid(self):
         response = self.client.post(self.userAPI_url,self.email_not_valid_2)
-        print(response.content)
         self.assertEquals(response.status_code, 400)
         self.assertEquals(response.data["error_code"], 7)
     

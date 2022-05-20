@@ -67,7 +67,6 @@ def getCategories(request):
 
 @api_view(['GET', 'POST'])
 def postCategory(request):
-    print(request.method)
     if request.method == 'GET':
         postForm = categoriesPostForm()
         return render(request, "createForm_category.html", {"post_form":postForm})

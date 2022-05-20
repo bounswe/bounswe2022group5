@@ -73,7 +73,6 @@ class UserList(generics.ListAPIView):
             response = requests.request("GET", url, headers=headers, params=querystring)
             isValid = response.json()["valid"]
             explanation = response.json()["text"]
-            print(response.json())
             if(isValid==False or explanation=="Should be blocked"): 
                 return Response(data={"message":f"Email domain is not valid! {explanation}!","error_code":7},status=status.HTTP_400_BAD_REQUEST)
         except:
@@ -123,7 +122,6 @@ def allUsers(req):
         object.append(i["email"])
 
         array.append(object)
-    print(array)
     return render(req,"allUsers.html",{'profiles':array})
 
 def createUser(req):
@@ -134,8 +132,6 @@ def createUser(req):
     
    
     x = UserList.as_view()(request=req)
-    #x = requests.post(f"{next}/api", data = data)
-    print(x)
     
     if(x.status_code==201):
         
