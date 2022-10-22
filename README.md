@@ -1,4 +1,4 @@
-# CMPE 352/451 Group 5 - Spring 2022
+# CMPE 352/451 Group 5 - 2022
 
 Hi, welcome to our repository! We are 12 students from Boğaziçi University who are going to work on a project together to improve our software engineering and teamwork skills. 
 
