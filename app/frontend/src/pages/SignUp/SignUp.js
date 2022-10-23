@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactCardFlip from 'react-card-flip';
 import { LockOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Select, Upload } from 'antd';
 import Switch from "react-switch";
 import { FaStethoscope } from 'react-icons/fa';
+import { fetchRegister } from "../../redux/userSlice";
 
 import "./SignUp.css";
 
 const SignUp = () => {
+    const navigate = useNavigate();
+    
     const [flipped, setFlipped] = useState(false);
     const [userForm] = Form.useForm();
 
@@ -29,8 +33,11 @@ const SignUp = () => {
         setFlipped(!flipped);
     }
 
-    const onFinish = (values) => {
-        console.log('Finish:', values);
+    const onFinish = () => {
+        fetchRegister(userForm.getFieldsValue())
+            .then(() => {
+                navigate("/login")
+            })
     };
 
     const iconStyle = {
@@ -84,7 +91,6 @@ const SignUp = () => {
                         form={userForm} 
                         onFinish={onFinish} 
                         className="form"
-                        // initialValues={{ remember: true }}
                     >
                         <div className="input-inline">
                             <div className="label-input">
@@ -192,7 +198,7 @@ const SignUp = () => {
                         </div>
 
                         <Form.Item >
-                            <Button type="primary" htmlType="submit" className="input-box">
+                            <Button type="primary" htmlType="submit" className="input-box" onClick={onFinish}>
                                 Sign Up
                             </Button>
                             <div>
@@ -382,10 +388,10 @@ const SignUp = () => {
                                     name="branch"
                                     rules={[{ required: true, message: 'Please input your branch!' }]}
                                 >
-                                    <Select defaultValue="" onChange={(e) => setBranch(e)} value={branch}>
-                                        <Option value=""></Option>
+                                    <Select onChange={(e) => setBranch(e)} value={branch}>
+                                        <Option key="empty" value=""></Option>
                                         { FAKE_BRANCH_DATA.map(branch => (
-                                            <Option value={branch}>{branch}</Option>
+                                            <Option key={branch} value={branch}>{branch}</Option>
                                         )) }
                                     </Select>
                                 </Form.Item>
