@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'backend',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,9 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'app',
         'USER': 'postgres',
-        'PASSWORD': 'a1b2c3d4',
-        'HOST':'ec2-100-24-23-233.compute-1.amazonaws.com',
-        'PORT':'5432',
+        'PASSWORD': os.environ['DATABASE_PW'],
+        'HOST': 'ec2-100-24-23-233.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
