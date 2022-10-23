@@ -24,8 +24,8 @@ class Admin(User):
         return self.username
 
 class MemberInfo(models.Model):
-    firstname = models.CharField(max_length=25, null=False)
-    lastname = models.CharField(max_length=25, null=False)
+    firstname = models.CharField(max_length=25, null=True)
+    lastname = models.CharField(max_length=25, null=True)
     address = models.CharField(max_length=100, null=True)
     weight = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     height = models.IntegerField(null=True)
@@ -59,7 +59,7 @@ class Member(User):
         if self.info.firstname != None:
             retval += self.info.firstname + " "
         if self.info.lastname != None:
-            retval += self.info.firstname
+            retval += self.info.lastname
         
         if retval != "":
             return retval
