@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const url = process.env.BACKEND_URL;
 
 axios.interceptors.request.use(
@@ -18,6 +18,11 @@ axios.interceptors.request.use(
 export const fetchLogin = (userData) => {
   return axios.post(`${url}/customer/login`, userData);
 };
+
+export const fetchMe = createAsyncThunk('user/fetchMe', async () => {
+  const { data } = await axios.get(`${url}/customer/me`);
+  return data;
+});
 
 export const fetchRegister = (userData) =>
   axios.post(`${url}/customer/register`, userData);
@@ -45,6 +50,19 @@ const userSlice = createSlice({
     },
     setUser: (state, action) => {
       state.item = action.payload;
+    },
+  },
+  extraReducers: {
+    [fetchMe.pending]: (state) => {
+      state.status = 'pending';
+    },
+    [fetchMe.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.user = action.payload;
+    },
+    [fetchMe.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.message;
     },
   }
 });
