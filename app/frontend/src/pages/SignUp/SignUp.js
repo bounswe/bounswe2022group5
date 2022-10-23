@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactCardFlip from 'react-card-flip';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, Upload } from 'antd';
 import Switch from "react-switch";
 import { FaStethoscope } from 'react-icons/fa';
 
@@ -10,6 +10,8 @@ import "./SignUp.css";
 const SignUp = () => {
     const [flipped, setFlipped] = useState(false);
     const [userForm] = Form.useForm();
+
+    const { Option } = Select;
 
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
@@ -37,7 +39,17 @@ const SignUp = () => {
         alignItems: "center",
         height: "100%",
         fontSize: 20
-      }
+    }
+
+    const FAKE_BRANCH_DATA = [
+        "Dermatology",
+        "Allergy and Immunology",
+        "Emergncy Medicine",
+        "Neurology",
+        "Internal Medicine", 
+        "Pediatrics",
+        "Radiation Oncology"
+    ]
 
     return(
         <div className="signup-background">
@@ -370,23 +382,34 @@ const SignUp = () => {
                                     name="branch"
                                     rules={[{ required: true, message: 'Please input your branch!' }]}
                                 >
-                                    <Input 
-                                        placeholder="Branch" 
-                                        value={branch}
-                                        onChange={(e) => setBranch(e.target.value)}
-                                    />
+                                    <Select defaultValue="" onChange={(e) => setBranch(e)} value={branch}>
+                                        <Option value=""></Option>
+                                        { FAKE_BRANCH_DATA.map(branch => (
+                                            <Option value={branch}>{branch}</Option>
+                                        )) }
+                                    </Select>
                                 </Form.Item>
                             </div>
                         </div>
 
-                        <Form.Item >
-                            <Button type="primary" htmlType="submit" className="input-box">
-                                Sign Up
-                            </Button>
-                            <div>
-                                Or <a href="/login">sign in now!</a>
+                        <div className="input-inline">
+                            <div className="label-input">
+                                <span>*Document:</span>
+                                <Upload >
+                                    <Button style={{ width: "200px" }} icon={<UploadOutlined />}>Upload</Button>
+                                </Upload>
                             </div>
-                        </Form.Item>
+                            <div className="submit-container">
+                                <Form.Item >
+                                    <Button type="primary" htmlType="submit" className="input-box">
+                                        Sign Up
+                                    </Button>
+                                    <div>
+                                        Or <a href="/login">sign in now!</a>
+                                    </div>
+                                </Form.Item>
+                            </div>
+                        </div>
                     </Form>
                 </div>
             </ReactCardFlip>
