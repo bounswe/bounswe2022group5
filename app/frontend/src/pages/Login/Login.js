@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { fetchLogin, login } from "../../redux/userSlice";
 
 import "./Login.css";
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [form] = Form.useForm();
 
     const [email, setEmail] = useState("");
@@ -12,7 +18,11 @@ const Login = () => {
     const [remember, setRemember] = useState(true);
 
     const onFinish = (values) => {
-        console.log('Finish:', values);
+        fetchLogin(values)
+            .then((res) => {
+                dispatch(login(res.data));
+                navigate("/")
+            })
     };
 
     return(
