@@ -1,0 +1,37 @@
+.navbar {
+    width: 100vw;
+    height: 60px;
+    background-color: white;
+}
+
+.login-background {
+    width: 100vw;
+    height: 100vh;
+    background-color: #D3E0F4;
+    background-image: url("doctor.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(150px);
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container {
+    width: 40%;
+    height: 55%;
+    margin: auto;
+    background-color: #e7f7f7;
+    border-radius: 5%;
+    border: 3px solid rgb(98, 163, 161);
+    padding: 80px;
+    box-shadow: 20px 20px 400px rgb(38, 97, 108)
+}
+
+.input-box {
+    margin-top: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
