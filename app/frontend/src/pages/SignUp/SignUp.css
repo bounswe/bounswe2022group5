@@ -1,0 +1,57 @@
+.navbar {
+    width: 100vw;
+    height: 60px;
+    background-color: white;
+}
+
+.signup-background {
+    width: 100vw;
+    height: 100vh;
+    background-color: #D3E0F4;
+    background-image: url("doctor.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-flip {
+    width: 100%;
+    height: 100%;
+}
+
+.input-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 0px;
+}
+
+.label-input {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.switch {
+    width: 160px;
+    margin-left: calc(50% - 50px);
+}
+
+.signup-user-container, .signup-doctor-container {
+    width: 60%;
+    height: 80%;
+    margin: 6em auto;
+    background-color: #e7f7f7;
+    border-radius: 5%;
+    border: 3px solid rgb(98, 163, 161);
+    padding: 80px;
+    box-shadow: 20px 20px 400px rgb(38, 97, 108)
+}
+
+.signup-doctor-container {
+    position: relative;
+    top: 5em;
+    margin: 0em auto !important;
+    height: 90%;
+}
