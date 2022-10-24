@@ -5,20 +5,26 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 import datetime
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.base_user import BaseUserManager
 
-class User(models.Model):
+
+class CustomUser(AbstractBaseUser):
+    
     password = models.CharField(max_length=200, null=False)
-    email = models.CharField(max_length=100, null=False, unique=True)
+    email = models.CharField(max_length=100, null=False, unique=True) 
 
     type = models.IntegerField(null=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
 
-
-class Admin(User):
+class CustomAdmin(CustomUser):
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=50, null=False, unique=True)
+    admin_username = models.CharField(max_length=50, null=False, unique=True)
 
     def __str__(self):
         return self.username
@@ -48,8 +54,8 @@ class MemberInfo(models.Model):
     )
 
 
-class Member(User):
-    username = models.CharField(max_length=50, null=False, unique=True)
+class Member(CustomUser):
+    member_username = models.CharField(max_length=50, null=False, unique=True)
     banned_by = models.CharField(max_length=50, null=True, default=None)  # username of admin
 
     info = models.ForeignKey(MemberInfo, null=False, on_delete=models.CASCADE)
@@ -72,7 +78,7 @@ class Category(models.Model):
     definition = models.CharField(max_length=100, null=True)
 
 
-class Doctor(User):
+class Doctor(CustomUser):
     full_name = models.CharField(max_length=50, null=False)
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
@@ -83,13 +89,15 @@ class Doctor(User):
 
 
 class Report(models.Model):
-    reporter_user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='reporter_user')
-    reported_user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='reported_user')
+    reporter_user = models.ForeignKey(CustomUser, null=False, on_delete=models.CASCADE, related_name='reporter_user')
+    reported_user = models.ForeignKey(CustomUser, null=False, on_delete=models.CASCADE, related_name='reported_user')
     message = models.CharField(max_length=500, null=False)
     date = models.DateField(null=False, default=datetime.date.today)
-    reviewed_by = models.ForeignKey(Admin, null=True, default=None, on_delete=models.SET_NULL, related_name='reviewed_by')
+    reviewed_by = models.ForeignKey(CustomAdmin, null=True, default=None, on_delete=models.SET_NULL, related_name='reviewed_by')
     reviewed_date = models.DateField(null=True)
 
 
     def __str__(self):
         return self.message
+
+
