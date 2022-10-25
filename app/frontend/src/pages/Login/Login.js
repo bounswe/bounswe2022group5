@@ -18,7 +18,10 @@ const Login = () => {
     const [remember, setRemember] = useState(true);
 
     const onFinish = (values) => {
-        fetchLogin(values)
+        const isEmail = values?.email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+        const body = isEmail ? { ...values, email: values?.email } : { ...values, username: values?.email }
+        console.log(body)
+        fetchLogin(body)
             .then((res) => {
                 dispatch(login(res.data));
                 navigate("/")
@@ -48,7 +51,7 @@ const Login = () => {
                     >
                         <Input 
                             prefix={<UserOutlined className="site-form-item-icon" />} 
-                            placeholder="Email" 
+                            placeholder="Email / Username" 
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
