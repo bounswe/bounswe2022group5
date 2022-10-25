@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactCardFlip from 'react-card-flip';
 import { LockOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, Upload } from 'antd';
+import { Button, Form, Input, Select, Upload, DatePicker } from 'antd';
 import Switch from "react-switch";
 import { FaStethoscope } from 'react-icons/fa';
 import { fetchRegister } from "../../redux/userSlice";
+import moment from "moment";
 
 import "./SignUp.css";
 
@@ -24,17 +25,22 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
-    const [country, setCountry] = useState();
-    const [city, setCity] = useState();
+    const [dateOfBirth, setDateOfBirth] = useState();
     const [title, setTitle] = useState();
     const [branch, setBranch] = useState();
+    const [fileList, setFileList] = useState([]);
 
     const handleClick = () => {
         setFlipped(!flipped);
     }
 
-    const onFinish = () => {
-        fetchRegister(userForm.getFieldsValue())
+    const onFinish = (type) => {
+        const allFields = userForm.getFieldsValue()
+        fetchRegister({
+            email: allFields?.email,
+            password: allFields?.password,
+            type
+        })
             .then(() => {
                 navigate("/login")
             })
@@ -89,7 +95,6 @@ const SignUp = () => {
 
                     <Form 
                         form={userForm} 
-                        onFinish={onFinish} 
                         className="form"
                     >
                         <div className="input-inline">
@@ -196,9 +201,27 @@ const SignUp = () => {
                                 </Form.Item>
                             </div>
                         </div>
+                        
+                        <div className="input-inline">
+                            <div className="label-input">
+                                <span>Date Of Birth:</span>
+                                <Form.Item
+                                    name="date_of_birth"
+                                >
+                                    <DatePicker 
+                                        placeholder="Date Of Birth" 
+                                        value={dateOfBirth}
+                                        onChange={(e) => {
+                                            setDateOfBirth(new Date(moment(e._d).toDate()))
+                                        }}
+                                        style={{ width: "100%" }}
+                                    />
+                                </Form.Item>
+                            </div>
+                        </div>
 
                         <Form.Item >
-                            <Button type="primary" htmlType="submit" className="input-box" onClick={onFinish}>
+                            <Button type="primary" htmlType="submit" className="input-box" onClick={() => onFinish(2)}>
                                 Sign Up
                             </Button>
                             <div>
@@ -267,7 +290,7 @@ const SignUp = () => {
                             <div className="label-input">
                                 <span>*Email:</span>
                                 <Form.Item
-                                    name="Email"
+                                    name="email"
                                     rules={[{ required: true, message: 'Please input your email!' }]}
                                 >
                                     <Input 
@@ -280,7 +303,7 @@ const SignUp = () => {
                             <div className="label-input">
                                 <span>*Phone Number:</span>
                                 <Form.Item
-                                    name="Phone Number"
+                                    name="phone_number"
                                     rules={[{ required: true, message: 'Please input your phone number!' }]}
                                 >
                                     <Input 
@@ -343,46 +366,6 @@ const SignUp = () => {
 
                         <div className="input-inline">
                             <div className="label-input">
-                                <span>Country:</span>
-                                <Form.Item
-                                    name="country"
-                                >
-                                    <Input 
-                                        placeholder="Country" 
-                                        value={country}
-                                        onChange={(e) => setCountry(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className="label-input">
-                                <span>City:</span>
-                                <Form.Item
-                                    name="city"
-                                >
-                                    <Input 
-                                        placeholder="City" 
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <div className="input-inline">
-                            <div className="label-input">
-                                <span>*Title:</span>
-                                <Form.Item
-                                    name="title"
-                                    rules={[{ required: true, message: 'Please input your title!' }]}
-                                >
-                                    <Input 
-                                        placeholder="Title" 
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className="label-input">
                                 <span>*Branch:</span>
                                 <Form.Item
                                     name="branch"
@@ -396,18 +379,58 @@ const SignUp = () => {
                                     </Select>
                                 </Form.Item>
                             </div>
+                            <div className="label-input">
+                                <span>*Title:</span>
+                                <Form.Item
+                                    name="title"
+                                    rules={[{ required: true, message: 'Please input your title!' }]}
+                                >
+                                    <Input 
+                                        placeholder="Title" 
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                    />
+                                </Form.Item>
+                            </div>
                         </div>
 
                         <div className="input-inline">
                             <div className="label-input">
+                                <span>Date Of Birth:</span>
+                                <Form.Item
+                                    name="date_of_birth"
+                                >
+                                    <DatePicker 
+                                        placeholder="Date Of Birth" 
+                                        value={dateOfBirth}
+                                        onChange={(e) => {
+                                            setDateOfBirth(new Date(moment(e._d).toDate()))
+                                        }}
+                                        style={{ width: "100%" }}
+                                    />
+                                </Form.Item>
+                            </div>
+                            <div className="label-input">
                                 <span>*Document:</span>
-                                <Upload >
-                                    <Button style={{ width: "200px" }} icon={<UploadOutlined />}>Upload</Button>
+                                <Upload 
+                                    style={{ width: "100%" }} 
+                                    action={(file) => {
+                                        setFileList(fileList => [...fileList, file])
+                                    }}
+                                    maxCount={1}
+                                    showUploadList={{
+                                        showRemoveIcon: true,
+                                    }}
+                                >
+                                    <Button block icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
                             </div>
+                        </div>
+
+                        <div className="input-inline">
                             <div className="submit-container">
                                 <Form.Item >
-                                    <Button type="primary" htmlType="submit" className="input-box">
+                                    <Button type="primary" htmlType="submit" className="input-box" onClick={() => onFinish(1)}>
                                         Sign Up
                                     </Button>
                                     <div>
