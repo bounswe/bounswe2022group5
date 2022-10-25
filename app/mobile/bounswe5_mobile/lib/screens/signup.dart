@@ -1,6 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
+
+
 
 bool validateUppercase(String value){
   String  pattern = r'^(?=.*?[A-Z]).{8,}$';
@@ -37,6 +42,8 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _username = TextEditingController();
   final TextEditingController _name = TextEditingController();
@@ -45,13 +52,13 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
   final TextEditingController _date = TextEditingController();
+  bool isMember = true;
+  String _fileText = "";
 
   @override
   Widget build(BuildContext context) {
 
     String dropdownValue = list.first;
-    bool isMember = true;
-
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -101,6 +108,7 @@ class _SignupPageState extends State<SignupPage> {
                             }).toList(),
                           ),
                         ),
+                        (!isMember) ?  const SizedBox.shrink() :
                         Padding(
                           padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                           child: TextFormField(
@@ -246,12 +254,17 @@ class _SignupPageState extends State<SignupPage> {
                             },
                           ),
                         ),
+                        isMember ?  const SizedBox.shrink() :
                         Padding(
                           padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                           child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(const Color(0xFF1565C0)),
-                            ),
+                            onPressed: _pickFile,
+                            child: const Text('Document'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
+                          child: ElevatedButton(
                             onPressed: () {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate()) {
@@ -271,4 +284,21 @@ class _SignupPageState extends State<SignupPage> {
       )
     );
   }
+  void _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowedExtensions: ['jpg', 'pdf', 'doc']
+    );
+
+    if (result != null && result.files.single.path != null) {
+      PlatformFile file = result.files.first;
+
+      File _file = File(result.files.single.path!);
+      setState(() {
+        _fileText = _file.path;
+      });
+    } else {
+      //user cancelled the picker
+    }
+  }
+
 }
