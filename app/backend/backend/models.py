@@ -5,20 +5,53 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 import datetime
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, UserManager
+from django.contrib.auth.base_user import BaseUserManager
 
-class User(models.Model):
+class CustomUserManager(UserManager):
+    def _create_user(self, email, password, **extra_fields):
+        """
+        Creates and saves a User with the given email and password.
+        """
+        if not email:
+            raise ValueError('The given email must be set')
+        email = self.normalize_email(email)
+        user = self.model(email=email, type=0, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self._create_user(email, password, **extra_fields)
+class CustomUser(AbstractUser):
+    objects = CustomUserManager()
+    username = None
+    first_name = None
+    groups = None
+    last_name = None
     password = models.CharField(max_length=200, null=False)
-    email = models.CharField(max_length=100, null=False, unique=True)
+    email = models.CharField(max_length=100, null=False, unique=True) 
 
     type = models.IntegerField(null=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
 
-
-class Admin(User):
+class CustomAdmin(CustomUser):
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=50, null=False, unique=True)
+    admin_username = models.CharField(max_length=50, null=False, unique=True)
 
     def __str__(self):
         return self.username
@@ -48,8 +81,8 @@ class MemberInfo(models.Model):
     )
 
 
-class Member(User):
-    username = models.CharField(max_length=50, null=False, unique=True)
+class Member(CustomUser):
+    member_username = models.CharField(max_length=50, null=False, unique=True)
     banned_by = models.CharField(max_length=50, null=True, default=None)  # username of admin
 
     info = models.ForeignKey(MemberInfo, null=False, on_delete=models.CASCADE)
@@ -72,7 +105,7 @@ class Category(models.Model):
     definition = models.CharField(max_length=100, null=True)
 
 
-class Doctor(User):
+class Doctor(CustomUser):
     full_name = models.CharField(max_length=50, null=False)
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
@@ -83,13 +116,15 @@ class Doctor(User):
 
 
 class Report(models.Model):
-    reporter_user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='reporter_user')
-    reported_user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='reported_user')
+    reporter_user = models.ForeignKey(CustomUser, null=False, on_delete=models.CASCADE, related_name='reporter_user')
+    reported_user = models.ForeignKey(CustomUser, null=False, on_delete=models.CASCADE, related_name='reported_user')
     message = models.CharField(max_length=500, null=False)
     date = models.DateField(null=False, default=datetime.date.today)
-    reviewed_by = models.ForeignKey(Admin, null=True, default=None, on_delete=models.SET_NULL, related_name='reviewed_by')
+    reviewed_by = models.ForeignKey(CustomAdmin, null=True, default=None, on_delete=models.SET_NULL, related_name='reviewed_by')
     reviewed_date = models.DateField(null=True)
 
 
     def __str__(self):
         return self.message
+
+
