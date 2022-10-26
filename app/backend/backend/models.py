@@ -16,7 +16,7 @@ class CustomUserManager(UserManager):
         if not email:
             raise ValueError('The given email must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, type=0, **extra_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -31,7 +31,7 @@ class CustomUserManager(UserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, password, **extra_fields)
+        return self._create_user(email, password, type=0, **extra_fields)
 class CustomUser(AbstractUser):
     objects = CustomUserManager()
     username = None
@@ -54,7 +54,7 @@ class CustomAdmin(CustomUser):
     admin_username = models.CharField(max_length=50, null=False, unique=True)
 
     def __str__(self):
-        return self.username
+        return self.admin_username
 
 class MemberInfo(models.Model):
     firstname = models.CharField(max_length=25, null=True)
@@ -97,7 +97,7 @@ class Member(CustomUser):
         if retval != "":
             return retval
 
-        return self.username
+        return self.member_username
 
 
 class Category(models.Model):
