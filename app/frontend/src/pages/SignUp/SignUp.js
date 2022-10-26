@@ -91,7 +91,7 @@ const SignUp = () => {
                         className="switch"
                         id="material-switch"
                     />
-                    <h1 className="title">User Membership</h1>
+                    <h1 className="title">Member Form</h1>
 
                     <Form 
                         form={userForm} 
@@ -174,39 +174,13 @@ const SignUp = () => {
                                 </Form.Item>
                             </div>
                         </div>
-
-                        <div className="input-inline">
-                            <div className="label-input">
-                                <span>First Name:</span>
-                                <Form.Item
-                                    name="firstName"
-                                >
-                                    <Input 
-                                        placeholder="First Name (Optional)" 
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className="label-input">
-                                <span>Last Name:</span>
-                                <Form.Item
-                                    name="lastName"
-                                >
-                                    <Input 
-                                        placeholder="Last Name (Optional)" 
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
                         
                         <div className="input-inline">
                             <div className="label-input">
-                                <span>Date Of Birth:</span>
+                                <span>*Date Of Birth:</span>
                                 <Form.Item
                                     name="date_of_birth"
+                                    rules={[{ required: true, message: 'Please input your date of birth!' }]}
                                 >
                                     <DatePicker 
                                         placeholder="Date Of Birth" 
@@ -248,7 +222,7 @@ const SignUp = () => {
                         className="switch"
                         id="material-switch"
                     />
-                    <h1 className="title">Doctor Membership</h1>
+                    <h1 className="title">Doctor Form</h1>
 
                     <Form 
                         form={userForm} 
@@ -301,16 +275,17 @@ const SignUp = () => {
                                 </Form.Item>
                             </div>
                             <div className="label-input">
-                                <span>*Phone Number:</span>
+                                <span>*Branch:</span>
                                 <Form.Item
-                                    name="phone_number"
-                                    rules={[{ required: true, message: 'Please input your phone number!' }]}
+                                    name="branch"
+                                    rules={[{ required: true, message: 'Please input your branch!' }]}
                                 >
-                                    <Input 
-                                        placeholder="Phone Number" 
-                                        value={phoneNumber}
-                                        onChange={(e) => setPhoneNumber(e.target.value)}
-                                    />
+                                    <Select onChange={(e) => setBranch(e)} value={branch} placeholder="Branch">
+                                        <Option key="empty" value=""></Option>
+                                        { FAKE_BRANCH_DATA.map(branch => (
+                                            <Option key={branch} value={branch}>{branch}</Option>
+                                        )) }
+                                    </Select>
                                 </Form.Item>
                             </div>
                         </div>
@@ -366,39 +341,10 @@ const SignUp = () => {
 
                         <div className="input-inline">
                             <div className="label-input">
-                                <span>*Branch:</span>
-                                <Form.Item
-                                    name="branch"
-                                    rules={[{ required: true, message: 'Please input your branch!' }]}
-                                >
-                                    <Select onChange={(e) => setBranch(e)} value={branch}>
-                                        <Option key="empty" value=""></Option>
-                                        { FAKE_BRANCH_DATA.map(branch => (
-                                            <Option key={branch} value={branch}>{branch}</Option>
-                                        )) }
-                                    </Select>
-                                </Form.Item>
-                            </div>
-                            <div className="label-input">
-                                <span>*Title:</span>
-                                <Form.Item
-                                    name="title"
-                                    rules={[{ required: true, message: 'Please input your title!' }]}
-                                >
-                                    <Input 
-                                        placeholder="Title" 
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <div className="input-inline">
-                            <div className="label-input">
-                                <span>Date Of Birth:</span>
+                                <span>*Date Of Birth:</span>
                                 <Form.Item
                                     name="date_of_birth"
+                                    rules={[{ required: true, message: 'Please input your date of birth!' }]}
                                 >
                                     <DatePicker 
                                         placeholder="Date Of Birth" 
