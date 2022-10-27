@@ -13,6 +13,7 @@ class ProfilePage extends StatefulWidget {
 class ProfileWidget extends StatelessWidget{
   final String imagePath;
   final VoidCallback onClicked;
+
   final User activeUser;
 
   const ProfileWidget({
@@ -40,7 +41,9 @@ class ProfileWidget extends StatelessWidget{
     );
   }
   Widget buildImage(){
+
     final image = NetworkImage(activeUser.imagePath);
+
 
     return ClipOval(
       child: Material(
@@ -113,6 +116,7 @@ class ProfileListItem extends StatelessWidget{
         borderRadius: BorderRadius.circular(30),
         color: Theme.of(context).backgroundColor,
       ),
+
       child: InkWell(
         onTap: (){}, // Navigate to a page
         child: Row(
@@ -130,6 +134,7 @@ class ProfileListItem extends StatelessWidget{
               ),
           ],
         ),
+
       ),
     );
   }
@@ -137,10 +142,12 @@ class ProfileListItem extends StatelessWidget{
 
 
 class _ProfilePageState extends State<ProfilePage> {
+
   bool isMember = true;
   @override
   Widget build(BuildContext  context) {
     if(widget.activeUser.usertype == "Doctor"){
+
       isMember = false;
     }
     else{
@@ -149,6 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -162,6 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         elevation: 0.0,
       ),
+
       body: Column(
         children: <Widget>[
           const SizedBox(height: 24),
@@ -188,7 +197,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
 
-
     );
 
   }
@@ -199,7 +207,9 @@ class _ProfilePageState extends State<ProfilePage> {
             user.usertype
         ),
         Text(
+
             (isMember) ?
+
             user.username: user.name,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
         const SizedBox(height: 4),
@@ -210,3 +220,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ]
   );
 }
+
