@@ -19,8 +19,13 @@ class _HomePageState extends State<HomePage> {
 
     Color mainColor = const Color(0xFF1565C0);
     var height = MediaQuery.of(context).size.height;
-    User activeUser = posts[0].sender; // To be changed
-    bool isSessionActive = true; // To be changed
+    User? activeUser = burak; // To be changed
+    bool isSessionActive;
+    if(activeUser == null){
+      isSessionActive = false;
+    }else{
+      isSessionActive = true;
+    }
     List<Widget> bodies = [ForumList(posts: posts,), Container(), Container()];
 
     return Scaffold(

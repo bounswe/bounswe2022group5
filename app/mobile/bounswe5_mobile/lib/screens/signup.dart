@@ -63,14 +63,17 @@ class _SignupPageState extends State<SignupPage> {
     String branchValue = branches.first;
     return Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text(
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children:[Text(
                 'Logo',
                 style: TextStyle(
                   fontSize: 28.0,
                   fontWeight: FontWeight.bold,
                 )
-            ),
+            )],
           ),
           elevation: 0.0,
         ),
@@ -99,7 +102,7 @@ class _SignupPageState extends State<SignupPage> {
                                   isMember = true;
                                 }
                                 setState(() {
-                                  dropdownValue = value!;
+                                  dropdownValue = value;
                                 });
                               },
                               items: list.map<DropdownMenuItem<String>> ((String value) {
