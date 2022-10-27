@@ -241,6 +241,3 @@ class _ProfilePageState extends State<ProfilePage> {
   );
 }
 
-
-
-git config user.name <your user name>
