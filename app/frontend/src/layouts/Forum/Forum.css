@@ -1,0 +1,43 @@
+.post-header {
+    display: grid;
+    grid-template-columns: 10fr 1fr;    
+}
+
+.post-container {
+    height: 25%;
+    width: 90%;
+    background-color: #f3f3f3;
+    border-radius: 20px;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 1%;
+    margin: 1%;
+}
+
+.post-content {
+    padding-right: 3%;
+}
+
+.post-body {
+    display: grid;
+    grid-template-columns: 10fr 1fr;    
+    background-color: #FFFF;
+    padding: 0.5%;  
+}
+
+.answered-by {
+    align-self: end;
+    position: relative;
+    bottom: 0;
+}
+
+.rating {
+    display: grid;
+    grid-template-columns: 1fr 1fr;   
+    width: 70px;
+}
+.like-rating {
+    text-align: center;
+}
+.dislike-rating {
+    text-align: center;
+}
