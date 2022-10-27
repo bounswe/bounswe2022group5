@@ -3,47 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-buildEmail() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      const Text(
-        'Email',
-        style: TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-      ),
-      const SizedBox(height: 10),
-      Container(
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: const [
-            BoxShadow(color: Colors.black, blurRadius: 6, offset: Offset(0, 2))
-          ],
-        ),
-        height: 60,
-        child: const TextField(
-          keyboardType: TextInputType.emailAddress,
-          style: TextStyle(color: Colors.brown),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(
-              Icons.email_sharp,
-              color: Color(0xffe44f28),
-            ),
-            hintText: 'Your Email',
-            hintStyle: TextStyle(
-              color: Colors.amberAccent,
-            ),
-          ),
-        ),
-      )
-    ],
-  );
-}
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
