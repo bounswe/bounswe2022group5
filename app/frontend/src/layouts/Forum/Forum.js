@@ -67,7 +67,4 @@ const Post = (props) => {
   );
 }
 
-
-
-
 export default Forum;
