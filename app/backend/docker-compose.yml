@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PW=${DATABASE_PW}
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
