@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
-import 'package:pubspec/pubspec.dart';
-import 'package:random_avatar/random_avatar.dart';
 
-import '../widgets/appbar_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -41,7 +38,7 @@ class ProfileWidget extends StatelessWidget{
     );
   }
   Widget buildImage(){
-    final image = NetworkImage("oguzhan.imagePath");
+    final image = NetworkImage(oguzhan.imagePath);
 
     return ClipOval(
       child: Material(
