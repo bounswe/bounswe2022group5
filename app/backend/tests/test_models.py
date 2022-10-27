@@ -10,20 +10,20 @@ from tests.constants import *
 
 class AdminTestCase(TestCase):
     def createAdmin(self):
-        models.Admin.objects.create(
+        models.CustomAdmin.objects.create(
             email=TEST_ADMIN_EMAIL,
             password=utils.make_password(TEST_PASSWORD),
             type=constants.UserType.ADMIN.value,
-            username=TEST_ADMIN_USERNAME
+            admin_username=TEST_ADMIN_USERNAME
         )
 
     def setUp(self):
         self.createAdmin()
     
     def test_admin_creation(self):
-        testAdmin = models.Admin.objects.get(username=TEST_ADMIN_USERNAME)
+        testAdmin = models.CustomAdmin.objects.get(admin_username=TEST_ADMIN_USERNAME)
 
-        self.assertTrue(isinstance(testAdmin, models.Admin))
+        self.assertTrue(isinstance(testAdmin, models.CustomAdmin))
 
         self.assertEqual(testAdmin.email, TEST_ADMIN_EMAIL)
         self.assertTrue(check_password(TEST_PASSWORD, testAdmin.password))
@@ -32,7 +32,7 @@ class AdminTestCase(TestCase):
 
 
 class MemberTestCase(TestCase):
-    def createMember(self, email = None, username = None):
+    def createMember(self, email = None, member_username = None):
         member_info = models.MemberInfo.objects.create(
             firstname = TEST_MEMBER_FIRSTNAME,
             lastname = TEST_MEMBER_LASTNAME,
@@ -50,7 +50,7 @@ class MemberTestCase(TestCase):
             email=TEST_MEMBER_EMAIL if email == None else email,
             password=utils.make_password(TEST_PASSWORD),
             type=constants.UserType.MEMBER.value,
-            username=TEST_MEMBER_USERNAME if username == None else username,
+            member_username=TEST_MEMBER_USERNAME if member_username == None else member_username,
             info=member_info
         )
 
@@ -58,7 +58,7 @@ class MemberTestCase(TestCase):
         self.createMember()
     
     def test_member_creation(self):
-        testMember = models.Member.objects.get(username=TEST_MEMBER_USERNAME)
+        testMember = models.Member.objects.get(member_username=TEST_MEMBER_USERNAME)
 
         self.assertTrue(isinstance(testMember, models.Member))
         self.assertTrue(isinstance(testMember.info, models.MemberInfo))
@@ -141,11 +141,11 @@ class ReportTestCase(TestCase):
         models.Report.objects.create(
             reporter_user = mtc.createMember(
                 email=TEST_MEMBER_2_EMAIL,
-                username=TEST_MEMBER_2_USERNAME
+                member_username=TEST_MEMBER_2_USERNAME
             ),
             reported_user = mtc.createMember(
                 email=TEST_MEMBER_3_EMAIL,
-                username=TEST_MEMBER_3_USERNAME
+                member_username=TEST_MEMBER_3_USERNAME
             ),
             message = TEST_REPORT_MESSAGE
         )
@@ -157,8 +157,8 @@ class ReportTestCase(TestCase):
         testReport = models.Report.objects.get(message=TEST_REPORT_MESSAGE)
 
         self.assertTrue(isinstance(testReport, models.Report))
-        self.assertTrue(isinstance(testReport.reporter_user, models.User))
-        self.assertTrue(isinstance(testReport.reported_user, models.User))
+        self.assertTrue(isinstance(testReport.reporter_user, models.CustomUser))
+        self.assertTrue(isinstance(testReport.reported_user, models.CustomUser))
 
         self.assertEqual(str(testReport), TEST_REPORT_MESSAGE)
         self.assertIsNotNone(testReport.date)
