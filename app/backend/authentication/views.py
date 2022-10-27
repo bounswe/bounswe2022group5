@@ -45,7 +45,6 @@ def register_user(request):
             account.is_active = True
             account.save()
             token = Token.objects.get_or_create(user=account)[0].key
-            print(token)
             data["message"] = "User registered successfully"
             data["email"] = account.email
             #data["username"] = account.username
@@ -61,7 +60,6 @@ def register_user(request):
         raise ValidationError({"400": f'{str(e)}'})
 
     except KeyError as e:
-        print(e)
         raise ValidationError({"400": f'Field {str(e)} missing'})
 
 @api_view(["POST"])
@@ -69,10 +67,8 @@ def register_user(request):
 def login_user(request):
 
         data = {}
-        print(request.body)
         reqBody = json.loads(request.body)
         email1 = reqBody['email']
-        print(email1)
         password = reqBody['password']
         try:
 
@@ -81,13 +77,11 @@ def login_user(request):
             raise ValidationError({"400": f'{str(e)}'})
 
         token = Token.objects.get_or_create(user=Account)[0].key
-        print(token)
         if not check_password(password, Account.password):
             raise ValidationError({"message": "Incorrect Login credentials"})
 
         if Account:
             if Account.is_active:
-                print(request.user)
                 login(request, Account)
                 data["message"] = "user logged in"
                 data["email"] = Account.email
