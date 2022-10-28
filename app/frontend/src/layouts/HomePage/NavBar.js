@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {NotificationOutlined, UserOutlined, UserAddOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Form, Input} from 'antd';
+import { useSelector } from 'react-redux';
 
 import "./NavBar.css";
 
@@ -21,8 +22,12 @@ const searchBarStyle = {
     backgroundColor: 'rgba(230,230,230)',
 }
 
-const LogInLogOut = ({isLoggedIn}) => {
-    if (!isLoggedIn) {
+const onLogout = (values) => {
+    // This should contain logout function.
+};
+
+const LogInLogOut = ({userStatus}) => {
+    if (userStatus === "idle") {
         return (
             <div className="signup-login-buttons">
             <Button style={buttonStyle} type="primary" href={SIGNUP_PAGE}>
@@ -37,7 +42,7 @@ const LogInLogOut = ({isLoggedIn}) => {
         )
     } else {
         return (
-            <Button style={buttonStyle} type="primary" className="logout-button" href={BASE_URL}>
+            <Button style={buttonStyle} type="primary" className="logout-button" onClick={onLogout}>
                 <CloseCircleOutlined />
                 Log Out
             </Button>
@@ -45,12 +50,9 @@ const LogInLogOut = ({isLoggedIn}) => {
     }
 }
 
+
 const NavBar = () => {
-    const isLoggedIn = false
-
-    // const { status: userStatus } = useSelector((state) => state.user);
-    // Since redux is not implemented. This code block will be replaced as "isLoggedIn".
-
+    const {status: userStatus } = useSelector((state) => state.user);
     const [form] = Form.useForm();
 
     const [searchInput, setSearchInput] = useState("");
@@ -71,10 +73,10 @@ const NavBar = () => {
                     Search
                 </Button>
             </div>
-            <Button style={buttonStyle} type="primary" hidden={!isLoggedIn}>
+            <Button style={buttonStyle} type="primary" hidden={userStatus === "idle"}>
                 <NotificationOutlined/>
             </Button>
-            <LogInLogOut isLoggedIn={isLoggedIn}/>
+            <LogInLogOut userStatus={userStatus}/>
         </div>
     )
 }
