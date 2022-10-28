@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bounswe5_mobile/screens/home.dart';
+import 'package:bounswe5_mobile/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,13 +26,7 @@ class _LoginPageState extends State<LoginPage> {
               )),
         ),
         elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-            iconSize: 30.0,
-          )
-        ],
+
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -101,11 +97,19 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'Don\'t have an account? ',
                 ),
-                Text(
-                  'Sign up',
-                  style: TextStyle(
-                    color: Colors.orange[900],
-                    fontWeight: FontWeight.bold,
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SignupPage()),
+                    );
+                  },
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(
+                      color: Colors.orange[900],
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Text('!'),
@@ -116,11 +120,19 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 50),
 
             // continue without login button
-            Text(
-              'Continue without logging in',
-              style: TextStyle(
-                color: Colors.black38,
-                fontStyle: FontStyle.italic,
+            InkWell(
+              onTap: (){
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              },
+              child: Text(
+                'Continue without logging in',
+                style: TextStyle(
+                  color: Colors.black38,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
           ]),

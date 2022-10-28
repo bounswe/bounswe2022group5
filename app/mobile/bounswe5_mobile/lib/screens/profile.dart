@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
-
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key, required User this.activeUser}) : super(key: key);
+  final User activeUser;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -14,8 +14,11 @@ class ProfileWidget extends StatelessWidget{
   final String imagePath;
   final VoidCallback onClicked;
 
+  final User activeUser;
+
   const ProfileWidget({
     Key? key,
+    required this.activeUser,
     required this.imagePath,
     required this.onClicked,
   }) : super(key: key);
@@ -38,7 +41,9 @@ class ProfileWidget extends StatelessWidget{
     );
   }
   Widget buildImage(){
-    final image = NetworkImage(oguzhan.imagePath);
+
+    final image = NetworkImage(activeUser.imagePath);
+
 
     return ClipOval(
       child: Material(
@@ -111,20 +116,25 @@ class ProfileListItem extends StatelessWidget{
         borderRadius: BorderRadius.circular(30),
         color: Theme.of(context).backgroundColor,
       ),
-      child: Row(
-        children: <Widget>[
-          SizedBox(width: 25),
-          Text(
-              this.text,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)
-          ),
-          Spacer(),
-          if(this.hasNavigation)
-            Icon(
-              this.icon,
-              size: 25,
+
+      child: InkWell(
+        onTap: (){}, // Navigate to a page
+        child: Row(
+          children: <Widget>[
+            SizedBox(width: 25),
+            Text(
+                this.text,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)
             ),
-        ],
+            Spacer(),
+            if(this.hasNavigation)
+              Icon(
+                this.icon,
+                size: 25,
+              ),
+          ],
+        ),
+
       ),
     );
   }
@@ -132,12 +142,12 @@ class ProfileListItem extends StatelessWidget{
 
 
 class _ProfilePageState extends State<ProfilePage> {
-  int currentIndex=0;
+
   bool isMember = true;
   @override
   Widget build(BuildContext  context) {
-    final user = oguzhan;
-    if(user.usertype == "Doctor"){
+    if(widget.activeUser.usertype == "Doctor"){
+
       isMember = false;
     }
     else{
@@ -146,9 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: BackButton(
-          onPressed: () async {},
-        ),
+
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -162,57 +170,30 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         elevation: 0.0,
       ),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
+
+      body: Column(
         children: <Widget>[
           const SizedBox(height: 24),
           ProfileWidget(
-            imagePath:user.imagePath,
+            activeUser: widget.activeUser,
+            imagePath:widget.activeUser.imagePath,
             onClicked: () async {},
           ),
           const SizedBox(height: 24),
-          buildName(user),
-
-
-        ],
-      ),
-      floatingActionButton:Expanded(
-        child: ListView(
-          children: <Widget>[
-            const SizedBox(height: 450),
-            ProfileListItem(
-              icon: Icons.arrow_upward,
-              text: 'Upvotes',
-            ),
-            ProfileListItem(
-              icon: Icons.post_add_outlined,
-              text: 'Posts',
-            ),ProfileListItem(
-              icon: CupertinoIcons.bubble_right,
-              text: 'Comments',
-            ),
-          ],
-        ),
-      ),
-
-
-
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) => setState(() => currentIndex = index),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bubble_chart),
-            label: 'Forum',
+          buildName(widget.activeUser),
+          SizedBox(height: 20,),
+          ProfileListItem(
+            icon: Icons.arrow_upward,
+            text: 'Upvotes',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            label: 'Chatbot',
+          ProfileListItem(
+            icon: Icons.post_add_outlined,
+            text: 'Posts',
+          ),ProfileListItem(
+            icon: CupertinoIcons.bubble_right,
+            text: 'Comments',
           ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.library_books),
-              label: 'Articles'
-          ),
+
         ],
       ),
 
@@ -226,7 +207,9 @@ class _ProfilePageState extends State<ProfilePage> {
             user.usertype
         ),
         Text(
-            (!isMember) ?
+
+            (isMember) ?
+
             user.username: user.name,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
         const SizedBox(height: 4),
