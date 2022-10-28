@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import ReactCardFlip from 'react-card-flip';
 import { LockOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, Upload, DatePicker } from 'antd';
+import { Button, Form, Input, Select, Upload, DatePicker, notification } from 'antd';
 import Switch from "react-switch";
 import { FaStethoscope } from 'react-icons/fa';
-import { fetchRegister } from "../../redux/userSlice";
+import { fetchRegister, login } from "../../redux/userSlice";
 import moment from "moment";
 
 import "./SignUp.css";
 
 const SignUp = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     
     const [flipped, setFlipped] = useState(false);
     const [userForm] = Form.useForm();
@@ -24,9 +26,7 @@ const SignUp = () => {
     const [passwordConfirm, setPasswordConfirm] = useState();
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
-    const [phoneNumber, setPhoneNumber] = useState();
     const [dateOfBirth, setDateOfBirth] = useState();
-    const [title, setTitle] = useState();
     const [branch, setBranch] = useState();
     const [fileList, setFileList] = useState([]);
 
@@ -41,8 +41,21 @@ const SignUp = () => {
             password: allFields?.password,
             type
         })
-            .then(() => {
-                navigate("/login")
+            .then((res) => {
+                notification["success"]({
+                    message: 'Signup is successful',
+                    placement: "top"
+                });
+
+                dispatch(login(res.data))
+                navigate("/");
+            })
+            .catch((err) => {
+                notification["error"]({
+                    message: "Signup is not successful",
+                    description: err?.message,
+                    placement: "top"
+                });
             })
     };
 
