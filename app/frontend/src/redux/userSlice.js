@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-const url = process.env.BACKEND_URL;
+const url = process.env.REACT_APP_BACKEND_URL;
 
 axios.interceptors.request.use(
   function (config) {
@@ -16,16 +16,16 @@ axios.interceptors.request.use(
 );
 
 export const fetchLogin = (userData) => {
-  return axios.post(`${url}/customer/login`, userData);
+  return axios.post(`${url}/auth/login`, userData);
 };
 
 export const fetchMe = createAsyncThunk('user/fetchMe', async () => {
-  const { data } = await axios.get(`${url}/customer/me`);
+  const { data } = await axios.get(`${url}/auth/me`);
   return data;
 });
 
 export const fetchRegister = (userData) =>
-  axios.post(`${url}/customer/register`, userData);
+  axios.post(`${url}/auth/register`, userData);
 
 const userSlice = createSlice({
   name: 'user',
@@ -44,7 +44,6 @@ const userSlice = createSlice({
     login: (state, action) => {
       localStorage.setItem('token', action.payload.token);
       delete action.payload.token;
-      delete action.payload._id;
       state.user = action.payload;
       state.status = 'fulfilled';
     },
