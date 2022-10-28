@@ -45,7 +45,7 @@
     background-color: #e7f7f7;
     border-radius: 5%;
     border: 3px solid rgb(98, 163, 161);
-    padding: 80px;
+    padding: 60px;
     box-shadow: 20px 20px 400px rgb(38, 97, 108)
 }
 
@@ -53,5 +53,10 @@
     position: relative;
     top: 5em;
     margin: 0em auto !important;
-    height: 90%;
+    height: 95%;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: flex-start;
 }
