@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {NotificationOutlined, UserOutlined, UserAddOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input} from 'antd';
+import { Button, Input} from 'antd';
 import { useSelector } from 'react-redux';
 
 import "./NavBar.css";
@@ -53,7 +53,6 @@ const LogInLogOut = ({userStatus}) => {
 
 const NavBar = () => {
     const {status: userStatus } = useSelector((state) => state.user);
-    const [form] = Form.useForm();
 
     const [searchInput, setSearchInput] = useState("");
 
