@@ -98,6 +98,7 @@ def login_user(request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
 def logout_user(request):
 
     request.user.auth_token.delete()
