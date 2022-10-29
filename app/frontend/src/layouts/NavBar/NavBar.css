@@ -1,0 +1,36 @@
+.nav-bar {
+	position: sticky;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+    width: 100vw;
+    height: 60px;
+    background-color: snow;
+    border: 1px solid lightblue;
+}
+
+.search-bar {
+    width: 45vw;
+    align-self: center;
+    display: flex;
+}
+
+.signup-login-buttons {
+    width: 210px;
+    display: flex;
+	justify-content: space-between;
+    margin-right: 10px;
+}
+
+.login-button {
+    border-radius: 50%;
+    border: 1px solid blue;
+}
+
+.logout-button {
+    margin-right: 10px;
+}
+
+.logo {
+    margin-left: 10px;
+}
