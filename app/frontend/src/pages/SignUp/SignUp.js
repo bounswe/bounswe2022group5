@@ -36,6 +36,11 @@ const SignUp = () => {
 
     const onFinish = (type) => {
         const allFields = userForm.getFieldsValue()
+        console.log({
+            email: allFields?.email,
+            password: allFields?.password,
+            type
+        })
         fetchRegister({
             email: allFields?.email,
             password: allFields?.password,
@@ -51,6 +56,7 @@ const SignUp = () => {
                 navigate("/");
             })
             .catch((err) => {
+                console.log(err)
                 notification["error"]({
                     message: "Signup is not successful",
                     description: err?.message,
@@ -128,7 +134,7 @@ const SignUp = () => {
                             <div className="label-input">
                                 <span>*Email:</span>
                                 <Form.Item
-                                    name="Email"
+                                    name="email"
                                     rules={[{ required: true, message: 'Please input your email!' }]}
                                 >
                                     <Input 
@@ -144,7 +150,26 @@ const SignUp = () => {
                                 <span>*Password:</span>
                                 <Form.Item
                                     name="password"
-                                    rules={[{ required: true, message: 'Please input your password!' }]}
+                                    rules={[
+                                        { required: true, message: 'Please input your password!' },
+                                        () => ({
+                                            validator(_, value) {
+                                                if (!value || value.length >= 8) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('The password must contain at least 8 characters!'));
+                                            },
+                                        }),
+                                        () => ({
+                                            validator(_, value) {
+                                                const re = /^\d+$/;
+                                                if (!value || !value.match(re)) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('This password is entirely numberic'));
+                                            },
+                                        }),
+                                    ]}
                                 >
                                     <Input
                                         type="password"
@@ -308,7 +333,26 @@ const SignUp = () => {
                                 <span>*Password:</span>
                                 <Form.Item
                                     name="password"
-                                    rules={[{ required: true, message: 'Please input your password!' }]}
+                                    rules={[
+                                        { required: true, message: 'Please input your password!' },
+                                        () => ({
+                                            validator(_, value) {
+                                                if (!value || value.length >= 8) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('The password must contain at least 8 characters!'));
+                                            },
+                                        }),
+                                        () => ({
+                                            validator(_, value) {
+                                                const re = /^\d+$/;
+                                                if (!value || !value.match(re)) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('This password is entirely numberic'));
+                                            },
+                                        }),
+                                    ]}
                                 >
                                     <Input
                                         type="password"
