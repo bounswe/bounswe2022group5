@@ -106,3 +106,11 @@ def logout_user(request):
     logout(request)
 
     return Response('User Logged out successfully')
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def me(request):
+
+    user = CustomUser.objects.get(email = request.user.email)
+    serialized = UserSerializer(user)
+    return Response(data=serialized.data, status=200)
