@@ -1,16 +1,16 @@
-# bounswe5_mobile
+# Mobile Application
 
-A new Flutter project.
+This is the implementation of our project for mobile platforms. 
+Since this is a Flutter project, it can be used both in iOS and Android devices.
 
-## Getting Started
+## How to run:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ * If you have a device connected to your pc or have an existing emulator on your pc to run the application on:
+     * After installing Flutter, you can run the following commands in the directory where the application code exists:
+     - flutter pub get
+     - flutter run lib/main.dart
+ 
+  * If you do not connect any device to your computer, you will need an emulator to open the application: 
+     * You can download and Android emulator with Android Studio through [this link](https://developer.android.com/studio).  
+     *  Then you can easily run the application on Android Studio followin [this guide](https://www.geeksforgeeks.org/how-to-import-existing-flutter-project-in-android-studio/).
+ 
