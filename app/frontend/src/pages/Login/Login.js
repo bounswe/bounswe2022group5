@@ -42,9 +42,9 @@ const Login = () => {
     return(
         <div className="login-background">
 
-            {/* <div className="navbar">
-                <a href="/" >LOGO</a>
-            </div> */}
+            <div className="navbar">
+                <a href="/" className="logo"><h1>LOGO</h1></a>
+            </div>
 
             <div className="login-container">
                 <h1 className="title">Login</h1>

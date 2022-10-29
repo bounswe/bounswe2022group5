@@ -86,9 +86,9 @@ const SignUp = () => {
     return(
         <div className="signup-background">
 
-            {/* <div className="navbar">
-                <a href="/" >LOGO</a>
-            </div> */}
+            <div className="navbar">
+                <a href="/" className="logo"><h1>LOGO</h1></a>
+            </div>
 
             <ReactCardFlip isFlipped={flipped} flipDirection="horizontal" className="card-flip">
 
