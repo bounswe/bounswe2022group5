@@ -128,7 +128,7 @@ const HomePageLayout = () => {
                     style={pageType === 0 ? buttonStyleClicked : buttonStyleUnclicked}
                     onClick={() => setPageType(0)}
                     >
-                        Forum
+                        Posts
                     </Button>
                     <Button 
                     shape="round" 
