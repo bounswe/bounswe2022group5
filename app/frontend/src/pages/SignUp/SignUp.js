@@ -56,10 +56,11 @@ const SignUp = () => {
                 navigate("/");
             })
             .catch((err) => {
-                console.log(err)
                 notification["error"]({
                     message: "Signup is not successful",
-                    description: err?.message,
+                    description: Object.values(err?.response?.data).map(value => {
+                        return value?.map(sentence => sentence?.replace(".", ""))?.join(", ")
+                    })?.join(", "),
                     placement: "top"
                 });
             })
