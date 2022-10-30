@@ -3,7 +3,9 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:async';
 import 'dart:convert';
 
+/// This class handles API calls.
 class ApiService {
+  /// Base URL of backend
   var baseURL = "http://ec2-3-87-119-148.compute-1.amazonaws.com:8000";
 
   Future<int> signUp(String email, String password, int type) async {
@@ -64,7 +66,7 @@ class ApiService {
       String email = body["email"];
       int userType = body["type"];
       User user;
-      user = User(email, userType);
+      user = User(token, email, userType);
       return user;
     } else{
       return null;

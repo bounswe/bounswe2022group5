@@ -3,6 +3,7 @@ import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/widgets/ForumPostItem.dart';
 import 'package:intl/intl.dart';
 
+/// List of forum items
 class ForumList extends StatelessWidget{
   ForumList({required this.posts});
   final List<Post> posts;

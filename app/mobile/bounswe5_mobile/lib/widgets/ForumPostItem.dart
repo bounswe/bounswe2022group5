@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:intl/intl.dart';
 
+/// A single post item shown in the Forum.
 class ForumPostItem extends StatelessWidget{
   ForumPostItem({required this.index, required this.post, required this.formatter});
   final int index;

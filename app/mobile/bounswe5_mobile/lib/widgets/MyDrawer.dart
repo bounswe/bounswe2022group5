@@ -4,21 +4,34 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/screens/login.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 
+/// This is the drawer used in the home page. Using this drawer,
+/// a registered user can reach his/her user page, notification center, or settings.
+/// A nonregistered user can log in or reach generic settings.
 class MyDrawer extends StatelessWidget{
   MyDrawer({required this.color, this.activeUser});
+  final ApiService apiServer = ApiService();
   final Color color;
   final User? activeUser;
 
-  String tempImagePath = 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/271deea8-e28c-41a3-aaf5-2913f5f48be6/de7834s-6515bd40-8b2c-4dc6-a843-5ac1a95a8b55.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzI3MWRlZWE4LWUyOGMtNDFhMy1hYWY1LTI5MTNmNWY0OGJlNlwvZGU3ODM0cy02NTE1YmQ0MC04YjJjLTRkYzYtYTg0My01YWMxYTk1YThiNTUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.BopkDn1ptIwbmcKHdAOlYHyAOOACXW0Zfgbs0-6BY-E';
+  /// Function used for logging out
+  Future<bool> logout(String token) async {
+    final result = await ApiService().logout(token);
+    return result;
+  }
 
+  // For now, we used a temporary image for our users.
+  String tempImagePath = 'lib/assets/images/generic_user.jpg';
   @override
   Widget build(BuildContext context){
     bool isSessionActive = activeUser != null;
-    String userName;
+    String displayName;
+
+    // While session is active, username or name will be displayed.
+    // If not, a "sign in" text is showed.
     if(isSessionActive){
-      userName = activeUser!.email;
+      displayName = "John";
     }else{
-      userName = "Please sign in";
+      displayName = "Please sign in";
     }
     return Drawer(
       child: ListView(
@@ -26,16 +39,21 @@ class MyDrawer extends StatelessWidget{
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-                color: color
+              color: color,
             ),
+
             child: Column(
               children: [
                 InkWell(
+                  // Profile image
                   child: CircleAvatar(
                     radius: 42,
-                    backgroundImage: NetworkImage(tempImagePath),
+                    backgroundImage: AssetImage(tempImagePath),
                   ),
                   onTap: (){
+                    // If session is active, user is directed to the profile page
+                    // when he/she click on profile image. If not, directed to the
+                    // log in page.
                     if(isSessionActive) {
                       Navigator.push(
                         context,
@@ -54,8 +72,9 @@ class MyDrawer extends StatelessWidget{
                 ),
                 const SizedBox(height: 12),
                 InkWell(
+                  // Name displayed in the drawer
                   child: Text(
-                    userName,
+                    displayName,
                     style: const TextStyle(
                         fontSize:22.0,
                         fontWeight: FontWeight.bold,
@@ -63,6 +82,9 @@ class MyDrawer extends StatelessWidget{
                     ),
                   ),
                   onTap: (){
+                    // If session is active, user is directed to the profile page
+                    // when he/she click on his/her name. If not, directed to the
+                    // log in page
                     if(isSessionActive) {
                       Navigator.push(
                         context,
@@ -83,43 +105,62 @@ class MyDrawer extends StatelessWidget{
             ),
           ),
 
+          // If session is active, notifications section is shown.
           isSessionActive ?
           ListTile(
             leading: const Icon(Icons.notifications),
             title: const Text('Notifications'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
+              // Later, he/she will be directed to the notifications page.
               Navigator.pop(context);
             },
           ): SizedBox.shrink(),
 
+          // Settings section:
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
               Navigator.pop(context);
             },
           ),
 
+          // If session is active, a log out button is shown.
           isSessionActive ?
           ListTile(
             // Log out
             leading: const Icon(Icons.logout),
             title: const Text('Log out'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) =>
-                    LoginPage()),
-              );
+            onTap: () async {
+              // Log out logic is implemented here.
+              final navigator = Navigator.of(context);
+              bool loggedout = await logout(activeUser!.token);
+              if(loggedout) {
+                // After successfully logging out, switch to the login page.
+                navigator.pushReplacement(
+                    MaterialPageRoute(builder: (context) => const LoginPage())
+                );
+              } else{
+                // There can be a problem: // THINK ABOUT THIS SECTION
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context){
+                      return AlertDialog(
+                        title: const Text('Error'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: const <Widget>[
+                              Text('Couldn\'t log out.'),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                );
+              }
             },
 
-          ) : SizedBox.shrink(),
+          ) : const SizedBox.shrink(),
         ],
       ),
     );

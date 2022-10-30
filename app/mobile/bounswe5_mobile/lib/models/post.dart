@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
+/// Post is the main element of the forum.
 class Post {
-  //final User sender;
+  //final User sender; // For now, we do not have a sender user.
   final DateTime time;
   final String header;
   final String body;
@@ -21,7 +22,7 @@ class Post {
       );
 }
 
-// Mock Data:
+// Mock Post Data:
 
 List<Post> posts = [
   Post(
