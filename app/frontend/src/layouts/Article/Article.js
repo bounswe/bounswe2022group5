@@ -15,12 +15,12 @@ const Articles = () => {
       ></Article>
 
       <Article
-        header="ALCALINE DIET"
+        header="Effects of intermittent fasting on basal metabolism"
         author="Dr. Deitra Rebeccah"
         date="21.03.2022"
         dislike_count={2}
         like_count={25}
-        user_vote="like"
+        user_vote=""
       ></Article>
 
       <Article
