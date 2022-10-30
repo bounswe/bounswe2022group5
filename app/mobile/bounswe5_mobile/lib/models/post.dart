@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
 class Post {
-  final User sender;
+  //final User sender;
   final DateTime time;
   final String header;
   final String body;
@@ -11,7 +11,7 @@ class Post {
   bool isDoctorReplied;
 
   Post(
-      this.sender,
+      //this.sender,
       this.time,
       this.header,
       this.body,
@@ -25,57 +25,35 @@ class Post {
 
 List<Post> posts = [
   Post(
-    burak,
-    DateTime.utc(2022, 11, 9),
-    'Lorem ipsum dolor sit amet 1',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes : 12,
-    downvotes : 3,
-    isDoctorReplied : false,
-  ),
-  Post(
-    oguzhan,
-    DateTime.utc(2022, 11, 10),
-    'Lorem ipsum dolor sit amet 2',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes : 8,
-    downvotes : 1,
-    isDoctorReplied : true,
-  ),
-  Post(
-    kardelen,
-    DateTime.utc(2022, 11, 14),
-    'Lorem ipsum dolor sit amet 3',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes : 5,
-    downvotes : 2,
-    isDoctorReplied : false,
-  ),
-  Post(
-    bengin,
-    DateTime.utc(2022, 11, 16),
-    'Lorem ipsum dolor sit amet 4',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes : 15,
+    DateTime.utc(2022, 03, 7),
+    'Acnelyste Burns Occurred',
+    'I have been using ACNELYSTE for about 2 months, my cheeks were burning while I was using it, but there was no redness. I applied more than a pea pod and I got a rash on my cheek. Will this redness go away? Please help',
+    upvotes : 13,
     downvotes : 7,
     isDoctorReplied : true,
   ),
   Post(
-    burak,
-    DateTime.utc(2022, 11, 19),
-    'Lorem ipsum dolor sit amet 5',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes : 0,
-    downvotes : 0,
+    DateTime.utc(2022, 2, 11),
+    'Lotion For Hair Eczema',
+    'I have eczema in my hair for years, I have used lotions such as conazole, but it did not work much, what should I do? away? Please help',
+    upvotes : 6,
+    downvotes : 2,
     isDoctorReplied : false,
   ),
   Post(
-    bengin,
-    DateTime.utc(2022, 11, 20),
-    'Lorem ipsum dolor sit amet 6',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    upvotes : 1,
-    downvotes : 0,
+    DateTime.utc(2022, 3, 17),
+    'Face Numbing and Blurred Vision',
+    'I had corona a year and a half ago, then my eyes deteriorated, one side always sees blurry, on that side there is a cramp-like pain that never goes away on the side where the upper jaw bone joins, sometimes there is .....',
+    upvotes : 16,
+    downvotes : 1,
     isDoctorReplied : false,
+  ),
+  Post(
+    DateTime.utc(2022, 3, 21),
+    'Iron Level in my Blood Test',
+    'As a result of the blood test I had, iron was found to be 211.117. Ferritin 53.99. My doctor said it was not anemia. Is it normal for iron to be this high? What do you suggest?',
+    upvotes : 7,
+    downvotes : 2,
+    isDoctorReplied : true,
   ),
 ];

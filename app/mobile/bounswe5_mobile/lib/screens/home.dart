@@ -3,10 +3,11 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/widgets/MyDrawer.dart';
 import 'package:bounswe5_mobile/widgets/ForumList.dart';
+import 'package:bounswe5_mobile/API_service.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  const HomePage({Key? key, required this.token}) : super(key: key);
+  final String token;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -18,14 +19,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     Color mainColor = const Color(0xFF1565C0);
-    var height = MediaQuery.of(context).size.height;
-    User? activeUser = burak; // To be changed
+
+    ApiService apiServer = ApiService();
+
+    User? activeUser = User('teressa@gmail.com',2); // To be changed
     bool isSessionActive;
     if(activeUser == null){
       isSessionActive = false;
     }else{
       isSessionActive = true;
     }
+
+
+
     List<Widget> bodies = [ForumList(posts: posts,), Container(), Container()];
 
     return Scaffold(
