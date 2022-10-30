@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import {NotificationOutlined, UserOutlined, UserAddOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Input} from 'antd';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { LogOut } from "../../redux/userSlice"
 
 import "./NavBar.css";
-
-const BASE_URL = "http://localhost:3000"        // To do: This line should be removed from here to a more general place.
-const LOGIN_PAGE = `${BASE_URL}/login`
-const SIGNUP_PAGE = `${BASE_URL}/signup`
 
 const buttonStyle = {
     borderRadius: 50,
@@ -22,19 +19,21 @@ const searchBarStyle = {
     backgroundColor: 'rgba(230,230,230)',
 }
 
-const onLogout = (values) => {
-    // This should contain logout function.
+const onLogout = (dispatch) => {
+    dispatch(LogOut());
 };
 
 const LogInLogOut = ({userStatus}) => {
-    if (userStatus === "idle") {
+    const dispatch = useDispatch();
+
+    if (userStatus !== "fulfilled") {
         return (
             <div className="signup-login-buttons">
-            <Button style={buttonStyle} type="primary" href={SIGNUP_PAGE}>
+            <Button style={buttonStyle} type="primary" href="/signup">
                 <UserAddOutlined />
                 Sign Up
             </Button>
-            <Button style={buttonStyle} type="primary" href={LOGIN_PAGE}>
+            <Button style={buttonStyle} type="primary" href="/login">
                 <UserOutlined />
                 Log In
             </Button>
@@ -42,7 +41,7 @@ const LogInLogOut = ({userStatus}) => {
         )
     } else {
         return (
-            <Button style={buttonStyle} type="primary" className="logout-button" onClick={onLogout}>
+            <Button style={buttonStyle} type="primary" className="logout-button" onClick={() => onLogout(dispatch)}>
                 <CloseCircleOutlined />
                 Log Out
             </Button>
