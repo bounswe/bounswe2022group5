@@ -50,7 +50,7 @@ class ApiService {
     }
   }
 
-  Future<User?> me(String token) async {
+  Future<User?> getUserInfo(String token) async {
     var uri = Uri.parse("$baseURL/auth/me");
 
     final header = {
