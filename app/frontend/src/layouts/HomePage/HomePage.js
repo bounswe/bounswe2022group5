@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import NavBar from "../NavBar/NavBar";
 import Articles from "../Article/Article";
+import Forum from "../Forum/Forum";
 
 import "./HomePage.css";
 import { Button, Input} from "antd";
@@ -39,7 +40,7 @@ const categorySearchStyle = {
 const renderPosts = () => {
     return (
         <div>
-            Posts
+            <Forum/>
         </div>
     )
 }
@@ -47,8 +48,7 @@ const renderPosts = () => {
 const renderArticles = () => {
     return (
         <div>
-            <Articles>
-            </Articles>
+            <Articles/>
         </div>
     )
 }

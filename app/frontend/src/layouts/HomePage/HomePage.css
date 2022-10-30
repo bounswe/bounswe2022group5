@@ -73,6 +73,7 @@
     padding-bottom: 2vw;
     margin-left: 2vw;
     overflow: scroll;
+    background: rgba(240,255,240,0.6);
 }
 
 .category-search-bar {
