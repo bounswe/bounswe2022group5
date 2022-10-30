@@ -4,6 +4,8 @@ import NavBar from "../NavBar/NavBar";
 import Articles from "../Article/Article";
 import Forum from "../Forum/Forum";
 
+import { useSelector} from 'react-redux';
+
 import "./HomePage.css";
 import { Button, Input} from "antd";
 
@@ -107,6 +109,7 @@ const renderCategories = (searchKey) => {
 }
 
 const HomePageLayout = () => {
+    const {status: userStatus } = useSelector((state) => state.user);
     const [categorySearchInput, setCategorySearchInput] = useState("");
 
     const [pageType, setPageType] = useState(0);
@@ -138,9 +141,11 @@ const HomePageLayout = () => {
                 </div>
                 <div className="category-post-articles">
                     <div className="categories-and-create-post">
+                        {userStatus === "fulfilled" ? 
                         <Button shape="round" size="large" style={{width:"60%", height:"12%", flex:1, marginLeft:"20%", marginTop:"5%"}}>
                             Create Post
-                        </Button>
+                        </Button> :
+                        null}
                         <div className="categories">
                             <div className="category-search-bar">
                                 <Input 
