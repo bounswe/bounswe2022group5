@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
               )),
         ),
         elevation: 0.0,
-
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -56,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                   decoration: InputDecoration(
                 hintText: 'E-mail',
+                prefixIcon: Icon(Icons.email_rounded),
               )),
             ),
 
@@ -66,6 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'Password',
+                    prefixIcon: Icon(Icons.lock),
                   )),
             ),
 
@@ -98,10 +99,11 @@ class _LoginPageState extends State<LoginPage> {
                   'Don\'t have an account? ',
                 ),
                 InkWell(
-                  onTap: (){
+                  onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SignupPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const SignupPage()),
                     );
                   },
                   child: Text(
@@ -121,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
 
             // continue without login button
             InkWell(
-              onTap: (){
+              onTap: () {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),
