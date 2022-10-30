@@ -1,6 +1,4 @@
-import Layout from "antd/lib/layout/layout";
 import React, { useState } from "react";
-import { useSelector } from 'react-redux';
 
 import NavBar from "../NavBar/NavBar";
 import Articles from "../Article/Article";
@@ -95,10 +93,11 @@ const renderCategories = (searchKey) => {
     ]
 
     return (
-        categories.filter(function(obj) {
+        categories.filter((obj) => {
             if(obj.name.toLowerCase().search(searchKey.toLowerCase()) > -1) {
                 return obj
             }
+            return null;
           }).map((item) => (
             <Button style={categoryButtonsStyle}>
                 {item.name}
@@ -108,7 +107,6 @@ const renderCategories = (searchKey) => {
 }
 
 const HomePageLayout = () => {
-    const { status: userStatus } = useSelector((state) => state.user);
     const [categorySearchInput, setCategorySearchInput] = useState("");
 
     const [pageType, setPageType] = useState(0);

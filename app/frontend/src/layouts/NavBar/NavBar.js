@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {NotificationOutlined, UserOutlined, UserAddOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Input} from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { LogOut } from "../../redux/userSlice"
+import { logOut } from "../../redux/userSlice"
 
 import "./NavBar.css";
 
@@ -20,7 +20,7 @@ const searchBarStyle = {
 }
 
 const onLogout = (dispatch) => {
-    dispatch(LogOut());
+    dispatch(logOut());
 };
 
 const LogInLogOut = ({userStatus}) => {
