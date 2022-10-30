@@ -136,7 +136,7 @@ const HomePageLayout = () => {
                     style={pageType === 1 ? buttonStyleClicked : buttonStyleUnclicked}
                     onClick={() => setPageType(1)}
                     >
-                        Article
+                        Articles
                     </Button>
                 </div>
                 <div className="category-post-articles">
