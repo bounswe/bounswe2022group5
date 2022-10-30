@@ -114,7 +114,6 @@ const HomePageLayout = () => {
     const [pageType, setPageType] = useState(0);
     // This is for determining whether the page renders post or article. 0 for post, 1 for article
 
-
     return(
         <div className="layout">
             <div className="header">

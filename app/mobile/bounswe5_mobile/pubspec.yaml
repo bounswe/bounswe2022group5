@@ -39,6 +39,7 @@ dependencies:
   flex_color_scheme: ^6.0.1
   file_picker: ^4.4.0
   intl:
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
