@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -47,6 +48,28 @@ class ApiService {
     } else {
       return false;
     }
+  }
+
+  Future<User?> me(String token) async {
+    var uri = Uri.parse("$baseURL/auth/me");
+
+    final header = {
+    'Authorization': "token $token",
+    'content-type': "application/json",
+    };
+    final response = await http.get(uri, headers: header);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+      String email = body["email"];
+      int userType = body["type"];
+      User user;
+      user = User(email, userType);
+      return user;
+    } else{
+      return null;
+    }
+
   }
 
 }
