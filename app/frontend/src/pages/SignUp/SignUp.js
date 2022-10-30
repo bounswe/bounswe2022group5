@@ -1,15 +1,24 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import ReactCardFlip from 'react-card-flip';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, Upload, DatePicker, notification } from 'antd';
 import Switch from "react-switch";
 import { FaStethoscope } from 'react-icons/fa';
+import { fetchRegister, login } from "../../redux/userSlice";
+import moment from "moment";
 
 import "./SignUp.css";
 
 const SignUp = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
     const [flipped, setFlipped] = useState(false);
     const [userForm] = Form.useForm();
+
+    const { Option } = Select;
 
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
@@ -17,18 +26,44 @@ const SignUp = () => {
     const [passwordConfirm, setPasswordConfirm] = useState();
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
-    const [phoneNumber, setPhoneNumber] = useState();
-    const [country, setCountry] = useState();
-    const [city, setCity] = useState();
-    const [title, setTitle] = useState();
+    const [dateOfBirth, setDateOfBirth] = useState();
     const [branch, setBranch] = useState();
+    const [fileList, setFileList] = useState([]);
 
     const handleClick = () => {
         setFlipped(!flipped);
     }
 
-    const onFinish = (values) => {
-        console.log('Finish:', values);
+    const onFinish = (type) => {
+        const allFields = userForm.getFieldsValue()
+        console.log({
+            email: allFields?.email,
+            password: allFields?.password,
+            type
+        })
+        fetchRegister({
+            email: allFields?.email,
+            password: allFields?.password,
+            type
+        })
+            .then((res) => {
+                notification["success"]({
+                    message: 'Signup is successful',
+                    placement: "top"
+                });
+
+                dispatch(login(res.data))
+                navigate("/");
+            })
+            .catch((err) => {
+                notification["error"]({
+                    message: "Signup is not successful",
+                    description: Object.values(err?.response?.data).map(value => {
+                        return value?.map(sentence => sentence?.replace(".", ""))?.join(", ")
+                    })?.join(", "),
+                    placement: "top"
+                });
+            })
     };
 
     const iconStyle = {
@@ -37,14 +72,24 @@ const SignUp = () => {
         alignItems: "center",
         height: "100%",
         fontSize: 20
-      }
+    }
+
+    const FAKE_BRANCH_DATA = [
+        "Dermatology",
+        "Allergy and Immunology",
+        "Emergncy Medicine",
+        "Neurology",
+        "Internal Medicine", 
+        "Pediatrics",
+        "Radiation Oncology"
+    ]
 
     return(
         <div className="signup-background">
 
-            {/* <div className="navbar">
-                <a href="/" >LOGO</a>
-            </div> */}
+            <div className="navbar">
+                <a href="/" className="logo"><h1>LOGO</h1></a>
+            </div>
 
             <ReactCardFlip isFlipped={flipped} flipDirection="horizontal" className="card-flip">
 
@@ -66,13 +111,11 @@ const SignUp = () => {
                         className="switch"
                         id="material-switch"
                     />
-                    <h1 className="title">User Membership</h1>
+                    <h1 className="title">Member Form</h1>
 
                     <Form 
                         form={userForm} 
-                        onFinish={onFinish} 
                         className="form"
-                        // initialValues={{ remember: true }}
                     >
                         <div className="input-inline">
                             <div className="label-input">
@@ -92,7 +135,7 @@ const SignUp = () => {
                             <div className="label-input">
                                 <span>*Email:</span>
                                 <Form.Item
-                                    name="Email"
+                                    name="email"
                                     rules={[{ required: true, message: 'Please input your email!' }]}
                                 >
                                     <Input 
@@ -108,7 +151,26 @@ const SignUp = () => {
                                 <span>*Password:</span>
                                 <Form.Item
                                     name="password"
-                                    rules={[{ required: true, message: 'Please input your password!' }]}
+                                    rules={[
+                                        { required: true, message: 'Please input your password!' },
+                                        () => ({
+                                            validator(_, value) {
+                                                if (!value || value.length >= 8) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('The password must contain at least 8 characters!'));
+                                            },
+                                        }),
+                                        () => ({
+                                            validator(_, value) {
+                                                const re = /^\d+$/;
+                                                if (!value || !value.match(re)) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('This password is entirely numberic'));
+                                            },
+                                        }),
+                                    ]}
                                 >
                                     <Input
                                         type="password"
@@ -151,36 +213,28 @@ const SignUp = () => {
                                 </Form.Item>
                             </div>
                         </div>
-
+                        
                         <div className="input-inline">
                             <div className="label-input">
-                                <span>First Name:</span>
+                                <span>*Date Of Birth:</span>
                                 <Form.Item
-                                    name="firstName"
+                                    name="date_of_birth"
+                                    rules={[{ required: true, message: 'Please input your date of birth!' }]}
                                 >
-                                    <Input 
-                                        placeholder="First Name (Optional)" 
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className="label-input">
-                                <span>Last Name:</span>
-                                <Form.Item
-                                    name="lastName"
-                                >
-                                    <Input 
-                                        placeholder="Last Name (Optional)" 
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
+                                    <DatePicker 
+                                        placeholder="Date Of Birth" 
+                                        value={dateOfBirth}
+                                        onChange={(e) => {
+                                            setDateOfBirth(new Date(moment(e._d).toDate()))
+                                        }}
+                                        style={{ width: "100%" }}
                                     />
                                 </Form.Item>
                             </div>
                         </div>
 
                         <Form.Item >
-                            <Button type="primary" htmlType="submit" className="input-box">
+                            <Button type="primary" htmlType="submit" className="input-box" onClick={() => onFinish(2)}>
                                 Sign Up
                             </Button>
                             <div>
@@ -207,7 +261,7 @@ const SignUp = () => {
                         className="switch"
                         id="material-switch"
                     />
-                    <h1 className="title">Doctor Membership</h1>
+                    <h1 className="title">Doctor Form</h1>
 
                     <Form 
                         form={userForm} 
@@ -249,7 +303,7 @@ const SignUp = () => {
                             <div className="label-input">
                                 <span>*Email:</span>
                                 <Form.Item
-                                    name="Email"
+                                    name="email"
                                     rules={[{ required: true, message: 'Please input your email!' }]}
                                 >
                                     <Input 
@@ -260,16 +314,17 @@ const SignUp = () => {
                                 </Form.Item>
                             </div>
                             <div className="label-input">
-                                <span>*Phone Number:</span>
+                                <span>*Branch:</span>
                                 <Form.Item
-                                    name="Phone Number"
-                                    rules={[{ required: true, message: 'Please input your phone number!' }]}
+                                    name="branch"
+                                    rules={[{ required: true, message: 'Please input your branch!' }]}
                                 >
-                                    <Input 
-                                        placeholder="Phone Number" 
-                                        value={phoneNumber}
-                                        onChange={(e) => setPhoneNumber(e.target.value)}
-                                    />
+                                    <Select onChange={(e) => setBranch(e)} value={branch} placeholder="Branch">
+                                        <Option key="empty" value=""></Option>
+                                        { FAKE_BRANCH_DATA.map(branch => (
+                                            <Option key={branch} value={branch}>{branch}</Option>
+                                        )) }
+                                    </Select>
                                 </Form.Item>
                             </div>
                         </div>
@@ -279,7 +334,26 @@ const SignUp = () => {
                                 <span>*Password:</span>
                                 <Form.Item
                                     name="password"
-                                    rules={[{ required: true, message: 'Please input your password!' }]}
+                                    rules={[
+                                        { required: true, message: 'Please input your password!' },
+                                        () => ({
+                                            validator(_, value) {
+                                                if (!value || value.length >= 8) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('The password must contain at least 8 characters!'));
+                                            },
+                                        }),
+                                        () => ({
+                                            validator(_, value) {
+                                                const re = /^\d+$/;
+                                                if (!value || !value.match(re)) {
+                                                    return Promise.resolve();
+                                                }
+                                                return Promise.reject(new Error('This password is entirely numberic'));
+                                            },
+                                        }),
+                                    ]}
                                 >
                                     <Input
                                         type="password"
@@ -325,68 +399,50 @@ const SignUp = () => {
 
                         <div className="input-inline">
                             <div className="label-input">
-                                <span>Country:</span>
+                                <span>*Date Of Birth:</span>
                                 <Form.Item
-                                    name="country"
+                                    name="date_of_birth"
+                                    rules={[{ required: true, message: 'Please input your date of birth!' }]}
                                 >
-                                    <Input 
-                                        placeholder="Country" 
-                                        value={country}
-                                        onChange={(e) => setCountry(e.target.value)}
+                                    <DatePicker 
+                                        placeholder="Date Of Birth" 
+                                        value={dateOfBirth}
+                                        onChange={(e) => {
+                                            setDateOfBirth(new Date(moment(e._d).toDate()))
+                                        }}
+                                        style={{ width: "100%" }}
                                     />
                                 </Form.Item>
                             </div>
                             <div className="label-input">
-                                <span>City:</span>
-                                <Form.Item
-                                    name="city"
+                                <span>*Document:</span>
+                                <Upload 
+                                    style={{ width: "100%" }} 
+                                    action={(file) => {
+                                        setFileList(fileList => [...fileList, file])
+                                    }}
+                                    maxCount={1}
+                                    showUploadList={{
+                                        showRemoveIcon: true,
+                                    }}
                                 >
-                                    <Input 
-                                        placeholder="City" 
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}
-                                    />
-                                </Form.Item>
+                                    <Button block icon={<UploadOutlined />}>Upload</Button>
+                                </Upload>
                             </div>
                         </div>
 
                         <div className="input-inline">
-                            <div className="label-input">
-                                <span>*Title:</span>
-                                <Form.Item
-                                    name="title"
-                                    rules={[{ required: true, message: 'Please input your title!' }]}
-                                >
-                                    <Input 
-                                        placeholder="Title" 
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className="label-input">
-                                <span>*Branch:</span>
-                                <Form.Item
-                                    name="branch"
-                                    rules={[{ required: true, message: 'Please input your branch!' }]}
-                                >
-                                    <Input 
-                                        placeholder="Branch" 
-                                        value={branch}
-                                        onChange={(e) => setBranch(e.target.value)}
-                                    />
+                            <div className="submit-container">
+                                <Form.Item >
+                                    <Button type="primary" htmlType="submit" className="input-box" onClick={() => onFinish(1)}>
+                                        Sign Up
+                                    </Button>
+                                    <div>
+                                        Or <a href="/login">sign in now!</a>
+                                    </div>
                                 </Form.Item>
                             </div>
                         </div>
-
-                        <Form.Item >
-                            <Button type="primary" htmlType="submit" className="input-box">
-                                Sign Up
-                            </Button>
-                            <div>
-                                Or <a href="/login">sign in now!</a>
-                            </div>
-                        </Form.Item>
                     </Form>
                 </div>
             </ReactCardFlip>
