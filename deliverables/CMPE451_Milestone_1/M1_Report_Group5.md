@@ -24,12 +24,15 @@
 - Helping on deciding branch and PR conventions
 - Documenting Tech Stack of project
 - Creating initial base backend project with Django and Django REST
+- Helping backend team to decide on Database structure
 - Implementing Token Authentication on Backend
 - Documenting APIs 
 - Implementing Login, Signup, Logout and Personal Info endpoints
 - Helping Mobile and Frontend Team to connect project to Backend
+- Reviewing Backend Pull Requests and Issues
 - Creating Scenario 1 with [Yavuz Samet Topçuğlu](https://github.com/bounswe/bounswe2022group5/wiki/Yavuz-Samet-Topcuoglu) and [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala)
-- Helping team to document deliverables for Milestone 1 
+- Helping team to document deliverables for Milestone 1
+- Preparing for Demo of Milestone 1
 
 ### Main Contributions: 
 In the first weeks I helped revise and make some changes to requirements and scenario&mockups. I helped create branches and PR conventions for collobrative work. After splitting into teams, I created a roadmap for the Backend Team. After deciding on Django as a technology, I created the inital project. After that, I implemented the Authentication settings and documented and implemented the Login, Signup, Logout and Personal Info endpoints with the help of Token Authentication. I helped frontend and mobile connect to backend.
@@ -40,7 +43,7 @@ In the first weeks I helped revise and make some changes to requirements and sce
 * [Implementing Token Authentication with Django Rest Framework](https://github.com/bounswe/bounswe2022group5/issues/205) after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
 * [Creating the API documentation for Signup](https://github.com/bounswe/bounswe2022group5/issues/206) after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
 * [Implementing Login and Signup Endpoints](https://github.com/bounswe/bounswe2022group5/issues/218)  after [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
-* Other non-significant issues available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
+* Other non-significant issues and reviews available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
 
 #### Management related significant issues:
 * [Revising the Scenarios and Mockups, making adjustments needed.](https://github.com/bounswe/bounswe2022group5/issues/170)  after [Meeting 13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1)
@@ -50,7 +53,7 @@ In the first weeks I helped revise and make some changes to requirements and sce
 * [Creating initial backend project on GitHub](https://github.com/bounswe/bounswe2022group5/issues/187) 
 * [Opening a wiki page for the Tech Stack](https://github.com/bounswe/bounswe2022group5/issues/210)  after [Meeting 15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1)
 * [Creating Scenario 1 for Milestone 1](https://github.com/bounswe/bounswe2022group5/issues/268)  after [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
-* Other non-significant issues available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
+* Other non-significant issues and reviews available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
 
 Pull Requests:
 * [Requirements added to repo](https://github.com/bounswe/bounswe2022group5/pull/196)
