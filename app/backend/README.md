@@ -34,6 +34,12 @@ $ .\env\Scripts\activate
 4. Migrate and run the application:
 
 ```sh
-(env)$ python manage.py migrate
 (env)$ python manage.py runserver
 ```	
+
+5. You can run tests via:
+
+```sh
+(env)$ python manage.py test 
+```
+
