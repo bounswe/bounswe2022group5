@@ -8,12 +8,17 @@
 - [Scenario 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1)
 - [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1)
 #### Project Plan
-- Canberk 
+- [Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan)
+- [RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM)
 #### Individual Contribution Reports
 
 *Please keep **alphabetical** order.*
  
+ <details><summary>Alper Canberk Balcı</summary>
+	Will be filled. 
+ </details>
  <details><summary>Burak Mert</summary>
+	 
 
 **Member:** Burak Mert, Group 5
 
