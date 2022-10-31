@@ -24,15 +24,12 @@
 - Helping on deciding branch and PR conventions
 - Documenting Tech Stack of project
 - Creating initial base backend project with Django and Django REST
-- Helping backend team to decide on Database structure
 - Implementing Token Authentication on Backend
 - Documenting APIs 
 - Implementing Login, Signup, Logout and Personal Info endpoints
 - Helping Mobile and Frontend Team to connect project to Backend
-- Reviewing Backend Pull Requests and Issues
 - Creating Scenario 1 with [Yavuz Samet Topçuğlu](https://github.com/bounswe/bounswe2022group5/wiki/Yavuz-Samet-Topcuoglu) and [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala)
-- Helping team to document deliverables for Milestone 1
-- Preparing for Demo of Milestone 1
+- Helping team to document deliverables for Milestone 1 
 
 ### Main Contributions: 
 In the first weeks I helped revise and make some changes to requirements and scenario&mockups. I helped create branches and PR conventions for collobrative work. After splitting into teams, I created a roadmap for the Backend Team. After deciding on Django as a technology, I created the inital project. After that, I implemented the Authentication settings and documented and implemented the Login, Signup, Logout and Personal Info endpoints with the help of Token Authentication. I helped frontend and mobile connect to backend.
@@ -43,7 +40,7 @@ In the first weeks I helped revise and make some changes to requirements and sce
 * [Implementing Token Authentication with Django Rest Framework](https://github.com/bounswe/bounswe2022group5/issues/205) after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
 * [Creating the API documentation for Signup](https://github.com/bounswe/bounswe2022group5/issues/206) after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
 * [Implementing Login and Signup Endpoints](https://github.com/bounswe/bounswe2022group5/issues/218)  after [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
-* Other non-significant issues and reviews available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
+* Other non-significant issues available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
 
 #### Management related significant issues:
 * [Revising the Scenarios and Mockups, making adjustments needed.](https://github.com/bounswe/bounswe2022group5/issues/170)  after [Meeting 13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1)
@@ -53,7 +50,7 @@ In the first weeks I helped revise and make some changes to requirements and sce
 * [Creating initial backend project on GitHub](https://github.com/bounswe/bounswe2022group5/issues/187) 
 * [Opening a wiki page for the Tech Stack](https://github.com/bounswe/bounswe2022group5/issues/210)  after [Meeting 15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1)
 * [Creating Scenario 1 for Milestone 1](https://github.com/bounswe/bounswe2022group5/issues/268)  after [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
-* Other non-significant issues and reviews available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
+* Other non-significant issues available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
 
 Pull Requests:
 * [Requirements added to repo](https://github.com/bounswe/bounswe2022group5/pull/196)
@@ -114,6 +111,43 @@ Pull Requests:
 
 * [Django App Connection to the DB](https://github.com/bounswe/bounswe2022group5/pull/198)
 
+ </details>
+ 
+ <details><summary>Baver Bengin Beştaş</summary>
+	
+### Member: [Baver Bengin Beştaş - Group 5](https://github.com/bounswe/bounswe2022group5/wiki/Baver-Bengin-Beştaş)  
+	
+### Responsibilities:
+- Attending to all of the meetings.
+- Learning Flutter for mobile development as much as possible.
+- Organizing our discord server for greater communication in teams and between teams.
+- Contributing to mobile development of our application in every way possbile.
+- Developing Login screen of mobile application of my team.
+- Reviewing issues and reviewing and merging pull requests created by my group members, mobile development team mostly.
+- Creating communication plan for mobile development team.
+- Helping with decisions of our application.
+- Creating mobile code conventions.
+	
+### Main Contributions:  
+I was not familiar with Flutter but in the limited time until milestone, I tried to learn about it as much as possible and tried to contribute to our mobile development and I have tried my hardest. I was given the responsibility of creating the login screen of our application, and overcome it with the help of my teammates, and I tried to help them when they needed help.
+
+#### Code related significant issues:
+* Creating login page for mobile application is in [issue #225](https://github.com/bounswe/bounswe2022group5/issues/225).
+* Enhancement for login page is in [issue #261](https://github.com/bounswe/bounswe2022group5/issues/261).
+* API calls for login page is in [issue #271](https://github.com/bounswe/bounswe2022group5/issues/271).
+
+#### Management related significant issues:
+* Organizin discord server of our team for better communication is in [issue #175](https://github.com/bounswe/bounswe2022group5/issues/175).
+* Created [Communication Plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page) for mobile team, [issue #227](https://github.com/bounswe/bounswe2022group5/issues/227).
+* Created [Mobile Code Conventions](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Code-Conventions) for mobile development, [issue #264](https://github.com/bounswe/bounswe2022group5/issues/264).
+
+
+### Pull Requests:
+
+* Initial design of the login screen is in [pull request #226](https://github.com/bounswe/bounswe2022group5/pull/226).
+* Enhancement and synchronization of login page is in [pull request #270](https://github.com/bounswe/bounswe2022group5/pull/270).
+* Handling API requests and returning necessary token to main home page is in [pull request #272](https://github.com/bounswe/bounswe2022group5/pull/272).
+	
  </details>
  
  
@@ -268,7 +302,6 @@ After considerable amount of frontend tasks are completed, I created a Dockerfil
 
  
 
- 
   <details><summary>Halil Burak Pala</summary>
 
 
@@ -284,9 +317,6 @@ After considerable amount of frontend tasks are completed, I created a Dockerfil
 - Creating and maintaining the home page of our mobile app.
 - Creating the connections between mobile pages with my other teammates.
 - Integrating the API services provided by our backend team into our mobile app, especially in the home page.
-- Reviewing the issues and PRs of my teammates.
-- Contributing to the creation of [Scenario 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1) and [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1).
-- Preparing for Demo of Milestone 1.
 
 ### Main Contributions:
 I am a member of the mobile team in this project. In the beginning, I had no prior knowledge about the mobile development, so I spent a considerable time for learning and practicing Flutter after we decided to use this framework. 
@@ -295,37 +325,27 @@ Then, after discussing with my teammates about possible structures for our app, 
 
 Then I created the home page of this app. Home page is where you can access main elements of the app, such as forum, articles, chatbot, profile page etc. After creating this screen, I connected it with other available pages.
 
-Then I created API service routines to use in mobile pages with my teammates. Then connected my home page to the API created by our backend team. I helped my teammates when they need assistance also.
-	
-After completing the mobile app for the Milestone 1, I created an APK and added its link to the [README.md](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/README.md) file of the mobile project folder.
+Then I created API service routines to use in mobile pages with my teammates. Then connected my home page to the API created by our backend team. I helped my teammates when they need assistance also. 
 
 * *Code related significant issues:*
 	* Creating initial mobile app structure: [#190](https://github.com/bounswe/bounswe2022group5/issues/190)
 	* Creating a mobile home screen: [#192](https://github.com/bounswe/bounswe2022group5/issues/192)
 	* Connecting all mobile pages (This is implemented with the participation of all mobile team): [#229](https://github.com/bounswe/bounswe2022group5/issues/229) 
 	* Using Personal Information and Logout API services in the home page: [#260](https://github.com/bounswe/bounswe2022group5/issues/260)
-	* Displaying user email in the home page's drawer head: [#279](https://github.com/bounswe/bounswe2022group5/issues/279)
 * *Management related significant issues:*
-	* Updating Wiki Home Page: [#171](https://github.com/bounswe/bounswe2022group5/issues/171)
 	* Revising the Class Diagram: [#181](https://github.com/bounswe/bounswe2022group5/issues/181)
 	* Rearranging the Repo Structure and Branches For Collaborative Work: [#188](https://github.com/bounswe/bounswe2022group5/issues/188)
-	* Creating Scenario 1 for Milestone 1: [#268](https://github.com/bounswe/bounswe2022group5/issues/268)
+	
 
 ### Pull Requests:
 * Initial directory structure for the app is created: [#189](https://github.com/bounswe/bounswe2022group5/pull/189)
 * Initial mobile app structure was created : [#191](https://github.com/bounswe/bounswe2022group5/pull/191)
 * Mobile Home Screen is Created: [#212](https://github.com/bounswe/bounswe2022group5/pull/244)
 * Home page is updated to use API services: [#269](https://github.com/bounswe/bounswe2022group5/pull/269)
-* Drawer head in the Home page is updated: [#280](https://github.com/bounswe/bounswe2022group5/issues/280)
-* Minor bug-fixes in the login page and AndroidManifest.xml: [#282](https://github.com/bounswe/bounswe2022group5/issues/282)
 
-### Additional Information
-* Attended general meetings: Meeting [13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1), [14.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-14.1), [15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1), [16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
-* Attended mobile meetings: Mobile Meeting [1](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-1), [2](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-2), [3](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-3)
-* Revised or contributed issues: [#168](https://github.com/bounswe/bounswe2022group5/issues/168), [#175](https://github.com/bounswe/bounswe2022group5/issues/175), [#178](https://github.com/bounswe/bounswe2022group5/issues/178), [#193](https://github.com/bounswe/bounswe2022group5/issues/193), [#214](https://github.com/bounswe/bounswe2022group5/issues/214), [#216](https://github.com/bounswe/bounswe2022group5/issues/216), [#227](https://github.com/bounswe/bounswe2022group5/issues/227), [#240](https://github.com/bounswe/bounswe2022group5/issues/240)
-* Reviewed PRs: [#215](https://github.com/bounswe/bounswe2022group5/pull/215), [#222](https://github.com/bounswe/bounswe2022group5/pull/222), [#228](https://github.com/bounswe/bounswe2022group5/pull/228), [#244](https://github.com/bounswe/bounswe2022group5/pull/244), [#272](https://github.com/bounswe/bounswe2022group5/pull/272), [#276](https://github.com/bounswe/bounswe2022group5/pull/276)
 
  </details>
+
 
  <details><summary>Engin Oğuzhan Şenol</summary>
 
@@ -364,6 +384,11 @@ Here is my other important efforts before CMPE 451 Milestone 1.
 
 </details>
  
+  
+ 
+
+
+
  <details><summary>Yavuz Samet Topcuoglu</summary>
 
 ## **Member:** [Yavuz Samet Topcuoglu](https://github.com/bounswe/bounswe2022group5/wiki/Yavuz-Samet-Topcuoglu), Group 5.
@@ -389,47 +414,6 @@ Here is my other important efforts before CMPE 451 Milestone 1.
  </details>
  
 
- <details><summary>Sinan Kerem Gündüz</summary>
-	 
 
-## **Member:** [Sinan Kerem Gündüz](https://github.com/bounswe/bounswe2022group5/wiki/Sinan-Kerem-Gündüz), Group 5.
 
-###  **Responsibilities:** 
-- As a member of Frontend Team, my main responsibility was building the components that we will be use in the UI. One of them was the navigation bar which will be common across all website, and the other one was the homepage layout that will be shared by posts and articles in the landing page of the website. Addition to that, I have also aligned the places that will be filled with Posts and Articles in the homepage.
-
-- I have also take a part in the creation of the [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1) for the mockups.
-
-- Participating the customer meetings and team meetings was also one of my responsibilities.
-
-- Together with Yavuz Samet Topçuoğlu, revising the previous [use case diagrams](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram) and making appropriate changes.
-
-- Updating the [team communication plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page) for this semester.
-
-###  **Main contributions:** 
-As a first contribution, we have build the structure of the frontend in the first meeting. Thanks to Burak Mert, it was a very clear and fast initialization of react.
-
-After the initialization, together with the team we have designed the homepage, login, logout pages in the figma website.
-
-I have implemented the navigation bar and connect the login/logout/signup buttons with links and functionalities. Since we do not have posts and articles in the website, the search bar has no functionality yet. Created the Navigation Bar as a component that can be used across all website.
-
-Then, I have implemented the homepage layout as we have designed in the meeting. Also made some alignments for the Posts and Articles page in order to fit them in the homepage screen.
-
-After all, Together with Alper Canberk Balcı, and Engin Oğuzhan Şenol, we have created [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1) for the demo.
-
-#### Code related significant issues:
-- [#235](https://github.com/bounswe/bounswe2022group5/issues/235) This one is for creating the navigation bar for the website.
-- [#250](https://github.com/bounswe/bounswe2022group5/issues/250) This one is for creating the HomePage layout as described above.
-- [#258](https://github.com/bounswe/bounswe2022group5/issues/258) This one is for integrating the Posts and Articles to the Homepage.
-
-#### Management related significant issues:
-- [#178](https://github.com/bounswe/bounswe2022group5/issues/178) Revising the Use Case diagrams.
-- [#174](https://github.com/bounswe/bounswe2022group5/issues/174) Updating Communication Plan.
-- [#266](https://github.com/bounswe/bounswe2022group5/issues/266) Creating Scenario 2.
-
-### Pull Requests:
-- [#249](https://github.com/bounswe/bounswe2022group5/pull/249) Navigation Bar.
-- [#256](https://github.com/bounswe/bounswe2022group5/pull/256) Navigation Bar improvements.
-- [#257](https://github.com/bounswe/bounswe2022group5/pull/257) HomePage Layout and alignments.
-- [#259](https://github.com/bounswe/bounswe2022group5/pull/259) Small aligment PR.
-- [#267](https://github.com/bounswe/bounswe2022group5/pull/267) Improvement in the HomePage buttons.
 
