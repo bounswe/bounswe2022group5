@@ -28,16 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _pass = TextEditingController();
   bool isMember = true;
 
-  Future<bool> login(String email, String password) async {
-    // Login API call handling function
-    final result = await ApiService().login(email, password);
-    if (result == 200) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(15.0),
                 child: TextFormField(
                   obscureText: true,
+                  controller: _pass,
                   decoration: InputDecoration(
                     hintText: 'Password',
                     prefixIcon: Icon(Icons.lock),
@@ -123,17 +114,25 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       int type;
-                      bool registered = await login(_email.text, _pass.text);
-                      if (registered) {
-                        //if registered successfully, go to the login page
+                      String token =
+                          await ApiService().login(_email.text, _pass.text);
+                      print(token);
+                      print(_email.text);
+                      print(_pass.text);
+                      if (token != 'Error') {
+                        // If logged-in successfully, go to the Home page
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
+                              builder: (context) => HomePage(
+                                    token: token,
+                                  )),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Could not register')),
+                          const SnackBar(
+                              content: Text(
+                                  'Could not log-in. Check your information.')),
                         );
                       }
                     }
@@ -191,7 +190,10 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(
+                        builder: (context) => const HomePage(
+                              token: '-1',
+                            )),
                   );
                 },
                 child: Text(
