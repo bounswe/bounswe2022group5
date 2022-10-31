@@ -1,5 +1,5 @@
 #### Software Requirements Specification
-[Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements)
+- [Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements)
 #### Software Design (UML)
 - [Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram)
 - [Class Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Class-Diagram)
@@ -65,7 +65,52 @@ Pull Requests:
  
  
  <details><summary>Alper Canberk Balcı</summary>
-	Will be filled. 
+	
+### Member: [Alper Canberk Balcı - Group 5](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balcı)  
+	
+### Responsibilities:
+- Attending weekly general meetings, and taking meeting notes.
+- Attending weekly backend team meetings and contributing in the design, ideas, strategy.
+- Revising and editing [Meeting Notes Template](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-Notes-Template).
+- [Revising and adding](https://github.com/bounswe/bounswe2022group5/issues/186) new issue labels.
+- Planning the [Backend Communication Plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page).
+- Contributions to Issue Template, app name and logo, Sidebar, 
+- Revising and updating [Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan) and [RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM).
+- Contributing to designing [Database Schema](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.2#discussion).
+- [Connecting](https://github.com/bounswe/bounswe2022group5/pull/198) the database to our app.
+- Documentation of [Login API](https://github.com/bounswe/bounswe2022group5/wiki/Login-API-Documentation).
+- Creating [Backend Code Conventions](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Code-Conventions).
+- Writing the [README.md](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/README.md) file.
+- Reviewing all backend related code.
+- Creating [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1).
+- Helping team to document deliverables for Milestone 1.
+
+
+### Main Contributions:  
+- Overall my contributions became alive mostly in areas: management, documentation, and review. 
+- I was not familiar with deployment, and had little experience in implementation of endpoints, so I didn't write much code. 
+- Contributed in designing the database schema, and reviewed and read all backend related code, caught some bugs; helped in the strategy, and connected database to the app. 
+- Contributed greatly in the documentation and management: Meeting notes, issue labels, Communication Plan, Sidebar, Project Plan and RAM, Login API documentation, Backend Code Conventions, README file, and Scenario 2, and careful review and management.
+
+#### Code related significant issues:
+* [Connecting DB Engine to Django app](https://github.com/bounswe/bounswe2022group5/issues/197)
+* [Creating API documentation for Login](https://github.com/bounswe/bounswe2022group5/issues/201)
+* [Editing the README file of the Backend part of the Project](https://github.com/bounswe/bounswe2022group5/issues/237)
+
+
+#### Management related significant issues:
+
+* [Revising the Meeting Notes Template](https://github.com/bounswe/bounswe2022group5/issues/168)
+* [Updating the Project Plan and RAM according to the Meeting 14.1](https://github.com/bounswe/bounswe2022group5/issues/177)
+* [Adding New Labels to Distinguish Issues for Different Groups' Tasks](https://github.com/bounswe/bounswe2022group5/issues/186)
+* [Deciding on Meeting Time and Platform for Backend Team](https://github.com/bounswe/bounswe2022group5/issues/200)
+* [Documenting Backend code conventions](https://github.com/bounswe/bounswe2022group5/issues/262)
+* [Creating Scenario 2 for Milestone 1](https://github.com/bounswe/bounswe2022group5/issues/266)
+
+### Pull Requests:
+
+* [Django App Connection to the DB](https://github.com/bounswe/bounswe2022group5/pull/198)
+
  </details>
  
  
