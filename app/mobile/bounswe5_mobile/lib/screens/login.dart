@@ -116,9 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                       int type;
                       String token =
                           await ApiService().login(_email.text, _pass.text);
-                      print(token);
-                      print(_email.text);
-                      print(_pass.text);
                       if (token != 'Error') {
                         // If logged-in successfully, go to the Home page
                         Navigator.pushReplacement(
