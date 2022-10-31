@@ -272,6 +272,28 @@ The majority of my time up until the Milestone 1 was focused on studying because
 	
  </details>
  
+  <details><summary>Ozan Kılıç</summary>
+
+## **Member:** [Ozan Kılıç](https://github.com/bounswe/bounswe2022group5/wiki/Ozan-K%C4%B1l%C4%B1%C3%A7), Group 5.
+###  **Responsibilities:** 
+-  Creating one of the frontend part of the project, reviewing some pull requests, and documentation.
+
+###  **Main contributions:** 
+- Coding of posts and [forum page](https://github.com/bounswe/bounswe2022group5/pull/251) . 
+- Creating frontend coding conventions page [Issue #263](https://github.com/bounswe/bounswe2022group5/issues/263). 
+- Planning communication times and platforms to make meetings [Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274).
+
+	* **Code related significant issues:** 
+		* [Issue #223](https://github.com/bounswe/bounswe2022group5/issues/223) : Posts and forum page implementation.
+		
+	* **Management related significant issues:** 
+		* [Issue #263](https://github.com/bounswe/bounswe2022group5/issues/263): Code convention documentation for every frontend team member to apply.
+		* [Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274): Arranging meeting times.
+### **Pull requests:** 
+-  [Pull Request #254](https://github.com/bounswe/bounswe2022group5/pull/254): Posts and forum is implemented for homepage
+
+ </details>
+ 
 
 
 
@@ -298,4 +320,8 @@ The majority of my time up until the Milestone 1 was focused on studying because
 
 
  </details>
+ 
+
+
+
 
