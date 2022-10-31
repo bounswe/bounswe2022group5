@@ -10,8 +10,6 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required User this.activeUser}) : super(key: key);
   final User activeUser;
 
-  String get token => this.token;
-
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -21,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext  context) {
     ApiService apiServer = ApiService();
     return  FutureBuilder<User?>(
-        future: apiServer.getUserInfo(widget.token),
+        future: apiServer.getUserInfo(widget.activeUser.token),
         builder: (context,snapshot) {
           return Scaffold(
             appBar: AppBar(
