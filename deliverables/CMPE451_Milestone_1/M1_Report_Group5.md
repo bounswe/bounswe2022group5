@@ -58,3 +58,41 @@ Pull Requests:
 
 
  </details>
+ 
+ 
+ <details><summary>Irfan Bozkurt</summary>
+
+### Member: [Irfan Bozkurt - Group 5](https://github.com/bounswe/bounswe2022group5/wiki/Irfan-Bozkurt)
+### Responsibilities:
+- Attending weekly general meetings and taking notes
+- Revising and changing requirements
+- Revising and proposing changes in class diagrams
+- Deciding on development & deployment roadmap of Backend
+- Attending weekly back-end meetings and deciding on strategies
+- Deploying the database
+- Creating the initial schema & initial tables in the database
+- Writing unit tests on the initial model classes
+- Dockerizing the back-end
+- Deployment of 2 different versions of back-end
+
+### Main Contributions:
+Overall, my contributions mainly included architectural decisions; revision of requirements; database, docker, deployment-related tasks; and reviewing important back-end code.
+
+#### Code related significant issues:
+* [Choosing / Deploying a Database Service](https://github.com/bounswe/bounswe2022group5/issues/194)
+* [Create Initial Tables in the Database](https://github.com/bounswe/bounswe2022group5/issues/199)
+* [Unit tests for model classes](https://github.com/bounswe/bounswe2022group5/issues/199#issuecomment-1288161363)
+* [Dockerization and Deployment of Backend](https://github.com/bounswe/bounswe2022group5/issues/220)
+* [Fix the authentication_classes bug & deploy new version](https://github.com/bounswe/bounswe2022group5/issues/246)
+
+#### Management related significant issues:
+* On [this issue about requirements](https://github.com/bounswe/bounswe2022group5/issues/173), I have significant contribution as can be seen from the comments: [this](https://github.com/bounswe/bounswe2022group5/issues/173#issuecomment-1272586250), [this](https://github.com/bounswe/bounswe2022group5/issues/173#issuecomment-1272582240), [this](https://github.com/bounswe/bounswe2022group5/issues/173#issuecomment-1272582140)
+* [Meeting notes](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.2) is taken by me and was important to determine the initial development structure.
+
+Pull Requests:
+* [Backend/feature/initial tables](https://github.com/bounswe/bounswe2022group5/pull/203)
+* [App dockerized and deployed](https://github.com/bounswe/bounswe2022group5/pull/231) 
+* [Small bug fix ](https://github.com/bounswe/bounswe2022group5/pull/247) 
+
+
+ </details>
