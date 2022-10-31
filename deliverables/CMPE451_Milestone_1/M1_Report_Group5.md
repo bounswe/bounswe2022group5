@@ -36,6 +36,42 @@ After considerable amount of frontend tasks are completed, I created a Dockerfil
 
 **Pull Requests: [Login and Signup Pages are implemented in Frontend #252](https://github.com/bounswe/bounswe2022group5/pull/252)**
 
+</details>
+
+ <details><summary>Engin Oğuzhan Şenol</summary>
+
+### Member: 
+[Engin Oğuzhan Şenol](https://github.com/bounswe/bounswe2022group5/wiki/Engin-Oğuzhan-Şenol)
+
+### Responsibilities:
+In order to develop the project, I have been in the many situations and tasks where I can put my effort on. Recently, most of the responsibilities that are assigned to me were relevant to mobile development. Since I have not done a mobile development prior to this project, I had to study Flutter and Dart to improve my skills for our application.
+
+### Main Contributions:
+For medical experience sharing platform, creating profile page of the mobile application was my most essential contribution. I was also the note taker of our development team. Also, I have been a part of Requirement Specification, and Creation of Scenarios and Mock ups.
+
+#### Code related significant issues:
+[(#207)](https://github.com/bounswe/bounswe2022group5/issues/207) I created a Profile Widget and placed it above the profile screen. Then, I created a widget named buildName for showing the information of the active member. Lastly, I created a class named ProfileListItem, and created buttons for activity histories for Likes, Comments, Posts. Lastly, I placed the AppBar. that we used for many mobile screens.
+
+#### Management related significant issues:
+[(#217)](https://github.com/bounswe/bounswe2022group5/issues/217) After [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1), we decided to revised the [project requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements), and changed them according to Discussion. I reviewed all of the requirements that are according to our last decisions. I deleted the unnecessary ones, changed the altered ones, and added new requirements if there are absent ones.
+	
+[(#268)](https://github.com/bounswe/bounswe2022group5/issues/217) After [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1), we decided to create two scenarios for CMPE451 Milestone 1. I was assigned for the [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1). After creation of the first scenario, we created another character and created a different scenario for that character
+
+### Pull Requests:
+ - ([#228](https://github.com/bounswe/bounswe2022group5/pull/228)) As mentioned above, my mainly part was creating profile page for mobile application. 
+ -  ([#273](https://github.com/bounswe/bounswe2022group5/pull/273)) To make the code look more organized, I separated files for profile widgets
+ -  ([#276](https://github.com/bounswe/bounswe2022group5/pull/228)) After creation of the endpoints, I changed the mock data with the actual data.
+
+### Additional Information
+Here is my other important efforts before CMPE 451 Milestone 1.
+
+|#|Task|
+|---|---|
+|1|Attended Meeting [13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1), [14.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-14.1), [15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1), [16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)|
+|2|Attended Mobile Meetings [1](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-1), [2](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-2), [3](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-3), [4](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-4). |
+|3|Assigned issues [#173](https://github.com/bounswe/bounswe2022group5/issues/173), [#179](https://github.com/bounswe/bounswe2022group5/issues/179), [#207](https://github.com/bounswe/bounswe2022group5/issues/207), [#217](https://github.com/bounswe/bounswe2022group5/issues/217), [#240](https://github.com/bounswe/bounswe2022group5/issues/240), [#266](https://github.com/bounswe/bounswe2022group5/issues/266), [#275](https://github.com/bounswe/bounswe2022group5/issues/275).|
+|4|Reviewed issues [#171](https://github.com/bounswe/bounswe2022group5/issues/171), [#180](https://github.com/bounswe/bounswe2022group5/issues/180), [#190](https://github.com/bounswe/bounswe2022group5/issues/190), [#209](https://github.com/bounswe/bounswe2022group5/issues/209), [#225](https://github.com/bounswe/bounswe2022group5/issues/225), [#229](https://github.com/bounswe/bounswe2022group5/issues/229), [#234](https://github.com/bounswe/bounswe2022group5/issues/234), [#245](https://github.com/bounswe/bounswe2022group5/issues/245), [#261](https://github.com/bounswe/bounswe2022group5/issues/261), [#264](https://github.com/bounswe/bounswe2022group5/issues/264), [#268](https://github.com/bounswe/bounswe2022group5/issues/268), [#277](https://github.com/bounswe/bounswe2022group5/issues/277).
+
 
 </details>
 
