@@ -96,3 +96,38 @@ Pull Requests:
 
 
  </details>
+ 
+ <details><summary>Kardelen Demiral</summary>
+
+
+### Member: [Kardelen Demiral](https://github.com/bounswe/bounswe2022group5/wiki/Kardelen-Demiral)
+
+### Responsibilities:
+
+- Attending the meetings.
+- Updating the wiki sidebar as discussed in the [Meeting 13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1). Adding new sections for team meetings. 
+- Making a research about technologies, tools and frameworks we can use while developing the mobile application to share my knowledge with my teammates and decide on the technology that will be used for mobile.
+- As a member of the mobile team, contributing to the development of the mobile application and the main decisions about the development.
+- Responsible for the development of the sign-up screen for mobile application together with the backend connection. 
+- Responsible for reviewing the code written by other mobile developers.
+- Editing the README file of the mobile application code to add a description and a guide about how to run the code.
+
+### Main Contributions:
+Since I was not very familiar with mobile development and I wanted to be a part of the mobile team, most of my time until the Milestone 1 was spent on learning. Firstly, I made a research about which language and tools that we could use and shared my knowledge with my teammates during our meetings. After deciding to use Flutter for mobile development, I practiced a lot to get familiar with. Then, my main responsibility was to create the sign-up screen and making its backend connection. I also helped other mobile team members when they had issues developing their own parts. 
+* *Code related significant issues:*
+	* Started to create a sign-up page for the mobile application: [#193](https://github.com/bounswe/bounswe2022group5/issues/193)
+	* Added the user type selection to the sign-up screen as discussed in the [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1): [#216](https://github.com/bounswe/bounswe2022group5/issues/216)
+	* Added an API service class to the mobile app: [#240](https://github.com/bounswe/bounswe2022group5/issues/240) 
+	* Made the register API call for signup and connected our signup screen to the backend service: [#245](https://github.com/bounswe/bounswe2022group5/issues/245)
+* *Management related significant issues:*
+	* Opened an issue to ask members for font suggestions: [#209](https://github.com/bounswe/bounswe2022group5/issues/209)
+	* Edited the README file of the mobile application code to add a description and a guide about how to run the code: [#234](https://github.com/bounswe/bounswe2022group5/issues/234)
+
+### Pull Requests:
+* Initial implementation of the sign-up screen: [#215](https://github.com/bounswe/bounswe2022group5/pull/215)
+* Branch field is added for doctor sign-up: [#222](https://github.com/bounswe/bounswe2022group5/pull/222)
+* API service class is added: [#244](https://github.com/bounswe/bounswe2022group5/pull/244)
+* Register API call for mobile is handled: [#255](https://github.com/bounswe/bounswe2022group5/pull/255)
+
+
+ </details>
