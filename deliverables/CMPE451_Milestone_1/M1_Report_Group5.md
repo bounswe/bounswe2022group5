@@ -159,4 +159,28 @@ After considerable amount of frontend tasks are completed, I created a Dockerfil
 
 
  </details>
+ 
+ <details><summary>Yavuz Samet Topcuoglu</summary>
+
+## **Member:** [Yavuz Samet Topcuoglu](https://github.com/bounswe/bounswe2022group5/wiki/Yavuz-Samet-Topcuoglu), Group 5.
+###  **Responsibilities:** 
+-  Implementing one of the components of the website, as well as other documentation responsibilities.
+
+###  **Main contributions:** 
+- Implemented [Article card layout](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Article) and Article cards.
+- Created an [Issue Template](https://github.com/bounswe/bounswe2022group5/wiki/Issue-Template) to be consistent within group.
+- Formed a [scenario](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1) to be presented on Milestone 1.
+
+	* **Code related significant issues:** 
+		* [Issue #241](https://github.com/bounswe/bounswe2022group5/issues/241): Implementation of the Article card component which is going to be visible on the Homepage of the website.
+		
+	* **Management related significant issues:** 
+		* [Issue #178](https://github.com/bounswe/bounswe2022group5/issues/241): Revising the [Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram), and made changes on it according to the changes done in [Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements) after the Customer Meeting.
+		* [Issue #185](https://github.com/bounswe/bounswe2022group5/issues/185): Gathering suggestions for the name and logo of our project.
+		* [Issue #268](https://github.com/bounswe/bounswe2022group5/issues/185): Forming a [scenario](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1) where a doctor signs up and logs in to the website.
+### **Pull requests:** 
+-  [Pull Request #243](https://github.com/bounswe/bounswe2022group5/pull/243): Article cards are available to be displayed on the homepage.
+
+
+ </details>
 
