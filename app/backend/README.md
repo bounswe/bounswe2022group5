@@ -1,6 +1,6 @@
 ## Tech Stack
 The backend is developed by using [Django](https://www.djangoproject.com/) and its [REST Framework](https://www.django-rest-framework.org/).
-In the database [PostgreSQL](https://www.postgresql.org/) is used.
+In the database [PostgreSQL](https://www.postgresql.org/) is used. It is 
 
 ## Running the Application:
 ### How to run in local:
@@ -43,3 +43,4 @@ $ .\env\Scripts\activate
 (env)$ python manage.py test 
 ```
 
+6. Don't forget to set the DATABASE_PW and DATABASE_HOST as environment variables
