@@ -143,6 +143,7 @@ Since I was not very familiar with mobile development and I wanted to be a part 
 	* Added the user type selection to the sign-up screen as discussed in the [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1): [#216](https://github.com/bounswe/bounswe2022group5/issues/216)
 	* Added an API service class to the mobile app: [#240](https://github.com/bounswe/bounswe2022group5/issues/240) 
 	* Made the register API call for signup and connected our signup screen to the backend service: [#245](https://github.com/bounswe/bounswe2022group5/issues/245)
+	* Fixed a bug about login pages being on top of each other after sign-up: [#277](https://github.com/bounswe/bounswe2022group5/issues/277)
 * *Management related significant issues:*
 	* Opened an issue to ask members for font suggestions: [#209](https://github.com/bounswe/bounswe2022group5/issues/209)
 	* Edited the README file of the mobile application code to add a description and a guide about how to run the code: [#234](https://github.com/bounswe/bounswe2022group5/issues/234)
@@ -152,6 +153,7 @@ Since I was not very familiar with mobile development and I wanted to be a part 
 * Branch field is added for doctor sign-up: [#222](https://github.com/bounswe/bounswe2022group5/pull/222)
 * API service class is added: [#244](https://github.com/bounswe/bounswe2022group5/pull/244)
 * Register API call for mobile is handled: [#255](https://github.com/bounswe/bounswe2022group5/pull/255)
+* Login pages being on top of each other after sign-up is fixed: [#278](https://github.com/bounswe/bounswe2022group5/pull/278)
 
   </details>
 
