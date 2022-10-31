@@ -315,10 +315,7 @@ class _SignupPageState extends State<SignupPage> {
                                   }
                                   bool registered = await register(_email.text, _pass.text, type);
                                   if (registered) { //if registered successfully, go to the login page
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                                    );
+                                    Navigator.pop(context);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Could not register')),
