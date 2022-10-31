@@ -74,7 +74,7 @@ Pull Requests:
 - Revising and editing [Meeting Notes Template](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-Notes-Template).
 - [Revising and adding](https://github.com/bounswe/bounswe2022group5/issues/186) new issue labels.
 - Planning the [Backend Communication Plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page).
-- Contributions to Issue Template, app name and logo, Sidebar, 
+- Suggestions to Issue Template, app name and logo, Sidebar design.
 - Revising and updating [Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan) and [RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM).
 - Contributing to designing [Database Schema](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.2#discussion).
 - [Connecting](https://github.com/bounswe/bounswe2022group5/pull/198) the database to our app.
