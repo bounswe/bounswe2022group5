@@ -247,6 +247,30 @@ Pull Requests:
 
  </details>
  
+ <details><summary>Oğuzhan Demirel</summary>
+
+## **Member:** [Oğuzhan Demirel, Group 5](https://github.com/bounswe/bounswe2022group5/wiki/Oğuzhan-Demirel).
+###  **Responsibilities:** 
+- Participating the customer meetings and also team meetings.
+- Revising the Class Diagram and making necessary changes according to updated requirements.
+- Revising the Sequence diagram according to updated requirements.
+- Deciding branch conventions for all the teams and helping on PR conventions & templates.
+- Learning and researching on Django Framework for backend.
+- Reviewing assigned issues and making necessary contributions. 
+###  **Main contributions:**
+The majority of my time up until the Milestone 1 was focused on studying because I had little experience with Django framework and wanted to be a member of the backend team. I created branch and PR conventions pages for the use of all of my team. I also revised class diagrams and my sequence diagram for update. Added new members to our communication platforms. Helped my teammate to decide tools and frameworks that we use. Reviewed lots of issues and PRs' to make high performance app.
+- Created a [Branch convention page](https://github.com/bounswe/bounswe2022group5/wiki/Branch-Convention) for all the team members.
+- Changing the [Class Diagram](https://github.com/bounswe/bounswe2022group5/issues/181) according to our new requirements.
+	* **Code related significant issues:**
+		* [Issue #262](https://github.com/bounswe/bounswe2022group5/issues/262): Analyzing the Backend code conventions page and giving some feedbacks about the document.
+		* [Issue #184](https://github.com/bounswe/bounswe2022group5/issues/184): Making changes on [Pull Request Template](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1), and clarify some topics.
+		* [Issue #218](https://github.com/bounswe/bounswe2022group5/issues/218): Reviewing the [Login](https://github.com/bounswe/bounswe2022group5/wiki/Login-API-Documentation) and [Signup](https://github.com/bounswe/bounswe2022group5/wiki/Signup-API-Documentation) Documentation and giving some suggestions about error cases.
+		
+	* **Management related significant issues:** 
+		* [Issue #266](https://github.com/bounswe/bounswe2022group5/issues/266): Reviewing the [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1), and giving some suggestions about that.
+		* [Issue #178](https://github.com/bounswe/bounswe2022group5/issues/178): Analyze the [Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram).
+	
+ </details>
  
 
 
