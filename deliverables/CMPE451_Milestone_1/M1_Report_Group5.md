@@ -131,3 +131,32 @@ Since I was not very familiar with mobile development and I wanted to be a part 
 
 
  </details>
+ 
+ <details><summary>Burak Mert</summary>
+
+## Individual Contributions Report
+
+**Member:** Burak Mert, Group 5
+
+**Responsibilities:** I am a member of frontend team for the project. Since I have some experience about frontend development, I was responsible for building initial structure of our frontend application. My main task was creating login and signup pages. To make these pages fully functional, I was also responsible for building API connection between backend. Dockerizing and deploying frontend project into an AWS instance were also my responsibilities.
+
+**Main Contributions:** My first contribution was building initial structure of the application. During our first frontend meeting, I created a basic React application and create initial folders and files to decide on all tasks we need to finish in order to develop first version of the application. 
+
+My main task was creating a login and signup page. I created two seperate pages with “/login” and “/signup” urls. For signup page, I created two different signup forms for members and doctors. For doctors, signup form has additional fields like document and branch of medicine. I implemented a flipping card to switch between two forms in the same page. I added several validations for form fields like password length and only-numeric password restrictions. I also created API connection between backend. I followed the API documentation on our wiki page, and used “axios” package to make requests. I also used “redux” to keep user information in application state. 
+
+First versions of signup forms of frontend and mobile projects had different fields; therefore, I created an issue to align these fields for consistency.
+
+After considerable amount of frontend tasks are completed, I created a Dockerfile inside the frontend proejct. I created an AWS instance and deployed our frontend project into the instance via Docker. After merging all frontend related branches into master branch, I deployed the master branch again.
+
+&nbsp;&nbsp;&nbsp;&nbsp; **Code related significant issues:** 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Creating Login and Signup pages for Frontend #202](https://github.com/bounswe/bounswe2022group5/issues/202)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Management related significant issues:** 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Aligning signup form fields with Mobile Team #214](https://github.com/bounswe/bounswe2022group5/issues/214)
+
+
+**Pull Requests: [Login and Signup Pages are implemented in Frontend #252](https://github.com/bounswe/bounswe2022group5/pull/252)**
+
+
+ </details>
+
