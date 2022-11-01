@@ -412,6 +412,54 @@ Here is my other important efforts before CMPE 451 Milestone 1.
 
 
  </details>
+
+  
+
+ <details><summary>Sinan Kerem Gündüz</summary>
+	 
+
+## **Member:** [Sinan Kerem Gündüz](https://github.com/bounswe/bounswe2022group5/wiki/Sinan-Kerem-Gündüz), Group 5.
+
+###  **Responsibilities:** 
+- As a member of Frontend Team, my main responsibility was building the components that we will be use in the UI. One of them was the navigation bar which will be common across all website, and the other one was the homepage layout that will be shared by posts and articles in the landing page of the website. Addition to that, I have also aligned the places that will be filled with Posts and Articles in the homepage.
+
+- I have also take a part in the creation of the [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1) for the mockups.
+
+- Participating the customer meetings and team meetings was also one of my responsibilities.
+
+- Together with Yavuz Samet Topçuoğlu, revising the previous [use case diagrams](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram) and making appropriate changes.
+
+- Updating the [team communication plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page) for this semester.
+
+###  **Main contributions:** 
+As a first contribution, we have build the structure of the frontend in the first meeting. Thanks to Burak Mert, it was a very clear and fast initialization of react.
+
+After the initialization, together with the team we have designed the homepage, login, logout pages in the figma website.
+
+I have implemented the navigation bar and connect the login/logout/signup buttons with links and functionalities. Since we do not have posts and articles in the website, the search bar has no functionality yet. Created the Navigation Bar as a component that can be used across all website.
+
+Then, I have implemented the homepage layout as we have designed in the meeting. Also made some alignments for the Posts and Articles page in order to fit them in the homepage screen.
+
+After all, Together with Alper Canberk Balcı, and Engin Oğuzhan Şenol, we have created [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1) for the demo.
+
+#### Code related significant issues:
+- [#235](https://github.com/bounswe/bounswe2022group5/issues/235) This one is for creating the navigation bar for the website.
+- [#250](https://github.com/bounswe/bounswe2022group5/issues/250) This one is for creating the HomePage layout as described above.
+- [#258](https://github.com/bounswe/bounswe2022group5/issues/258) This one is for integrating the Posts and Articles to the Homepage.
+
+#### Management related significant issues:
+- [#178](https://github.com/bounswe/bounswe2022group5/issues/178) Revising the Use Case diagrams.
+- [#174](https://github.com/bounswe/bounswe2022group5/issues/174) Updating Communication Plan.
+- [#266](https://github.com/bounswe/bounswe2022group5/issues/266) Creating Scenario 2.
+
+### Pull Requests:
+- [#249](https://github.com/bounswe/bounswe2022group5/pull/249) Navigation Bar.
+- [#256](https://github.com/bounswe/bounswe2022group5/pull/256) Navigation Bar improvements.
+- [#257](https://github.com/bounswe/bounswe2022group5/pull/257) HomePage Layout and alignments.
+- [#259](https://github.com/bounswe/bounswe2022group5/pull/259) Small aligment PR.
+- [#267](https://github.com/bounswe/bounswe2022group5/pull/267) Improvement in the HomePage buttons.
+
+ </details>
  
 
 
