@@ -159,8 +159,12 @@ Here is my other important efforts before CMPE 451 Milestone 1.
 |3|Assigned issues [#173](https://github.com/bounswe/bounswe2022group5/issues/173), [#179](https://github.com/bounswe/bounswe2022group5/issues/179), [#207](https://github.com/bounswe/bounswe2022group5/issues/207), [#217](https://github.com/bounswe/bounswe2022group5/issues/217), [#240](https://github.com/bounswe/bounswe2022group5/issues/240), [#266](https://github.com/bounswe/bounswe2022group5/issues/266), [#275](https://github.com/bounswe/bounswe2022group5/issues/275).|
 |4|Reviewed issues [#171](https://github.com/bounswe/bounswe2022group5/issues/171), [#180](https://github.com/bounswe/bounswe2022group5/issues/180), [#190](https://github.com/bounswe/bounswe2022group5/issues/190), [#209](https://github.com/bounswe/bounswe2022group5/issues/209), [#225](https://github.com/bounswe/bounswe2022group5/issues/225), [#229](https://github.com/bounswe/bounswe2022group5/issues/229), [#234](https://github.com/bounswe/bounswe2022group5/issues/234), [#245](https://github.com/bounswe/bounswe2022group5/issues/245), [#261](https://github.com/bounswe/bounswe2022group5/issues/261), [#264](https://github.com/bounswe/bounswe2022group5/issues/264), [#268](https://github.com/bounswe/bounswe2022group5/issues/268), [#277](https://github.com/bounswe/bounswe2022group5/issues/277), [#279](https://github.com/bounswe/bounswe2022group5/issues/277), [#281](https://github.com/bounswe/bounswe2022group5/issues/281).
 
+</details>
 
- <details><summary>Halil Burak Pala</summary>
+
+<details>
+	
+<summary>Halil Burak Pala</summary>
 
 
 ### Member: [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala)
@@ -556,5 +560,4 @@ Customer Milestone 1 Group Review|Completed|31.10.2022|
 |Ozan Kılıç||
 |Sinan Kerem Gündüz||
 |Yavuz Samet Topcuoglu||
-
 
