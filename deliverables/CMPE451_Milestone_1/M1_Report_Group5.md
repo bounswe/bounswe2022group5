@@ -533,10 +533,44 @@ Besides that, our knowledge about the technologies in the web development indust
 [Scenario & Mockup 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1)|Completed|31.10.2022|
 [Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan)|Completed|31.10.2022|
 [RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM)|Completed|31.10.2022|
+[Software](https://github.com/bounswe/bounswe2022group5/tree/master/app)|Completed|31.10.2022|
 [Individual Contribution Reports](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_1/M1_Report_Group5.md#individual-contribution-reports)|Completed|31.10.2022|
 Customer Milestone 1 Group Review|Completed|31.10.2022|
 
 ### 3. Evaluation of the status of deliverables
+
+- **Software Requirements Specification**
+We reviewed the requirements of the first weeks of the term again. As a result of this review, we realized that there are points that will change in the requirements. We made very important changes together with the team as the requirements were the main point for us during the development process. The requirements we have listed in this milestone are now met. In the upcoming period, we will make the development meet other requirements. The Software Requirement Specification currently covers every aspect of the application we will develop.
+
+- **Software Design(UML)**
+Before implementation, the UML Diagrams were updated according to the changes in the Requirements Specification.
+*Class Diagram*: It describes the classes and their architecture in our software design. Class Diagrams, which the backend team uses as the main source while defining the database tables and the backend structs, are of great importance for development in this direction.
+*Use Case Diagram* It describes functions and scenarios that are or will be offered through a system. In other words, it defines the operations that users want to perform on the system through functions. It has been finalized for the first milestone. It helped a lot, especially in the frontend and mobile development process. It is used to model the pages that the user will go through in the application and the process that the user will experience.
+*Sequence Diagrams*: In Sequence Diagrams, we have defined functions and operations in specific scenarios. This helped us to see more clearly the process that occurs in specific transactions. We made the most realistic and detailed modeling with sequence diagrams.
+
+- **Scenarios & Mockups**
+In the scenarios and mockups we created last year, the member or doctor had already completed the authentication and we were showing the transactions within the site. For this milestone, we wanted to describe the cases that did not complete the authentication part and discovered the site completely from scratch. For this reason, we have created scenarios and mockups for member and doctor where they perform signup, login and initial actions on the site. We also used these scenarios in the demo presentation and it was a very good resource to explain the application. The scenarios and mockups we have created cover the requirements that are satisfied in this milestone and successfully explain the functionalities of the application verbally and visually.
+In our first scenario, Lucy Pepper is a doctor working on eyes and vision. He wants to find real people on the relationship between corona and vision loss. He discovers the application and wants to register with the signup page. Showing the doctor certificate and its importance here was very helpful in showing how the doctor became a member in the presentation. We were also able to tell which requirements were met on the signup page. After logging in, it became possible to examine and post posts and articles within the application. The 'Create Post' button became visible after login. Then it successfully logout. 
+In the second scenario, we explained the cases that a member who is a member encounters while logging into the site. As in scenario 1, it was very useful for the Member to show the features in the application.
+
+Both scenarios were shown simultaneously on frontend and mobile. We can say that it is quite inclusive where we can show almost all of the Sigup, Login and Homepage features.
+
+- **Project Plan**
+During the Project Plan process, we had to carry out the revision tasks at the same time, especially in the first weeks. It took a long period of time to remember where we were from the previous period and make changes with the new members. In the next process, after we were divided into teams, we managed to distribute the tasks equally and we reached our target for milestone. In this process, it was very important that we, as a team, pay attention to deadlines. We can say that the project plan is very useful as it makes it easier to follow the process.
+
+- **RAM** 
+The RAM shows to whom the responsibilities for the first milestone were assigned and carried out. When the matrix is examined, it would not be wrong to say that the tasks are distributed equally. Everyone has been a part of the development process, except for the exceptional tasks.
+
+- **Individual Contribution Reports**
+This report is very useful for us to understand the general activity of the user, as it presents the contributions made by the group member together with the meeting, issue and pull request related to those contributions.
+Since the relevant meeting is in the notes, it is possible to see the harmony of the user with the group over time.
+
+- **Software**
+Our Software, which we started to develop at the beginning of the term in line with some of the targets set for Milestone, currently meets these targets. We divided into three different teams, assigned the tasks successfully, and started developing them in line with our requirements and UML diagrams. We had a demo as planned with our mobile product with APK,frontend and backend which is dockerized and deployed. We did not experience any software-based problems during the demo. Currently, our system is open to members to signup and login.
+While developing software, we paid attention to documentation and conventions because we want it to be a scalable product.
+
+- **Group Review**
+This is the report where we write the evaluation of the works we have done until Milestone 1. In this direction, we evaluated the current project, deliverables, the vehicles we use and milestone.
 
 ### 4. Evaluation of tools and processes we have used
 
