@@ -468,6 +468,38 @@ After all, Together with Alper Canberk Balcı, and Engin Oğuzhan Şenol, we hav
 
 ### 1. Executive Summary
 
+#### Introduction
+We are a group of 12 computer engineering students from Boğaziçi University who are taking the course “Project Development in Software Engineering” in the 2022 fall term. We are creating a medical experience sharing platform for this course.
+
+This is the first milestone of our project in this semester. It includes our progress so far, our future plans and the deliverables.
+
+#### Description
+Our platform provides its users an environment to share their medical experiences with each other, being informed about medical topics and also gives them the opportunity to receive responses from verified doctors. Anyone can use Android and the web versions of our application without being charged.
+
+Anyone can register to our platform. There are two types of registered users; doctors and members.  Every registered user has their own profile pages. While registered users can benefit from all the features of our application, guest users can use some of them. 
+
+There are three different parts that can be utilized in our application. First one is the Forum. In the forum, any registered user can share their medical experiences and get responses from other users including verified doctors. All users are able to view other discussion threads in the forum and make comments or upvote/downvote them. The second part is the Articles. Only doctors can publish an article in this part. All users can read an article on the platform and upvote/downvote it. The third part is the Chatbot. Register users are able to reach posts, articles and doctors related to the options they choose from the chatbot decision tree. Forum is the home page of our platform. The other parts can be reached through the buttons in the home page. There are also tags and a category can be added to discussion threads and articles.
+
+#### URL of the Deployed Application
+
+- [http://34.235.140.100:3000](http://34.235.140.100:3000)
+
+#### Current Functionality of the Project
+
+The Project is now at the alpha state, which states that it is not completed yet. Some of the features that are going to take place in the application are demonstrated with using some static and mock data.
+
+At the moment, functionally, a user can log-in/log-out and sign-up to the website. After the login, he/she can see the a demo of the website HomePage and what it will look like when the project finish.
+
+User also can see some static data in terms of posts and articles and switch the page between them.
+
+For the mobile part, it is nearly the same as website frontend in terms of the functionality. There are also some static data in order to show and easily explain what will be the mobile app are going to look like.
+
+#### Some Challenges We Met
+
+Up to now, since we have worked individually on the academic projects, it was a very new thing for us to work as a 12 people group in a big project. Therefore, the communication and the division of labour was a challenge for us that needs to be resolved. At first, reading each others code or shared decision making was not quite east. But, we think that we have properly managed the process and successfully completed the tasks that we have committed to do.
+
+Besides that, our knowledge about the technologies in the web development industry was a bit deficient. Therefore, before starting to implement, most of us needed to learn and practice a little bit to feel ready about coding and doing the tasks. First, we individually researched about the technologies, then decided on which of them we are going to use and made another research about the usage of the decided ones. Overall, our communication and labour division was adequate.
+
 ### 2. List and status of deliverables.
 
 |**Deliverable**|**Status**|**Last Update Date**|
