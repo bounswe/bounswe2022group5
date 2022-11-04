@@ -454,6 +454,19 @@ After all, Together with Alper Canberk Balcı, and Engin Oğuzhan Şenol, we hav
 
 ### 2. List and status of deliverables.
 
+|**Deliverable**|**Status**|**Last Update Date**|
+|---|---|---|
+[Software Requirements Specification](https://github.com/bounswe/bounswe2022group5/wiki/Requirements)|Completed|31.10.2022|
+[Class Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Class-Diagram)|Completed|17.10.2022|
+[Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram)|Completed|17.10.2022|
+[Sequence Diagrams](https://github.com/bounswe/bounswe2022group5/wiki/Sequence-Diagrams)|Completed|15.04.2022|
+[Scenario & Mockup 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1)|Completed|31.10.2022|
+[Scenario & Mockup 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1)|Completed|31.10.2022|
+[Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan)|Completed|31.10.2022|
+[RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM)|Completed|31.10.2022|
+Individual Contribution Reports|Completed|31.10.2022|
+Customer Milestone 1 Group Review|Completed|31.10.2022|
+
 ### 3. Evaluation of the status of deliverables
 
 ### 4. Evaluation of tools and processes we have used
@@ -463,6 +476,9 @@ After all, Together with Alper Canberk Balcı, and Engin Oğuzhan Şenol, we hav
 #### Frontend
 
 #### Mobile
+
+- **Flutter & Dart**: No one among us had experience in mobile development. Since we would have to learn something by scratch, we wanted to choose something that is worth to learn and also easy to learn. We chose Flutter because it is used for multi-platform app development and this is a trend lately. It is also pretty easy to learn after getting familiar with the concepts like widgets and asynchronous functions. However, we had to do lots of documentation readings because no one was familiar with these concepts. This learning process made our progress a bit slow unfortunately. However, we believe that our progress will be faster after this Milestone. Flutter made our lives easier when making API calls to the backend services with its "async" keyword. It would be much of a burden if we had chosen a different software development kit. Using Dart as the language was also not a problem, although none of us had written in Dart before, because the language is pretty similar to Java.
+- **Android Studio**: We had a discussion with mobile team members about which IDE to use to develop our mobile application. Some members suggested using Visual Studio because most of us have experience using it as an IDE for many purposes. However, since we are developing a mobile application, we needed an emulator to run our app on for having not to connect a device every time we do a development. Android Studio comes with its own emulator. To develop a Flutter app with Visual Studio, we had to install a separate emulator. So, we decided to use Android Studio. It was a better choice because Android Studio is used only for mobile development purposes so it made our job easier. It was easy to develop an app seeing the changes on the screen of the mobile device instantaneously using hot reload. Using git is was also easy in Android Studio. Overall, we were satisfied with our decision. 
 
 ### 5. The requirements addressed in this milestone
 
