@@ -464,7 +464,7 @@ After all, Together with Alper Canberk Balcı, and Engin Oğuzhan Şenol, we hav
 [Scenario & Mockup 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1)|Completed|31.10.2022|
 [Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan)|Completed|31.10.2022|
 [RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM)|Completed|31.10.2022|
-Individual Contribution Reports|Completed|31.10.2022|
+[Individual Contribution Reports](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_1/M1_Report_Group5.md#individual-contribution-reports)|Completed|31.10.2022|
 Customer Milestone 1 Group Review|Completed|31.10.2022|
 
 ### 3. Evaluation of the status of deliverables
