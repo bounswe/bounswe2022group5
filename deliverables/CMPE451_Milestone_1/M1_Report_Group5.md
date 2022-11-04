@@ -109,6 +109,27 @@ Pull Requests:
 ### Pull Requests:
 
 * [Django App Connection to the DB](https://github.com/bounswe/bounswe2022group5/pull/198)
+	
+### Additional Information
+Other efforts including reviews and work until Milestone 1.
+
+|#|Task|
+|---|---|
+|1|Took the notes in [Meeting 13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1)|
+|2|Took the notes in [Meeting 14.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-14.1)|
+|3|Reviewed the ideas and added comments on the listing questions about Requirements. [Issue #173](https://github.com/bounswe/bounswe2022group5/issues/173) |
+|4|Reviewed the Communication Plan. [Issue #174](https://github.com/bounswe/bounswe2022group5/issues/174)|
+|5|Reviewed the changes done in Sidebar. [Issue #172](https://github.com/bounswe/bounswe2022group5/issues/172) and [Issue #176](https://github.com/bounswe/bounswe2022group5/issues/176)|
+|6|Took the notes in [Meeting 15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1)|
+|7|Reviewed the [Customer Meeting 5](https://github.com/bounswe/bounswe2022group5/wiki/Customer-Meeting-5) meeting notes|
+|8|In the [Backend Meeting 1.2](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.2), helped design of the Database Schema. Reviewed and contributed to the notes.|
+|9|Reviewed [Issue #195](https://github.com/bounswe/bounswe2022group5/issues/195) commented under it the problem and the solution|
+|10|Reviewed the [Pull Request #196](https://github.com/bounswe/bounswe2022group5/pull/196). Merged it and tried the change. Detected a problem and presented the solution under [Issue #195](https://github.com/bounswe/bounswe2022group5/issues/195)|
+|11|Reviewed the [Issue #199](https://github.com/bounswe/bounswe2022group5/issues/199). Reviewed the [Pull Request #196](https://github.com/bounswe/bounswe2022group5/pull/203). It required some changes. After the changes, I merged it.|
+|12|Reviewed the notes in [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)|
+|13|Reviewed the Tech Stack page, commented under. [Issue #210](https://github.com/bounswe/bounswe2022group5/issues/210)|
+|14|Reviewed all of the Pull Requests concerning Backend|
+
 
  </details>
  
