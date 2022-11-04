@@ -480,7 +480,36 @@ Customer Milestone 1 Group Review|Completed|31.10.2022|
 - **Flutter & Dart**: No one among us had experience in mobile development. Since we would have to learn something by scratch, we wanted to choose something that is worth to learn and also easy to learn. We chose Flutter because it is used for multi-platform app development and this is a trend lately. It is also pretty easy to learn after getting familiar with the concepts like widgets and asynchronous functions. However, we had to do lots of documentation readings because no one was familiar with these concepts. This learning process made our progress a bit slow unfortunately. However, we believe that our progress will be faster after this Milestone. Flutter made our lives easier when making API calls to the backend services with its "async" keyword. It would be much of a burden if we had chosen a different software development kit. Using Dart as the language was also not a problem, although none of us had written in Dart before, because the language is pretty similar to Java.
 - **Android Studio**: We had a discussion with mobile team members about which IDE to use to develop our mobile application. Some members suggested using Visual Studio because most of us have experience using it as an IDE for many purposes. However, since we are developing a mobile application, we needed an emulator to run our app on for having not to connect a device every time we do a development. Android Studio comes with its own emulator. To develop a Flutter app with Visual Studio, we had to install a separate emulator. So, we decided to use Android Studio. It was a better choice because Android Studio is used only for mobile development purposes so it made our job easier. It was easy to develop an app seeing the changes on the screen of the mobile device instantaneously using hot reload. Using git is was also easy in Android Studio. Overall, we were satisfied with our decision. 
 
-### 5. The requirements addressed in this milestone
+### 5. The [requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements) addressed in this milestone
+
+* **1.1.1.1.1** Guest Users shall select their user types (Doctor-Member) while registering.
+* **1.1.1.1.2** Doctors shall prove that he/she is a doctor by providing a document while registering.
+* **1.1.1.1.3** Doctors shall provide their full name.
+* **1.1.1.1.4** Members shall provide a public and valid username.
+* **1.1.1.1.5** Guest users shall have a secure password which is longer than 8 characters and contains at least one upper-case, one lower-case, one special character and one number while registering.
+* **1.1.1.1.6** Guest users shall confirm their password while registering.
+* **1.1.1.1.7** Guest  users shall register their unique e-mail to the system while registering.
+* **1.1.1.1.9** Guest users shall register their date of birth to the system while registering.
+* **1.1.1.1.10** Doctors shall provide branches that they are specialized while registering.
+* **1.1.1.2.1** Members shall be able to sign-in to the system using their username or e-mail and their password.
+* **1.1.1.2.2** Doctors shall be able to sign-in to the system using their e-mail and their password.
+* **1.1.1.2.4** Registered users shall be able to sign-out.
+* **1.1.1.3.1** Registered users shall have profile pages.
+* **1.1.1.3.2** Registered users shall have their user type (Member or Doctor) visible in their profile pages.
+* **1.1.1.3.5** Registered users shall be able to see the activity histories in profile pages.
+* **1.1.2.1.3** Guest users shall not be able to create any posts. 
+* **1.1.2.1.5** Users shall be able to read posts.
+* **1.1.2.1.13** Registered users shall be able to upvote or downvote a post or a comment.
+* **1.1.2.3.5** Users shall be able to read articles.
+* **1.1.2.3.7** Registered users shall be able to upvote or downvote an article.
+* **1.2.1.1.9** System shall show number of upvotes given to a post or a comment in that post or comment.
+* **1.2.1.1.10** System should show number of downvotes given to a post or a comment in that post or comment.
+* **2.1.1** The system shall have a web application/interface, available through web browsers such as Chrome & and it shall have a native Android application, available through Android systems.  
+* **2.1.2** Both interfaces shall provide the same features.  
+* **2.1.3** The system language shall be English.  
+* **2.1.4** The system shall support [UTF-8](https://en.wikipedia.org/wiki/UTF-8) character encoding.  
+
+
 
 ### 6. Overall description of responsibilities that are assigned to each member
 |Member|Description of responsibilities|
