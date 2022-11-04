@@ -160,9 +160,7 @@ Here is my other important efforts before CMPE 451 Milestone 1.
 |4|Reviewed issues [#171](https://github.com/bounswe/bounswe2022group5/issues/171), [#180](https://github.com/bounswe/bounswe2022group5/issues/180), [#190](https://github.com/bounswe/bounswe2022group5/issues/190), [#209](https://github.com/bounswe/bounswe2022group5/issues/209), [#225](https://github.com/bounswe/bounswe2022group5/issues/225), [#229](https://github.com/bounswe/bounswe2022group5/issues/229), [#234](https://github.com/bounswe/bounswe2022group5/issues/234), [#245](https://github.com/bounswe/bounswe2022group5/issues/245), [#261](https://github.com/bounswe/bounswe2022group5/issues/261), [#264](https://github.com/bounswe/bounswe2022group5/issues/264), [#268](https://github.com/bounswe/bounswe2022group5/issues/268), [#277](https://github.com/bounswe/bounswe2022group5/issues/277), [#279](https://github.com/bounswe/bounswe2022group5/issues/277), [#281](https://github.com/bounswe/bounswe2022group5/issues/281).
 
 
-</details>
-
-<details><summary>Halil Burak Pala</summary>
+ <details><summary>Halil Burak Pala</summary>
 
 
 ### Member: [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala)
@@ -177,6 +175,9 @@ Here is my other important efforts before CMPE 451 Milestone 1.
 - Creating and maintaining the home page of our mobile app.
 - Creating the connections between mobile pages with my other teammates.
 - Integrating the API services provided by our backend team into our mobile app, especially in the home page.
+- Reviewing the issues and PRs of my teammates.
+- Contributing to the creation of [Scenario 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1) and [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1).
+- Preparing for Demo of Milestone 1.
 
 ### Main Contributions:
 I am a member of the mobile team in this project. In the beginning, I had no prior knowledge about the mobile development, so I spent a considerable time for learning and practicing Flutter after we decided to use this framework. 
@@ -185,24 +186,35 @@ Then, after discussing with my teammates about possible structures for our app, 
 
 Then I created the home page of this app. Home page is where you can access main elements of the app, such as forum, articles, chatbot, profile page etc. After creating this screen, I connected it with other available pages.
 
-Then I created API service routines to use in mobile pages with my teammates. Then connected my home page to the API created by our backend team. I helped my teammates when they need assistance also. 
+Then I created API service routines to use in mobile pages with my teammates. Then connected my home page to the API created by our backend team. I helped my teammates when they need assistance also.
+	
+After completing the mobile app for the Milestone 1, I created an APK and added its link to the [README.md](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/README.md) file of the mobile project folder.
 
 * *Code related significant issues:*
 	* Creating initial mobile app structure: [#190](https://github.com/bounswe/bounswe2022group5/issues/190)
 	* Creating a mobile home screen: [#192](https://github.com/bounswe/bounswe2022group5/issues/192)
 	* Connecting all mobile pages (This is implemented with the participation of all mobile team): [#229](https://github.com/bounswe/bounswe2022group5/issues/229) 
 	* Using Personal Information and Logout API services in the home page: [#260](https://github.com/bounswe/bounswe2022group5/issues/260)
+	* Displaying user email in the home page's drawer head: [#279](https://github.com/bounswe/bounswe2022group5/issues/279)
 * *Management related significant issues:*
+	* Updating Wiki Home Page: [#171](https://github.com/bounswe/bounswe2022group5/issues/171)
 	* Revising the Class Diagram: [#181](https://github.com/bounswe/bounswe2022group5/issues/181)
 	* Rearranging the Repo Structure and Branches For Collaborative Work: [#188](https://github.com/bounswe/bounswe2022group5/issues/188)
-	
+	* Creating Scenario 1 for Milestone 1: [#268](https://github.com/bounswe/bounswe2022group5/issues/268)
 
 ### Pull Requests:
 * Initial directory structure for the app is created: [#189](https://github.com/bounswe/bounswe2022group5/pull/189)
 * Initial mobile app structure was created : [#191](https://github.com/bounswe/bounswe2022group5/pull/191)
 * Mobile Home Screen is Created: [#212](https://github.com/bounswe/bounswe2022group5/pull/244)
 * Home page is updated to use API services: [#269](https://github.com/bounswe/bounswe2022group5/pull/269)
+* Drawer head in the Home page is updated: [#280](https://github.com/bounswe/bounswe2022group5/issues/280)
+* Minor bug-fixes in the login page and AndroidManifest.xml: [#282](https://github.com/bounswe/bounswe2022group5/issues/282)
 
+### Additional Information
+* Attended general meetings: Meeting [13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1), [14.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-14.1), [15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1), [16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
+* Attended mobile meetings: Mobile Meeting [1](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-1), [2](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-2), [3](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-3)
+* Revised or contributed issues: [#168](https://github.com/bounswe/bounswe2022group5/issues/168), [#175](https://github.com/bounswe/bounswe2022group5/issues/175), [#178](https://github.com/bounswe/bounswe2022group5/issues/178), [#193](https://github.com/bounswe/bounswe2022group5/issues/193), [#214](https://github.com/bounswe/bounswe2022group5/issues/214), [#216](https://github.com/bounswe/bounswe2022group5/issues/216), [#227](https://github.com/bounswe/bounswe2022group5/issues/227), [#240](https://github.com/bounswe/bounswe2022group5/issues/240)
+* Reviewed PRs: [#215](https://github.com/bounswe/bounswe2022group5/pull/215), [#222](https://github.com/bounswe/bounswe2022group5/pull/222), [#228](https://github.com/bounswe/bounswe2022group5/pull/228), [#244](https://github.com/bounswe/bounswe2022group5/pull/244), [#272](https://github.com/bounswe/bounswe2022group5/pull/272), [#276](https://github.com/bounswe/bounswe2022group5/pull/276)
 
  </details>
  
