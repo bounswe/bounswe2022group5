@@ -1,16 +1,16 @@
-#### Software Requirements Specification
+## Software Requirements Specification
 - [Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements)
-#### Software Design (UML)
+## Software Design (UML)
 - [Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram)
 - [Class Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Class-Diagram)
 - [Sequence Diagrams](https://github.com/bounswe/bounswe2022group5/wiki/Sequence-Diagrams)
-#### Scenarios and Mockups
+## Scenarios and Mockups
 - [Scenario 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1)
 - [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1)
-#### Project Plan
+## Project Plan
 - [Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan)
 - [RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM)
-#### Individual Contribution Reports
+## Individual Contribution Reports
 
 *Please keep **alphabetical** order wrt surnames of the members.*
   <details><summary>Alper Canberk Balcı</summary>
@@ -448,9 +448,56 @@ After all, Together with Alper Canberk Balcı, and Engin Oğuzhan Şenol, we hav
 
   
 
- 
- 
+## Group Review
+
+### 1. Executive Summary
+
+### 2. List and status of deliverables.
+
+### 3. Evaluation of the status of deliverables
+
+### 4. Evaluation of tools and processes we have used
+
+#### Backend
+
+#### Frontend
+
+#### Mobile
+
+### 5. The requirements addressed in this milestone
+
+### 6. Overall description of responsibilities that are assigned to each member
+|Member|Description of responsibilities|
+| ----------- | ----------- |
+|Alper Canberk Balcı||
+|Baver Bengin Beştaş||
+|Burak Mert||
+|Engin Oğuzhan Şenol||
+|Halil Burak Pala||
+|Kardelen Demiral||
+|Irfan Bozkurt||
+|Mehmet Emre Akbulut||
+|Oğuzhan Demirel||
+|Ozan Kılıç||
+|Sinan Kerem Gündüz||
+|Yavuz Samet Topcuoglu||
+
+### 7. A Summary of work performed by each team member 
 
 
+|Member|Summary of Work|
+| ----------- | ----------- |
+|Alper Canberk Balcı||
+|Baver Bengin Beştaş||
+|Burak Mert||
+|Engin Oğuzhan Şenol||
+|Halil Burak Pala||
+|Kardelen Demiral||
+|Irfan Bozkurt||
+|Mehmet Emre Akbulut||
+|Oğuzhan Demirel||
+|Ozan Kılıç||
+|Sinan Kerem Gündüz||
+|Yavuz Samet Topcuoglu||
 
 
