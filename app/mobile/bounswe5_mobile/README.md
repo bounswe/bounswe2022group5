@@ -12,6 +12,6 @@ Since this is a Flutter project, it can be used both in iOS and Android devices.
      - flutter run lib/main.dart
  
   * If you do not connect any device to your computer, you will need an emulator to open the application: 
-     * You can download and Android emulator with Android Studio through [this link](https://developer.android.com/studio).  
-     *  Then you can easily run the application on Android Studio followin [this guide](https://www.geeksforgeeks.org/how-to-import-existing-flutter-project-in-android-studio/).
+     * You can download an Android emulator with Android Studio through [this link](https://developer.android.com/studio).  
+     *  Then you can easily run the application on Android Studio following [this guide](https://www.geeksforgeeks.org/how-to-import-existing-flutter-project-in-android-studio/).
  
