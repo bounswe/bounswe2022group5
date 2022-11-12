@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'rest_framework',
+    'forum',
     'authentication',
     'backend',
     'django.contrib.admin',
@@ -55,7 +56,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':(
                 'rest_framework.permissions.IsAuthenticated',
     ),
-
+    
 }
 
 MIDDLEWARE = [
