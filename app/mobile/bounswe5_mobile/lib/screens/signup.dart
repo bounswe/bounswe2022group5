@@ -55,6 +55,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
   final TextEditingController _date = TextEditingController();
+  FilePickerResult? fileResult = null;
   bool isMember = true;
   String _fileText = "";
 
@@ -297,8 +298,24 @@ class _SignupPageState extends State<SignupPage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                             child: ElevatedButton( //document upload button
-                              onPressed: _pickFile,
-                              child: const Text('Document'),
+                              child: Text("Document Upload"),
+                              onPressed: () async {
+                                fileResult = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['jpg', 'pdf', 'doc'],
+                                );
+                              },
+                            ),
+                          ),
+                          (isMember || fileResult == null)? const SizedBox.shrink() :
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB( 15.0, 5.0, 10.0, 10.0),
+                            child: RichText(
+                              textAlign: TextAlign.left,
+                              text: const TextSpan(
+                                  text: "Document uploaded ✅",
+                                  style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold, color: Colors.grey)
+                              ),
                             ),
                           ),
                           Padding(
@@ -326,6 +343,30 @@ class _SignupPageState extends State<SignupPage> {
                               child: const Text('Submit'),
                             ),
                           ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB( 50.0, 20.0, 10.0, 10.0),
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: const TextSpan(
+                                  text: "By creating an account, you are agreeing to our\n",
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+                                  children: [
+                                    TextSpan(
+                                      text: "Terms & Conditions",
+                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                                    ),
+                                    TextSpan(
+                                      text: " and ",
+                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+                                    ),
+                                    TextSpan(
+                                      text: "Privacy Policy",
+                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                                    ),
+                                  ]
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     )
@@ -333,22 +374,6 @@ class _SignupPageState extends State<SignupPage> {
             )
         )
     );
-  }
-  void _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowedExtensions: ['jpg', 'pdf', 'doc']
-    );
-
-    if (result != null && result.files.single.path != null) {
-      PlatformFile file = result.files.first;
-
-      File _file = File(result.files.single.path!);
-      setState(() {
-        _fileText = _file.path;
-      });
-    } else {
-      //user cancelled the picker
-    }
   }
 
 }
