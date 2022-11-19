@@ -43,8 +43,6 @@ class CustomUser(AbstractUser):
 
     type = models.IntegerField(null=False)
 
-    profile_picture = models.TextField(null=True)
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -87,6 +85,8 @@ class Member(CustomUser):
     member_username = models.CharField(max_length=50, null=False, unique=True)
     banned_by = models.CharField(max_length=50, null=True, default=None)  # username of admin
 
+    avatar = models.IntegerField(null=False, default=1)
+
     info = models.ForeignKey(MemberInfo, null=False, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -112,6 +112,8 @@ class Doctor(CustomUser):
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
     verified = models.BooleanField(max_length=100, null=False, default=False)
+
+    profile_picture = models.TextField(null=True)
 
     def __str__(self):
         return self.full_name
