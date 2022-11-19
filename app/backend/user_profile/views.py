@@ -28,3 +28,5 @@ def upload_profile_picture(request):
     user.save()
 
     return Response({'profile_picture_url': pp_url}, status=200)
+
+# TODO: Add delete
