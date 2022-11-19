@@ -4,19 +4,23 @@ from rest_framework.response import Response
 
 from common.views import upload_to_s3
 
+from backend.constants import UserType
 
-PROFILE_PICTURE_KEY_PREFIX = "pp_"
 
+PROFILE_PICTURE_FILE_NAME = "pp/{user_id}.jpg"
 
 # Create your views here.
 @api_view(['POST',])
 @permission_classes([IsAuthenticated,])
 def upload_profile_picture(request):
 
-    img = request.data['img'].read()
-
     user = request.user
-    file_name = PROFILE_PICTURE_KEY_PREFIX + str(user.id) + ".jpg"
+    if user.type != UserType.DOCTOR:
+        return Response('Only doctors can upload a profile picture', status=403)
+
+    file_name = PROFILE_PICTURE_FILE_NAME.format(str(user.id))
+    
+    img = request.data['img'].read()
 
     pp_url = upload_to_s3(img, file_name)
 
