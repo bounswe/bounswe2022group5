@@ -7,12 +7,20 @@ from backend import utils
 
 from tests.constants import *
 
+import django.contrib.auth.hashers
+
+def make_password(password):
+    assert password
+    return django.contrib.auth.hashers.make_password(
+        password=password
+    )
+
 
 class AdminTestCase(TestCase):
     def createAdmin(self):
         models.CustomAdmin.objects.create(
             email=TEST_ADMIN_EMAIL,
-            password=utils.make_password(TEST_PASSWORD),
+            password=make_password(TEST_PASSWORD),
             type=constants.UserType.ADMIN.value,
             admin_username=TEST_ADMIN_USERNAME
         )
@@ -48,7 +56,7 @@ class MemberTestCase(TestCase):
         )
         return models.Member.objects.create(
             email=TEST_MEMBER_EMAIL if email == None else email,
-            password=utils.make_password(TEST_PASSWORD),
+            password=make_password(TEST_PASSWORD),
             type=constants.UserType.MEMBER.value,
             member_username=TEST_MEMBER_USERNAME if member_username == None else member_username,
             info=member_info
@@ -102,7 +110,7 @@ class DoctorTestCase(TestCase):
     def createDoctor(self):
         models.Doctor.objects.create(
             email=TEST_DOCTOR_EMAIL,
-            password=utils.make_password(TEST_PASSWORD),
+            password=make_password(TEST_PASSWORD),
             type=constants.UserType.DOCTOR.value,
             full_name=TEST_DOCTOR_FULLNAME,
             hospital_name=TEST_DOCTOR_HOSPITAL_NAME,
