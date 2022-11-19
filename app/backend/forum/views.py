@@ -43,20 +43,23 @@ def create_post(request):
     post = Post(title=title, author=author, body=body, date=date)
     post.save()
 
-    image_urls = request.data['image_urls']
-    for image_url in image_urls:
-        url = PostImages(image_url=image_url, post=post)
-        url.save()
     data = {
         'title':title,
         'author': author,
         'body':body,
         'date':date
     }
-    
-    serialized_data = PostSerializer(data)
-    print(serialized_data.data)
-    return Response({'post':serialized_data.data, 'image_urls': image_urls})
 
-    
+    response_object = {}
+    response_object['post'] = PostSerializer(data).data
+
+    if 'image_urls' in request.data and len(request.data['image_urls']) > 0:
+        for image_url in request.data['image_urls']:
+            url = PostImages(image_url=image_url, post=post)
+            url.save()
+        response_object['image_urls'] = request.data['image_urls']
+    else:
+        response_object['image_urls'] = []
+
+    return Response(response_object)
 
