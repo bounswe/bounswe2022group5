@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
-import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter_tags/flutter_tags.dart';
-import 'package:textfield_tags/textfield_tags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
