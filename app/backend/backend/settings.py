@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'forum',
     'authentication',
     'backend',
+    'common',
+    'user_profile',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

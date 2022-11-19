@@ -43,6 +43,8 @@ class CustomUser(AbstractUser):
 
     type = models.IntegerField(null=False)
 
+    profile_picture = models.TextField(null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
