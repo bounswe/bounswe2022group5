@@ -84,5 +84,17 @@ def create_article(request):
         data = validate_article.errors
         return Response(status=400,data={'error': f'Fields are missing'})
 
-    
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def upvote_an_article(request, id):
+        try:
+            article = Article.objects.get(id=id)
+        except:
+            return Response({'error': 'Article not found'}, status=400)
+        article.upvote += 1
+        article.save()
+        article_serializer = ArticleSerializer(article)
+
+        return Response({'article': article_serializer.data}, status=200)
 
