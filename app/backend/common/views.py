@@ -30,6 +30,9 @@ def upload_to_s3(obj, file_name):
 
 def delete_from_s3(file_name):
 
-    boto3.client('s3').delete_object(Bucket=AWS_STORAGE_BUCKET_NAME, Key=file_name)
+    boto3.client('s3',
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+    ).delete_object(Bucket=AWS_STORAGE_BUCKET_NAME, Key=file_name)
 
     return True

@@ -3,6 +3,7 @@ from rest_framework import serializers
 from backend.models import CustomUser, Member, Doctor, Category, MemberInfo
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+import random
 
 User = get_user_model()
 
@@ -77,8 +78,6 @@ class DoctorSerializer(serializers.ModelSerializer):
             
         )
 
-        
-      
         doctor.save()
 
         return doctor
@@ -96,15 +95,17 @@ class MemberSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         return attrs
     def create(self, validated_data):
+        member_info=MemberInfo.objects.create()
+        member_info.avatar = random.randint(1, 6)
+
+        member_info.save()
+
         member = Member.objects.create(
             user=CustomUser.objects.get(id=validated_data['user']['id']),
             member_username=validated_data['member_username'] ,
-            info=MemberInfo.objects.create()
-            
+            # info=member_info
+            info = MemberInfo.objects.create()
         )
-
-        
       
         member.save()
-
         return member

@@ -64,6 +64,8 @@ class MemberInfo(models.Model):
     height = models.IntegerField(null=True)
     age = models.IntegerField(null=True)
 
+    avatar = models.IntegerField(null=False, default=1)
+
     past_illnesses = ArrayField(
         models.CharField(max_length=25), null=True
     )
@@ -112,6 +114,8 @@ class Doctor(models.Model):
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
     verified = models.BooleanField(max_length=100, null=False, default=False)
+
+    profile_picture = models.TextField(null=True)
 
     def __str__(self):
         return self.full_name
