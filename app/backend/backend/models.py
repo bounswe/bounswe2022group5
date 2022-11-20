@@ -64,6 +64,8 @@ class MemberInfo(models.Model):
     height = models.IntegerField(null=True)
     age = models.IntegerField(null=True)
 
+    avatar = models.IntegerField(null=False, default=1)
+
     past_illnesses = ArrayField(
         models.CharField(max_length=25), null=True
     )
@@ -85,8 +87,6 @@ class Member(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     member_username = models.CharField(max_length=50, null=False, unique=True)
     banned_by = models.CharField(max_length=50, null=True, default=None)  # username of admin
-
-    avatar = models.IntegerField(null=False, default=1)
 
     info = models.ForeignKey(MemberInfo, null=False, on_delete=models.CASCADE)
 
