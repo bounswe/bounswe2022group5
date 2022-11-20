@@ -1,14 +1,13 @@
-from backend.models import CustomUser
-from .serializers import UserSerializer, RegistrationSerializer
+from backend.models import CustomUser, Doctor, Member, Category, MemberInfo
+from .serializers import UserSerializer, RegistrationSerializer, DoctorSerializer, MemberSerializer
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password
 from rest_framework import viewsets
 
 # Create your views here.
 from rest_framework.views import APIView
+from rest_framework.exceptions import ValidationError, ParseError
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
@@ -38,13 +37,44 @@ class UserViewSet(viewsets.ModelViewSet):
 @permission_classes([AllowAny])
 def register_user(request):
     try:
+        custom_data = {
+            'email': request.data['email'],
+            'password': request.data['password'],
+            'type': request.data['type'],
+            'date_of_birth': request.data['date_of_birth']
+        }
         data = {}
-        serializer = RegistrationSerializer(data=request.data)
+        serializer = RegistrationSerializer(data=custom_data)
         if serializer.is_valid():
             account = serializer.save()
             account.is_active = True
             account.save()
             token = Token.objects.get_or_create(user=account)[0].key
+            if(request.data['type']== 1):
+                doctor_data = {}
+                full_name = f"{request.data['firstname']} {request.data['lastname']}"
+                doctor_data['full_name'] =  full_name
+                doctor_data['specialization']= Category.objects.get(name=request.data['branch']).id
+                doctor_data['user'] = account.id
+                doctor_serializer = DoctorSerializer(data=doctor_data)
+                if doctor_serializer.is_valid():
+                    doctor_serializer.save()
+                else:
+                    data = doctor_serializer.errors
+                    return Response(status=400,data=data)
+            elif(request.data['type'] == 2):
+                member_data = {}
+                
+                member_data['user'] =  account.id
+                member_data['member_username']= request.data['username']
+                member_serializer = MemberSerializer(data=member_data)
+                if member_serializer.is_valid():
+                    member_serializer.save()
+                else:
+                    data = member_serializer.errors
+                    return Response(status=400,data=data)
+
+
             data["message"] = "User registered successfully"
             data["email"] = account.email
             #data["username"] = account.username
@@ -55,12 +85,10 @@ def register_user(request):
             return Response(status=400,data=data)
 
         return Response(status=200,data=data)
-    except IntegrityError as e:
+    except ValidationError as e:
         
         raise ValidationError({"400": f'{str(e)}'})
 
-    except KeyError as e:
-        raise ValidationError({"400": f'Field {str(e)} missing'})
 
 @api_view(["POST"])
 @permission_classes([AllowAny])
@@ -70,11 +98,12 @@ def login_user(request):
         reqBody = json.loads(request.body)
         email1 = reqBody['email']
         password = reqBody['password']
-        try:
-
+        
+        if User.objects.filter(email = email1).exists():
             Account = User.objects.get(email=email1)
-        except BaseException as e:
-            raise ValidationError({"400": f'{str(e)}'})
+        else:
+            raise ValidationError({"message":"Incorrect Login credentials"})
+        
 
         token = Token.objects.get_or_create(user=Account)[0].key
         if not check_password(password, Account.password):
@@ -113,4 +142,4 @@ def me(request):
 
     user = CustomUser.objects.get(email = request.user.email)
     serialized = UserSerializer(user)
-    return Response(data=serialized.data, status=200)
+    return Response(status=200, data=serialized.data)
