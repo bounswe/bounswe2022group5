@@ -7,7 +7,7 @@ In the database [PostgreSQL](https://www.postgresql.org/) is used. It is
 1. Clone our repo to your local and cd into the app folder:
 ```sh
 $ git clone https://github.com/bounswe/bounswe2022group5.git
-$ cd .\bounswe2022group5\
+$ cd .\bounswe2022group5\ (for Windows)
 $ cd app
 ```
 2. Create a virtual environment to install dependencies in and activate it:
