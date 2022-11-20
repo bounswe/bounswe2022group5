@@ -98,3 +98,16 @@ def upvote_an_article(request, id):
 
         return Response({'article': article_serializer.data}, status=200)
 
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def downvote_an_article(request, id):
+        try:
+            article = Article.objects.get(id=id)
+        except:
+            return Response({'error': 'Article not found'}, status=400)
+        article.downvote += 1
+        article.save()
+        article_serializer = ArticleSerializer(article)
+
+        return Response({'article': article_serializer.data}, status=200)
+
