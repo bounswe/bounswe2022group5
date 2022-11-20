@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:bounswe5_mobile/models/category.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/models/doctor.dart';
