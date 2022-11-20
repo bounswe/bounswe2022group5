@@ -40,8 +40,8 @@ class CustomUser(AbstractUser):
     last_name = None
     password = models.CharField(max_length=200, null=False)
     email = models.CharField(max_length=100, null=False, unique=True) 
-
     type = models.IntegerField(null=False)
+    date_of_birth = models.DateField(null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -49,9 +49,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-class CustomAdmin(CustomUser):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    admin_username = models.CharField(max_length=50, null=False, unique=True)
+class CustomAdmin(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,)
+    admin_username = models.CharField(max_length=50, null=False, unique=True,primary_key=True)
 
     def __str__(self):
         return self.admin_username
@@ -81,7 +81,8 @@ class MemberInfo(models.Model):
     )
 
 
-class Member(CustomUser):
+class Member(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     member_username = models.CharField(max_length=50, null=False, unique=True)
     banned_by = models.CharField(max_length=50, null=True, default=None)  # username of admin
 
@@ -105,7 +106,8 @@ class Category(models.Model):
     definition = models.CharField(max_length=100, null=True)
 
 
-class Doctor(CustomUser):
+class Doctor(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50, null=False)
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
