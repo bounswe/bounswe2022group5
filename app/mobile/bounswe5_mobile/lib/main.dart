@@ -2,6 +2,8 @@ import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:bounswe5_mobile/screens/login.dart';
 import 'package:bounswe5_mobile/screens/signup.dart';
 import 'package:bounswe5_mobile/screens/profile.dart';
+import 'package:bounswe5_mobile/screens/createPost.dart';
+import 'package:bounswe5_mobile/screens/createArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
