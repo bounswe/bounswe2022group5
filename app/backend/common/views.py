@@ -3,8 +3,8 @@ import os
 import io
 
 
-AWS_ACCESS_KEY_ID = 'AKIAQRNS7VMZSYOJJCUN'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'group5static'
 
 AWS_BASE_BUCKET_URL = 'https://{bucketName}.s3.amazonaws.com/'.format(
