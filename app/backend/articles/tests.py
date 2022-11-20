@@ -87,5 +87,47 @@ class ArticleTestCase(TestCase):
         response = client.delete(f'/articles/article/{article.id+1}',content_type="application/json", **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(str(response.json()["error"]), 'Article not found')
         self.assertEqual(response.status_code,400)
-
+    def test_upvote_article(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        article = models.Article.objects.create(title='test article title', body='test article body', author=user, date=datetime.now())
+        # data = {}
+        response = client.post(f'/articles/article/{article.id}/upvote', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+    def test_upvote_article_invalid_id(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        article = models.Article.objects.create(title='test article title', body='test article body', author=user,
+                                                date=datetime.now())
+        # data = {}
+        response = client.post('/articles/article/999999/upvote', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(str(response.json()["error"]), 'Article not found')
+        self.assertEqual(response.status_code,400)
+    def test_downvote_article(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        article = models.Article.objects.create(title='test article title', body='test article body', author=user, date=datetime.now())
+        # data = {}
+        response = client.post(f'/articles/article/{article.id}/downvote', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+    def test_downvote_article_invalid_id(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        article = models.Article.objects.create(title='test article title', body='test article body', author=user, date=datetime.now())
+        # data = {}
+        response = client.post('/articles/article/999999/downvote', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(str(response.json()["error"]), 'Article not found')
+        self.assertEqual(response.status_code,400)
     
