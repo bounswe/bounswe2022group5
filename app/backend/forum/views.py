@@ -62,3 +62,15 @@ def create_post(request):
 
     return Response(response_object)
 
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def upvote_a_post(request, id):
+        try:
+            post = Post.objects.get(id=id)
+        except:
+            return Response({'error': 'Post not found'}, status=400)
+        post.upvote += 1
+        post.save()
+        post_serializer = PostSerializer(post)
+
+        return Response({'post': post_serializer.data}, status=200)
