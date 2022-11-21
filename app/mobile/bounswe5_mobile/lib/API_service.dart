@@ -66,7 +66,7 @@ class ApiService {
       String email = body["email"];
       int userType = body["type"];
       User user;
-      user = User(token, email, userType);
+      user = User(-1, token, email, userType);
       return user;
     } else{
       return null;

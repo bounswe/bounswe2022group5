@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class User {
   /// Token comes from the API. A different string for
   /// every login.
+  final int id;
   final String token;
   final String email;
-  /// 0 for Admin, 1 for Doctor, 2 for Member
+  /// 1 for Member, 2 for Doctor
   final int usertype;
 
   User(
+      this.id,
       this.token,
       this.email,
       this.usertype,

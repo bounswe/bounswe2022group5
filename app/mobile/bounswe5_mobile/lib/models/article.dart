@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
-/// Post is the main element of the forum.
-class Post {
-  /// To get the author, we should first call API to get the post,
-  /// and then call API again using id of the author to get the
-  /// author.
+/// Article is the main element of the Articles section.
+class Article {
   final int id;
   final User author;
   final DateTime time;
@@ -13,16 +10,15 @@ class Post {
   final String body;
   int upvotes;
   int downvotes;
-  bool isDoctorReplied;
 
-  Post(
+  Article(
       this.id,
       this.author,
       this.time,
       this.header,
       this.body,
       {this.upvotes = 0,
-        this.downvotes = 0,
-        this.isDoctorReplied = false,}
+        this.downvotes = 0}
       );
 }
+
