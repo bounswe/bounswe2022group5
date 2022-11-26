@@ -17,7 +17,7 @@ const Post = () => {
 
     const [post, setPost] = useState({
         title: "Lotion for hair eczama",
-        body: "I have eczema in my hair for years, I have used lotions such as conazole, but it did not work much, what should I do? away? Please help",
+        body: "I have eczema in my hair for years, I have used lotions such as conazole, but it did not work much, what should I do? away? Please help, Nunc ultricies ligula et tellus ornare convallis. Ut aliquet libero sed libero dapibus porttitor. Suspendisse potenti. Praesent nec tortor venenatis, finibus lorem nec, volutpat nibh. Quisque ante felis, lacinia eget mi a, tincidunt interdum lacus. Mauris quis nunc tristique, aliquet libero blandit, rhoncus lacus.",
         date: "02.11.2022",
         author: {
             name: "Betty Black"
@@ -48,6 +48,14 @@ const Post = () => {
             upvote: 0,
             downvote: 4,
             user_vote: "downvote",
+            images: [
+                {
+                    url: "https://images.theconversation.com/files/175523/original/file-20170626-4492-mqyzj3.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip"
+                },
+                {
+                    url: "https://static.toiimg.com/photo/msid-90907929/90907929.jpg"
+                }
+            ]
         },
         {
             id: "asdfasagsd",
@@ -63,6 +71,21 @@ const Post = () => {
         }],
 		images: [
 			{
+				url: "https://images.theconversation.com/files/175523/original/file-20170626-4492-mqyzj3.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip"
+			},
+			{
+				url: "https://static.toiimg.com/photo/msid-90907929/90907929.jpg"
+			},
+			{
+				url: "https://domf5oio6qrcr.cloudfront.net/medialibrary/1974/conversions/headache-pain-thumb.jpg"
+			},
+			{
+				url: "https://www.regionalneurological.com/wp-content/uploads/2019/08/AdobeStock_244803452.jpeg"
+			},
+			{
+				url: "https://newsinhealth.nih.gov/sites/nihNIH/files/2014/March/illustration-man-pained-expression-hands-forehead_0.jpg"
+			},
+            {
 				url: "https://images.theconversation.com/files/175523/original/file-20170626-4492-mqyzj3.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip"
 			},
 			{
@@ -138,7 +161,6 @@ const Post = () => {
 
 				{post?.images ? 
 				<div className="discussion-images">
-					<h3>Images</h3>
 					<Image.PreviewGroup>
 						{
 							post?.images?.map(image => (
@@ -151,7 +173,7 @@ const Post = () => {
 				</div> : null}
 
                 <div className="discussion-comment-editor">
-                    <CommentEditor />
+                    <CommentEditor setPost={setPost}/>
                 </div>
 
                 {post?.comments ? <div className="discussion-comments">
@@ -170,6 +192,20 @@ const Post = () => {
                                         <span>{comment?.body}</span>
                                         <Vote item={comment} setItem={getCommentSetter(comment?.id)} className="discussion-vote"/>
                                     </div>
+
+                                    {comment?.images ? 
+                                        <div className="discussion-comment-images">
+                                            <Image.PreviewGroup>
+                                                {
+                                                    comment?.images?.map(image => (
+                                                        <span className="discussion-image">
+                                                            <Image width={70} height={70} src={image?.url} />
+                                                        </span>
+                                                    ))
+                                                }
+                                            </Image.PreviewGroup>
+                                        </div> 
+                                    : null}
                                 </div>
 							</div>
 						))

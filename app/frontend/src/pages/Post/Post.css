@@ -101,6 +101,9 @@
 
 .comment-editor-container {
     margin-left: 50px;
+}
+
+.comment-editor-body-container {
     display: flex;
     flex-direction: row;
 }
@@ -113,10 +116,19 @@
 
 .discussion-images {
     margin-left: 120px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.discussion-comment-images {
+    margin-left: 10px;
+    overflow: auto;
+    white-space: nowrap;
 }
 
 .discussion-image {
     margin-right: 20px;
+    display: inline-block;
 }
 
 .discussion-comments {
@@ -157,3 +169,40 @@
 .discussion-vote {
     margin-top: -40px;
 }
+
+.comment-image-sign {
+    font-size: 20px;
+}
+
+.comment-body-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    width: 82%;
+    margin-top: 10px;
+}
+
+.comment-editor-body {
+    margin-left: 20px;
+    width: 90%;
+}
+
+.comment-text-area {
+    border: none;
+}
+
+.comment-editor-images {
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.comment-image-button {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.comment-send-button {
+    margin-top: -5px;
+} 
