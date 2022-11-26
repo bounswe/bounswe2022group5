@@ -2,9 +2,9 @@ from forum.models import PostImages
 from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
-from forum.serializers import PostSerializer
+from forum.serializers import PostSerializer, CommentSerializer
 from backend.pagination import ForumPagination
-from forum.models import Post
+from forum.models import Post, Comment
 from django.core.paginator import Paginator
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
@@ -64,7 +64,7 @@ def create_post(request):
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated, ])
-def upvote_a_post(request, id):
+def upvote_post(request, id):
         try:
             post = Post.objects.get(id=id)
         except:
@@ -77,7 +77,7 @@ def upvote_a_post(request, id):
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated, ])
-def downvote_a_post(request, id):
+def downvote_post(request, id):
         try:
             post = Post.objects.get(id=id)
         except:
@@ -87,3 +87,29 @@ def downvote_a_post(request, id):
         post_serializer = PostSerializer(post)
 
         return Response({'post': post_serializer.data}, status=200)
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def upvote_comment(request, id):
+        try:
+            comment = Comment.objects.get(id=id)
+        except:
+            return Response({'error': 'Comment not found'}, status=400)
+        comment.upvote += 1
+        comment.save()
+        comment_serializer = CommentSerializer(comment)
+
+        return Response({'comment': comment_serializer.data}, status=200)
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def downvote_comment(request, id):
+        try:
+            comment = Comment.objects.get(id=id)
+        except:
+            return Response({'error': 'Comment not found'}, status=400)
+        comment.downvote += 1
+        comment.save()
+        comment_serializer = CommentSerializer(comment)
+
+        return Response({'comment': comment_serializer.data}, status=200)
