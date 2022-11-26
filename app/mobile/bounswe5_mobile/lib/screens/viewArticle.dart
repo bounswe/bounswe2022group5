@@ -1,15 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 
-class ViewPostPage extends StatefulWidget {
-  const ViewPostPage({Key? key}) : super(key: key);
+class ViewArticlePage extends StatefulWidget {
+  const ViewArticlePage({Key? key}) : super(key: key);
 
   @override
-  State<ViewPostPage> createState() => _ViewPostPageState();
+  State<ViewArticlePage> createState() => _ViewArticlePageState();
 }
 
-class _ViewPostPageState extends State<ViewPostPage> {
+class _ViewArticlePageState extends State<ViewArticlePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                   children: [
                     CircleAvatar(
                       backgroundImage: NetworkImage(
-                          "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg"),
+                          "https://images.hindustantimes.com/img/2022/03/07/550x309/Patrick_Stewart_1_1646645757381_1646645774641.jpg"),
                       radius: 20,
                     ),
                     SizedBox(
@@ -48,8 +48,8 @@ class _ViewPostPageState extends State<ViewPostPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("benginbestas"),
-                            Text("26/11/2022 14.00"),
+                            Text("professor xavier"),
+                            Text("26/11/2022 15.35"),
                           ],
                         ),
                       ),
@@ -61,6 +61,22 @@ class _ViewPostPageState extends State<ViewPostPage> {
                   ],
                 ),
               ),
+              Container(
+                padding: EdgeInsets.all(5.0),
+                constraints: BoxConstraints(maxHeight: double.infinity),
+                width: double.infinity,
+                child: Text(
+                  "\tCategory: Burns or something",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              SizedBox(height: 8),
               Container(
                 padding: EdgeInsets.all(5.0),
                 constraints: BoxConstraints(maxHeight: double.infinity),
@@ -89,13 +105,6 @@ class _ViewPostPageState extends State<ViewPostPage> {
                     fontStyle: FontStyle.normal,
                     fontSize: 16,
                   ),
-                ),
-              ),
-              Container(
-                // Container for uploaded IMAGES
-                width: double.infinity,
-                child: Image.network(
-                  "https://images.unsplash.com/photo-1618325508550-951512a1e82d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
                 ),
               ),
               SizedBox(height: 18),
@@ -228,7 +237,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(
-                              "https://images.hindustantimes.com/img/2022/03/07/550x309/Patrick_Stewart_1_1646645757381_1646645774641.jpg"),
+                              "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg"),
                           radius: 20,
                         ),
                         SizedBox(
@@ -239,8 +248,8 @@ class _ViewPostPageState extends State<ViewPostPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("professor xavier"),
-                                Text("26/11/2022 15.51"),
+                                Text("benginbestas"),
+                                Text("26/11/2022 14.00"),
                               ],
                             ),
                           ),
