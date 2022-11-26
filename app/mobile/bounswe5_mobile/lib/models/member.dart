@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/models/memberInfo.dart';
 
 /// This model represents Member User.
-class Member {
+class Member extends User{
 
-  final int id;
-  final int userid;
+  final int memberid;
   String username;
   String avatarUrl;
   MemberInfo info;
 
   Member(
-      this.id,
-      this.userid,
+      super.id,
+      super.token,
+      super.email,
+      super.usertype,
+      this.memberid,
       this.username,
       this.avatarUrl,
       ) : info = MemberInfo();

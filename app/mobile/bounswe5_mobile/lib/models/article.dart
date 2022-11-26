@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:bounswe5_mobile/models/user.dart';
+import 'package:bounswe5_mobile/models/doctor.dart';
 
 /// Article is the main element of the Articles section.
 class Article {
   final int id;
-  final User author;
+  final Doctor author;
   final DateTime time;
   final String header;
   final String body;

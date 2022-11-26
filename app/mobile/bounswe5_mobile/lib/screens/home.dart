@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
-import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/widgets/MyDrawer.dart';
 import 'package:bounswe5_mobile/widgets/ForumList.dart';
+import 'package:bounswe5_mobile/widgets/ArticlesList.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     ApiService apiServer = ApiService();
 
     /// Forum, Articles and Chatbot bodies.
-    List<Widget> bodies = [ForumList(posts: posts,), Container()];
+    List<Widget> bodies = [ForumList(posts: posts,), ArticlesList(articles: articles,)];
 
     return FutureBuilder<User?>(
       future: apiServer.getUserInfo(widget.token),
