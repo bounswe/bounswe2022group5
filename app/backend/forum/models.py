@@ -12,6 +12,7 @@ class Post(models.Model):
     downvote = models.IntegerField(null=False, default=0)
     longitude = models.FloatField(default=0)
     latitude = models.FloatField(default=0)
+    commented_by_doctor = models.BooleanField(default=False)
 
 class PostImages(models.Model):
     image_url = models.CharField(max_length=100)

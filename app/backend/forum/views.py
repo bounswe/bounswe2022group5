@@ -1,4 +1,4 @@
-from backend.models import CustomUser
+from backend.models import CustomUser, Doctor
 from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
@@ -20,10 +20,22 @@ def get_all_posts(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page_size', 1)
-    post_objects = Post.objects.all()
-    result_page = paginator.paginate_queryset(post_objects, request)
-    serializer = PostSerializer(result_page, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    post_objects = Post.objects.all().order_by('-date')
+    posts = []
+    user = CustomUser.objects.get(id= request.user.id)
+    for post in post_objects:
+        serializer_post_data = PostSerializer(post).data
+        if post.id in user.upvoted_posts:
+            serializer_post_data['vote'] = 'upvote'
+        elif post.id in user.downvoted_posts:
+            serializer_post_data['vote'] = 'downvote'
+        else:
+            serializer_post_data['vote'] = None
+        posts.append(serializer_post_data)
+
+    result_page = paginator.paginate_queryset(posts, request)
+
+    return paginator.get_paginated_response(result_page)
 
 
 @api_view(['GET',])
@@ -322,7 +334,7 @@ def get_comment(request,id):
 
 @api_view(['POST', ])
 @permission_classes([IsAuthenticated, ])
-def create_comment(request):
+def create_comment(request, id):
     author = request.user
     body = request.data['body']
     date = datetime.now()
@@ -330,7 +342,8 @@ def create_comment(request):
     longitude = request.data['longitude']
     latitude = request.data['latitude']
 
-    comment = Comment(author=author, body=body, date=date, longitude=longitude, latitude=latitude)
+    post = Post.objects.get(id=id)
+    comment = Comment(author=author, body=body, date=date, longitude=longitude, latitude=latitude, post=post)
     comment.save()
 
     data = {
@@ -338,23 +351,31 @@ def create_comment(request):
         'body': body,
         'date': date,
         'longitude': longitude,
-        'latitude': latitude
+        'latitude': latitude,
+        'post': post
     }
 
     response_object = {}
-    response_object['post'] = CommentSerializer(data).data
-    image_urls = []
-    if len(request.FILES) > 0:
-        count = 1
-        for filename, file in request.FILES.items():
-            print(file)
-            image = file.read()
-            photo_url = upload_to_s3(image, f'comment/{comment.id}/{count}.jpg')
-            count = count + 1
-            commentImage = CommentImages(image_url=photo_url, post=comment)
-            commentImage.save()
-            image_urls.append(photo_url)
+    serializer = CommentSerializer(data)
+    if serializer.is_valid():
+        response_object['comment'] = serializer.data
+        image_urls = []
+        if len(request.FILES) > 0:
+            count = 1
+            for filename, file in request.FILES.items():
+                print(file)
+                image = file.read()
+                photo_url = upload_to_s3(image, f'comment/{comment.id}/{count}.jpg')
+                count = count + 1
+                commentImage = CommentImages(image_url=photo_url, post=comment)
+                commentImage.save()
+                image_urls.append(photo_url)
 
-    response_object['image_urls'] = image_urls
-
-    return Response(response_object)
+        response_object['image_urls'] = image_urls
+        if(Doctor.objects.filter(user=request.user).exists()):
+            post.commented_by_doctor = True
+            post.save()
+        return Response(response_object)
+    else:
+        error = serializer.errors
+        return Response(status=400, data={'error': f'Fields are missing'})

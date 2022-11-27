@@ -17,11 +17,22 @@ from common.views import upload_to_s3
 @permission_classes([IsAuthenticated,])
 def get_all_articles(request):
     paginator = PageNumberPagination()
-    paginator.page_size = 10
-    article_objects = Article.objects.all()
-    result_page = paginator.paginate_queryset(article_objects, request)
-    serializer = ArticleSerializer(result_page, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page_size', 1)
+    article_objects = Article.objects.all().order_by('-date')
+    articles = []
+    user = CustomUser.objects.get(id=request.user.id)
+    for article in article_objects:
+        serializer_article_data = ArticleSerializer(article).data
+        if article.id in user.upvoted_articles:
+            serializer_article_data['vote'] = 'upvote'
+        elif article.id in user.downvoted_articles:
+            serializer_article_data['vote'] = 'downvote'
+        else:
+            serializer_article_data['vote'] = None
+        articles.append(serializer_article_data)
+    result_page = paginator.paginate_queryset(articles, request)
+    return paginator.get_paginated_response(result_page)
 
 
 @api_view(['GET', 'POST', 'DELETE'])

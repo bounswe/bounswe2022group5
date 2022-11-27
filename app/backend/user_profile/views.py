@@ -60,45 +60,33 @@ def delete_profile_picture(request):
 
 @api_view(['GET',])
 @permission_classes([IsAuthenticated,])
-def get_upvoted_articles(request, user_id = None):
+def get_upvoted_articles(request):
+    paginator = PageNumberPagination()
+    paginator.max_page_size = 10
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page_size', 1)
 
-    if user_id != None:
-        upvoter = CustomUser.objects.get(id=user_id)
-    else:
-        upvoter = CustomUser.objects.get(id=request.user.id)
+    upvoter = CustomUser.objects.get(id=request.user.id)
 
     upvoted_articles = upvoter.upvoted_articles
     articles = Article.objects.filter(id__in=upvoted_articles)
 
-    page_size = 10
-    page_number = 0
-    if 'page_number' in request.data:
-        page_number = int(request.data['page_number'])
 
-    # sort
-    sort = 'desc'
-    if 'sort' in request.data:
-        temp = request.data['sort']
-        if temp == 'desc' or temp == 'asc':
-            sort = temp
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
 
     if sort == 'asc':
         articles = articles.order_by('date')
     elif sort == 'desc':
         articles = articles.order_by('-date')
 
-    total = articles.count()
-    start = page_number * page_size
-    end = (page_number + 1) * page_size
-
-    serializer = ArticleSerializer(articles[start:end], many=True)
-
-    return Response({
-        'data': serializer.data,
-        'total': total,
-        'page_number': page_number,
-        'last_page': math.ceil(total / page_size) - 1
-    })
+    result_page = paginator.paginate_queryset(articles, request)
+    serializer = ArticleSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 @api_view(['GET',])
 @permission_classes([IsAuthenticated,])

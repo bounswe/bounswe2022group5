@@ -120,7 +120,7 @@ class Doctor(models.Model):
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
     verified = models.BooleanField(max_length=100, null=False, default=False)
-
+    document = models.TextField(null=True, default=None)
     profile_picture = models.TextField(null=True)
 
     def __str__(self):

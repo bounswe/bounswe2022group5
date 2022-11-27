@@ -1,10 +1,12 @@
+import os
+
 from backend.models import CustomUser, Doctor, Member, Category, MemberInfo
 from .serializers import UserSerializer, RegistrationSerializer, DoctorSerializer, MemberSerializer
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password
 from rest_framework import viewsets
-
+from common.views import upload_to_s3, delete_from_s3
 # Create your views here.
 from rest_framework.views import APIView
 from rest_framework.exceptions import ValidationError, ParseError
@@ -33,6 +35,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def register_user(request):
@@ -50,7 +53,8 @@ def register_user(request):
             account.is_active = True
             account.save()
             token = Token.objects.get_or_create(user=account)[0].key
-            if(request.data['type']== 1):
+            if(request.data['type']== '1'):
+
                 doctor_data = {}
                 full_name = f"{request.data['firstname']} {request.data['lastname']}"
                 doctor_data['full_name'] =  full_name
@@ -58,11 +62,20 @@ def register_user(request):
                 doctor_data['user'] = account.id
                 doctor_serializer = DoctorSerializer(data=doctor_data)
                 if doctor_serializer.is_valid():
-                    doctor_serializer.save()
+                    doctor = doctor_serializer.save()
+                    print(request.FILES)
+                    if len(request.FILES) > 0:
+                        for filename, file in request.FILES.items():
+                            print(filename)
+                            name, extension = os.path.splitext(file.name)
+                            document = file.read()
+                            document_url = upload_to_s3(document, f'document/{account.id}/{filename}{extension}')
+                            doctor.document = document_url
+                            doctor.save()
                 else:
                     data = doctor_serializer.errors
                     return Response(status=400,data=data)
-            elif(request.data['type'] == 2):
+            elif(request.data['type'] == '2'):
                 member_data = {}
                 
                 member_data['user'] =  account.id
