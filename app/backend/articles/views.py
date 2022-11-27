@@ -1,3 +1,4 @@
+from backend.models import CustomUser
 from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
@@ -87,27 +88,61 @@ def create_article(request):
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated, ])
-def upvote_an_article(request, id):
+def upvote_article(request, id):
         try:
             article = Article.objects.get(id=id)
+            user_info = CustomUser.objects.get(id = request.user.id)
         except:
             return Response({'error': 'Article not found'}, status=400)
-        article.upvote += 1
-        article.save()
-        article_serializer = ArticleSerializer(article)
 
+        if id in user_info.upvoted_articles :
+            article.upvote -= 1
+            article.save()
+            user_info.upvoted_articles.remove(id)
+            user_info.save()
+        elif id in user_info.downvoted_articles :
+            article.downvote -= 1
+            article.upvote += 1
+            article.save()
+            user_info.downvoted_articles.remove(id)
+            user_info.upvoted_articles.append(id)
+            user_info.save()
+        else:
+            article.upvote += 1
+            article.save()
+            user_info.upvoted_articles.append(id)
+            user_info.save()
+
+        article_serializer = ArticleSerializer(article)
         return Response({'article': article_serializer.data}, status=200)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated, ])
-def downvote_an_article(request, id):
+def downvote_article(request, id):
         try:
             article = Article.objects.get(id=id)
+            user_info = CustomUser.objects.get(id = request.user.id)
         except:
             return Response({'error': 'Article not found'}, status=400)
-        article.downvote += 1
-        article.save()
-        article_serializer = ArticleSerializer(article)
 
+        if id in user_info.downvoted_articles :
+            article.downvote -= 1
+            article.save()
+            user_info.downvoted_articles.remove(id)
+            user_info.save()
+        elif id in user_info.upvoted_articles :
+            article.upvote -= 1
+            article.downvote += 1
+            article.save()
+            user_info.upvoted_articles.remove(id)
+            user_info.downvoted_articles.append(id)
+            user_info.save()
+        else:
+            article.downvote += 1
+            article.save()
+            user_info.downvoted_articles.append(id)
+            user_info.save()
+
+        article_serializer = ArticleSerializer(article)
         return Response({'article': article_serializer.data}, status=200)
 

@@ -1,3 +1,4 @@
+from backend.models import CustomUser
 from forum.models import PostImages
 from datetime import datetime
 from rest_framework.response import Response
@@ -67,12 +68,29 @@ def create_post(request):
 def upvote_post(request, id):
         try:
             post = Post.objects.get(id=id)
+            user_info = CustomUser.objects.get(id = request.user.id)
         except:
             return Response({'error': 'Post not found'}, status=400)
-        post.upvote += 1
-        post.save()
-        post_serializer = PostSerializer(post)
 
+        if id in user_info.upvoted_posts :
+            post.upvote -= 1
+            post.save()
+            user_info.upvoted_posts.remove(id)
+            user_info.save()
+        elif id in user_info.downvoted_posts :
+            post.downvote -= 1
+            post.upvote += 1
+            post.save()
+            user_info.downvoted_posts.remove(id)
+            user_info.upvoted_posts.append(id)
+            user_info.save()
+        else:
+            post.upvote += 1
+            post.save()
+            user_info.upvoted_posts.append(id)
+            user_info.save()
+
+        post_serializer = PostSerializer(post)
         return Response({'post': post_serializer.data}, status=200)
 
 @api_view(['POST',])
@@ -80,36 +98,86 @@ def upvote_post(request, id):
 def downvote_post(request, id):
         try:
             post = Post.objects.get(id=id)
+            user_info = CustomUser.objects.get(id = request.user.id)
         except:
             return Response({'error': 'Post not found'}, status=400)
-        post.downvote += 1
-        post.save()
-        post_serializer = PostSerializer(post)
+        if id in user_info.downvoted_posts :
+            post.downvote -= 1
+            post.save()
+            user_info.downvoted_posts.remove(id)
+            user_info.save()
+        elif id in user_info.upvoted_posts :
+            post.upvote -= 1
+            post.downvote += 1
+            post.save()
+            user_info.upvoted_posts.remove(id)
+            user_info.downvoted_posts.append(id)
+            user_info.save()
+        else:
+            post.downvote += 1
+            post.save()
+            user_info.downvoted_posts.append(id)
+            user_info.save()
 
+        post_serializer = PostSerializer(post)
         return Response({'post': post_serializer.data}, status=200)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated, ])
 def upvote_comment(request, id):
-        try:
-            comment = Comment.objects.get(id=id)
-        except:
-            return Response({'error': 'Comment not found'}, status=400)
+    try:
+        comment = Comment.objects.get(id=id)
+        user_info = CustomUser.objects.get(id=request.user.id)
+    except:
+        return Response({'error': 'Comment not found'}, status=400)
+
+    if id in user_info.upvoted_comments:
+        comment.upvote -= 1
+        comment.save()
+        user_info.upvoted_comments.remove(id)
+        user_info.save()
+    elif id in user_info.downvoted_comments:
+        comment.downvote -= 1
         comment.upvote += 1
         comment.save()
-        comment_serializer = CommentSerializer(comment)
+        user_info.downvoted_comments.remove(id)
+        user_info.upvoted_comments.append(id)
+        user_info.save()
+    else:
+        comment.upvote += 1
+        comment.save()
+        user_info.upvoted_comments.append(id)
+        user_info.save()
 
-        return Response({'comment': comment_serializer.data}, status=200)
+    comment_serializer = CommentSerializer(comment)
+    return Response({'comment': comment_serializer.data}, status=200)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated, ])
 def downvote_comment(request, id):
-        try:
-            comment = Comment.objects.get(id=id)
-        except:
-            return Response({'error': 'Comment not found'}, status=400)
+    try:
+        comment = Comment.objects.get(id=id)
+        user_info = CustomUser.objects.get(id=request.user.id)
+    except:
+        return Response({'error': 'Comment not found'}, status=400)
+
+    if id in user_info.downvoted_comments:
+        comment.downvote -= 1
+        comment.save()
+        user_info.downvoted_comments.remove(id)
+        user_info.save()
+    elif id in user_info.upvoted_comments:
+        comment.upvote -= 1
         comment.downvote += 1
         comment.save()
-        comment_serializer = CommentSerializer(comment)
+        user_info.upvoted_comments.remove(id)
+        user_info.downvoted_comments.append(id)
+        user_info.save()
+    else:
+        comment.downvote += 1
+        comment.save()
+        user_info.downvoted_comments.append(id)
+        user_info.save()
 
-        return Response({'comment': comment_serializer.data}, status=200)
+    comment_serializer = CommentSerializer(comment)
+    return Response({'comment': comment_serializer.data}, status=200)
