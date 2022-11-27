@@ -10,6 +10,8 @@ class Post(models.Model):
     date = models.DateTimeField()
     upvote = models.IntegerField(null=False, default=0)
     downvote = models.IntegerField(null=False, default=0)
+    longitude = models.FloatField(default=0)
+    latitude = models.FloatField(default=0)
 
 class PostImages(models.Model):
     image_url = models.CharField(max_length=100)
@@ -22,6 +24,8 @@ class Comment(models.Model):
     upvote = models.IntegerField(null=False, default=0)
     downvote = models.IntegerField(null=False, default=0)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    longitude = models.FloatField(default=0)
+    latitude = models.FloatField(default=0)
 
 class CommentImages(models.Model):
     image_url = models.CharField(max_length=100)

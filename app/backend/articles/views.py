@@ -3,10 +3,14 @@ from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
 from articles.serializers import ArticleSerializer, CreateArticleSerializer
-from articles.models import Article
+from articles.models import Article, ArticleImages
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+
+from common.views import upload_to_s3
+
+
 # Create your views here.
 
 @api_view(['GET',])
@@ -19,6 +23,7 @@ def get_all_articles(request):
     serializer = ArticleSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
 
+
 @api_view(['GET', 'POST', 'DELETE'])
 @permission_classes([IsAuthenticated,])
 def article(request,id):
@@ -28,8 +33,13 @@ def article(request,id):
         except:
             return Response({'error': 'Article not found'}, status=400)
         article_serializer = ArticleSerializer(article)
-        
-        return Response(article_serializer.data, status=200)
+        article_images = ArticleImages.objects.filter(article=article)
+        image_urls = [image.image_url for image in article_images]
+        response ={
+            'article': article_serializer.data,
+            'image_urls': image_urls
+        }
+        return Response(response, status=200)
 
     if(request.method == 'DELETE'):
         try:
@@ -69,18 +79,27 @@ def create_article(request):
         body = request.data['body']
         date = datetime.now()
 
-        post = Article(title=title, author=author, body=body, date=date)
-        post.save()
+        article = Article(title=title, author=author, body=body, date=date)
+        article.save()
 
         data = {
-            'title':title,
+            'title': title,
             'author': author,
-            'body':body,
-            'date':date
+            'body': body,
+            'date': date
         }
-        
+        image_urls = []
+        if len(request.FILES) > 0:
+            count = 1
+            for filename, file in request.FILES.items():
+                image = file.read()
+                photo_url = upload_to_s3(image, f'article/{article.id}/{count}.jpg')
+                count = count + 1
+                commentImage = ArticleImages(image_url=photo_url, post=article)
+                commentImage.save()
+                image_urls.append(photo_url)
         serialized_data = ArticleSerializer(data)
-        return Response({'article':serialized_data.data})
+        return Response({'article': serialized_data.data, 'image_urls': image_urls})
     else:
         data = validate_article.errors
         return Response(status=400,data={'error': f'Fields are missing'})
