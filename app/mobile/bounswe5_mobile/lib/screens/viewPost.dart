@@ -10,6 +10,47 @@ class ViewPostPage extends StatefulWidget {
 }
 
 class _ViewPostPageState extends State<ViewPostPage> {
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController commentController = TextEditingController();
+  List filedata = [
+    {
+      'name': 'benginbestas',
+      'pic':
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+      'message': 'I am sorry',
+      'date': '2022-02-01 12:00',
+      'upvote': '7',
+      'downvote': '3',
+    },
+    {
+      'name': 'benginbestas',
+      'pic':
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+      'message': 'Very cool',
+      'date': '2022-01-04 12:00',
+      'upvote': '2',
+      'downvote': '5',
+    },
+    {
+      'name': 'benginbestas',
+      'pic':
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+      'message': 'ty for replies',
+      'date': '2022-05-02 12:00',
+      'upvote': '342',
+      'downvote': '3',
+    },
+    {
+      'name': 'benginbestas',
+      'pic':
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+      'message': 'Very cool',
+      'date': '2022-02-08 12:00',
+      'upvote': '732',
+      'downvote': '315',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,124 +244,128 @@ class _ViewPostPageState extends State<ViewPostPage> {
               child: Row(
                 children: [
                   SizedBox(width: 10.0),
-                  Text("1", style: TextStyle(color: Colors.white)),
+                  Text(filedata.length.toString(),
+                      style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
           ],
         ),
+
         //////////////////////////////////////////////////
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              constraints: BoxConstraints(maxHeight: double.infinity),
-              width: 320,
-              margin: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(12.0),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              "https://images.hindustantimes.com/img/2022/03/07/550x309/Patrick_Stewart_1_1646645757381_1646645774641.jpg"),
-                          radius: 20,
+            for (var i = 0; i < filedata.length; i++)
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                constraints: BoxConstraints(maxHeight: double.infinity),
+                width: 320,
+                margin: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(filedata[i]['pic']),
+                            radius: 20,
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(filedata[i]['name']),
+                                  Text(filedata[i]['date']),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          Icon(Icons.more_vert),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      padding: EdgeInsets.all(15.0),
+                      constraints: BoxConstraints(maxHeight: double.infinity),
+                      width: double.infinity,
+                      child: Text(
+                        filedata[i]['message'],
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 16,
                         ),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Expanded(
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                    ),
+                    SizedBox(height: 18),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: 0.2,
+                          ),
+                          Container(
+                            child: Row(
                               children: [
-                                Text("professor xavier"),
-                                Text("26/11/2022 15.51"),
+                                Icon(Icons.thumb_up),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  filedata[i]['upvote'],
+                                  style: TextStyle(
+                                    color: Colors.green[900],
+                                    fontStyle: FontStyle.normal,
+                                  ),
+                                )
                               ],
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Icon(Icons.more_vert),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Container(
-                    padding: EdgeInsets.all(15.0),
-                    constraints: BoxConstraints(maxHeight: double.infinity),
-                    width: double.infinity,
-                    child: Text(
-                      "\tYou can do whatever you want, you are fine.",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 16,
+                          Container(
+                            child: Row(
+                              children: [
+                                Icon(Icons.thumb_down),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  filedata[i]['downvote'],
+                                  style: TextStyle(
+                                    color: Colors.red[900],
+                                    fontStyle: FontStyle.normal,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 200.0,
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: 18),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: 0.2,
-                        ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Icon(Icons.thumb_up),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                "135",
-                                style: TextStyle(
-                                  color: Colors.green[900],
-                                  fontStyle: FontStyle.normal,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          child: Row(
-                            children: [
-                              Icon(Icons.thumb_down),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                "2",
-                                style: TextStyle(
-                                  color: Colors.red[900],
-                                  fontStyle: FontStyle.normal,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 220.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                ],
+                    SizedBox(height: 10.0),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
+
         /////////////////////////////
       ]),
     );
