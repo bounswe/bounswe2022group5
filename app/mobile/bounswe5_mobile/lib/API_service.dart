@@ -74,4 +74,39 @@ class ApiService {
 
   }
 
+  Future<int> createPost(String token, String title, String author, String body_, String location, String image_urls ) async {
+    var uri = Uri.parse("$baseURL/forum/post");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final body = jsonEncode(<String, Object>{
+      'title': title,
+      'author': author,
+      'body': body_,
+      'image_urls': image_urls,
+    });
+    final response = await http.post(uri, body: body, headers: header);
+
+    return response.statusCode;
+  }
+
+  Future<int> createArticle(String token, String title, String author, String body_) async {
+    var uri = Uri.parse("$baseURL/articles/article");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final body = jsonEncode(<String, Object>{
+      'title': title,
+      'author': author,
+      'body': body_,
+    });
+    final response = await http.post(uri, body: body, headers: header);
+
+    return response.statusCode;
+  }
+
+
+
 }

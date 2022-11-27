@@ -5,6 +5,7 @@ import 'package:bounswe5_mobile/widgets/ForumList.dart';
 import 'package:bounswe5_mobile/widgets/ArticlesList.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/mockData.dart';
+import 'package:bounswe5_mobile/screens/createPost.dart';
 
 /// This is the implementation of the home page.
 class HomePage extends StatefulWidget {
@@ -100,7 +101,12 @@ class _HomePageState extends State<HomePage> {
             floatingActionButton: // If user not signed in, do not show create post button in the forum
             isSessionActive && currentIndex == 0 ?
             FloatingActionButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                      CreatePostPage(activeUser: snapshot.data!)),
+                );
+              },
               backgroundColor: mainColor,
               child: const Icon(Icons.create),
             ) : const SizedBox.shrink(),
