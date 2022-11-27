@@ -30,7 +30,7 @@ def get_posts_of_user(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
 
-    page_size = 4
+    page_size = 10
     page_number = 0
     if 'page_number' in request.data:
         page_number = int(request.data['page_number'])
