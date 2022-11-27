@@ -6,12 +6,11 @@ from rest_framework import status
 from forum.serializers import PostSerializer, CommentSerializer
 from backend.pagination import ForumPagination
 from forum.models import Post, Comment
-from django.core.paginator import Paginator
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+import math
 # Create your views here.
 
 @api_view(['GET',])
@@ -23,6 +22,46 @@ def get_all_posts(request):
     result_page = paginator.paginate_queryset(post_objects, request)
     serializer = PostSerializer(result_page, many=True)
     return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET',])
+@permission_classes([IsAuthenticated,])
+def get_posts_of_user(request, user_id):
+
+    author = CustomUser.objects.get(id=user_id)
+
+    page_size = 10
+    page_number = 0
+    if 'page_number' in request.data:
+        page_number = int(request.data['page_number'])
+
+    posts = Post.objects.filter(author=author)
+
+    # sort
+    sort = 'desc'
+    if 'sort' in request.data:
+        temp = request.data['sort']
+        if temp == 'desc' or temp == 'asc':
+            sort = temp
+
+    if sort == 'asc':
+        posts = posts.order_by('date')
+    elif sort == 'desc':
+        posts = posts.order_by('-date')
+
+    total = posts.count()
+    start = page_number * page_size
+    end = (page_number + 1) * page_size
+
+    serializer = PostSerializer(posts[start:end], many=True)
+
+    return Response({
+        'data': serializer.data,
+        'total': total,
+        'page_number': page_number,
+        'last_page': math.ceil(total / page_size) - 1
+    })
+
 
 @api_view(['GET',])
 @permission_classes([IsAuthenticated,])
