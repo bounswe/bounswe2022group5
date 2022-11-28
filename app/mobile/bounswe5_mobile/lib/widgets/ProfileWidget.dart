@@ -1,3 +1,4 @@
+import 'package:bounswe5_mobile/screens/editprofile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
@@ -20,17 +21,17 @@ class ProfileWidget extends StatelessWidget{
     return Center(
       child: Stack(
         children: [
-          buildImage(),
+          buildImage(context),
           Positioned(
             bottom: 0,
             right: 4,
-            child: buildEditIcon(color),
+            child: buildEditIcon(color, context),
           ),
         ],
       ),
     );
   }
-  Widget buildImage(){
+  Widget buildImage(BuildContext context){
     final image = AssetImage(tempImagePath);
     return ClipOval(
       child: Material(
@@ -40,14 +41,11 @@ class ProfileWidget extends StatelessWidget{
             fit: BoxFit.cover,
             width: 128,
             height: 128,
-            child: InkWell(
-                onTap: onClicked
-            ),
-          )
+          ),
       ),
     );
   }
-  Widget buildEditIcon(Color color) => buildCircle(
+  Widget buildEditIcon(Color color, BuildContext context) => buildCircle(
     color: Colors.white,
     all: 2,
     child: buildCircle(
@@ -59,7 +57,10 @@ class ProfileWidget extends StatelessWidget{
           color: Colors.white,
           size: 20,
         ),
-        onTap: (){},
+        onTap: (){
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => EditProfilePage()),
+          );},
       ),
     ),
   );
