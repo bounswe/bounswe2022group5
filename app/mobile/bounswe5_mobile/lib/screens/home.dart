@@ -37,10 +37,40 @@ class _HomePageState extends State<HomePage> {
         // we should show the home page. Until that time, a loading
         // icon is shown.
         if(snapshot.hasData || widget.token == '-1'){
-
           // Session activity means that a registered user is entered
           // the home page.
           bool isSessionActive = widget.token != '-1';
+
+          // Floating button that will be used to create posts/articles:
+          Widget floatingButton = SizedBox.shrink();
+          if(isSessionActive){
+            if(currentIndex == 0){
+              floatingButton = FloatingActionButton(
+                  onPressed: (){print("User create post");},
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  child: Icon(
+                    Icons.create,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  )
+              );
+            }
+            else if(currentIndex == 1){
+              print(snapshot.data?.specialization);
+              if(snapshot.data?.usertype == 1){
+                floatingButton = FloatingActionButton(
+                    onPressed: (){print("Doctor create article");},
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    child: Icon(
+                      Icons.create,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    )
+                );
+              }
+            }
+          }
+          else{
+            floatingButton = const SizedBox.shrink();
+          }
           return Scaffold(
 
             // App bar is the top bar shown in the screen.
@@ -95,7 +125,9 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // floating action button will be used for creating a new post or article later.
-            floatingActionButton: // If user not signed in, do not show create post button in the forum
+            floatingActionButton: floatingButton,// If user not signed in, do not show create post button in the forum
+
+            /*
             isSessionActive && currentIndex == 0 ?
             FloatingActionButton(
               onPressed: (){},
@@ -105,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                   color: Theme.of(context).colorScheme.onPrimary,
               ),
             ) : const SizedBox.shrink(),
-
+            */
             body: bodies[currentIndex],
           );
         }
