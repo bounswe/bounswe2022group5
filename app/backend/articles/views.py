@@ -94,6 +94,7 @@ def create_article(request):
         article.save()
 
         data = {
+            'id': article.id,
             'title': title,
             'author': author,
             'body': body,
@@ -106,7 +107,7 @@ def create_article(request):
                 image = file.read()
                 photo_url = upload_to_s3(image, f'article/{article.id}/{count}.jpg')
                 count = count + 1
-                commentImage = ArticleImages(image_url=photo_url, post=article)
+                commentImage = ArticleImages(image_url=photo_url, article=article)
                 commentImage.save()
                 image_urls.append(photo_url)
         serialized_data = ArticleSerializer(data)
