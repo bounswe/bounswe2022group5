@@ -18,7 +18,7 @@ from common.views import upload_to_s3
 def get_all_articles(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
-    paginator.page = request.GET.get('page_size', 1)
+    paginator.page = request.GET.get('page', 1)
     article_objects = Article.objects.all().order_by('-date')
     articles = []
     user = CustomUser.objects.get(id=request.user.id)

@@ -74,16 +74,22 @@ def register_user(request):
                             doctor.save()
                 else:
                     data = doctor_serializer.errors
+                    account.delete()
                     return Response(status=400,data=data)
-            elif(request.data['type'] == '2'):
+            elif(request.data['type'] == 2):
                 member_data = {}
                 
                 member_data['user'] =  account.id
                 member_data['member_username']= request.data['username']
                 member_serializer = MemberSerializer(data=member_data)
                 if member_serializer.is_valid():
-                    member_serializer.save()
+                    try:
+                        member_serializer.save()
+                    except:
+                        account.delete()
+                        return Response(status=400, data={'username':['This field must be unique']})
                 else:
+                    account.delete()
                     data = member_serializer.errors
                     return Response(status=400,data=data)
 

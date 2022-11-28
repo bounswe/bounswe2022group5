@@ -64,7 +64,7 @@ def get_upvoted_articles(request):
     paginator = PageNumberPagination()
     paginator.max_page_size = 10
     paginator.page_size = request.GET.get('page_size', 10)
-    paginator.page = request.GET.get('page_size', 1)
+    paginator.page = request.GET.get('page', 1)
 
     upvoter = CustomUser.objects.get(id=request.user.id)
 
@@ -94,7 +94,7 @@ def get_upvoted_posts(request):
     paginator = PageNumberPagination()
     paginator.max_page_size = 10
     paginator.page_size = request.GET.get('page_size', 10)
-    paginator.page = request.GET.get('page_size', 1)
+    paginator.page = request.GET.get('page', 1)
     upvoter = CustomUser.objects.get(id=request.user.id)
     upvoted_posts = upvoter.upvoted_posts
 

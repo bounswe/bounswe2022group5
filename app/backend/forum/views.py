@@ -1,9 +1,9 @@
-from backend.models import CustomUser, Doctor
+from backend.models import CustomUser, Doctor, Member
 from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
-from forum.serializers import PostSerializer, CommentSerializer
+from forum.serializers import PostSerializer, CommentSerializer, UpdatePostSerializer, CreateCommentSerializer
 from backend.pagination import ForumPagination
 from forum.models import Post, Comment
 from common.views import upload_to_s3, delete_from_s3
@@ -19,7 +19,7 @@ import math
 def get_all_posts(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
-    paginator.page = request.GET.get('page_size', 1)
+    paginator.page = request.GET.get('page', 1)
     post_objects = Post.objects.all().order_by('-date')
     posts = []
     user = CustomUser.objects.get(id= request.user.id)
@@ -46,7 +46,7 @@ def get_posts_of_user(request, user_id):
 
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
-    paginator.page = request.GET.get('page_size', 1)
+    paginator.page = request.GET.get('page', 1)
 
     posts = Post.objects.filter(author=author)
 
@@ -68,7 +68,7 @@ def get_posts_of_user(request, user_id):
     return paginator.get_paginated_response(serializer.data)
 
 
-def _get_comment_of_post(id):
+def _get_comment_of_post(id, author):
     post = Post.objects.get(id=id)
     comments= []
     comments_queryset = Comment.objects.filter(post=post).order_by('date')
@@ -76,10 +76,32 @@ def _get_comment_of_post(id):
         comment_images = CommentImages.objects.filter(comment=comment)
         image_urls = [image.image_url for image in comment_images]
         comment_serializer = CommentSerializer(comment)
+        comment_result = comment_serializer.data
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                'is_doctor': False
+            }
+
+        comment_result['author'] = author_data
         data = {
-            'comment' : comment_serializer.data(),
+            'comment' : comment_result,
             'image_urls': image_urls
+
         }
+
         comments.append(data)
 
     return comments
@@ -90,13 +112,41 @@ def _get_comment_of_post(id):
 @permission_classes([IsAuthenticated,])
 def get_post(request,id):
     if (request.method == 'GET'):
-        post = Post.objects.get(id = id)
+        try:
+            post = Post.objects.get(id = id)
+        except:
+            return Response({'error': 'Post not found'}, status=400)
         post_serializer = PostSerializer(post)
-        comments = _get_comment_of_post(id)
+        response_dict = post_serializer.data
+        author = post.author
+        comments = _get_comment_of_post(id, author)
         post_images = PostImages.objects.filter(post=post)
         image_urls = [image.image_url for image in post_images]
+
+
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+            response_dict['author'] = author_data
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                'is_doctor': False
+            }
+
+            response_dict["author"] = author_data
+
+
         response = {
-            'post' :  post_serializer.data,
+            'post' :  response_dict,
             'image_urls': image_urls,
             'comments': comments
         }
@@ -114,7 +164,7 @@ def get_post(request,id):
         return Response(status=200)
 
     if (request.method == 'POST'):
-        validate_post = PostSerializer(data=request.data)
+        validate_post = UpdatePostSerializer(data=request.data)
         if validate_post.is_valid():
             try:
                 post = Post.objects.get(id=id)
@@ -146,8 +196,28 @@ def create_post(request):
 
     post = Post(title=title, author=author, body=body, date=date, longitude= longitude, latitude = latitude)
     post.save()
+    if author.type == 1:
+        doctor_data = Doctor.objects.get(user=author)
+        author_data = {
+            'id': author.id,
+            'username': doctor_data.full_name,
+            'profile_photo': doctor_data.profile_picture,
+            'is_doctor': True
+        }
+
+
+    elif author.type == 2:
+        member_data = Member.objects.get(user=author)
+        author_data = {
+            'id': author.id,
+            'username': member_data.member_username,
+            'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+            'is_doctor': False
+        }
+
 
     data = {
+        'id' : post.id,
         'title':title,
         'author': author,
         'body':body,
@@ -158,6 +228,7 @@ def create_post(request):
 
     response_object = {}
     response_object['post'] = PostSerializer(data).data
+    response_object['post']['author'] = author_data
     image_urls = []
     if len(request.FILES) > 0:
         count = 1
@@ -335,6 +406,10 @@ def get_comment(request,id):
 @api_view(['POST', ])
 @permission_classes([IsAuthenticated, ])
 def create_comment(request, id):
+    try:
+        post = Post.objects.get(id=id)
+    except:
+        return Response({'error': 'Post not found'}, status=400)
     author = request.user
     body = request.data['body']
     date = datetime.now()
@@ -342,32 +417,31 @@ def create_comment(request, id):
     longitude = request.data['longitude']
     latitude = request.data['latitude']
 
-    post = Post.objects.get(id=id)
+
     comment = Comment(author=author, body=body, date=date, longitude=longitude, latitude=latitude, post=post)
     comment.save()
 
     data = {
-        'author': author,
+        'author': author.id,
         'body': body,
         'date': date,
         'longitude': longitude,
         'latitude': latitude,
-        'post': post
+        'post': post.id
     }
 
     response_object = {}
-    serializer = CommentSerializer(data)
+    serializer = CreateCommentSerializer(data=data)
     if serializer.is_valid():
         response_object['comment'] = serializer.data
         image_urls = []
         if len(request.FILES) > 0:
             count = 1
             for filename, file in request.FILES.items():
-                print(file)
                 image = file.read()
                 photo_url = upload_to_s3(image, f'comment/{comment.id}/{count}.jpg')
                 count = count + 1
-                commentImage = CommentImages(image_url=photo_url, post=comment)
+                commentImage = CommentImages(image_url=photo_url, comment=comment)
                 commentImage.save()
                 image_urls.append(photo_url)
 
