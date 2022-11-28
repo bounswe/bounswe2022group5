@@ -55,13 +55,13 @@ class _LoginPageState extends State<LoginPage> {
                     fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold,
                     fontSize: 60,
-                    color: Colors.blue[900]),
+                    color: Theme.of(context).primaryColorDark),
               ),
               Text(
                 'for user benefits!',
                 style: TextStyle(
                   fontSize: 40,
-                  color: Colors.blue[900],
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
               SizedBox(height: 10),
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[600]),
+                      backgroundColor: Theme.of(context).colorScheme.primary),
                   child: Container(
                     padding: EdgeInsets.all(20.0),
                     child: Center(
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontStyle: FontStyle.normal,
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0,
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     )),
                   ),

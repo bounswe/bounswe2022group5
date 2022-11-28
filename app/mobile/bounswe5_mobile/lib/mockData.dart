@@ -105,7 +105,7 @@ Here are 10 ways to help you resist the urge to smoke or use tobacco when a crav
     4,
     doctors[3],
     DateTime.utc(2022, 03, 7),
-    'What is Agoraphobia?',
+    'What is Agoraphobia? very very very very very very very long title',
     '''Agoraphobia is a fear of being in situations where escape might be difficult or that help wouldn't be available if things go wrong.
 
 Many people assume agoraphobia is simply a fear of open spaces, but it's actually a more complex condition.
@@ -114,7 +114,54 @@ Someone with agoraphobia may be scared of:
 
 travelling on public transport
 visiting a shopping centre
-leaving home''',
+leaving home
+If someone with agoraphobia finds themselves in a stressful situation, they'll usually experience the symptoms of a panic attack, such as:
+
+rapid heartbeat
+rapid breathing (hyperventilating)
+feeling hot and sweaty
+feeling sick
+They'll avoid situations that cause anxiety and may only leave the house with a friend or partner. They'll order groceries online rather than going to the supermarket. This change in behaviour is known as avoidance.
+
+Read more about the symptoms of agoraphobia.
+
+What causes agoraphobia?
+Agoraphobia can develop as a complication of panic disorder, an anxiety disorder involving panic attacks and moments of intense fear. It can arise by associating panic attacks with the places or situations where they occurred and then avoiding them.
+
+Not all people with agoraphobia have a history of panic attacks. In these cases, their fear may be related to issues like a fear of crime, terrorism, illness or being in an accident.
+
+Read more about the possible causes of agoraphobia.
+
+Diagnosing agoraphobia
+Speak to your GP if you think you may be affected by agoraphobia. It should be possible to arrange a telephone consultation if you don't feel ready to visit your GP in person.
+
+Your GP will ask you to describe your symptoms, how often they occur, and in what situations. It's very important you tell them how you've been feeling and how your symptoms are affecting you.
+
+Your GP may ask you the following questions:
+
+Do you find leaving the house stressful?
+Are there certain places or situations you have to avoid?
+Do you have any avoidance strategies to help you cope with your symptoms, such as relying on others to shop for you?
+It can sometimes be difficult to talk about your feelings, emotions, and personal life, but try not to feel anxious or embarrassed. Your GP needs to know as much as possible about your symptoms to make the correct diagnosis and recommend the most appropriate treatment.
+
+Read more about diagnosing agoraphobia.
+
+Treating agoraphobia
+Lifestyle changes may help, including taking regular exercise, eating more healthily, and avoiding alcohol, drugs and drinks that contain caffeine, such as tea, coffee and cola.
+
+Self-help techniques that can help during a panic attack include staying where you are, focusing on something that's non-threatening and visible, and slow, deep breathing.
+
+If your agoraphobia fails to respond to these treatment methods, see your GP.
+
+You can also refer yourself directly for psychological therapies, including cognitive behavioural therapy (CBT), without seeing your GP.
+
+Read more about psychological therapies on the NHS
+
+Medication may be recommended if self-help techniques and lifestyle changes aren't effective in controlling your symptoms. You'll usually be prescribed a course of selective serotonin reuptake inhibitors (SSRIs), which are also used to treat anxiety and depression.
+
+In severe cases of agoraphobia, medication can be used in combination with other types of treatment, such as CBT and relaxation therapy.
+
+Read more about treating agoraphobia.''',
     upvotes : 13,
     downvotes : 7,
   ),

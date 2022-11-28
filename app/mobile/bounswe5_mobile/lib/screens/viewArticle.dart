@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:bounswe5_mobile/mockData.dart';
+import 'package:bounswe5_mobile/models/article.dart';
+import 'package:intl/intl.dart';
 
 class ViewArticlePage extends StatefulWidget {
   const ViewArticlePage({Key? key}) : super(key: key);
@@ -10,6 +13,11 @@ class ViewArticlePage extends StatefulWidget {
 }
 
 class _ViewArticlePageState extends State<ViewArticlePage> {
+
+  Article article = articles[3];
+  String tempImagePath = 'lib/assets/images/generic_user.jpg';
+
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +34,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
       body: ListView(children: [
         Container(
           constraints: BoxConstraints(maxHeight: double.infinity),
-          color: Colors.grey,
+          color: Theme.of(context).colorScheme.surface,
           width: double.infinity,
           margin: EdgeInsets.all(10),
           child: Column(
@@ -36,33 +44,37 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://images.hindustantimes.com/img/2022/03/07/550x309/Patrick_Stewart_1_1646645757381_1646645774641.jpg"),
                       radius: 20,
+                      backgroundImage: AssetImage(tempImagePath),
                     ),
                     SizedBox(
                       width: 8.0,
                     ),
                     Expanded(
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(Icons.check),
-                                Text("professor xavier"),
-                              ],
-                            ),
-                            Text("Published: 26/11/2022"),
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.check),
+                              SizedBox(width: 5),
+                              Text(
+                                "Dr. " + article.author.fullName,
+                                maxLines: 2,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(width: 5),
+                              Text(
+                                "Published: " + formatter.format(article.time),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: 8.0,
-                    ),
-                    Icon(Icons.more_vert),
                   ],
                 ),
               ),
@@ -72,7 +84,8 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                 constraints: BoxConstraints(maxHeight: double.infinity),
                 width: double.infinity,
                 child: Text(
-                  "\tAcnelyste Burns Occurred",
+                  article.header,
+                  maxLines: 3,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -88,7 +101,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                 constraints: BoxConstraints(maxHeight: double.infinity),
                 width: double.infinity,
                 child: Text(
-                  "\tI have been using ACNELYSTE for about 2 months, my cheeks were burning while I was using it, but there was no redness. I applied more than a pea pod and I got a rash on my cheek. Will this redness go away? Please help\n\nI have been using ACNELYSTE for about 2 months, my cheeks were burning while I was using it, but there was no redness. I applied more than a pea pod and I got a rash on my cheek. Will this redness go away? Please help",
+                  article.body,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -98,103 +111,101 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                 ),
               ),
               SizedBox(height: 18),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 0.2,
-                    ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Icon(Icons.thumb_up),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "13",
-                            style: TextStyle(
-                              color: Colors.green[900],
-                              fontStyle: FontStyle.normal,
-                            ),
-                          )
-                        ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      InkWell(
+                        child: Icon(
+                          Icons.arrow_upward,
+                          size: 30,
+                          // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
+                        ),
+                        onTap: ((){
+                          print("Article upvoted.");
+                        }),
                       ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Icon(Icons.thumb_down),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "7",
-                            style: TextStyle(
-                              color: Colors.red[900],
-                              fontStyle: FontStyle.normal,
-                            ),
-                          )
-                        ],
+                      SizedBox(
+                        width: 10,
                       ),
-                    ),
-                    SizedBox(
-                      width: 150.0,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(Icons.comment),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text("Comment"),
-                          SizedBox(
-                            width: 4,
-                          ),
-                        ],
+                      Text(
+                        article.upvotes.toString(),
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20
+                        )
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      InkWell(
+                        child: Icon(
+                          Icons.arrow_downward,
+                          size: 30,
+                          // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
+                        ),
+                        onTap: ((){
+                          print("Article downvoted.");
+                        }),
                       ),
-                    ),
-                    SizedBox(
-                      width: 0.2,
-                    ),
-                  ],
-                ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        article.downvotes.toString(),
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20
+                        )
+                      )
+                    ],
+                  ),
+                ],
               ),
               SizedBox(height: 10.0),
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              margin: EdgeInsets.all(10),
-              width: 120,
-              child: Row(
-                children: [
-                  SizedBox(width: 10.0),
-                  Icon(
-                    Icons.category,
-                    color: Colors.black,
-                  ),
-                  Text("Pediatry", style: TextStyle(color: Colors.black)),
-                ],
-              ),
-            ),
-          ],
-        ),
+        CategoryViewer(name: "Pediatry"),
       ]),
+    );
+  }
+}
+
+
+class CategoryViewer extends StatelessWidget{
+  CategoryViewer({required this.name});
+  final String name;
+
+  @override
+  Widget build(BuildContext context){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          margin: EdgeInsets.all(15),
+          height: 35,
+          width: 120,
+          child: Row(
+            children: [
+              SizedBox(width: 15.0),
+              Icon(
+                Icons.category,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              SizedBox(width: 10.0),
+              Text(name, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
