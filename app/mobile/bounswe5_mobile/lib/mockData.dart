@@ -1,11 +1,10 @@
 import 'package:bounswe5_mobile/models/category.dart';
 import 'package:bounswe5_mobile/models/user.dart';
-import 'package:bounswe5_mobile/models/doctor.dart';
 import 'package:bounswe5_mobile/models/memberInfo.dart';
-import 'package:bounswe5_mobile/models/member.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/article.dart';
 import 'package:bounswe5_mobile/models/comment.dart';
+import 'package:flutter/gestures.dart';
 
 
 // Categories:
@@ -39,23 +38,23 @@ List<Category> categories = [
 
 // Members:
 String ppUri = 'lib/assets/images/generic_user.jpg';
-List<Member> members = [
-  Member(1,'','canberk@gmail.com',1, 1,'canberk',ppUri),
-  Member(2, '', 'bengin@gmail.com',1, 2,'bengin', ppUri),
-  Member(3, '', 'burak@gmail.com',1, 3,'burak', ppUri),
-  Member(4, '', 'engin@gmail.com',1, 4,'engin', ppUri),
-  Member(5, '', 'halil@gmail.com',1, 5,'halil', ppUri),
-  Member(6, '', 'irfan@gmail.com',1, 6,'irfan', ppUri),
-  Member(7, '', 'kardelen@gmail.com',1, 7,'kardelen', ppUri),
-  Member(8, '', 'emre@gmail.com',1, 8,'emre', ppUri),
+List<User> members = [
+  User(1, '', 'canberk@gmail.com', 1, memberid: 1, username: 'canberk', avatarUrl: ppUri),
+  User(2, '', 'bengin@gmail.com', 1, memberid:2, username: 'bengin', avatarUrl: ppUri),
+  User(3, '', 'burak@gmail.com', 1, memberid:3, username: 'burak', avatarUrl: ppUri),
+  User(4, '', 'engin@gmail.com',1, memberid:4, username: 'engin', avatarUrl: ppUri),
+  User(5, '', 'halil@gmail.com',1, memberid: 5, username: 'halil', avatarUrl: ppUri),
+  User(6, '', 'irfan@gmail.com',1, memberid: 6, username: 'irfan', avatarUrl: ppUri),
+  User(7, '', 'kardelen@gmail.com',1, memberid: 7, username: 'kardelen', avatarUrl: ppUri),
+  User(8, '', 'emre@gmail.com',1, memberid: 8, username: 'emre', avatarUrl: ppUri),
 ];
 
 // Doctors:
-List<Doctor> doctors = [
-  Doctor(9, '', 'oguzhan@gmail.com',2,1,'Oguzhan Senol', categories[0],'Sisli Etfal Hospital'),
-  Doctor(10, '', 'ozan@gmail.com',2,2, 'Ozan Kilic', categories[1], 'Basaksehir Cam ve Sakura Hastanesi'),
-  Doctor(11, '', 'sinan@gmail.com',2,3, 'Sinan Kerem Gunduz', categories[2], 'Zeynep Kamil Hastanesi'),
-  Doctor(12, '', 'samet@gmail.com',2,4, 'Yavuz Samet Topcuoglu', categories[3], 'Baltalimani Hastanesi')
+List<User> doctors = [
+  User(9, '', 'oguzhan@gmail.com', 2, doctorid: 1, fullName: 'Oguzhan Senol', specialization: categories[0], hospitalName: 'Sisli Etfal Hospital'),
+  User(10, '', 'ozan@gmail.com',2, doctorid: 2, fullName: 'Ozan Kilic', specialization: categories[1], hospitalName:'Basaksehir Cam ve Sakura Hastanesi'),
+  User(11, '', 'sinan@gmail.com',2, doctorid: 3, fullName: 'Sinan Kerem Gunduz', specialization: categories[2], hospitalName: 'Zeynep Kamil Hastanesi'),
+  User(12, '', 'samet@gmail.com',2, doctorid: 4, fullName: 'Yavuz Samet Topcuoglu', specialization: categories[3], hospitalName: 'Baltalimani Hastanesi')
 ];
 
 // Articles:
