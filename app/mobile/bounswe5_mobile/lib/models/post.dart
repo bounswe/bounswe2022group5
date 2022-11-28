@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:bounswe5_mobile/models/member.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 
 /// Post is the main element of the forum.
 class Post {
@@ -7,7 +6,7 @@ class Post {
   /// and then call API again using id of the author to get the
   /// author.
   final int id;
-  final Member author;
+  final User author;
   final DateTime time;
   final String header;
   final String body;
