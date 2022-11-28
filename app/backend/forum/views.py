@@ -68,7 +68,7 @@ def get_posts_of_user(request, user_id):
     return paginator.get_paginated_response(serializer.data)
 
 
-def _get_comment_of_post(id, author):
+def _get_comment_of_post(id, author, user):
     post = Post.objects.get(id=id)
     comments= []
     comments_queryset = Comment.objects.filter(post=post).order_by('date')
@@ -96,6 +96,12 @@ def _get_comment_of_post(id, author):
             }
 
         comment_result['author'] = author_data
+        if comment.id in user.upvoted_comments:
+            comment_result['vote'] = 'upvote'
+        elif comment.id in user.downvoted_comments:
+            comment_result['vote'] = 'downvote'
+        else:
+            comment_result['vote'] = None
         data = {
             'comment' : comment_result,
             'image_urls': image_urls
@@ -119,7 +125,7 @@ def get_post(request,id):
         post_serializer = PostSerializer(post)
         response_dict = post_serializer.data
         author = post.author
-        comments = _get_comment_of_post(id, author)
+        comments = _get_comment_of_post(id, author, request.user)
         post_images = PostImages.objects.filter(post=post)
         image_urls = [image.image_url for image in post_images]
 
@@ -143,6 +149,15 @@ def get_post(request,id):
             }
 
             response_dict["author"] = author_data
+
+
+        if post.id in request.user.upvoted_posts:
+            response_dict['vote'] = 'upvote'
+        elif post.id in request.user.downvoted_posts:
+            response_dict['vote'] = 'downvote'
+        else:
+            response_dict['vote'] = None
+
 
 
         response = {
