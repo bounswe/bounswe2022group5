@@ -4,32 +4,51 @@ import {
     LikeOutlined
 } from "@ant-design/icons";
 
+import { 
+    fetchDownvoteComment, 
+    fetchUpvoteComment, 
+    fetchUpvotePost, 
+    fetchDownvotePost 
+} from '../../redux/voteSlice';
+
 import "./Vote.css";
 
-const Vote = ({ item, setItem, className }) => {
+const Vote = ({ item, setItem, className, isComment }) => {
     
     const handleVote = (voteValue) => {
         if(voteValue === "upvote") {
-            if(item?.user_vote === "upvote") {
-                setItem({ ...item, upvote: item?.upvote - 1, user_vote: null })
+            if(item?.vote === "upvote") {
+                setItem({ ...item, upvote: item?.upvote - 1, vote: null })
                 return;
             }
-            if(item?.user_vote === "downvote") {
-                setItem({ ...item, downvote: item?.downvote - 1, upvote: item?.upvote + 1, user_vote: "upvote" })
+            if(item?.vote === "downvote") {
+                setItem({ ...item, downvote: item?.downvote - 1, upvote: item?.upvote + 1, vote: "upvote" })
                 return;
             }
-            setItem({ ...item, upvote: item?.upvote + 1, user_vote: "upvote" })
+            setItem({ ...item, upvote: item?.upvote + 1, vote: "upvote" });
+
+            if (isComment) {
+                fetchUpvoteComment(item.id);
+            } else {
+                fetchUpvotePost(item.id);
+            }
         }
         if(voteValue === "downvote") {
-            if(item?.user_vote === "downvote") {
-                setItem({ ...item, downvote: item?.downvote - 1, user_vote: null })
+            if(item?.vote === "downvote") {
+                setItem({ ...item, downvote: item?.downvote - 1, vote: null })
                 return;
             }
-            if(item?.user_vote === "upvote") {
-                setItem({ ...item, downvote: item?.downvote + 1, upvote: item?.upvote - 1, user_vote: "downvote" })
+            if(item?.vote === "upvote") {
+                setItem({ ...item, downvote: item?.downvote + 1, upvote: item?.upvote - 1, vote: "downvote" })
                 return;
             }
-            setItem({ ...item, downvote: item?.downvote + 1, user_vote: "downvote" })
+            setItem({ ...item, downvote: item?.downvote + 1, vote: "downvote" });
+
+            if (isComment) {
+                fetchDownvoteComment(item.id);
+            } else {
+                fetchDownvotePost(item.id);
+            }
         }
     }
 
@@ -41,7 +60,7 @@ const Vote = ({ item, setItem, className }) => {
                     className="like-icon"
                     onClick={() => handleVote("upvote")}
                 >
-                    {item?.user_vote === "upvote" ? (
+                    {item?.vote === "upvote" ? (
                         <LikeOutlined
                             style={{ fontSize: "30px", color: "#3EBE11" }}
                         />
@@ -56,7 +75,7 @@ const Vote = ({ item, setItem, className }) => {
                     className="dislike-icon"
                     onClick={() => handleVote("downvote")}
                 >
-                {item?.user_vote === "downvote" ? (
+                {item?.vote === "downvote" ? (
                     <LikeOutlined
                         style={{
                             fontSize: "30px",

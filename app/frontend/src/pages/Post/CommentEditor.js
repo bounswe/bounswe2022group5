@@ -1,29 +1,28 @@
 import React, { useState } from "react";
-import moment from "moment";
-import { Input, Upload, Modal, Button } from 'antd';
+import { useSelector} from 'react-redux';
+import { Input, Upload, Modal, Button, notification } from 'antd';
 import {
     FileImageOutlined,
     CloseOutlined,
     PlusOutlined
 } from "@ant-design/icons";
 
+import { fetchCreateComment } from "../../redux/commentSlice";
+
 import "./Post.css";
 
 const { TextArea } = Input;
 
-const CommentEditor = ({ setPost }) => {
+const CommentEditor = ({ postId, setComments }) => {
     const [showImageButton, setShowImageButton] = useState(true);
     const [commentText, setCommentText] = useState("");
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
     const [fileList, setFileList] = useState([]);
+    const { user } = useSelector((state) => state.user);
 
-    const user = {
-        type: "member",
-        name: "Burak Mert",
-        avatar: "https://www.w3schools.com/howto/img_avatar.png"
-    }
+    console.log(user)
 
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -55,20 +54,33 @@ const CommentEditor = ({ setPost }) => {
     };
 
     const handleSubmit = () => {
-        const comment = {
-            // id: xxx,
-            author: user,
-            date: moment().format('DD.MM.YYYY'),
-			body: commentText,
-            upvote: 0,
-            downvote: 0,
-            images: fileList.map(file => ({ url: file.thumbUrl }))
+
+        var bodyFormData = new FormData();
+        bodyFormData.append('body', commentText);
+
+        for (let i = 0; i<fileList.length; i++) {
+            bodyFormData.append(`image${i+1}`, fileList[i]);
         }
 
-        setPost(post => ({...post, comments: [ ...post?.comments, comment ]}));
-        setFileList([]);
-        setCommentText("");
-        setShowImageButton(true);
+        fetchCreateComment(postId, bodyFormData)
+            .then((res) => {
+                console.log(res)
+                setComments(comments => [ ...comments, res ]);
+                setFileList([]);
+                setCommentText("");
+                setShowImageButton(true);
+
+                notification["success"]({
+                    message: 'Comment is created',
+                    placement: "top"
+                });
+            })
+            .catch(() => {
+                notification["error"]({
+                    message: 'Comment is not created',
+                    placement: "top"
+                });
+            })
     };
  
     return(
