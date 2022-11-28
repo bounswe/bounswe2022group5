@@ -10,3 +10,7 @@ class Article(models.Model):
     date = models.DateTimeField()
     upvote = models.IntegerField(null=False, default=0)
     downvote = models.IntegerField(null=False, default=0)
+
+class ArticleImages(models.Model):
+    image_url = models.CharField(max_length=100)
+    article = models.ForeignKey(Article,on_delete=models.CASCADE)
