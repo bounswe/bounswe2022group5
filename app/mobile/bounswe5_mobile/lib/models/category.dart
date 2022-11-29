@@ -11,7 +11,7 @@ class Category{
   final String name;
   final String definition;
 
-  Category(
+  const Category(
       this.id,
       this.name,
       this.definition,

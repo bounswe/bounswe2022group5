@@ -8,9 +8,8 @@ import 'package:bounswe5_mobile/API_service.dart';
 /// a registered user can reach his/her user page, notification center, or settings.
 /// A nonregistered user can log in or reach generic settings.
 class MyDrawer extends StatelessWidget{
-  MyDrawer({required this.color, this.activeUser});
+  MyDrawer({this.activeUser});
   final ApiService apiServer = ApiService();
-  final Color color;
   final User? activeUser;
 
   /// Function used for logging out
@@ -41,7 +40,7 @@ class MyDrawer extends StatelessWidget{
             height: 240,
             child: DrawerHeader(
               decoration: BoxDecoration(
-                color: color,
+                color: Theme.of(context).colorScheme.primary,
               ),
 
               child: Column(

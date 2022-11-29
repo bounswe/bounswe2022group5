@@ -23,8 +23,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    Color mainColor = const Color(0xFF1565C0);
-
     ApiService apiServer = ApiService();
 
     /// Forum, Articles and Chatbot bodies.
@@ -71,7 +69,7 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // Side bar
-            drawer: MyDrawer(color: mainColor, activeUser: snapshot.data,),
+            drawer: MyDrawer(activeUser: snapshot.data,),
 
             // Bottom navigation bar is used for switching between forum, articles and
             // chatbot.
@@ -101,14 +99,12 @@ class _HomePageState extends State<HomePage> {
             floatingActionButton: // If user not signed in, do not show create post button in the forum
             isSessionActive && currentIndex == 0 ?
             FloatingActionButton(
-              onPressed: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>
-                      CreatePostPage(activeUser: snapshot.data!)),
-                );
-              },
-              backgroundColor: mainColor,
-              child: const Icon(Icons.create),
+              onPressed: (){},
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: Icon(
+                  Icons.create,
+                  color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ) : const SizedBox.shrink(),
 
             body: bodies[currentIndex],

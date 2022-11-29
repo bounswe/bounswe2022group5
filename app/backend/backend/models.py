@@ -42,6 +42,12 @@ class CustomUser(AbstractUser):
     email = models.CharField(max_length=100, null=False, unique=True) 
     type = models.IntegerField(null=False)
     date_of_birth = models.DateField(null=True)
+    upvoted_posts = ArrayField(models.IntegerField(null=True), default=list)
+    downvoted_posts = ArrayField(models.IntegerField(null=True), default=list)
+    upvoted_comments = ArrayField(models.IntegerField(null=True), default=list)
+    downvoted_comments = ArrayField(models.IntegerField(null=True), default=list)
+    upvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
+    downvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -114,7 +120,7 @@ class Doctor(models.Model):
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
     verified = models.BooleanField(max_length=100, null=False, default=False)
-
+    document = models.TextField(null=True, default=None)
     profile_picture = models.TextField(null=True)
 
     def __str__(self):

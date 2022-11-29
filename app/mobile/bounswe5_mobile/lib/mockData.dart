@@ -1,11 +1,10 @@
 import 'package:bounswe5_mobile/models/category.dart';
 import 'package:bounswe5_mobile/models/user.dart';
-import 'package:bounswe5_mobile/models/doctor.dart';
 import 'package:bounswe5_mobile/models/memberInfo.dart';
-import 'package:bounswe5_mobile/models/member.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/article.dart';
 import 'package:bounswe5_mobile/models/comment.dart';
+import 'package:flutter/gestures.dart';
 
 
 // Categories:
@@ -39,23 +38,23 @@ List<Category> categories = [
 
 // Members:
 String ppUri = 'lib/assets/images/generic_user.jpg';
-List<Member> members = [
-  Member(1,'','canberk@gmail.com',1, 1,'canberk',ppUri),
-  Member(2, '', 'bengin@gmail.com',1, 2,'bengin', ppUri),
-  Member(3, '', 'burak@gmail.com',1, 3,'burak', ppUri),
-  Member(4, '', 'engin@gmail.com',1, 4,'engin', ppUri),
-  Member(5, '', 'halil@gmail.com',1, 5,'halil', ppUri),
-  Member(6, '', 'irfan@gmail.com',1, 6,'irfan', ppUri),
-  Member(7, '', 'kardelen@gmail.com',1, 7,'kardelen', ppUri),
-  Member(8, '', 'emre@gmail.com',1, 8,'emre', ppUri),
+List<User> members = [
+  User(1, '', 'canberk@gmail.com', 1, memberid: 1, username: 'canberk', avatarUrl: ppUri),
+  User(2, '', 'bengin@gmail.com', 1, memberid:2, username: 'bengin', avatarUrl: ppUri),
+  User(3, '', 'burak@gmail.com', 1, memberid:3, username: 'burak', avatarUrl: ppUri),
+  User(4, '', 'engin@gmail.com',1, memberid:4, username: 'engin', avatarUrl: ppUri),
+  User(5, '', 'halil@gmail.com',1, memberid: 5, username: 'halil', avatarUrl: ppUri),
+  User(6, '', 'irfan@gmail.com',1, memberid: 6, username: 'irfan', avatarUrl: ppUri),
+  User(7, '', 'kardelen@gmail.com',1, memberid: 7, username: 'kardelen', avatarUrl: ppUri),
+  User(8, '', 'emre@gmail.com',1, memberid: 8, username: 'emre', avatarUrl: ppUri),
 ];
 
 // Doctors:
-List<Doctor> doctors = [
-  Doctor(9, '', 'oguzhan@gmail.com',2,1,'Oguzhan Senol', categories[0],'Sisli Etfal Hospital'),
-  Doctor(10, '', 'ozan@gmail.com',2,2, 'Ozan Kilic', categories[1], 'Basaksehir Cam ve Sakura Hastanesi'),
-  Doctor(11, '', 'sinan@gmail.com',2,3, 'Sinan Kerem Gunduz', categories[2], 'Zeynep Kamil Hastanesi'),
-  Doctor(12, '', 'samet@gmail.com',2,4, 'Yavuz Samet Topcuoglu', categories[3], 'Baltalimani Hastanesi')
+List<User> doctors = [
+  User(9, '', 'oguzhan@gmail.com', 2, doctorid: 1, fullName: 'Oguzhan Senol', specialization: categories[0], hospitalName: 'Sisli Etfal Hospital'),
+  User(10, '', 'ozan@gmail.com',2, doctorid: 2, fullName: 'Ozan Kilic', specialization: categories[1], hospitalName:'Basaksehir Cam ve Sakura Hastanesi'),
+  User(11, '', 'sinan@gmail.com',2, doctorid: 3, fullName: 'Sinan Kerem Gunduz', specialization: categories[2], hospitalName: 'Zeynep Kamil Hastanesi'),
+  User(12, '', 'samet@gmail.com',2, doctorid: 4, fullName: 'Yavuz Samet Topcuoglu', specialization: categories[3], hospitalName: 'Baltalimani Hastanesi')
 ];
 
 // Articles:
@@ -105,7 +104,7 @@ Here are 10 ways to help you resist the urge to smoke or use tobacco when a crav
     4,
     doctors[3],
     DateTime.utc(2022, 03, 7),
-    'What is Agoraphobia?',
+    'What is Agoraphobia? very very very very very very very long title',
     '''Agoraphobia is a fear of being in situations where escape might be difficult or that help wouldn't be available if things go wrong.
 
 Many people assume agoraphobia is simply a fear of open spaces, but it's actually a more complex condition.
@@ -114,7 +113,54 @@ Someone with agoraphobia may be scared of:
 
 travelling on public transport
 visiting a shopping centre
-leaving home''',
+leaving home
+If someone with agoraphobia finds themselves in a stressful situation, they'll usually experience the symptoms of a panic attack, such as:
+
+rapid heartbeat
+rapid breathing (hyperventilating)
+feeling hot and sweaty
+feeling sick
+They'll avoid situations that cause anxiety and may only leave the house with a friend or partner. They'll order groceries online rather than going to the supermarket. This change in behaviour is known as avoidance.
+
+Read more about the symptoms of agoraphobia.
+
+What causes agoraphobia?
+Agoraphobia can develop as a complication of panic disorder, an anxiety disorder involving panic attacks and moments of intense fear. It can arise by associating panic attacks with the places or situations where they occurred and then avoiding them.
+
+Not all people with agoraphobia have a history of panic attacks. In these cases, their fear may be related to issues like a fear of crime, terrorism, illness or being in an accident.
+
+Read more about the possible causes of agoraphobia.
+
+Diagnosing agoraphobia
+Speak to your GP if you think you may be affected by agoraphobia. It should be possible to arrange a telephone consultation if you don't feel ready to visit your GP in person.
+
+Your GP will ask you to describe your symptoms, how often they occur, and in what situations. It's very important you tell them how you've been feeling and how your symptoms are affecting you.
+
+Your GP may ask you the following questions:
+
+Do you find leaving the house stressful?
+Are there certain places or situations you have to avoid?
+Do you have any avoidance strategies to help you cope with your symptoms, such as relying on others to shop for you?
+It can sometimes be difficult to talk about your feelings, emotions, and personal life, but try not to feel anxious or embarrassed. Your GP needs to know as much as possible about your symptoms to make the correct diagnosis and recommend the most appropriate treatment.
+
+Read more about diagnosing agoraphobia.
+
+Treating agoraphobia
+Lifestyle changes may help, including taking regular exercise, eating more healthily, and avoiding alcohol, drugs and drinks that contain caffeine, such as tea, coffee and cola.
+
+Self-help techniques that can help during a panic attack include staying where you are, focusing on something that's non-threatening and visible, and slow, deep breathing.
+
+If your agoraphobia fails to respond to these treatment methods, see your GP.
+
+You can also refer yourself directly for psychological therapies, including cognitive behavioural therapy (CBT), without seeing your GP.
+
+Read more about psychological therapies on the NHS
+
+Medication may be recommended if self-help techniques and lifestyle changes aren't effective in controlling your symptoms. You'll usually be prescribed a course of selective serotonin reuptake inhibitors (SSRIs), which are also used to treat anxiety and depression.
+
+In severe cases of agoraphobia, medication can be used in combination with other types of treatment, such as CBT and relaxation therapy.
+
+Read more about treating agoraphobia.''',
     upvotes : 13,
     downvotes : 7,
   ),

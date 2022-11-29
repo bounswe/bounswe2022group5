@@ -16,8 +16,8 @@ class ForumPostItem extends StatelessWidget{
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
         height: 120,
-        decoration: const BoxDecoration(
-            color: Colors.white54,
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.all(Radius.circular(5.0))
         ),
         child: Row(

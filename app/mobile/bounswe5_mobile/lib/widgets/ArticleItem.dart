@@ -3,10 +3,10 @@ import 'package:bounswe5_mobile/models/article.dart';
 import 'package:intl/intl.dart';
 
 class ArticleItem extends StatelessWidget{
-  ArticleItem({required this.index, required this.article, required this.formatter});
+  ArticleItem({required this.index, required this.article});
   final int index;
   final Article article;
-  final DateFormat formatter;
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
 
   @override
   Widget build(BuildContext context){

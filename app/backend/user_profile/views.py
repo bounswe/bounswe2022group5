@@ -2,11 +2,19 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from forum.serializers import PostSerializer
+from articles.serializers import ArticleSerializer
 from common.views import upload_to_s3, delete_from_s3
 
 from backend.constants import UserType
+from backend.models import CustomUser
 
+from backend.constants import UserType
+from forum.models import Post
+from articles.models import Article
 from backend.models import Doctor
+from rest_framework.pagination import PageNumberPagination
+import math
 
 PROFILE_PICTURE_FILE_NAME = "pp/{user_id}.jpg"
 
@@ -50,3 +58,61 @@ def delete_profile_picture(request):
 
     return Response('Profile picture successfully deleted.', status=200)
 
+@api_view(['GET',])
+@permission_classes([IsAuthenticated,])
+def get_upvoted_articles(request):
+    paginator = PageNumberPagination()
+    paginator.max_page_size = 10
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page', 1)
+
+    upvoter = CustomUser.objects.get(id=request.user.id)
+
+    upvoted_articles = upvoter.upvoted_articles
+    articles = Article.objects.filter(id__in=upvoted_articles)
+
+
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
+
+    if sort == 'asc':
+        articles = articles.order_by('date')
+    elif sort == 'desc':
+        articles = articles.order_by('-date')
+
+    result_page = paginator.paginate_queryset(articles, request)
+    serializer = ArticleSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
+
+@api_view(['GET',])
+@permission_classes([IsAuthenticated,])
+def get_upvoted_posts(request):
+    paginator = PageNumberPagination()
+    paginator.max_page_size = 10
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page', 1)
+    upvoter = CustomUser.objects.get(id=request.user.id)
+    upvoted_posts = upvoter.upvoted_posts
+
+    posts = Post.objects.filter(id__in=upvoted_posts)
+
+
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
+
+    if sort == 'asc':
+        posts = posts.order_by('date')
+    elif sort == 'desc':
+        posts = posts.order_by('-date')
+
+    result_page = paginator.paginate_queryset(posts, request)
+    serializer = PostSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)

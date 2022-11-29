@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
 /// Post is the main element of the forum.
