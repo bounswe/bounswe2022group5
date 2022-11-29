@@ -19,13 +19,11 @@ const Vote = ({ item, setItem, className, isComment }) => {
         if(voteValue === "upvote") {
             if(item?.vote === "upvote") {
                 setItem({ ...item, upvote: item?.upvote - 1, vote: null })
-                return;
-            }
-            if(item?.vote === "downvote") {
+            } else if(item?.vote === "downvote") {
                 setItem({ ...item, downvote: item?.downvote - 1, upvote: item?.upvote + 1, vote: "upvote" })
-                return;
+            } else {
+                setItem({ ...item, upvote: item?.upvote + 1, vote: "upvote" });
             }
-            setItem({ ...item, upvote: item?.upvote + 1, vote: "upvote" });
 
             if (isComment) {
                 fetchUpvoteComment(item.id);
@@ -36,14 +34,12 @@ const Vote = ({ item, setItem, className, isComment }) => {
         if(voteValue === "downvote") {
             if(item?.vote === "downvote") {
                 setItem({ ...item, downvote: item?.downvote - 1, vote: null })
-                return;
-            }
-            if(item?.vote === "upvote") {
+            } else if(item?.vote === "upvote") {
                 setItem({ ...item, downvote: item?.downvote + 1, upvote: item?.upvote - 1, vote: "downvote" })
-                return;
+            } else {
+                setItem({ ...item, downvote: item?.downvote + 1, vote: "downvote" });
             }
-            setItem({ ...item, downvote: item?.downvote + 1, vote: "downvote" });
-
+            
             if (isComment) {
                 fetchDownvoteComment(item.id);
             } else {

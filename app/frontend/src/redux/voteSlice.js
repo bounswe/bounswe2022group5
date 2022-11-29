@@ -8,7 +8,7 @@ export const fetchUpvotePost = async (id) => {
 }
 
 export const fetchDownvotePost = async (id) => {
-    const { data } = await axios.post(`${url}/forum/post/${id}/upvote`);
+    const { data } = await axios.post(`${url}/forum/post/${id}/downvote`);
     return data;
 }
 
@@ -18,6 +18,6 @@ export const fetchUpvoteComment = async (id) => {
 }
 
 export const fetchDownvoteComment = async (id) => {
-    const { data } = await axios.post(`${url}/forum/post/comment/${id}/upvote`);
+    const { data } = await axios.post(`${url}/forum/post/comment/${id}/downvote`);
     return data;
 }
