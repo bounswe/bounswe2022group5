@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/user.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 const List<String> categories = <String>['Anatomical Pathology', 'Anesthesiology','Cardiology','Hematology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy', 'Critical Care Medicine'];
 
@@ -17,9 +19,24 @@ class CreateArticlePage extends StatefulWidget {
 
 class _CreateArticlePageState extends State<CreateArticlePage> {
 
-  Future<int> share(String token, String title, String author, String body) async { //register API call handling function
-    final result = await ApiService().createArticle(token, title, author, body);
+  Future<int> share(String token, String title, String body, String image_uri) async {
+    final result = await ApiService().createArticle(token, title, body, image_uri);
     return result;
+  }
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+
+      setState(() {
+        this.image = imageTemporary;
+      });
+    } on PlatformException catch(e) {
+      print("Failed to pick image: $e");
+    }
+
   }
 
   List tags = [];
@@ -27,6 +44,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _body = TextEditingController();
   final GlobalKey<TagsState> _tagKey = GlobalKey<TagsState>();
+  File? image;
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +173,35 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                                   ),
                                 ),
                                 Row(
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 5.0, 0.0),
+                                        child: ElevatedButton.icon(
+                                          icon: const Icon(
+                                            Icons.add_photo_alternate,
+                                            size: 24.0,
+                                          ),
+                                          label: const Text('Add an Image'),
+                                          onPressed: () async {
+                                            pickImage();
+                                          },
+                                        )
+                                    ),
+                                    (this.image == null)? const SizedBox.shrink() :
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB( 0.0, 30.0, 10.0, 10.0),
+                                      child: RichText(
+                                        textAlign: TextAlign.left,
+                                        text: const TextSpan(
+                                            text: "✅",
+                                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                  ],
+                                ),
+                                Row(
                                     children: [
                                       Spacer(),
                                       Column(
@@ -179,8 +226,11 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                                                 // Validate returns true if the form is valid, or false otherwise.
                                                 if (_formKey.currentState!.validate()) {
                                                   String token = snapshot.data!.token;
-                                                  String author = snapshot.data!.id.toString();
-                                                  int shared = await share(token, _title.text, author, _body.text);
+                                                  String image_uri = "";
+                                                  if(image != null){
+                                                    image_uri = "${image!.uri}";
+                                                  }
+                                                  int shared = await share(token, _title.text, _body.text, image_uri);
                                                   if (shared == 200) {
                                                     Navigator.pop(context);
                                                   } else {

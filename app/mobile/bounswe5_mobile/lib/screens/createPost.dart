@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,8 +30,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
   File? image;
   Position? _currentPosition;
 
-  Future<int> post(String token, String title, String author, String body, String location, String image_urls) async { //register API call handling function
-    final result = await ApiService().createPost(token, title, author, body, location, image_urls);
+  Future<int> post(String token, String title, String body, String longitude, String latitude, String image_uri) async { //register API call handling function
+    final result = await ApiService().createPost(token, title, body, longitude, latitude, image_uri);
     return result;
   }
 
@@ -297,22 +296,24 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                               onPressed: () async {
                                                 // Validate returns true if the form is valid, or false otherwise.
                                                 if (_formKey.currentState!.validate()) {
-                                                  String location = "";
-                                                  String image_urls = "[]";
+                                                  String longitude = "";
+                                                  String latitude = "";
+                                                  String image_uri = "";
                                                   String token = snapshot.data!.token;
                                                   String author = snapshot.data!.id.toString();
                                                   if(_currentPosition != null) {
-                                                    location = "[ ${_currentPosition!.longitude.toString()} , ${_currentPosition!.latitude.toString()} ]";
+                                                    longitude = _currentPosition!.longitude.toString();
+                                                    latitude = _currentPosition!.latitude.toString();
                                                 }
                                                   if(image != null){
-                                                    image_urls = "[ ${image!.uri} ]";
+                                                    image_uri = "${image!.uri}";
                                                   }
-                                                  int posted = await post(token, _title.text, author, _body.text, location, image_urls);
+                                                  int posted = await post(token, _title.text, _body.text, longitude, latitude, image_uri);
                                                   if (posted == 200) {
                                                     Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
-                                                      const SnackBar(content: Text("Could not post")),
+                                                      SnackBar(content: Text("${posted} , ${image!.uri}")),
                                                     );
                                                   }
                                                 }
@@ -333,22 +334,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
           );
         }
     );
-  }
-  void _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowedExtensions: ['jpg', 'pdf', 'doc']
-    );
-
-    if (result != null && result.files.single.path != null) {
-      PlatformFile file = result.files.first;
-
-      File _file = File(result.files.single.path!);
-      setState(() {
-        _fileText = _file.path;
-      });
-    } else {
-      //user cancelled the picker
-    }
   }
 
 }
