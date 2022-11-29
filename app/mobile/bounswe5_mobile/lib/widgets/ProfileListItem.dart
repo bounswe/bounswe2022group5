@@ -1,16 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../screens/comments.dart';
+
 
 class ProfileListItem extends StatelessWidget{
   final IconData icon;
   final text;
   final bool hasNavigation;
+  final routepage;
 
   const ProfileListItem({
     Key? key,
     required this.icon,
     this.text,
     this.hasNavigation = true,
+    this.routepage,
   }) : super(key: key);
   @override
   Widget build (BuildContext context){
@@ -27,7 +31,10 @@ class ProfileListItem extends StatelessWidget{
       ),
 
       child: InkWell(
-        onTap: (){}, // Navigate to a page
+        onTap: (){
+          Navigator.push(context,
+          MaterialPageRoute(builder: (context) => routepage),
+        );}, // Navigate to a page
         child: Row(
           children: <Widget>[
             SizedBox(width: 25),
