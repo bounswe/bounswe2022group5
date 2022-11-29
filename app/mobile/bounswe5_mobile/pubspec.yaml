@@ -40,6 +40,10 @@ dependencies:
   file_picker: ^4.4.0
   intl:
   http: ^0.13.4
+  http_parser: ^4.0.2
+  file: ^6.1.4
+  path: ^1.8.2
+  uri_to_file: ^0.2.0
   flutter_tags: ^0.4.9
   textfield_tags: ^2.0.2
   image_picker: ^0.8.4

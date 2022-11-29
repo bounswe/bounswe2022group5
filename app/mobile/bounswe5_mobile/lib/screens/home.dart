@@ -5,6 +5,7 @@ import 'package:bounswe5_mobile/widgets/ForumList.dart';
 import 'package:bounswe5_mobile/widgets/ArticlesList.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/mockData.dart';
+import 'package:bounswe5_mobile/screens/createPost.dart';
 
 /// This is the implementation of the home page.
 class HomePage extends StatefulWidget {
