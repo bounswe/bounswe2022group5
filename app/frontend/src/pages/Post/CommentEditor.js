@@ -22,8 +22,6 @@ const CommentEditor = ({ postId, setComments }) => {
     const [fileList, setFileList] = useState([]);
     const { user } = useSelector((state) => state.user);
 
-    console.log(user)
-
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -55,17 +53,18 @@ const CommentEditor = ({ postId, setComments }) => {
 
     const handleSubmit = () => {
 
-        var bodyFormData = new FormData();
-        bodyFormData.append('body', commentText);
+        let postData = new FormData();
+        postData.append("body", commentText);
+        postData.append("longitude", 12);
+        postData.append("latitude", 12);
 
         for (let i = 0; i<fileList.length; i++) {
-            bodyFormData.append(`image${i+1}`, fileList[i]);
+            postData.append(`image${i+1}`, fileList[i]?.originFileObj);
         }
 
-        fetchCreateComment(postId, bodyFormData)
+        fetchCreateComment(postId, postData)
             .then((res) => {
-                console.log(res)
-                setComments(comments => [ ...comments, res ]);
+                setComments(comments => [ ...comments, { ...res, comment: { ...res?.comment, upvote: 0, downvote: 0, author: user }} ]);
                 setFileList([]);
                 setCommentText("");
                 setShowImageButton(true);

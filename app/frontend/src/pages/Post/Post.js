@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Image } from 'antd';
 import moment from "moment";
@@ -15,6 +16,7 @@ import { fetchPostById } from "../../redux/postSlice";
 
 const Post = () => {
     const id = useParams()?.id;
+    const { user } = useSelector((state) => state.user);
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
@@ -23,7 +25,6 @@ const Post = () => {
     useEffect(() => {
         fetchPostById(id)
             .then(res => {
-                console.log(res)
                 setPost(res.post);
                 setComments(res.comments);
                 setImages(res.image_urls);
@@ -32,13 +33,17 @@ const Post = () => {
 
     const getCommentSetter = (commentId) => {
         const commentIndex = comments?.findIndex(c => c?.comment?.id === commentId);
+        const comment = comments[commentIndex];
 
         return function (value) {
             setComments([
                 ...comments?.slice(0, commentIndex),
                 {
-                    comment: value?.comment,
-                    image_urls: value?.images
+                    ...comment,
+                    comment: {
+                        ...comment?.comment,
+                        ...value
+                    }
                 },
                 ...comments?.slice(commentIndex + 1),
             ])
@@ -50,7 +55,7 @@ const Post = () => {
             <div className="discussion-post">
                 <div className="discussion-avatar-body">
                     <div>
-                        <img className="discussion-avatar" alt="avatar" src={"https://www.w3schools.com/w3images/avatar6.png"}/>
+                        <img className="discussion-avatar" alt="avatar" src={post?.author?.profile_photo}/>
                     </div>
                     <div style={{ width: "100%" }}>
                         <div className="discussion-upper">
@@ -99,7 +104,7 @@ const Post = () => {
                                     <div className="discussion-comment-title">
                                         <span className="discussion-commment-author">{item?.comment?.author?.username}</span>
                                         <span> at </span>
-                                        <span className="discussion-date">{item?.comment?.date}</span>
+                                        <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
                                     </div>
                                     <div className="discussion-comment-body">
                                         <span>{item?.comment?.body}</span>
