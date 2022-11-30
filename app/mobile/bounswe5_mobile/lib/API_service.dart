@@ -20,7 +20,7 @@ class ApiService {
       'type': type,
     });
     final response = await http.post(uri, body: body, headers: {'content-type': "application/json"});
-
+    print(response.body.toString());
     return response.statusCode;
   }
 
@@ -34,6 +34,7 @@ class ApiService {
     final response = await http.post(uri, body: body, headers: {'content-type': "application/json"});
 
     if (response.statusCode == 200){
+      print(response.body.toString());
       return jsonDecode(response.body)["token"];
     } else {
       return "Error";

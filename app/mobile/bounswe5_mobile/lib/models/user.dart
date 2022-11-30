@@ -10,7 +10,7 @@ class User {
   final int id;
   final String token;
   final String email;
-  /// 1 for Member, 2 for Doctor
+  /// 1 for Doctor, 2 for Member
   final int usertype;
 
   // Member specific fields:
