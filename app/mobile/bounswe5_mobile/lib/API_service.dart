@@ -12,6 +12,40 @@ class ApiService {
   /// Base URL of backend
   var baseURL = "http://ec2-3-87-119-148.compute-1.amazonaws.com:8000";
 
+  Future<int> memberSignUp(String email, String password, int type, String date_of_birth, String username) async {
+    var uri = Uri.parse("$baseURL/auth/register");
+    final body = jsonEncode(<String, Object>{
+      'email': email,
+      'password': password,
+      'type': type,
+      'date_of_birth': date_of_birth,
+      'username': username
+    });
+    final response = await http.post(uri, body: body, headers: {'content-type': "application/json"});
+
+    return response.statusCode;
+  }
+
+  Future<int> doctorSignUp(String email, String password, String type, String date_of_birth, String first_name, String last_name, String branch, File doc) async {
+    //File file = await toFile(doc_uri);
+    var uri = Uri.parse("${baseURL}/auth/register");
+    Map<String, String> headers =  {
+      'content-type': "multipart/form-data",
+    };
+    var request = http.MultipartRequest('POST', uri)
+      ..headers.addAll(headers)
+      ..fields['email'] = email
+      ..fields['password'] = password
+      ..fields['type'] = type
+      ..fields['date_of_birth'] = date_of_birth
+      ..fields['firstname'] = first_name
+      ..fields['lastname'] = last_name
+      ..fields['branch'] = branch
+      ..files.add(http.MultipartFile.fromBytes('file', doc.readAsBytesSync(), filename: 'test'));
+    var response = await request.send();
+    return response.statusCode;
+  }
+
   Future<int> signUp(String email, String password, int type) async {
     var uri = Uri.parse("$baseURL/auth/register");
     final body = jsonEncode(<String, Object>{
@@ -95,22 +129,6 @@ class ApiService {
       ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
     var response = await request.send();
     return response.statusCode;
-
-  /*  var uri = Uri.parse("$baseURL/forum/post");
-    final header = {
-      'Authorization': "token $token",
-      'content-type': "application/json",
-    };
-    final body = jsonEncode(<String, Object>{
-      'title': title,
-      'body': body_,
-      'longitude': longitude,
-      'latitude': latitude,
-      'image_urls': image_urls,
-    });
-    final response = await http.post(uri, body: body, headers: header);
-
-    return response.statusCode;*/
   }
 
   Future<int> createArticle(String token, String title, String body_, String image_uri) async {
