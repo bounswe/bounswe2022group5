@@ -1,4 +1,4 @@
-from backend.models import CustomUser
+from backend.models import CustomUser, Doctor
 from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
@@ -34,6 +34,34 @@ def get_all_articles(request):
     result_page = paginator.paginate_queryset(articles, request)
     return paginator.get_paginated_response(result_page)
 
+@api_view(['GET',])
+@permission_classes([IsAuthenticated,])
+def get_articles_of_doctor(request, user_id):
+
+    author = CustomUser.objects.get(id=user_id)
+
+    paginator = PageNumberPagination()
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page', 1)
+
+    articles = Article.objects.filter(author=author)
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
+
+    if sort == 'asc':
+        articles = articles.order_by('date')
+    elif sort == 'desc':
+        articles = articles.order_by('-date')
+
+    result_page = paginator.paginate_queryset(articles, request)
+
+    serializer = ArticleSerializer(result_page, many=True)
+
+    return paginator.get_paginated_response(serializer.data)
 
 @api_view(['GET', 'POST', 'DELETE'])
 @permission_classes([IsAuthenticated,])
@@ -44,11 +72,30 @@ def article(request,id):
         except:
             return Response({'error': 'Article not found'}, status=400)
         article_serializer = ArticleSerializer(article)
+        response_dict = article_serializer.data
+        author = article.author
         article_images = ArticleImages.objects.filter(article=article)
         image_urls = [image.image_url for image in article_images]
-        response ={
-            'article': article_serializer.data,
-            'image_urls': image_urls
+
+        doctor_data = Doctor.objects.get(user=author)
+        author_data = {
+            'id': author.id,
+            'username': doctor_data.full_name,
+            'profile_photo': doctor_data.profile_picture,
+            'is_doctor': True
+        }
+        response_dict["author"] = author_data
+
+        if article.id in request.user.upvoted_articles:
+            response_dict['vote'] = 'upvote'
+        elif article.id in request.user.downvoted_posts:
+            response_dict['vote'] = 'downvote'
+        else:
+            response_dict['vote'] = None
+
+        response = {
+            'article': response_dict,
+            'image_urls': image_urls,
         }
         return Response(response, status=200)
 
