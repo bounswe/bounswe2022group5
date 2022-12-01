@@ -2,44 +2,23 @@ import React, { useReducer, useState } from "react";
 import { LikeOutlined, CalendarOutlined } from "@ant-design/icons";
 import "./Article.css";
 
-const Articles = () => {
+const Articles = ({articles}) => {
   return (
     <div className="articles">
-      <Article
-        header="Right atrial and right ventricular rupture with cardiac tamponade secondary to nonpenetrating blunt trauma to the chest: report of case of survival and review of literature"
-        author="Dr. Deitra Rebeccah"
-        date="21.03.2022"
-        dislike_count={2}
-        like_count={2}
-        user_vote="dislike"
-      ></Article>
-
-      <Article
-        header="Effects of intermittent fasting on basal metabolism"
-        author="Dr. Deitra Rebeccah"
-        date="21.03.2022"
-        dislike_count={2}
-        like_count={25}
-        user_vote=""
-      ></Article>
-
-      <Article
-        header="ALCALINE DIET"
-        author="Dr. Deitra Rebeccah"
-        date="21.03.2022"
-        dislike_count={23}
-        like_count={214}
-        user_vote=""
-      ></Article>
-
-      <Article
-        header="Optimization and Validation of Dosage Regimen for Ceftiofur against Pasteurella multocida in Swine by Physiological Based Pharmacokinetic-Pharmacodynamic Model."
-        author="Dr. Deitra Rebeccah"
-        date="21.03.2022"
-        dislike_count={44}
-        like_count={14}
-        user_vote=""
-      ></Article>
+      {
+        articles?.map(article => (
+          <Article
+            header={article.title}
+            author={article.author}
+            date={article.date}
+            dislike_count={article.downvote}
+            like_count={article.upvote}
+            user_vote="dislike"
+          ></Article>
+        ))
+      }
+  
+      
     </div>
   );
 };
