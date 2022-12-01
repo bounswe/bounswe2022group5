@@ -25,7 +25,7 @@ export const fetchMe = createAsyncThunk('user/fetchMe', async () => {
 });
 
 export const fetchRegister = (userData) =>
-  axios.post(`${url}/auth/register`, userData);
+  axios.post(`${url}/auth/register`, userData, {headers: { "Content-Type": "multipart/form-data" }});
 
 const userSlice = createSlice({
   name: 'user',

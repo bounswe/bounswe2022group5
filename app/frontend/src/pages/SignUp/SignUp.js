@@ -35,17 +35,14 @@ const SignUp = () => {
     }
 
     const onFinish = (type) => {
-        const allFields = userForm.getFieldsValue()
-        console.log({
-            email: allFields?.email,
-            password: allFields?.password,
-            type
-        })
-        fetchRegister({
-            email: allFields?.email,
-            password: allFields?.password,
-            type
-        })
+        const allFields = userForm.getFieldsValue();
+
+        var bodyFormData = new FormData();
+        bodyFormData.append('email', allFields?.email);
+        bodyFormData.append('password', allFields?.password);
+        bodyFormData.append('type', type);
+
+        fetchRegister(bodyFormData)
             .then((res) => {
                 notification["success"]({
                     message: 'Signup is successful',
@@ -56,6 +53,7 @@ const SignUp = () => {
                 navigate("/");
             })
             .catch((err) => {
+                console.log(err)
                 notification["error"]({
                     message: "Signup is not successful",
                     description: Object.values(err?.response?.data).map(value => {
