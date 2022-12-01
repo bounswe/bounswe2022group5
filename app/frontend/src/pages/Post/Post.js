@@ -52,7 +52,7 @@ const Post = () => {
 
     return(
         <div className="discussion-container">
-            <div className="discussion-post">
+            { post ? <div className="discussion-post">
                 <div className="discussion-avatar-body">
                     <div>
                         <img className="discussion-avatar" alt="avatar" src={post?.author?.profile_photo}/>
@@ -61,14 +61,16 @@ const Post = () => {
                         <div className="discussion-upper">
                             <div className="discussion-title">
                                 <span className="discussion-title-text" style={{fontSize: "28px"}}>{post?.title}</span>
-                                <span className="discussion-title-author" style={{fontSize: "12px"}}>by {post?.author?.username}</span>
+                                <span className="discussion-title-author" style={{fontSize: "12px"}}>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
+                                { post?.longitude && post?.latitude ? <span style={{ marginLeft: "3px" }}>
+                                    in <a href={`https://maps.google.com/?q=${post?.latitude},${post?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'16px'}}></i></a>
+                                </span> : null}
                             </div>
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
                         <div className="discussion-body-votes">
                             <div>{post?.body}</div>
                             <Vote item={post} setItem={setPost}/>
-                            
                         </div>
                         { post?.commented_by_doctor ? <div className="discussion-doctor">
                              <CheckCircleOutlined className="discussion-check-sign"/>
@@ -105,10 +107,16 @@ const Post = () => {
                                         <span className="discussion-commment-author">{item?.comment?.author?.username}</span>
                                         <span> at </span>
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
+                                        { item?.comment?.longitude && post?.latitude ? <span style={{ marginLeft: "6px" }}>
+                                            in <a href={`https://maps.google.com/?q=${item?.comment?.latitude},${item?.comment?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'14px'}}></i></a>
+                                        </span> : null}
                                     </div>
                                     <div className="discussion-comment-body">
                                         <span>{item?.comment?.body}</span>
-                                        <Vote item={item?.comment} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" isComment={true}/>
+                                        <div style={{ display: "flex", flexDirection: "row" }}>
+                                            
+                                            <Vote item={item?.comment} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" isComment={true}/>
+                                        </div>
                                     </div>
 
                                     {item?.image_urls ? 
@@ -129,7 +137,7 @@ const Post = () => {
 						))
 					}
                 </div> : null}
-            </div>
+            </div> : null}
         </div>
     );
 };
