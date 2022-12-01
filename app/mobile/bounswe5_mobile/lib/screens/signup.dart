@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:bounswe5_mobile/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -59,13 +58,14 @@ class _SignupPageState extends State<SignupPage> {
   bool isMember = true;
   String _fileText = "";
 
-  Future<bool> register(String email, String password, int type) async { //register API call handling function
-    final result = await ApiService().signUp(email, password, type);
-    if (result == 200){
-      return true;
-    } else {
-      return false;
-    }
+  Future<int> registerMember(String email, String password, int type, String date_of_birth, String username) async { //register API call handling function
+    final result = await ApiService().memberSignUp(email, password, type, date_of_birth, username);
+    return result;
+  }
+
+  Future<int> registerDoctor(String email, String password, String type, String date_of_birth, String firstname, String lastname, String branch, File doc) async { //register API call handling function
+    final result = await ApiService().doctorSignUp(email, password, type, date_of_birth, firstname, lastname, branch, doc);
+    return result;
   }
 
   @override
@@ -288,7 +288,7 @@ class _SignupPageState extends State<SignupPage> {
 
                                 if (pickedDate != null) {
                                   setState(() {
-                                    _date.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                                    _date.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                                   });
                                 }
                               },
@@ -325,17 +325,30 @@ class _SignupPageState extends State<SignupPage> {
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (_formKey.currentState!.validate()) {
                                   int type;
+                                  String date_of_birth = _date.text;
                                   if (isMember) {
                                     type = 2;
                                   } else {
                                     type = 1;
                                   }
-                                  bool registered = await register(_email.text, _pass.text, type);
-                                  if (registered) { //if registered successfully, go to the login page
+                                  int registered = 0;
+                                  if (isMember) {
+                                    registered = await registerMember(_email.text, _pass.text, type, date_of_birth, _username.text);
+                                  } else {
+                                    if(fileResult == null) {
+                                      registered = 0;
+                                    } else {
+                                      //File file = File(fileResult!.names[0]!);
+                                      List<File> files = fileResult!.paths.map((path) => File(path!)).toList();
+                                      File doc = files[0];
+                                      registered = await registerDoctor(_email.text, _pass.text, type.toString() , date_of_birth, _name.text, _surname.text, branchValue, doc);
+                                    }
+                                  }
+                                  if (registered == 200) { //if registered successfully, go to the login page
                                     Navigator.pop(context);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text('Could not register')),
+                                      SnackBar(content: Text('Could not register')),
                                     );
                                   }
                                 }
