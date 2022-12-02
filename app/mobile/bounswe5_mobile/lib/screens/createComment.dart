@@ -238,7 +238,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                                                   }
                                                 }
                                               },
-                                              child: const Text('Post'),
+                                              child: const Text('Comment'),
                                             ),
                                           ),
                                         ],
