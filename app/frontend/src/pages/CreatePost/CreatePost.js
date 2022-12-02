@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import NavBar from "../../layouts/NavBar/NavBar";
-import { Button, Checkbox, Form, Input, notification, Upload, Modal, } from 'antd';
+import { Button, Input, notification, Upload, Modal, } from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import {
-    FileImageOutlined,
-    CloseOutlined,
     PlusOutlined
 } from "@ant-design/icons";
 
@@ -17,7 +15,6 @@ import { fetchCreatePost } from "../../redux/postSlice";
 const CreatePost = () => {
     const navigate = useNavigate();
 
-    const [postId, setPostId] = useState(10);
     const [location, setLocation] = useState({
         longitude: 0,
         latitude: 0,
@@ -56,9 +53,6 @@ const CreatePost = () => {
             setFileList([...newFileList.slice(0, newFileList.length - 1), { ...newFileList[newFileList.length - 1], status: "done" }]);
           } else if (fileList.length > newFileList.length){
             setFileList(newFileList.filter(f => f.status !== "removed"));
-        }
-        if(fileList.length > 3) {
-            //setShowImageButton(false)
         }
     };
 
@@ -215,13 +209,6 @@ const CreatePost = () => {
                     </div>
                 </div>
             </div>
-            <Button 
-                    shape="round" 
-                    size="large" 
-                    onClick={test}
-                    >
-                        aaa
-            </Button>
         </div>
     )
 }
