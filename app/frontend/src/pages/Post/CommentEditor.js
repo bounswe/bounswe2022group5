@@ -77,8 +77,8 @@ const CommentEditor = ({ postId, setComments }) => {
 
         let postData = new FormData();
         postData.append("body", commentText);
-        postData.append("longitude", longitude);
-        postData.append("latitude", latitude);
+        postData.append("longitude", longitude || null);
+        postData.append("latitude", latitude || null);
 
         for (let i = 0; i<fileList.length; i++) {
             postData.append(`image${i+1}`, fileList[i]?.originFileObj);

@@ -4,7 +4,7 @@ const url = process.env.REACT_APP_BACKEND_URL;
 
 axios.interceptors.request.use(
   function (config) {
-    const token = typeof window !== "undefined" ? localStorage.getItem('token') : null;
+    const token = typeof window !== "undefined" ? localStorage.getItem('authToken') : null;
 
     if (token) config.headers.authorization = `Token ${token}`;
 
@@ -21,11 +21,12 @@ export const fetchLogin = (userData) => {
 
 export const fetchMe = createAsyncThunk('user/fetchMe', async () => {
   const { data } = await axios.get(`${url}/auth/me`);
+  console.log(data)
   return data;
 });
 
-export const fetchRegister = (userData) =>
-  axios.post(`${url}/auth/register`, userData, {headers: { "Content-Type": "multipart/form-data" }});
+export const fetchRegister = (userData, type) =>
+  axios.post(`${url}/auth/register`, userData, {headers: type === 1 ? { "Content-Type": "multipart/form-data" } : {}});
 
 const userSlice = createSlice({
   name: 'user',
@@ -36,13 +37,13 @@ const userSlice = createSlice({
   },
   reducers: {
     logOut: (state) => {
-      localStorage.removeItem('token');
+      localStorage.removeItem('authToken');
       state.status = 'idle';
       state.user = {};
       window.location.reload();
     },
     login: (state, action) => {
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('authToken', action.payload.token);
       delete action.payload.token;
       state.user = action.payload;
       state.status = 'fulfilled';
