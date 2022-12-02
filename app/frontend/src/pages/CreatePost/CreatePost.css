@@ -1,0 +1,111 @@
+.layout {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.header {
+    height: 7vh;
+    width: 100%;
+}
+
+.create-post-content {
+    padding-top: 2vh;
+    height: 93vh;
+    width: 100%;
+    display: flex;
+	justify-content: space-between;
+    background-image: url("./createPostBackground.jpg");
+}
+
+.create-post-forms {
+    height: 80vh;
+    width: 20%;
+    margin-right: 2vw;
+    padding-top: 5%;
+}
+
+.create-post-layout {
+    margin-left: 5vw;
+    height: 80vh;
+    width: 70%;
+}
+
+.create-post-add-new-post {
+    height: 10%;
+    font-size:x-large ;
+    font-style: italic;
+    font-weight: bold;
+    color: lightslategray;
+}
+
+.create-post-title {
+    height: 10%;
+    margin-bottom: 2vh;
+    width: 80%;
+}
+
+.create-post-react-quill-area {
+    height: 91%;
+    width: 100%;
+}
+
+.create-post-input {
+    height: 65%;
+    width: 100%;
+    border-radius: 0.5%;
+    background-color: whitesmoke;
+}
+
+.create-post-create-button {
+    height: 15%;
+    width: 100%;
+    padding-top: 1vw;
+    padding-right: 2vw;
+    justify-content: right;
+    display: flex;
+}
+
+.create-post-images {
+    height: 65%;
+    width: 90%;
+    margin-left: 5%;
+    background-color: whitesmoke;
+    padding-top: 2%;
+    border-radius: 4%;
+}
+
+.create-post-images-text {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2%;
+    font-style: italic;
+}
+
+.create-post-images-images {
+    padding-left: 8%;
+}
+
+.create-post-geolocation {
+    padding-top: 2%;
+    margin-top: 5%;
+    height: 30%;
+    width: 90%;
+    margin-left: 5%;
+    display: block;
+    background-color: whitesmoke;
+    border-radius: 4%;
+}
+
+.create-post-geolocation-button {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 5%;
+}
+
+.create-post-geolocation-text {
+    text-align: center;
+    padding-left: 4%;
+    padding-right: 4%;
+}
