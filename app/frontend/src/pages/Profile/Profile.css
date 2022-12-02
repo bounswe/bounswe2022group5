@@ -1,0 +1,28 @@
+.profile-avatar {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.profile-activity {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.profile-activity-buttons {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    padding-right: 5vw;
+    padding-left: 5vw;
+    padding-top: 3vh;
+}

@@ -7,6 +7,7 @@ import Post from './pages/Post/Post';
 
 import './App.css';
 import 'antd/dist/antd.css'
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path='/login' element={ <Login /> }/>
 
         <Route path='/post/:id' element={ <Post /> }/>
+
+        <Route path='profile' element={ <Profile /> }/>
       </Routes>
     </Router>
   );
