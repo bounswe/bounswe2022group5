@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/comment.dart';
+import 'package:bounswe5_mobile/screens/createComment.dart';
 import 'package:intl/intl.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 
 class ViewPostPage extends StatefulWidget {
-  const ViewPostPage({Key? key}) : super(key: key);
+  const ViewPostPage({Key? key, required User this.activeUser}) : super(key: key);
+  final User activeUser;
 
   @override
   State<ViewPostPage> createState() => _ViewPostPageState();
@@ -233,7 +236,15 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: ((){}),
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  CreateCommentPage(activeUser: widget.activeUser, postID: post.id)),
+                        );
+                        setState(() {
+                        }); //refresh the page so that the comment will be visible ???
+                      },
                       child: Row(
                         children: const [
                           Icon(

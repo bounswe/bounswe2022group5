@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
-import 'package:flutter_tags/flutter_tags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
@@ -12,25 +11,23 @@ import 'package:bounswe5_mobile/models/user.dart';
 
 const List<String> categories = <String>['Anatomical Pathology', 'Anesthesiology','Cardiology','Hematology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy', 'Critical Care Medicine'];
 
-class CreatePostPage extends StatefulWidget {
-  const CreatePostPage({Key? key, required User this.activeUser}) : super(key: key);
+class CreateCommentPage extends StatefulWidget {
+  const CreateCommentPage({Key? key, required User this.activeUser, required int this.postID}) : super(key: key);
   final User activeUser;
+  final int postID;
   @override
-  State<CreatePostPage> createState() => _CreatePostPageState();
+  State<CreateCommentPage> createState() => _CreateCommentPageState();
 }
 
-class _CreatePostPageState extends State<CreatePostPage> {
+class _CreateCommentPageState extends State<CreateCommentPage> {
 
-  List tags = [];
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _title = TextEditingController();
   final TextEditingController _body = TextEditingController();
-  final GlobalKey<TagsState> _tagKey = GlobalKey<TagsState>();
   File? image;
   Position? _currentPosition;
 
-  Future<int> post(String token, String title, String body, String longitude, String latitude, String image_uri) async { //register API call handling function
-    final result = await ApiService().createPost(token, title, body, longitude, latitude, image_uri);
+  Future<int> comment(int postID, String token, String body, String longitude, String latitude, String image_uri) async { //register API call handling function
+    final result = await ApiService().createComment(postID, token, body, longitude, latitude, image_uri);
     return result;
   }
 
@@ -92,7 +89,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
   @override
   Widget build(BuildContext context) {
 
-    String categoryValue = categories.first;
     ApiService apiServer = ApiService();
     return  FutureBuilder<User?>(
         future: apiServer.getUserInfo(widget.activeUser.token),
@@ -124,92 +120,18 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
-                                  child: DropdownButtonFormField<String>(
-                                    decoration: const InputDecoration(
-                                      prefixIcon: Icon(Icons.search),
-                                      border: OutlineInputBorder(),
-                                      labelText: '*Category',
-                                    ),
-                                    value: categoryValue,
-                                    onChanged: (String? value) {
-                                      setState(() {
-                                        categoryValue = value!;
-                                      });
-                                    },
-                                    items: categories.map<DropdownMenuItem<String>> ((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
-                                    child: Tags(
-                                      key: _tagKey,
-                                      itemCount: tags.length,
-                                      columns: 6,
-                                      textField: TagsTextField(
-
-                                        onSubmitted: (string) {
-                                          setState(() {
-                                            tags.add(Item(title: string));
-                                          });
-                                        },
-                                      ),
-                                      itemBuilder: (index) {
-                                        final Item currentItem = tags[index];
-                                        return ItemTags(
-                                          index: index,
-                                          title: currentItem.title,
-                                          customData: currentItem.customData,
-                                          textStyle: const TextStyle(fontSize: 14),
-                                          combine: ItemTagsCombine.withTextBefore,
-                                          removeButton: ItemTagsRemoveButton(
-                                            onRemoved: () {
-                                              setState(() {
-                                                tags.removeAt(index);
-                                              });
-                                              return true;
-                                            },
-                                          ),
-
-
-                                        );
-                                      },
-                                    )
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
-                                  child: TextFormField( //title field
-                                    controller: _title,
-                                    decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Title',
-                                    ),
-                                    validator: (value) { //validate
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a title';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                                   child: TextFormField( //body field
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 10,
                                     controller: _body,
                                     decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
-                                      labelText: 'What is your discomfort?',
+                                      labelText: 'Comment',
                                       alignLabelWithHint: true,
                                     ),
                                     validator: (value) { //validate
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter the body of the post';
+                                        return 'Please enter your comment';
                                       }
                                       return null;
                                     },
@@ -299,20 +221,19 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                                   String latitude = "";
                                                   String image_uri = "";
                                                   String token = snapshot.data!.token;
-                                                  String author = snapshot.data!.id.toString();
                                                   if(_currentPosition != null) {
                                                     longitude = _currentPosition!.longitude.toString();
                                                     latitude = _currentPosition!.latitude.toString();
-                                                }
+                                                  }
                                                   if(image != null){
                                                     image_uri = "${image!.uri}";
                                                   }
-                                                  int posted = await post(token, _title.text, _body.text, longitude, latitude, image_uri);
-                                                  if (posted == 200) {
+                                                  int commented = await comment(widget.postID, token, _body.text, longitude, latitude, image_uri);
+                                                  if (commented == 200) {
                                                     Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(content: Text("Could not post")),
+                                                      SnackBar(content: Text("Could not comment")),
                                                     );
                                                   }
                                                 }
