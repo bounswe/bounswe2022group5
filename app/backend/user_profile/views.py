@@ -373,3 +373,28 @@ def update_personal_info(request):
 
     return Response(personal_info, status=200)
 
+
+    
+@api_view(['GET',])
+@permission_classes([IsAuthenticated,])
+def get_doctor_profile(request, id):
+    # user = request.user  # Maybe we will use this in search history.
+    data = request.data
+    try:
+        doctor = Doctor.objects.get(id = id)
+    except:
+        return Response({'error': 'Doctor not found'}, status=400)
+
+    personal_info = {}
+
+    full_name = doctor.full_name
+    specialization = doctor.specialization
+    hospital_name = doctor.hospital_name
+    profile_picture = doctor.profile_picture
+
+    personal_info['full_name'] = full_name
+    personal_info['specialization'] = specialization
+    personal_info['hospital_name'] = hospital_name
+    personal_info['profile_picture'] = profile_picture
+    # to get posts and articles of a doctor, one should use get_posts_of_user and get_articles_of_doctor endpoints.
+    return Response(personal_info, status=200)
