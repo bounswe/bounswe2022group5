@@ -49,7 +49,7 @@ def upload_profile_picture(request):
 @permission_classes([IsAuthenticated, ])
 def set_avatar(request):
     user = request.user
-    if int(user.type) == UserType.MEMBER.value:
+    if int(user.type) != UserType.MEMBER.value:
         return Response('Only members can set an avatar', status=403)
 
     member = Member.objects.get(user=user)
@@ -370,72 +370,72 @@ def update_personal_info(request):
         if 'firstname' in data:
             firstname = data['firstname']
         else:
-            firstname = member.firstname
+            firstname = member_info.firstname
 
         member_info.firstname = firstname
 
         if 'lastname' in data:
             lastname = data['lastname']
         else:
-            lastname = member.lastname
+            lastname = member_info.lastname
         member_info.lastname = lastname
 
         if 'address' in data:
             address = data['address']
         else:
-            address = member.address
+            address = member_info.address
         member_info.address = address
 
         if 'weight' in data:
             weight = data['weight']
         else:
-            weight = member.weight
+            weight = member_info.weight
 
         member_info.weight = weight
 
         if 'height' in data:
             height = data['height']
         else:
-            height = member.height
+            height = member_info.height
 
         member_info.height = height
 
         if 'age' in data:
             age = data['age']
         else:
-            age = member.age
+            age = member_info.age
         member_info.age = age
 
 
         if 'past_illnesses' in data:
             past_illnesses = data['past_illnesses']
         else:
-            past_illnesses = member.past_illnesses
+            past_illnesses = member_info.past_illnesses
         member_info.past_illnesses = past_illnesses
 
         if 'allergies' in data:
             allergies = data['allergies']
         else:
-            allergies = member.allergies
+            allergies = member_info.allergies
 
         member_info.allergies = allergies
 
         if 'chronic_diseases' in data:
             chronic_diseases = data['chronic_diseases']
         else:
-            chronic_diseases = member.chronic_diseases
+            chronic_diseases = member_info.chronic_diseases
         member_info.chronic_diseases = chronic_diseases
 
         if 'undergone_operations' in data:
             undergone_operations = data['undergone_operations']
         else:
-            undergone_operations = member.undergone_operations
+            undergone_operations = member_info.undergone_operations
         member_info.undergone_operations =undergone_operations
 
         if 'used_drugs' in data:
             used_drugs = data['used_drugs']
         else:
-            used_drugs = member.used_drugs
+            used_drugs = member_info.used_drugs
         member_info.used_drugs = used_drugs
 
         member.save()
@@ -448,7 +448,7 @@ def update_personal_info(request):
         personal_info['weight'] = weight
         personal_info['height'] = height
         personal_info['age'] = age
-        personal_info['avatar'] = member.avatar
+        personal_info['avatar'] = member_info.avatar
         personal_info['past_illnesses'] = past_illnesses
         personal_info['allergies'] = allergies
         personal_info['chronic_diseases'] = chronic_diseases
