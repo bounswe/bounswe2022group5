@@ -169,7 +169,7 @@ def me(request):
         username = doctor.full_name
     if user.type == 2:
         member = Member.objects.get(user=user)
-        profile_photo = member.info.avatar
+        profile_photo = f"https://api.multiavatar.com/{member.info.avatar}.svg?apikey={os.getenv('AVATAR')}"
         id = user.id
         username = member.member_username
 

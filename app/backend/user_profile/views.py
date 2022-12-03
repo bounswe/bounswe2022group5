@@ -1,3 +1,5 @@
+import os
+
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -207,7 +209,7 @@ def get_personal_info(request):
         personal_info['hospital_name'] = hospital_name
         personal_info['verified'] = verified
         personal_info['document'] = document
-        personal_info['profile_picture'] = profile_picture
+        personal_info['profile_image'] = profile_picture
         
 
     elif int(user.type) == UserType.MEMBER.value:
@@ -224,7 +226,7 @@ def get_personal_info(request):
         weight = member_info.weight
         height = member_info.height
         age = member_info.age
-        avatar = member_info.avatar
+        avatar =f"https://api.multiavatar.com/{member_info.avatar}.svg?apikey={os.getenv('AVATAR')}"
         past_illnesses = member_info.past_illnesses
         allergies = member_info.allergies
         chronic_diseases = member_info.chronic_diseases
@@ -238,7 +240,7 @@ def get_personal_info(request):
         personal_info['weight'] = weight
         personal_info['height'] = height
         personal_info['age'] = age
-        personal_info['avatar'] = avatar
+        personal_info['profile_image'] = avatar
         personal_info['past_illnesses'] = past_illnesses
         personal_info['allergies'] = allergies
         personal_info['chronic_diseases'] = chronic_diseases
