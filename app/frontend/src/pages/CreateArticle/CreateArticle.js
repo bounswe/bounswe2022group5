@@ -86,7 +86,7 @@ const CreateArticle = () => {
             <div className="header">
                 <NavBar></NavBar>
             </div>
-            {user.type === 2 ? <div className="create-article-content">
+            {user.type === 1 ? <div className="create-article-content">
                 <div className="create-article-forms-and-layout">
                     <div className="create-article-layout">
                         <div className="create-article-add-new-post">
