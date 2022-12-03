@@ -5,6 +5,7 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import Post from './pages/Post/Post';
 import CreatePost from './pages/CreatePost/CreatePost'
+import CreateArticle from './pages/CreateArticle/CreateArticle'
 
 import './App.css';
 import 'antd/dist/antd.css'
@@ -25,6 +26,8 @@ function App() {
         <Route path='profile' element={ <Profile /> }/>
 
         <Route path='/create-post' element={ <CreatePost /> }/>
+
+        <Route path='/create-article' element={ <CreateArticle /> }/>
       </Routes>
     </Router>
   );

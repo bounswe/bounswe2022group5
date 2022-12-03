@@ -1,0 +1,98 @@
+.layout {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.header {
+    height: 7vh;
+    width: 100%;
+}
+
+.create-article-content {
+    padding-top: 2vh;
+    height: 93vh;
+    width: 100%;
+    display: flex;
+	justify-content: space-between;
+    background-image: url("./createArticleBackground.jpg");
+}
+
+.create-article-forms-and-layout {
+    justify-content: space-between;
+    padding-top: 2%;
+    display: flex;
+    height: 90vh;
+    margin-left: 3%;
+    width: 94%;
+    border-radius: 5%;
+    background: rgba(192,192,192,0.3);
+}
+
+.create-article-forms {
+    height: 80vh;
+    width: 20%;
+    margin-right: 2vw;
+    padding-top: 5%;
+}
+
+.create-article-layout {
+    margin-left: 5vw;
+    height: 80vh;
+    width: 70%;
+}
+
+.create-article-add-new-article {
+    height: 10%;
+    font-size:x-large ;
+    font-style: italic;
+    font-weight: bold;
+    color: darkslateblue;
+}
+
+.create-article-title {
+    height: 10%;
+    margin-bottom: 2vh;
+    width: 80%;
+}
+
+.create-article-react-quill-area {
+    height: 91%;
+    width: 100%;
+}
+
+.create-article-input {
+    height: 65%;
+    width: 100%;
+    border-radius: 0.5%;
+    background-color: whitesmoke;
+}
+
+.create-article-create-button {
+    height: 15%;
+    width: 100%;
+    padding-top: 1vw;
+    padding-right: 2vw;
+    justify-content: right;
+    display: flex;
+}
+
+.create-article-images {
+    height: 85%;
+    width: 90%;
+    margin-left: 5%;
+    background-color: whitesmoke;
+    padding-top: 2%;
+    border-radius: 4%;
+}
+
+.create-article-images-text {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2%;
+    font-style: italic;
+}
+
+.create-article-images-images {
+    padding-left: 8%;
+}
