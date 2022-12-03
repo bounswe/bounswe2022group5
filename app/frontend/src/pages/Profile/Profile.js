@@ -103,8 +103,8 @@ const Profile = () => {
     const dispatch = useDispatch();
 
     const { status: userStatus, user } = useSelector((state) => state.user);
-    //const userID = user.id; //user.id
-    const [userID, setUserID] = useState(user.id);
+    const userID = user.id; //user.id
+    //const [userID, setUserID] = useState(user.id);
 
     const [pageType, setPageType] = useState(0);
 
@@ -133,22 +133,27 @@ const Profile = () => {
     const [posts, setPosts] = useState();
     
     useEffect(() => {
-
-        fetchPostByUserId(user.id, pageNo).then(res => {
-            setPostCount(res.count);
-            setPosts(res.results)
-        });
-    }, [pageNo]);
+        if(user.id){
+            fetchPostByUserId(userID, pageNo).then(res => {
+                setPostCount(res.count);
+                setPosts(res.results)
+            });
+        }
+        
+    }, [pageNo, user]);
 
     const [articleCount, setArticleCount] = useState();
     const [articles, setArticles] = useState();
     
     useEffect(() => {
-        fetchArticleByUserId(userID, pageNo).then(res => {
-            setArticleCount(res.count);
-            setArticles(res.results)
-        });
-    }, [pageNo]);
+        if(user.id){
+            fetchArticleByUserId(userID, pageNo).then(res => {
+                setArticleCount(res.count);
+                setArticles(res.results)
+            });
+        }
+        
+    }, [pageNo, user]);
 
     const [upvotedPostCount, setUpvotedPostCount] = useState();
     const [upvotedPosts, setUpvotedPosts] = useState();
@@ -417,7 +422,7 @@ const Profile = () => {
                     >
                         Posts
                 </Button>
-                {user.type === 1 ? 
+                {user.type === 2 ? 
                 <Button 
                     shape="round" 
                     size="large" 
