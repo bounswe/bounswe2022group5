@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from forum.serializers import PostSerializer
@@ -127,19 +127,18 @@ def get_personal_info(request):
 
     user = request.user
     personal_info = {}
-
     try:
-        self_info = CustomUser.objects.get(user=user)
+        self_info = CustomUser.objects.get(id=user.id)
     except:
         return Response({'error': 'User not found'}, status=400)
     
     email = self_info.email
+    personal_info['id'] =self_info.id
     personal_info['email'] = email
-        
     date_of_birth = self_info.date_of_birth
     personal_info['date_of_birth'] = date_of_birth
         
-    register_date = request.user.date_joined
+    register_date = request.user.date_joined.strftime("%y/%m/%d")
     personal_info['register_date'] = register_date
 
     # Initialization of fields: (to return null values as "-1". Frontend will handle it.)
@@ -229,7 +228,7 @@ def update_personal_info(request):
     user = request.user
     data = request.data
     try:
-        self_info = CustomUser.objects.get(user=user)
+        self_info = CustomUser.objects.get(id=user.id)
     except:
         return Response({'error': 'User not found'}, status=400)
 
@@ -286,14 +285,12 @@ def update_personal_info(request):
         hospital_name = data['hospital_name']
         doctor.hospital_name = hospital_name
 
-        verified = data['verified']
-        doctor.verified = verified
+        verified = doctor.verified
 
-        document = data['document']
-        doctor.document = document
+        document = doctor.document
 
-        profile_picture = data['profile_picture']
-        doctor.profile_picture = profile_picture
+
+        profile_picture = doctor.profile_picture
 
         doctor.save()
 
@@ -312,6 +309,7 @@ def update_personal_info(request):
             return Response({'error': 'User not found'}, status=400)
 
         personal_info['type'] =  2
+        personal_info['id'] = user.id
         member_info = member.info
 
         member_username = data['member_username']
@@ -376,12 +374,12 @@ def update_personal_info(request):
 
     
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny,])
 def get_doctor_profile(request, id):
     # user = request.user  # Maybe we will use this in search history.
-    data = request.data
+    user = CustomUser.objects.get(id=id)
     try:
-        doctor = Doctor.objects.get(id = id)
+        doctor = Doctor.objects.get(user = user)
     except:
         return Response({'error': 'Doctor not found'}, status=400)
 

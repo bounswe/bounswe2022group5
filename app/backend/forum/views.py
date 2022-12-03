@@ -1,3 +1,5 @@
+from typing import Optional
+
 from backend.models import CustomUser, Doctor, Member
 from forum.models import PostImages, CommentImages
 from datetime import datetime
@@ -10,19 +12,22 @@ from common.views import upload_to_s3, delete_from_s3
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 import math
 # Create your views here.
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,])
+@permission_classes([IsAuthenticated, AllowAny])
 def get_all_posts(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
-    post_objects = Post.objects.all().order_by('-date')
+    post_objects = Post.objects.all().order_by('-date')[0:10]
+
+
     posts = []
     user = CustomUser.objects.get(id= request.user.id)
+
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
         if post.id in user.upvoted_posts:
@@ -31,6 +36,32 @@ def get_all_posts(request):
             serializer_post_data['vote'] = 'downvote'
         else:
             serializer_post_data['vote'] = None
+
+        author = post.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_post_data["author"] = author_data
         posts.append(serializer_post_data)
 
     result_page = paginator.paginate_queryset(posts, request)
@@ -39,7 +70,7 @@ def get_all_posts(request):
 
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,])
+@permission_classes([IsAuthenticated,AllowAny])
 def get_posts_of_user(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
@@ -61,11 +92,22 @@ def get_posts_of_user(request, user_id):
     elif sort == 'desc':
         posts = posts.order_by('-date')
 
-    result_page = paginator.paginate_queryset(posts, request)
+    response_dict=[]
+    for post in posts:
+        post_dict = PostSerializer(post).data
+        if post.id in request.user.upvoted_posts:
+            post_dict['vote'] = 'upvote'
+        elif post.id in request.user.downvoted_posts:
+            post_dict['vote'] = 'downvote'
+        else:
+            post_dict['vote'] = None
+        response_dict.append(post_dict)
 
-    serializer = PostSerializer(result_page, many=True)
+    result_page = paginator.paginate_queryset(response_dict, request)
 
-    return paginator.get_paginated_response(serializer.data)
+
+
+    return paginator.get_paginated_response(result_page)
 
 
 def _get_comment_of_post(id, author, user):
@@ -96,12 +138,17 @@ def _get_comment_of_post(id, author, user):
             }
 
         comment_result['author'] = author_data
-        if comment.id in user.upvoted_comments:
-            comment_result['vote'] = 'upvote'
-        elif comment.id in user.downvoted_comments:
-            comment_result['vote'] = 'downvote'
+
+        if user:
+            if comment.id in user.upvoted_comments:
+                comment_result['vote'] = 'upvote'
+            elif comment.id in user.downvoted_comments:
+                comment_result['vote'] = 'downvote'
+            else:
+                comment_result['vote'] = None
         else:
             comment_result['vote'] = None
+        comment_result["id"] = comment.id
         data = {
             'comment' : comment_result,
             'image_urls': image_urls
@@ -112,10 +159,48 @@ def _get_comment_of_post(id, author, user):
 
     return comments
 
+@api_view(['GET',])
+@permission_classes([AllowAny, IsAuthenticated])
+def get_comments_of_user(request, user_id):
 
+    author = CustomUser.objects.get(id=user_id)
+
+    paginator = PageNumberPagination()
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page', 1)
+
+    comments = Comment.objects.filter(author=author)
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
+
+    if sort == 'asc':
+        posts = comments.order_by('date')
+    elif sort == 'desc':
+        posts = comments.order_by('-date')
+
+    response_dict = []
+    for comment in comments:
+        comment_dict = CommentSerializer(comment).data
+        if comment.id in request.user.upvoted_posts:
+            comment_dict['vote'] = 'upvote'
+        elif comment.id in request.user.downvoted_posts:
+            comment_dict['vote'] = 'downvote'
+        else:
+            comment_dict['vote'] = None
+        response_dict.append(comment_dict)
+
+    result_page = paginator.paginate_queryset(response_dict, request)
+
+
+
+    return paginator.get_paginated_response(result_page)
 
 @api_view(['GET','DELETE', 'POST'])
-@permission_classes([IsAuthenticated,])
+@permission_classes([IsAuthenticated,AllowAny])
 def get_post(request,id):
     if (request.method == 'GET'):
         try:
