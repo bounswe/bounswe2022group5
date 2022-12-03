@@ -1,0 +1,209 @@
+.discussion-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(179, 220, 253);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    padding: 50px;
+}
+
+.discussion-post {
+    width: 70%;
+    margin: auto;
+    background-color: rgb(247, 253, 252);
+    padding: 50px;
+    border-radius: 50px;
+    position: absolute;
+    top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.discussion-upper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.discussion-date {
+    font-weight: 500;
+    color: rgb(182, 181, 181);
+}
+
+.discussion-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+}
+
+.discussion-title-text {
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.discussion-title-author {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.discussion-body-votes {
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.upvote-count, .downvote-count {
+    text-align: center;
+}
+
+.discussion-rating {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.discussion-upvote, .discussion-downvote {
+    display: flex;
+    flex-direction: column;
+}
+
+.discussion-check-sign {
+    margin: auto 0;
+}
+
+.discussion-doctor {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.discussion-comments {
+    margin-top: 20px;
+}
+
+.discussion-avatar-body {
+    display: flex;
+    flex-direction: row;
+    gap: 20px
+}
+
+.discussion-comment-editor {
+    padding: 20px;
+    border-top: 1px solid rgb(227, 227, 227);
+    border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.comment-editor-container {
+    margin-left: 50px;
+}
+
+.comment-editor-body-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.comment-editor-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.discussion-images {
+    margin-left: 120px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.discussion-comment-images {
+    margin-left: 10px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.discussion-image {
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.discussion-comments {
+    margin-left: 50px;
+}
+
+.discussion-comment {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.discussion-comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.discussion-comment-body {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.discussion-comment-container {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 100px;
+}
+
+.discussion-commment-author {
+    font-weight: 600;
+}
+
+.discussion-vote {
+    margin-top: -40px;
+}
+
+.comment-image-sign {
+    font-size: 20px;
+}
+
+.comment-body-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    width: 82%;
+    margin-top: 10px;
+}
+
+.comment-editor-body {
+    margin-left: 20px;
+    width: 90%;
+}
+
+.comment-text-area {
+    border: none;
+}
+
+.comment-editor-images {
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.comment-image-button {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.comment-send-button {
+    margin-top: -5px;
+} 

@@ -1,32 +1,23 @@
 import React from "react";
 import {
-  DislikeOutlined,
   LikeOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import { List } from "antd";
-
 import "./Forum.css";
 
 
 
-const Forum = () => {
+const Forum = ({posts}) => {
   return (
     <div className="forum-page">
-      <Post header="ACNELYSTE BURNS OCCURRED" date="03.07.2022" content="I have been using ACNELYSTE for about 2 months, my cheeks were
-            burning while I was using it, but there was no redness. I applied more
-            than a pea pod and I got a rash on my cheek. Will this redness go
-            away? Please help" answeredBy="Answered by Dr. Betty Black" dislikeCount="7" likeCount="13" userVote="like"/>
-      <Post header="LOTION FOR HAIR ECZEMA" date="02.11.2022" content="I have eczema in my hair for years, I have used lotions such as conazole, but it did not work much, what should I do?
-            away? Please help" dislikeCount="2" likeCount="6" userVote="dislike" />
-      <Post header="ACNELYSTE BURNS OCCURRED" date="03.17.2022" content="I have been using ACNELYSTE for about 2 months, my cheeks were
-            burning while I was using it, but there was no redness. I applied more
-            than a pea pod and I got a rash on my cheek. Will this redness go
-            away? Please help" dislikeCount="1" likeCount="16" userVote="like" />
-      <Post header="ACNELYSTE BURNS OCCURRED" date="03.21.2022" content="I have been using ACNELYSTE for about 2 months, my cheeks were
-            burning while I was using it, but there was no redness. I applied more
-            than a pea pod and I got a rash on my cheek. Will this redness go
-            away? Please help" dislikeCount="21" likeCount="76" userVote="dislike" />
+      {
+        posts?.map(post => (
+          <Post header={post.title} date={post.date} author={post.author} content={post.body} answeredBy={post.commented_by_doctor} dislikeCount={post.downvote} likeCount={post.upvote} userVote="like"/>
+        ))
+
+        //check if current user liked this post.
+        
+      }
     </div>
   );
 }
@@ -40,7 +31,8 @@ const Post = (props) => {
             <h2>{props.header}</h2>
             </div>
             <div className="post-date">
-            <p>{props.date}</p>
+              <p>Shared by {props.author}</p>
+              <p>{props.date}</p>
             </div>
         </div>
         
@@ -66,8 +58,5 @@ const Post = (props) => {
     </div>
   );
 }
-
-
-
 
 export default Forum;

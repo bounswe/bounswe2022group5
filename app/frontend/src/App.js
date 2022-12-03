@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePageLayout from './layouts/HomePage/HomePage';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
+import Post from './pages/Post/Post';
 import Forum from './layouts/Forum/Forum';
 
 import './App.css';
 import 'antd/dist/antd.css'
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -19,6 +21,10 @@ function App() {
         <Route path='/login' element={ <Login /> }/>
 
         <Route path='/forum' element={ <Forum /> } />
+
+        <Route path='/post/:id' element={ <Post /> }/>
+
+        <Route path='profile' element={ <Profile /> }/>
       </Routes>
     </Router>
   );

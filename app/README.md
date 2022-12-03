@@ -1,0 +1,1 @@
+Readme.md files are specific to the teams. You can find all instructions for building app under the [backend](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend) , [frontend](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend) and [mobile](https://github.com/bounswe/bounswe2022group5/tree/master/app/mobile) directories.

@@ -39,6 +39,18 @@ dependencies:
   flex_color_scheme: ^6.0.1
   file_picker: ^4.4.0
   intl:
+  http: ^0.13.4
+  http_parser: ^4.0.2
+  file: ^6.1.4
+  path: ^1.8.2
+  uri_to_file: ^0.2.0
+  flutter_tags: ^0.4.9
+  textfield_tags: ^2.0.2
+  image_picker: ^0.8.4
+  path_provider: ^2.0.8
+  geocoding: ^2.0.0
+  geolocator: ^7.0.3
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:

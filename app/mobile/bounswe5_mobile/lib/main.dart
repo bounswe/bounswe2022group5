@@ -2,6 +2,10 @@ import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:bounswe5_mobile/screens/login.dart';
 import 'package:bounswe5_mobile/screens/signup.dart';
 import 'package:bounswe5_mobile/screens/profile.dart';
+import 'package:bounswe5_mobile/screens/createPost.dart';
+import 'package:bounswe5_mobile/screens/viewPost.dart';
+import 'package:bounswe5_mobile/screens/viewArticle.dart';
+import 'package:bounswe5_mobile/screens/createArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
-        scheme: FlexScheme.blue,
+        scheme: FlexScheme.aquaBlue,
         surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
         blendLevel: 20,
         appBarOpacity: 0.95,

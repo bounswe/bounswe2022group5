@@ -1,7 +1,15 @@
 .navbar {
     width: 100vw;
     height: 60px;
-    background-color: white;
+    background-color: rgb(148, 231, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.logo {
+    margin-top: 10px
 }
 
 .signup-background {
@@ -13,6 +21,7 @@
     background-size: cover;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .card-flip {
@@ -45,7 +54,7 @@
     background-color: #e7f7f7;
     border-radius: 5%;
     border: 3px solid rgb(98, 163, 161);
-    padding: 80px;
+    padding: 60px;
     box-shadow: 20px 20px 400px rgb(38, 97, 108)
 }
 
@@ -53,5 +62,51 @@
     position: relative;
     top: 5em;
     margin: 0em auto !important;
-    height: 90%;
+    height: 95%;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+@media only screen and (max-width: 990px) {
+    .signup-user-container, .signup-doctor-container {
+        width: 80%;
+        height: 100%;
+        padding: 50px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .input-inline {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+
+    .signup-background {
+        overflow: scroll;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .signup-user-container, .signup-doctor-container {
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+        border-radius: 0%;
+    }
+
+    .signup-user-container {
+        margin: auto;
+    }
+
+    .signup-doctor-container {
+        top: 0;
+    }
+
+    .card-flip {
+        width: 100%;
+        height: 100%;
+    }
 }

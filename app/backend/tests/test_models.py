@@ -3,17 +3,27 @@ from django.contrib.auth.hashers import check_password
 
 from backend import models
 from backend import constants
-from backend import utils
 
 from tests.constants import *
+
+import django.contrib.auth.hashers
+
+def make_password(password):
+    assert password
+    return django.contrib.auth.hashers.make_password(
+        password=password
+    )
 
 
 class AdminTestCase(TestCase):
     def createAdmin(self):
-        models.CustomAdmin.objects.create(
+        custom_user =  models.CustomUser.objects.create(
             email=TEST_ADMIN_EMAIL,
-            password=utils.make_password(TEST_PASSWORD),
-            type=constants.UserType.ADMIN.value,
+            password = make_password(TEST_PASSWORD),
+            type = constants.UserType.ADMIN.value,
+        )
+        models.CustomAdmin.objects.create(
+            user = custom_user,
             admin_username=TEST_ADMIN_USERNAME
         )
 
@@ -25,14 +35,19 @@ class AdminTestCase(TestCase):
 
         self.assertTrue(isinstance(testAdmin, models.CustomAdmin))
 
-        self.assertEqual(testAdmin.email, TEST_ADMIN_EMAIL)
-        self.assertTrue(check_password(TEST_PASSWORD, testAdmin.password))
+        self.assertEqual(testAdmin.user.email, TEST_ADMIN_EMAIL)
+        self.assertTrue(check_password(TEST_PASSWORD, testAdmin.user.password))
         self.assertEqual(str(testAdmin), TEST_ADMIN_USERNAME)
-        self.assertEqual(testAdmin.type, constants.UserType.ADMIN.value)
+        self.assertEqual(testAdmin.user.type, constants.UserType.ADMIN.value)
 
 
 class MemberTestCase(TestCase):
     def createMember(self, email = None, member_username = None):
+        custom_user =  models.CustomUser.objects.create(
+            email=TEST_MEMBER_EMAIL if email == None else email,
+            password=make_password(TEST_PASSWORD),
+            type=constants.UserType.MEMBER.value,
+        )
         member_info = models.MemberInfo.objects.create(
             firstname = TEST_MEMBER_FIRSTNAME,
             lastname = TEST_MEMBER_LASTNAME,
@@ -47,9 +62,7 @@ class MemberTestCase(TestCase):
             used_drugs = TEST_MEMBER_USED_DRUGS
         )
         return models.Member.objects.create(
-            email=TEST_MEMBER_EMAIL if email == None else email,
-            password=utils.make_password(TEST_PASSWORD),
-            type=constants.UserType.MEMBER.value,
+            user = custom_user,
             member_username=TEST_MEMBER_USERNAME if member_username == None else member_username,
             info=member_info
         )
@@ -63,9 +76,9 @@ class MemberTestCase(TestCase):
         self.assertTrue(isinstance(testMember, models.Member))
         self.assertTrue(isinstance(testMember.info, models.MemberInfo))
 
-        self.assertEqual(testMember.email, TEST_MEMBER_EMAIL)
-        self.assertTrue(check_password(TEST_PASSWORD, testMember.password))
-        self.assertEqual(testMember.type, constants.UserType.MEMBER.value)
+        self.assertEqual(testMember.user.email, TEST_MEMBER_EMAIL)
+        self.assertTrue(check_password(TEST_PASSWORD, testMember.user.password))
+        self.assertEqual(testMember.user.type, constants.UserType.MEMBER.value)
 
         self.assertNotEqual(str(testMember), "")
         self.assertNotEqual(str(testMember), " ")
@@ -100,10 +113,13 @@ class MemberTestCase(TestCase):
 
 class DoctorTestCase(TestCase):
     def createDoctor(self):
-        models.Doctor.objects.create(
+        custom_user =  models.CustomUser.objects.create(
             email=TEST_DOCTOR_EMAIL,
-            password=utils.make_password(TEST_PASSWORD),
+            password=make_password(TEST_PASSWORD),
             type=constants.UserType.DOCTOR.value,
+        )
+        models.Doctor.objects.create(
+            user = custom_user,
             full_name=TEST_DOCTOR_FULLNAME,
             hospital_name=TEST_DOCTOR_HOSPITAL_NAME,
             specialization=models.Category.objects.create(
@@ -116,14 +132,15 @@ class DoctorTestCase(TestCase):
         self.createDoctor()
     
     def test_doctor_creation(self):
-        testDoctor = models.Doctor.objects.get(email=TEST_DOCTOR_EMAIL)
+        user = models.CustomUser.objects.get(email=TEST_DOCTOR_EMAIL)
+        testDoctor = models.Doctor.objects.get(user=user)
 
         self.assertTrue(isinstance(testDoctor, models.Doctor))
 
-        self.assertEqual(testDoctor.email, TEST_DOCTOR_EMAIL)
-        self.assertTrue(check_password(TEST_PASSWORD, testDoctor.password))
+        self.assertEqual(testDoctor.user.email, TEST_DOCTOR_EMAIL)
+        self.assertTrue(check_password(TEST_PASSWORD, testDoctor.user.password))
         self.assertEqual(str(testDoctor), TEST_DOCTOR_FULLNAME)
-        self.assertEqual(testDoctor.type, constants.UserType.DOCTOR.value)
+        self.assertEqual(testDoctor.user.type, constants.UserType.DOCTOR.value)
         self.assertEqual(testDoctor.verified, False)
         self.assertEqual(testDoctor.hospital_name, TEST_DOCTOR_HOSPITAL_NAME)
 
@@ -142,11 +159,11 @@ class ReportTestCase(TestCase):
             reporter_user = mtc.createMember(
                 email=TEST_MEMBER_2_EMAIL,
                 member_username=TEST_MEMBER_2_USERNAME
-            ),
+            ).user,
             reported_user = mtc.createMember(
                 email=TEST_MEMBER_3_EMAIL,
                 member_username=TEST_MEMBER_3_USERNAME
-            ),
+            ).user,
             message = TEST_REPORT_MESSAGE
         )
 

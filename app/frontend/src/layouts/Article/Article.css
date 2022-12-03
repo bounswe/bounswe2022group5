@@ -1,0 +1,54 @@
+.article-container{
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0);
+    height: 265px;
+    min-width: 300px;
+}
+
+.articles{
+    padding: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap:15px;
+    grid-column-gap:15px;
+}
+
+h2{
+    word-break: break-word;
+    overflow: scroll;
+    max-height: 125px;
+    user-select: none;
+}
+
+.article-header{
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+    margin-top: 10px;
+    
+    padding: 10px;
+}
+
+.article-footer{
+    height: 70px;
+    padding: 10px;
+}
+
+.article-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.article-rating{
+    display: flex;
+    justify-content: center;
+}
+
+.dislike-icon, .like-icon{
+    cursor: pointer;
+}
