@@ -66,7 +66,7 @@ const Post = () => {
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
                         <div className="discussion-body-votes">
-                            <div>{post?.body}</div>
+                            <div dangerouslySetInnerHTML={{ __html: post?.body }} />
                             <Vote item={post} setItem={setPost}/>
                             
                         </div>
@@ -107,7 +107,7 @@ const Post = () => {
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
                                     </div>
                                     <div className="discussion-comment-body">
-                                        <span>{item?.comment?.body}</span>
+                                        <div dangerouslySetInnerHTML={{ __html: item?.comment?.body }} />
                                         <Vote item={item?.comment} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" isComment={true}/>
                                     </div>
 

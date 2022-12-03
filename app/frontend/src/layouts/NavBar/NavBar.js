@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import {NotificationOutlined, UserOutlined, UserAddOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Button, Input} from 'antd';
+import { Button, Input, Image} from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { logOut } from "../../redux/userSlice"
+import logo from './logo.png';
 
 import "./NavBar.css";
 
@@ -24,6 +26,7 @@ const onLogout = (dispatch) => {
 };
 
 const LogInLogOut = ({userStatus}) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     if (userStatus !== "fulfilled") {
@@ -41,10 +44,16 @@ const LogInLogOut = ({userStatus}) => {
         )
     } else {
         return (
+            <div>
+            <Button style={buttonStyle} type="primary" className="logout-button" onClick={() => navigate("/profile") }>
+            <UserOutlined />
+            Profile Page
+            </Button>
             <Button style={buttonStyle} type="primary" className="logout-button" onClick={() => onLogout(dispatch)}>
                 <CloseCircleOutlined />
                 Log Out
             </Button>
+            </div>
         )
     }
 }
@@ -57,9 +66,9 @@ const NavBar = () => {
 
     return (
         <div className="nav-bar">
-            <Button className="logo" shape="round" style={buttonStyle}>
-                Logo
-            </Button>
+            <div className="logo">
+                <Image src={logo} preview={false}/>
+            </div>
             <div className="search-bar">
                 <Input 
                     style={searchBarStyle}
@@ -71,12 +80,15 @@ const NavBar = () => {
                     Search
                 </Button>
             </div>
-            <Button style={buttonStyle} type="primary" hidden={userStatus === "idle"}>
-                <NotificationOutlined/>
-            </Button>
             <LogInLogOut userStatus={userStatus}/>
         </div>
     )
 }
 
 export default NavBar
+
+/*
+            <Button style={buttonStyle} type="primary" hidden={userStatus === "idle"}>
+                <NotificationOutlined/>
+            </Button>
+*/
