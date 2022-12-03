@@ -21,13 +21,19 @@ def get_all_articles(request):
     paginator.page = request.GET.get('page', 1)
     article_objects = Article.objects.all().order_by('-date')
     articles = []
-    user = CustomUser.objects.get(id=request.user.id)
+    try:
+        user = request.user.id
+    except:
+        user = None
     for article in article_objects:
         serializer_article_data = ArticleSerializer(article).data
-        if article.id in user.upvoted_articles:
-            serializer_article_data['vote'] = 'upvote'
-        elif article.id in user.downvoted_articles:
-            serializer_article_data['vote'] = 'downvote'
+        if user:
+            if article.id in user.upvoted_articles:
+                serializer_article_data['vote'] = 'upvote'
+            elif article.id in user.downvoted_articles:
+                serializer_article_data['vote'] = 'downvote'
+            else:
+                serializer_article_data['vote'] = None
         else:
             serializer_article_data['vote'] = None
         serializer_article_data['id'] = article.id
