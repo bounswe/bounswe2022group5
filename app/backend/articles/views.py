@@ -14,7 +14,7 @@ from common.views import upload_to_s3
 # Create your views here.
 
 @api_view(['GET',])
-@authentication_classes([])
+@permission_classes([AllowAny])
 def get_all_articles(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
@@ -42,7 +42,7 @@ def get_all_articles(request):
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET',])
-@authentication_classes([])
+@permission_classes([AllowAny])
 def get_articles_of_doctor(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
@@ -66,7 +66,7 @@ def get_articles_of_doctor(request, user_id):
 
     response = []
     if request.user:
-        user = CustomUser.objects.get(id=request.user.id)
+        user = request.user.id
         for article in articles:
             serializer_article_data = ArticleSerializer(article).data
             if article.id in user.upvoted_articles:
@@ -88,7 +88,7 @@ def get_articles_of_doctor(request, user_id):
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET', 'POST', 'DELETE'])
-@authentication_classes([])
+@permission_classes([AllowAny])
 def article(request,id):
     if(request.method == 'GET'):
         try:
@@ -194,7 +194,7 @@ def create_article(request):
 def upvote_article(request, id):
         try:
             article = Article.objects.get(id=id)
-            user_info = CustomUser.objects.get(id = request.user.id)
+            user_info = request.user
         except:
             return Response({'error': 'Article not found'}, status=400)
 
@@ -224,7 +224,7 @@ def upvote_article(request, id):
 def downvote_article(request, id):
         try:
             article = Article.objects.get(id=id)
-            user_info = CustomUser.objects.get(id = request.user.id)
+            user_info = request.user
         except:
             return Response({'error': 'Article not found'}, status=400)
 

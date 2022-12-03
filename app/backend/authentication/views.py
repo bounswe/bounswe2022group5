@@ -37,7 +37,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 @api_view(["POST"])
-@authentication_classes([])
+@permission_classes([AllowAny])
 def register_user(request):
     try:
         custom_data = {
@@ -110,7 +110,7 @@ def register_user(request):
 
 
 @api_view(["POST"])
-@authentication_classes([])
+@permission_classes([AllowAny])
 def login_user(request):
 
         data = {}
@@ -158,8 +158,7 @@ def logout_user(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def me(request):
-    print(request.user)
-    user = CustomUser.objects.get(email = request.user.email)
+    user = request.user
     serialized = UserSerializer(user)
     data = serialized.data
     if user.type == 1:
