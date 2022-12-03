@@ -26,11 +26,11 @@ PROFILE_PICTURE_FILE_NAME = "pp/{user_id}.jpg"
 def upload_profile_picture(request):
 
     user = request.user
-    if int(user.type) != UserType.DOCTOR.value:
+    if int(user.type) == UserType.DOCTOR.value:
         return Response('Only doctors can upload a profile picture', status=403)
 
     file_name = PROFILE_PICTURE_FILE_NAME.format(user_id=str(user.id))
-    
+
     img = request.data['img'].read()
 
     pp_url = upload_to_s3(img, file_name)
@@ -41,6 +41,21 @@ def upload_profile_picture(request):
     doctor_obj.save()
 
     return Response({'profile_picture_url': pp_url}, status=200)
+
+
+@api_view(['POST', ])
+@permission_classes([IsAuthenticated, ])
+def set_avatar(request):
+    user = request.user
+    if int(user.type) == UserType.MEMBER.value:
+        return Response('Only members can set an avatar', status=403)
+
+    member = Member.objects.get(user=user)
+    user.avatar = request.data["avatar"]
+
+    user.save()
+
+    return Response({'avatar': user.avatar}, status=200)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated,])
@@ -86,9 +101,15 @@ def get_upvoted_articles(request):
     elif sort == 'desc':
         articles = articles.order_by('-date')
 
-    result_page = paginator.paginate_queryset(articles, request)
-    serializer = ArticleSerializer(result_page, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    articles_response = []
+    for article in articles:
+        serializer_data = ArticleSerializer(article).data
+        serializer_data['vote'] = "upvote"
+        articles_response.append(serializer_data)
+
+    result_page = paginator.paginate_queryset(articles_response, request)
+
+    return paginator.get_paginated_response(result_page)
 
 @api_view(['GET',])
 @permission_classes([IsAuthenticated,])
@@ -115,9 +136,15 @@ def get_upvoted_posts(request):
     elif sort == 'desc':
         posts = posts.order_by('-date')
 
-    result_page = paginator.paginate_queryset(posts, request)
-    serializer = PostSerializer(result_page, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    post_response = []
+    for post in posts:
+        serializer_data = ArticleSerializer(post).data
+        serializer_data['vote'] = "upvote"
+        post_response.append(serializer_data)
+
+    result_page = paginator.paginate_queryset(post_response, request)
+
+    return paginator.get_paginated_response(result_page)
 
 
 
@@ -233,11 +260,18 @@ def update_personal_info(request):
         return Response({'error': 'User not found'}, status=400)
 
     personal_info = {}
+    if 'email' in data:
+        email = data['email']
+    else:
+        email = self_info.email
 
-    email = data['email']
     self_info.email = email
 
-    date_of_birth = data['date_of_birth']
+    if 'date_of_birth' in data:
+        date_of_birth = data['date_of_birth']
+    else:
+        date_of_birth = self_info.date_of_birth
+
     self_info.date_of_birth = date_of_birth
 
     personal_info['email'] = email
@@ -276,13 +310,25 @@ def update_personal_info(request):
 
         personal_info['type'] =  1
 
-        full_name = data['full_name']
+        if 'full_name' in data:
+            full_name = data['full_name']
+        else:
+            full_name = doctor.full_name
+
         doctor.full_name = full_name
 
-        specialization = data['specialization']
+        if 'specialization' in data:
+            specialization = data['specialization']
+        else:
+            specialization = doctor.specialization
+
         doctor.specialization = specialization
 
-        hospital_name = data['hospital_name']
+        if 'hospital_name' in data:
+            hospital_name = data['hospital_name']
+        else:
+            hospital_name = doctor.hospital_name
+
         doctor.hospital_name = hospital_name
 
         verified = doctor.verified
@@ -312,43 +358,82 @@ def update_personal_info(request):
         personal_info['id'] = user.id
         member_info = member.info
 
-        member_username = data['member_username']
+        if 'member_username' in data:
+            member_username = data['member_username']
+        else:
+            member_username = member.member_username
+
         member.member_username = member_username
 
-        firstname = data['firstname']
+        if 'firstname' in data:
+            firstname = data['firstname']
+        else:
+            firstname = member.firstname
+
         member_info.firstname = firstname
 
-        lastname = data['lastname']
+        if 'lastname' in data:
+            lastname = data['lastname']
+        else:
+            lastname = member.lastname
         member_info.lastname = lastname
 
-        address = data['address']
+        if 'address' in data:
+            address = data['address']
+        else:
+            address = member.address
         member_info.address = address
 
-        weight = data['weight']
+        if 'weight' in data:
+            weight = data['weight']
+        else:
+            weight = member.weight
+
         member_info.weight = weight
 
-        height = data['height']
+        if 'height' in data:
+            height = data['height']
+        else:
+            height = member.height
+
         member_info.height = height
 
-        age = data['age']
+        if 'age' in data:
+            age = data['age']
+        else:
+            age = member.age
         member_info.age = age
 
-        avatar = data['avatar']
-        member_info.avatar = avatar
 
-        past_illnesses = data['past_illnesses']
+        if 'past_illnesses' in data:
+            past_illnesses = data['past_illnesses']
+        else:
+            past_illnesses = member.past_illnesses
         member_info.past_illnesses = past_illnesses
 
-        allergies = data['allergies']
+        if 'allergies' in data:
+            allergies = data['allergies']
+        else:
+            allergies = member.allergies
+
         member_info.allergies = allergies
 
-        chronic_diseases = data['chronic_diseases']
+        if 'chronic_diseases' in data:
+            chronic_diseases = data['chronic_diseases']
+        else:
+            chronic_diseases = member.chronic_diseases
         member_info.chronic_diseases = chronic_diseases
 
-        undergone_operations = data['undergone_operations']
+        if 'undergone_operations' in data:
+            undergone_operations = data['undergone_operations']
+        else:
+            undergone_operations = member.undergone_operations
         member_info.undergone_operations =undergone_operations
 
-        used_drugs = data['used_drugs']
+        if 'used_drugs' in data:
+            used_drugs = data['used_drugs']
+        else:
+            used_drugs = member.used_drugs
         member_info.used_drugs = used_drugs
 
         member.save()

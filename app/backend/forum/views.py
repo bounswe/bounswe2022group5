@@ -291,8 +291,14 @@ def create_post(request):
     body = request.data['body']
     date = datetime.now()
 
-    longitude = request.data['longitude']
-    latitude = request.data['latitude']
+    if "longitude" in request.data:
+        longitude = request.data['longitude']
+    else:
+        longitude = None
+    if "latitude" in request.data:
+        latitude = request.data['latitude']
+    else:
+        latitude = None
 
     post = Post(title=title, author=author, body=body, date=date, longitude= longitude, latitude = latitude)
     post.save()
@@ -514,8 +520,15 @@ def create_comment(request, id):
     body = request.data['body']
     date = datetime.now()
 
-    longitude = request.data['longitude']
-    latitude = request.data['latitude']
+    if "longitude" in request.data:
+        longitude = request.data['longitude']
+    else:
+        longitude = None
+
+    if "latitude" in request.data:
+        latitude = request.data['latitude']
+    else:
+        latitude = None
 
 
     comment = Comment(author=author, body=body, date=date, longitude=longitude, latitude=latitude, post=post)

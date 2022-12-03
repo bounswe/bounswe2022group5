@@ -78,7 +78,7 @@ def get_articles_of_doctor(request, user_id):
             serializer_article_data['id'] = article.id
             response.append(serializer_article_data)
 
-    result_page = paginator.paginate_queryset(articles, request)
+    result_page = paginator.paginate_queryset(response, request)
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET', 'POST', 'DELETE'])
