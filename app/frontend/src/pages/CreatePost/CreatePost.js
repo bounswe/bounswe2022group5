@@ -71,7 +71,10 @@ const CreatePost = () => {
         if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(setPositions);
         } else { 
-        console.log("Geolocation is not supported by this browser.");
+            notification["error"]({
+                message: 'Geolocation is not supported by this browser.',
+                placement: "top"
+            });
         }
     }
 
@@ -90,6 +93,7 @@ const CreatePost = () => {
         return (
             <div className="create-post-geolocation-button">
                 <Button 
+                type="secondary"
                 shape="round" 
                 size="large" 
                 onClick={getAndSetLocation}
@@ -104,6 +108,7 @@ const CreatePost = () => {
         return (
             <div className="create-post-geolocation-button">
                 <Button 
+                type="secondary"
                 shape="round" 
                 size="large" 
                 onClick={resetLocation}
@@ -114,10 +119,6 @@ const CreatePost = () => {
         )
     }
         
-
-    const test = () => {
-        navigate(`/post/1`)
-    }
 
     const onCreatePost = async () => {
         let postData = new FormData();
@@ -152,59 +153,62 @@ const CreatePost = () => {
                 <NavBar></NavBar>
             </div>
             <div className="create-post-content">
-                <div className="create-post-layout">
-                    <div className="create-post-add-new-post">
-                        Create New Post
-                    </div>
-                    <div className="create-post-title">
-                        <Input 
-                            placeholder="Title of the Post" 
-                            value={postTitle}
-                            onChange={(e) => setPostTitle(e.target.value)}
-                        />
-                    </div>
-                    <div className="create-post-input">
-                    <ReactQuill theme="snow" value={postText} onChange={setPostText} className="create-post-react-quill-area"/>
-                    </div>
-                    <div className="create-post-create-button">
-                        <Button 
-                        shape="round" 
-                        size="large" 
-                        onClick={onCreatePost}
-                        >
-                            Create Post
-                        </Button>
-                    </div>
-                </div>
-                <div className="create-post-forms">
-                    <div className="create-post-images">
-                        <div className="create-post-images-text">
-                            {"Upload images on your post"}
+                <div className="create-post-forms-and-layout">
+                    <div className="create-post-layout">
+                        <div className="create-post-add-new-post">
+                            Create New Post
                         </div>
-                        { showImageButton ? <div className="create-post-images-images">
-                        <Upload
-                            listType="picture-card"
-                            fileList={fileList}
-                            onPreview={handlePreview}
-                            onChange={handleChange}
-                        >
-                            {fileList.length >= 6 ? null : 
-                                <div>
-                                    <PlusOutlined />
-                                    <div style={{ marginTop: 8 }}>Upload</div>
-                                </div>
-                            }
-                        </Upload>
-                        <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
-                            <img alt="example" style={{ width: '100%' }} src={previewImage} />
-                        </Modal>
-                            </div> : null
-                        }
+                        <div className="create-post-title">
+                            <Input 
+                                placeholder="Title of the Post" 
+                                value={postTitle}
+                                onChange={(e) => setPostTitle(e.target.value)}
+                            />
+                        </div>
+                        <div className="create-post-input">
+                        <ReactQuill theme="snow" value={postText} onChange={setPostText} className="create-post-react-quill-area"/>
+                        </div>
+                        <div className="create-post-create-button">
+                            <Button 
+                            type="primary"
+                            shape="round" 
+                            size="large" 
+                            onClick={onCreatePost}
+                            >
+                                Create Post
+                            </Button>
+                        </div>
                     </div>
-                    <div className="create-post-geolocation">
-                        {location.latitude ? renderResetMyLocationButton() : renderUseMyLocationButton()}
-                        <div className="create-post-geolocation-text">
-                        {"Using your location in your post helps us to find similar users with respect to your location"}
+                    <div className="create-post-forms">
+                        <div className="create-post-images">
+                            <div className="create-post-images-text">
+                                {"Upload images on your post"}
+                            </div>
+                            { showImageButton ? <div className="create-post-images-images">
+                            <Upload
+                                listType="picture-card"
+                                fileList={fileList}
+                                onPreview={handlePreview}
+                                onChange={handleChange}
+                            >
+                                {fileList.length >= 6 ? null : 
+                                    <div>
+                                        <PlusOutlined />
+                                        <div style={{ marginTop: 8 }}>Upload</div>
+                                    </div>
+                                }
+                            </Upload>
+                            <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+                                <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                            </Modal>
+                                </div> : null
+                            }
+                        </div>
+                        <div className="create-post-geolocation">
+                            {location.latitude ? renderResetMyLocationButton() : renderUseMyLocationButton()}
+                            <div className="create-post-geolocation-text">
+                            {"Using your location in your post helps us to find similar users with respect to your location"}
+                            </div>
                         </div>
                     </div>
                 </div>

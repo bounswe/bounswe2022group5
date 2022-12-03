@@ -18,6 +18,17 @@
     background-image: url("./createPostBackground.jpg");
 }
 
+.create-post-forms-and-layout {
+    justify-content: space-between;
+    padding-top: 2%;
+    display: flex;
+    height: 90vh;
+    margin-left: 3%;
+    width: 94%;
+    border-radius: 5%;
+    background: rgba(192,192,192,0.3);
+}
+
 .create-post-forms {
     height: 80vh;
     width: 20%;
@@ -36,7 +47,7 @@
     font-size:x-large ;
     font-style: italic;
     font-weight: bold;
-    color: lightslategray;
+    color: darkslateblue;
 }
 
 .create-post-title {
