@@ -42,7 +42,7 @@ def upload_profile_picture(request):
 
     doctor_obj.save()
 
-    return Response({'profile_picture_url': pp_url}, status=200)
+    return Response({'profile_picture': pp_url}, status=200)
 
 
 @api_view(['POST', ])
@@ -53,11 +53,11 @@ def set_avatar(request):
         return Response('Only members can set an avatar', status=403)
 
     member = Member.objects.get(user=user)
-    user.avatar = request.data["avatar"]
+    member.avatar = request.data["avatar"]
 
-    user.save()
+    member.save()
 
-    return Response({'avatar': user.avatar}, status=200)
+    return Response({'profile_picture': f"https://api.multiavatar.com/{user.avatar}.svg?apikey={os.getenv('AVATAR')}"}, status=200)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated,])
