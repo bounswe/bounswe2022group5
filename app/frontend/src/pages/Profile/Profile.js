@@ -9,14 +9,18 @@ import Popup from "../../components/Popup/Popup";
 import Articles from "../../layouts/Article/Article";
 import Forum from "../../layouts/Forum/Forum";
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 import { fetchPostByUserId } from "../../redux/postSlice";
 import { fetchArticleByUserId } from "../../redux/articleSlice";
 import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar } from "../../redux/profileSlice";
+import { setUser } from "../../redux/userSlice";
 
 const {Meta} = Card;
 const AVATAR_API_KEY = process.env.AVATAR_API_KEY;
+
+
 
 const buttonStyleClicked = {
     width: "40%",
@@ -96,6 +100,12 @@ const renderActivityHistory = (pageType, posts, articles, upvotedPosts, upvotedA
 
 const Profile = () => {
 
+    const dispatch = useDispatch();
+
+    const { status: userStatus, user } = useSelector((state) => state.user);
+    //const userID = user.id; //user.id
+    const [userID, setUserID] = useState(user.id);
+
     const [pageType, setPageType] = useState(0);
 
     const [pageNo, setPageNo] = useState(1);
@@ -107,10 +117,14 @@ const Profile = () => {
         setPageNo(page);
     }
 
-    const { status: userStatus, user } = useSelector((state) => state.user);
-
     const userPhotoURL = `https://api.multiavatar.com/1.svg?apikey=${AVATAR_API_KEY}`; //user.profile_image
-    const userID = 14; //user.id
+    
+
+    
+
+    console.log(user);
+    console.log(userID);
+
     //const userName = user.username;
 
     const [userPhoto, setUserPhoto] = useState(userPhotoURL);
@@ -119,7 +133,8 @@ const Profile = () => {
     const [posts, setPosts] = useState();
     
     useEffect(() => {
-        fetchPostByUserId(userID, pageNo).then(res => {
+
+        fetchPostByUserId(user.id, pageNo).then(res => {
             setPostCount(res.count);
             setPosts(res.results)
         });
@@ -157,7 +172,7 @@ const Profile = () => {
 
     const whichState = (pageType) => {
         if(pageType===0) return postCount;
-        else if(pageType===1) return postCount; //articleCount;
+        else if(pageType===1) return articleCount; //articleCount;
         else if(pageType===2) return postCount; //commentCount;
         else if(pageType===3) return upvotedPostCount;
         else if(pageType===4) return upvotedArticleCount;
@@ -190,13 +205,14 @@ const Profile = () => {
                 placement: "top"
             });
 
-            console.log("asdhjasgdasd");
         })
 
     };
 
-    const onFinishAvatar = (id) => {
-        fetchUpdateAvatar(id).then(res => {
+    const onFinishAvatar = (pid) => {
+        const body = {avatar: pid}
+
+        fetchUpdateAvatar(body).then(res => {
             notification["success"]({
                 message: 'Editing info is successful',
                 placement: "top"
@@ -329,6 +345,7 @@ const Profile = () => {
                 
                             :
                             <>sadasd</>
+
                             
                             }
                         </Popup>
@@ -343,6 +360,8 @@ const Profile = () => {
                     <br></br>
                     user type {user.type}
                     aa{username}aa
+                    <br></br>
+                    user id {userID}
                     <br></br>
                     post count {postCount}
                 </div>
