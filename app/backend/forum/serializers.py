@@ -5,7 +5,6 @@ from rest_framework.validators import UniqueValidator
 
 
 class PostSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Post
         fields = '__all__'
