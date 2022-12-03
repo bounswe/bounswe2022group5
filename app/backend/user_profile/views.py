@@ -448,7 +448,7 @@ def update_personal_info(request):
         personal_info['weight'] = weight
         personal_info['height'] = height
         personal_info['age'] = age
-        personal_info['avatar'] = avatar
+        personal_info['avatar'] = member.avatar
         personal_info['past_illnesses'] = past_illnesses
         personal_info['allergies'] = allergies
         personal_info['chronic_diseases'] = chronic_diseases
