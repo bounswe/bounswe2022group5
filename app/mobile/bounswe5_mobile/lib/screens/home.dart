@@ -6,6 +6,9 @@ import 'package:bounswe5_mobile/widgets/ArticlesList.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/screens/createPost.dart';
+import 'package:bounswe5_mobile/screens/createArticle.dart';
+import 'package:bounswe5_mobile/screens/viewPost.dart';
+import 'package:bounswe5_mobile/screens/viewArticle.dart';
 
 /// This is the implementation of the home page.
 class HomePage extends StatefulWidget {
@@ -25,9 +28,6 @@ class _HomePageState extends State<HomePage> {
 
     ApiService apiServer = ApiService();
 
-    /// Forum, Articles and Chatbot bodies.
-    List<Widget> bodies = [ForumList(posts: posts,), ArticlesList(articles: articles,)];
-
     return FutureBuilder<User?>(
       future: apiServer.getUserInfo(widget.token),
       builder: (context,snapshot){
@@ -38,16 +38,31 @@ class _HomePageState extends State<HomePage> {
         // we should show the home page. Until that time, a loading
         // icon is shown.
         if(snapshot.hasData || widget.token == '-1'){
+          print(snapshot.data);
+          User activeUser = snapshot.data ?? User(-1, '-1', '-1', -1);
+
+          /// Forum, Articles and Chatbot bodies.
+          List<Widget> bodies = [ForumList(activeUser: activeUser, posts: posts,), ArticlesList(articles: articles,)];
+
           // Session activity means that a registered user is entered
           // the home page.
           bool isSessionActive = widget.token != '-1';
+
+          print(isSessionActive);
 
           // Floating button that will be used to create posts/articles:
           Widget floatingButton = SizedBox.shrink();
           if(isSessionActive){
             if(currentIndex == 0){
               floatingButton = FloatingActionButton(
-                  onPressed: (){print("User create post");},
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                          CreatePostPage(activeUser: activeUser)),
+                    );
+                    print("User create post");
+                    },
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   child: Icon(
                     Icons.create,
@@ -56,10 +71,17 @@ class _HomePageState extends State<HomePage> {
               );
             }
             else if(currentIndex == 1){
-              print(snapshot.data?.specialization);
-              if(snapshot.data?.usertype == 1){
+              print(activeUser.specialization);
+              if(activeUser.usertype == 1){
                 floatingButton = FloatingActionButton(
-                    onPressed: (){print("Doctor create article");},
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>
+                            CreateArticlePage(activeUser: snapshot.data!)),
+                      );
+                      print("Doctor create article");
+                      },
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     child: Icon(
                       Icons.create,
