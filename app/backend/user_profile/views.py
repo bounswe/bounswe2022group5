@@ -461,7 +461,7 @@ def update_personal_info(request):
 
     
 @api_view(['GET',])
-@permission_classes([AllowAny,])
+@authentication_classes([])
 def get_doctor_profile(request, id):
     # user = request.user  # Maybe we will use this in search history.
     user = CustomUser.objects.get(id=id)

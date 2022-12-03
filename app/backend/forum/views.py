@@ -18,7 +18,7 @@ import math
 # Create your views here.
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated, AllowAny])
+@authentication_classes([])
 def get_all_posts(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
@@ -27,17 +27,22 @@ def get_all_posts(request):
 
 
     posts = []
-    user = CustomUser.objects.get(id= request.user.id)
+    try:
+        user = CustomUser.objects.get(id= request.user.id)
+    except:
+        user = None
 
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
-        if post.id in user.upvoted_posts:
-            serializer_post_data['vote'] = 'upvote'
-        elif post.id in user.downvoted_posts:
-            serializer_post_data['vote'] = 'downvote'
+        if user:
+            if post.id in user.upvoted_posts:
+                serializer_post_data['vote'] = 'upvote'
+            elif post.id in user.downvoted_posts:
+                serializer_post_data['vote'] = 'downvote'
+            else:
+                serializer_post_data['vote'] = None
         else:
             serializer_post_data['vote'] = None
-
         author = post.author
         if author.type == 1:
             try:
@@ -71,7 +76,7 @@ def get_all_posts(request):
 
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,AllowAny])
+@authentication_classes([])
 def get_posts_of_user(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
@@ -161,7 +166,7 @@ def _get_comment_of_post(id, author, user):
     return comments
 
 @api_view(['GET',])
-@permission_classes([AllowAny, IsAuthenticated])
+@authentication_classes([])
 def get_comments_of_user(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
@@ -201,7 +206,7 @@ def get_comments_of_user(request, user_id):
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET','DELETE', 'POST'])
-@permission_classes([IsAuthenticated,AllowAny])
+@authentication_classes([])
 def get_post(request,id):
     if (request.method == 'GET'):
         try:
@@ -472,7 +477,7 @@ def downvote_comment(request, id):
 
 
 @api_view(['GET','DELETE', 'POST'])
-@permission_classes([IsAuthenticated,])
+@authentication_classes([])
 def get_comment(request,id):
     if (request.method == 'GET'):
         comment = Comment.objects.get(id = id)

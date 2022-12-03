@@ -5,7 +5,7 @@ from rest_framework import status
 from articles.serializers import ArticleSerializer, CreateArticleSerializer
 from articles.models import Article, ArticleImages
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from common.views import upload_to_s3
@@ -14,7 +14,7 @@ from common.views import upload_to_s3
 # Create your views here.
 
 @api_view(['GET',])
-@permission_classes([AllowAny, IsAuthenticated])
+@authentication_classes([])
 def get_all_articles(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
@@ -36,7 +36,7 @@ def get_all_articles(request):
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET',])
-@permission_classes([AllowAny, IsAuthenticated])
+@authentication_classes([])
 def get_articles_of_doctor(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
@@ -82,7 +82,7 @@ def get_articles_of_doctor(request, user_id):
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET', 'POST', 'DELETE'])
-@permission_classes([AllowAny,])
+@authentication_classes([])
 def article(request,id):
     if(request.method == 'GET'):
         try:

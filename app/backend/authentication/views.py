@@ -37,7 +37,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@authentication_classes([])
 def register_user(request):
     try:
         custom_data = {
@@ -110,7 +110,7 @@ def register_user(request):
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@authentication_classes([])
 def login_user(request):
 
         data = {}
@@ -158,7 +158,7 @@ def logout_user(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def me(request):
-
+    print(request.user)
     user = CustomUser.objects.get(email = request.user.email)
     serialized = UserSerializer(user)
     data = serialized.data
@@ -168,6 +168,7 @@ def me(request):
         id = user.id
         username = doctor.full_name
     if user.type == 2:
+
         member = Member.objects.get(user=user)
         profile_photo = f"https://api.multiavatar.com/{member.info.avatar}.svg?apikey={os.getenv('AVATAR')}"
         id = user.id
@@ -177,4 +178,4 @@ def me(request):
     data['id'] = id
     data['username'] = username
 
-    return Response(status=200, data=serialized.data)
+    return Response(status=200, data=data)
