@@ -12,3 +12,17 @@ export const fetchArticleUpvotesByUserId = async (id, pageNo) => {
     return data;
 }
 
+export const fetchPersonalInfo = async () => {
+    const {data} = await axios.get(`${url}/profile/get_personal_info`);
+    return data;
+}
+
+export const fetchUpdatePersonalInfo = (userData) => {
+    const {data} = axios.post(`${url}/profile/update_personal_info`, userData);
+    return data;
+}
+
+export const fetchUpdateAvatar = (idAvatar) => {
+    const {data} = axios.post(`${url}/profile/set_avatar`, idAvatar);
+    return data;
+}

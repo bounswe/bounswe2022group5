@@ -12,7 +12,7 @@ const Forum = ({posts}) => {
     <div className="forum-page">
       {
         posts?.map(post => (
-          <Post header={post.title} date={post.date} author={post.author} content={post.body} answeredBy={post.commented_by_doctor} dislikeCount={post.downvote} likeCount={post.upvote} userVote="like"/>
+          <Post header={post.title} date={post.date} author={post.author} content={post.body} answeredBy={post.commented_by_doctor} dislikeCount={post.downvote} likeCount={post.upvote} userVote={post.vote}/>
         ))
 
         //check if current user liked this post.
@@ -46,11 +46,11 @@ const Post = (props) => {
           <div className="rating">
             <div className="like-rating">
               <div className="like-count"> <p>{props.likeCount}</p> </div>
-              <div className="like-icon"> { props.userVote === "like" ? <LikeOutlined style={{fontSize: '30px', color: '#3EBE11'}}/> : <LikeOutlined style={{fontSize: '30px'}}/> } </div>
+              <div className="like-icon"> { props.userVote === "upvote" ? <LikeOutlined style={{fontSize: '30px', color: '#3EBE11'}}/> : <LikeOutlined style={{fontSize: '30px'}}/> } </div>
             </div>
             <div className="dislike-rating">
               <div className="dislike-count"> <p>{props.dislikeCount}</p> </div>
-              <div className="dislike-icon"> </div> {props.userVote === "dislike" ? <LikeOutlined style={{fontSize: '30px', color: '#FB2727', rotate: '180deg'}} /> : <LikeOutlined style={{fontSize: '30px', rotate: '180deg'}} /> }</div>
+              <div className="dislike-icon"> </div> {props.userVote === "downvote" ? <LikeOutlined style={{fontSize: '30px', color: '#FB2727', rotate: '180deg'}} /> : <LikeOutlined style={{fontSize: '30px', rotate: '180deg'}} /> }</div>
             </div>
             
           </div>

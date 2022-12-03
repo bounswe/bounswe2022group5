@@ -1,4 +1,5 @@
 .popup{
+    text-overflow: scroll;
     position: fixed;
     top:0;
     left: 0;
@@ -12,6 +13,7 @@
 }
 
 .popup-inner{
+    text-overflow: scroll;
     position: relative;
     padding: 32px;
     width: 100%;
@@ -21,6 +23,6 @@
 
 .popup-inner .close-btn{
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 100px;
+    right: 10px;
 }

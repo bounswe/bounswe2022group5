@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import NavBar from "../../layouts/NavBar/NavBar";
-import { Avatar, Button , Pagination , Image , Dropdown } from "antd";
+import { Avatar, Button , Pagination , Image , Dropdown , Form , Input , notification, Card} from "antd";
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import "./Profile.css"
 import Popup from "../../components/Popup/Popup";
@@ -11,7 +12,11 @@ import Forum from "../../layouts/Forum/Forum";
 import { useSelector } from 'react-redux';
 
 import { fetchPostByUserId } from "../../redux/postSlice";
-import { fetchPostUpvotesByUserId } from "../../redux/profileSlice";
+import { fetchArticleByUserId } from "../../redux/articleSlice";
+import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar } from "../../redux/profileSlice";
+
+const {Meta} = Card;
+const AVATAR_API_KEY = process.env.AVATAR_API_KEY;
 
 const buttonStyleClicked = {
     width: "40%",
@@ -48,10 +53,10 @@ const renderPosts = (results) => {
     )
 }
 
-const renderArticles = () => {
+const renderArticles = (results) => {
     return (
         <div>
-            <Articles/>
+            <Articles articles={results}/>
         </div>
     )
 }
@@ -64,7 +69,7 @@ const renderComments = (results) => {
     )
 }
 
-const renderUpvotes = (results) => {
+const renderUpvotedPosts = (results) => {
     return (
         <div>
             <Forum posts={results}/>
@@ -72,11 +77,20 @@ const renderUpvotes = (results) => {
     )
 }
 
-const renderActivityHistory = (pageType, posts, upvotedPosts) => {
+const renderUpvotedArticles = (results) => {
+    return (
+        <div>
+            <Articles articles={results}/>
+        </div>
+    )
+}
+
+const renderActivityHistory = (pageType, posts, articles, upvotedPosts, upvotedArticles) => {
     if (pageType==0) return renderPosts(posts);
-    else if(pageType==1) return renderArticles();
+    else if(pageType==1) return renderArticles(articles);
     else if(pageType==2) return renderComments();
-    else if(pageType==3) return renderUpvotes(upvotedPosts);
+    else if(pageType==3) return renderUpvotedPosts(upvotedPosts);
+    else if(pageType==4) return renderUpvotedArticles(upvotedArticles);
 }
 
 
@@ -87,6 +101,7 @@ const Profile = () => {
     const [pageNo, setPageNo] = useState(1);
 
     const [picturePopup, setPicturePopup] = useState(false);
+    const [infoPopup, setInfoPopup] = useState(false);
 
     const onChange = (page) => {
         setPageNo(page);
@@ -94,10 +109,11 @@ const Profile = () => {
 
     const { status: userStatus, user } = useSelector((state) => state.user);
 
-    const userPhoto = 1;
-    const userID = 14;
+    const userPhotoURL = `https://api.multiavatar.com/1.svg?apikey=${AVATAR_API_KEY}`; //user.profile_image
+    const userID = 14; //user.id
+    //const userName = user.username;
 
-    const [userPhotoID, setUserPhotoID] = useState(userPhoto);
+    const [userPhoto, setUserPhoto] = useState(userPhotoURL);
 
     const [postCount, setPostCount] = useState();
     const [posts, setPosts] = useState();
@@ -106,6 +122,16 @@ const Profile = () => {
         fetchPostByUserId(userID, pageNo).then(res => {
             setPostCount(res.count);
             setPosts(res.results)
+        });
+    }, [pageNo]);
+
+    const [articleCount, setArticleCount] = useState();
+    const [articles, setArticles] = useState();
+    
+    useEffect(() => {
+        fetchArticleByUserId(userID, pageNo).then(res => {
+            setArticleCount(res.count);
+            setArticles(res.results)
         });
     }, [pageNo]);
 
@@ -119,11 +145,70 @@ const Profile = () => {
         })
     }, [pageNo])
 
+    const [upvotedArticleCount, setUpvotedArticleCount] = useState();
+    const [upvotedArticles, setUpvotedArticles] = useState();
+
+    useEffect(() => {
+        fetchArticleUpvotesByUserId(userID, pageNo).then(res => {
+            setUpvotedArticleCount(res.count);
+            setUpvotedArticles(res.results)
+        })
+    }, [pageNo])
+
     const whichState = (pageType) => {
         if(pageType===0) return postCount;
         else if(pageType===1) return postCount; //articleCount;
         else if(pageType===2) return postCount; //commentCount;
         else if(pageType===3) return upvotedPostCount;
+        else if(pageType===4) return upvotedArticleCount;
+    }
+
+    const [username, setUsername] = useState();
+
+    useEffect(() => {
+        fetchPersonalInfo().then(res => {
+            setUsername(res.member_username);
+        })
+    }, [infoPopup])
+    
+    const [form] = Form.useForm();
+
+    const onFinishInfo = (values) => {
+        const body = {...values, member_username:username}
+        
+        fetchUpdatePersonalInfo(body).then(res => {
+            notification["success"]({
+                message: 'Editing info is successful',
+                placement: "top"
+            });
+            
+            console.log("zartzurt");
+        }).catch((err) => {
+            notification["error"]({
+                message: "Editing info is not successful",
+                description: err?.message,
+                placement: "top"
+            });
+
+            console.log("asdhjasgdasd");
+        })
+
+    };
+
+    const onFinishAvatar = (id) => {
+        fetchUpdateAvatar(id).then(res => {
+            notification["success"]({
+                message: 'Editing info is successful',
+                placement: "top"
+            });
+
+        }).catch((err) => {
+            notification["error"]({
+                message: "Editing info is not successful",
+                description: err?.message,
+                placement: "top"
+            });
+        })
     }
 
     return (
@@ -132,8 +217,8 @@ const Profile = () => {
 
             <div className="profile-header">
                 <div className="profile-avatar">
-                    {/* image src needs to be changed */}
-                    <Avatar size={100} src={<Image src="https://m.media-amazon.com/images/M/MV5BODdhY2ZjY2UtYjY0NC00NTAxLWIwYzEtN2Y1ZjEyMWQ2MDJhXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_.jpg"></Image>}>
+                    
+                    <Avatar size={100} src={<Image src={userPhoto}></Image>}>
 
                     </Avatar>
                     <br></br>
@@ -151,34 +236,101 @@ const Profile = () => {
                         
                         <Popup trigger={picturePopup} setTrigger={setPicturePopup}>
                             
-                            <Image.PreviewGroup>
-                                <Image 
-                                width={200} 
-                                src="https://img.a.transfermarkt.technology/portrait/big/8198-1668503200.jpg?lm=1" 
-                                />
-                                <Image
-                                width={200}
-                                src="https://img.a.transfermarkt.technology/portrait/big/8198-1668503200.jpg?lm=1"
-                                />
-                                <Image
-                                width={200}
-                                src="https://img.a.transfermarkt.technology/portrait/big/8198-1668503200.jpg?lm=1"
-                                />
-                                <Image
-                                width={200}
-                                src="https://img.a.transfermarkt.technology/portrait/big/8198-1668503200.jpg?lm=1"
-                                />
-                                <Image
-                                width={200}
-                                src="https://img.a.transfermarkt.technology/portrait/big/8198-1668503200.jpg?lm=1"
-                                />
-                                <Image
-                                width={200}
-                                src="https://img.a.transfermarkt.technology/portrait/big/8198-1668503200.jpg?lm=1"
-                                />
-                                
-                            </Image.PreviewGroup>
-
+                            {user.type === 2 ?
+                            <Card style={{width:'80%'}}>
+                            <Card.Grid>
+                                <Card
+                                    style={{ width: 100 }}
+                                    cover={<img src={`https://api.multiavatar.com/1.svg?apikey=${AVATAR_API_KEY}`}
+                                    onClick={() => {
+                                        setUserPhoto(`https://api.multiavatar.com/1.svg?apikey=${AVATAR_API_KEY}`); 
+                                        onFinishAvatar(1);
+                                    }} />}
+                                >
+                            
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid >
+                                <Card
+                                    style={{ width: 100 }}
+                                    cover={<img  src={`https://api.multiavatar.com/2.svg?apikey=${AVATAR_API_KEY}`}
+                                    onClick={() => {
+                                        setUserPhoto(`https://api.multiavatar.com/2.svg?apikey=${AVATAR_API_KEY}`); 
+                                        onFinishAvatar(2)
+                                    }} />}
+                                >
+                            
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid >
+                                <Card
+                                style={{ width: 100 }}
+                                cover={<img  src={`https://api.multiavatar.com/3.svg?apikey=${AVATAR_API_KEY}`} 
+                                onClick={() => {setUserPhoto(`https://api.multiavatar.com/3.svg?apikey=${AVATAR_API_KEY}`); onFinishAvatar(3)}}/>}
+                                >
+                            
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid >
+                                <Card
+                                style={{ width: 100 }}
+                                cover={<img  src={`https://api.multiavatar.com/4.svg?apikey=${AVATAR_API_KEY}`}
+                                onClick={() => {setUserPhoto(`https://api.multiavatar.com/4.svg?apikey=${AVATAR_API_KEY}`) ; onFinishAvatar(4)}} />}
+                                >
+                            
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid >
+                                <Card
+                                style={{ width: 100 }}
+                                cover={<img  src={`https://api.multiavatar.com/5.svg?apikey=${AVATAR_API_KEY}`} 
+                                onClick={() => {setUserPhoto(`https://api.multiavatar.com/5.svg?apikey=${AVATAR_API_KEY}`) ; onFinishAvatar(5)}}/>}
+                                >   
+                    
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid>
+                                <Card
+                                style={{ width: 100 }}
+                                cover={<img  src={`https://api.multiavatar.com/6.svg?apikey=${AVATAR_API_KEY}`}
+                                onClick={() => {setUserPhoto(`https://api.multiavatar.com/6.svg?apikey=${AVATAR_API_KEY}`) ; onFinishAvatar(6)}} />}
+                                >
+                    
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid>
+                                <Card
+                                style={{ width: 100 }}
+                                cover={<img  src={`https://api.multiavatar.com/7.svg?apikey=${AVATAR_API_KEY}`}
+                                onClick={() => {setUserPhoto(`https://api.multiavatar.com/7.svg?apikey=${AVATAR_API_KEY}`) ; onFinishAvatar(7)}} />}
+                                >
+                    
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid>
+                                <Card
+                                style={{ width: 100 }}
+                                cover={<img  src={`https://api.multiavatar.com/8.svg?apikey=${AVATAR_API_KEY}`}
+                                onClick={() => {setUserPhoto(`https://api.multiavatar.com/8.svg?apikey=${AVATAR_API_KEY}`) ; onFinishAvatar(8)}} />}
+                                >
+                    
+                                </Card>
+                            </Card.Grid>
+                            <Card.Grid>
+                                <Card
+                                style={{ width: 100 }}
+                                cover={<img  src={`https://api.multiavatar.com/9.svg?apikey=${AVATAR_API_KEY}`}
+                                onClick={() => {setUserPhoto(`https://api.multiavatar.com/9.svg?apikey=${AVATAR_API_KEY}`) ; onFinishAvatar(9)}} />}
+                                >
+                    
+                                </Card>
+                            </Card.Grid>
+                            </Card>
+                
+                            :
+                            <>sadasd</>
+                            
+                            }
                         </Popup>
 
                     </div> : null
@@ -190,12 +342,53 @@ const Profile = () => {
                     {user.email}
                     <br></br>
                     user type {user.type}
+                    aa{username}aa
                     <br></br>
                     post count {postCount}
                 </div>
+
+                {
+                    !picturePopup && userStatus==="fulfilled" ? 
+                    <div className="profile-edit-pp">
+                        <Button style={editButton} onClick={() => setInfoPopup(true)}>
+                            {
+                                "Edit Info"
+                            }
+                        </Button>
+                        
+                        <Popup trigger={infoPopup} setTrigger={setInfoPopup}>
+                            
+                            <Form 
+                                form={form} 
+                                layout="inline" 
+                                onFinish={onFinishInfo} 
+                                className="form"
+                                initialValues={{ remember: true }}
+                            >
+                                <Form.Item
+                                    name="username"
+                                >
+                                    <Input 
+                                        placeholder="New Username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                    />
+                                </Form.Item>
+
+                                <Form.Item >
+                                    <Button type="primary" htmlType="submit" className="input-box">
+                                        Submit
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+
+                        </Popup>
+
+                    </div> : null
+                }
             </div>
             
-            {!picturePopup ? 
+            {!picturePopup && !infoPopup ? 
             <div className="profile-activity-buttons">
                 <Button 
                     shape="round" 
@@ -229,13 +422,21 @@ const Profile = () => {
                     style={pageType === 3 ? buttonStyleClicked : buttonStyleUnclicked}
                     onClick={() => {setPageType(3) ; setPageNo(1)}}
                     >
-                        Upvotes
+                        Upvoted Posts
+                </Button>
+                <Button 
+                    shape="round" 
+                    size="large" 
+                    style={pageType === 4 ? buttonStyleClicked : buttonStyleUnclicked}
+                    onClick={() => {setPageType(4) ; setPageNo(1)}}
+                    >
+                        Upvoted Articles
                 </Button>
             </div>
             : null}
 
             <div className="profile-activity">
-                {renderActivityHistory(pageType, posts, upvotedPosts)}
+                {renderActivityHistory(pageType, posts, articles, upvotedPosts, upvotedArticles)}
             </div>
             
             <div className="profile-pagination">

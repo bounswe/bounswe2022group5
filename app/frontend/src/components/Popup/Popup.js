@@ -15,7 +15,7 @@ function Popup(props) {
         <div className="popup">
             <div className="popup-inner">
                 <Button className="close-btn" style={editButton} onClick={() => props.setTrigger(false)}>
-                    Save
+                    Close
                 </Button>
                 {props.children}
             </div>
