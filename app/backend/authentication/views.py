@@ -169,7 +169,7 @@ def me(request):
         username = doctor.full_name
     if user.type == 2:
         member = Member.objects.get(user=user)
-        profile_photo = f'https://group5static.s3.amazonaws.com/member/{member.info.avatar}'
+        profile_photo = member.info.avatar
         id = user.id
         username = member.member_username
 

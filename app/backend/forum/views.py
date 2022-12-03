@@ -56,7 +56,7 @@ def get_all_posts(request):
                 author_data = {
                     'id': author.id,
                     'username': member_data.member_username,
-                    'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                    'profile_photo': member_data.info.avatar,
                     'is_doctor': False
                 }
             except:
@@ -133,7 +133,7 @@ def _get_comment_of_post(id, author, user):
             author_data = {
                 'id': author.id,
                 'username': member_data.member_username,
-                'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                'profile_photo': member_data.info.avatar,
                 'is_doctor': False
             }
 
@@ -229,7 +229,7 @@ def get_post(request,id):
             author_data = {
                 'id': author.id,
                 'username': member_data.member_username,
-                'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                'profile_photo': member_data.info.avatar,
                 'is_doctor': False
             }
 
@@ -317,7 +317,7 @@ def create_post(request):
         author_data = {
             'id': author.id,
             'username': member_data.member_username,
-            'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+            'profile_photo': member_data.info.avatar,
             'is_doctor': False
         }
 
