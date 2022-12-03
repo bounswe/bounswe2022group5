@@ -7,7 +7,7 @@ import Forum from "../Forum/Forum";
 import { useSelector} from 'react-redux';
 
 import "./HomePage.css";
-import { Button, Input} from "antd";
+import { Button, Input, Pagination} from "antd";
 import { fetchAllPosts } from "../../redux/postSlice";
 import {fetchAllArticles} from "../../redux/articleSlice";
 
@@ -54,6 +54,7 @@ const renderArticles = (articles) => {
         </div>
     )
 }
+
 
 const renderCategories = (searchKey) => {
     // There should be categories and related links
@@ -124,17 +125,29 @@ const HomePageLayout = () => {
     const [articles, setArticles] = useState();
     
     useEffect(() => {
-        fetchAllPosts(1).then(res => {
-            setPostCount(res.count);
+        fetchAllPosts(1,10).then(res => {
             setPosts(res.results)
+            setPostCount(res.count);
         });
 
-        fetchAllArticles(1).then(res => {
+        fetchAllArticles(1,10).then(res => {
             setArticleCount(res.count);
             setArticles(res.results)
         })
-        
+
     }, []);
+
+    const onChangePost = (pageNumber, itemPerPage) => {
+        fetchAllPosts(pageNumber,itemPerPage).then(res => {
+            setPosts(res.results)
+        });
+    };
+
+    const onChangeArticle = (pageNumber, itemPerPage) => {
+        fetchAllArticles(pageNumber,itemPerPage).then(res => {
+            setArticles(res.results)
+        });
+    };
 
     return(
         <div className="layout">
@@ -181,6 +194,7 @@ const HomePageLayout = () => {
                     </div>
                     <div className="articles-or-posts">
                         {pageType === 0 ? renderPosts(posts): renderArticles(articles)}
+                        {pageType === 0 ? <Pagination  showQuickJumper defaultCurrent={1} total={postCount} onChange={onChangePost} /> : <Pagination showQuickJumper defaultCurrent={1} total={articleCount} onChange={onChangeArticle} /> }
                     </div>
                 </div>
             </div>
