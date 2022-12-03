@@ -12,6 +12,23 @@ class ApiService {
   /// Base URL of backend
   var baseURL = "http://ec2-3-87-119-148.compute-1.amazonaws.com:8000";
 
+  Future<int> createComment(int postID, token, String body, String longitude, String latitude, String image_uri) async {
+    File file = await toFile(image_uri);
+    var uri = Uri.parse("${baseURL}/forum/post/${postID.toString()}/comment");
+    Map<String, String> headers =  {
+      'Authorization': "token $token",
+      'content-type': "multipart/form-data",
+    };
+    var request = http.MultipartRequest('POST', uri)
+      ..headers.addAll(headers)
+      ..fields['body'] = body
+      ..fields['longitude'] = longitude
+      ..fields['latitude'] = latitude
+      ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+    var response = await request.send();
+    return response.statusCode;
+  }
+
   Future<int> memberSignUp(String email, String password, int type, String date_of_birth, String username) async {
     var uri = Uri.parse("$baseURL/auth/register");
     final body = jsonEncode(<String, Object>{
