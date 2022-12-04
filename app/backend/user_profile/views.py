@@ -57,7 +57,7 @@ def set_avatar(request):
 
     member.info.save()
 
-    return Response({'profile_picture': f"https://api.multiavatar.com/{user.avatar}.svg?apikey={os.getenv('AVATAR')}"}, status=200)
+    return Response({'profile_picture': f"https://api.multiavatar.com/{member.info.avatar}.svg?apikey={os.getenv('AVATAR')}"}, status=200)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated,])
