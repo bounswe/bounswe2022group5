@@ -25,21 +25,21 @@ const Article = () => {
     }, [id]);
 
     return(
-        <div className="article-container">
-            <div className="article-post">
-                <div className="article-avatar-body">
+        <div className="article-display-container">
+            <div className="article-display-post">
+                <div className="article-display-avatar-body">
                     <div>
-                        <img className="article-avatar" alt="avatar" src={article?.author?.profile_photo}/>
+                        <img className="article-display-avatar" alt="avatar" src={article?.author?.profile_photo}/>
                     </div>
                     <div style={{ width: "100%" }}>
-                        <div className="article-upper">
-                            <div className="article-title">
-                                <span className="article-title-text" style={{fontSize: "28px"}}>{article?.title}</span>
-                                <span className="article-title-author" style={{fontSize: "12px"}}>by {article?.author?.username}</span>
+                        <div className="article-display-upper">
+                            <div className="article-display-title">
+                                <span className="article-display-title-text" style={{fontSize: "28px"}}>{article?.title}</span>
+                                <span className="article-display-title-author" style={{fontSize: "12px"}}>by {article?.author?.username}</span>
                             </div>
-                            <div className="article-date">{moment(article?.date).format("DD.MM.YYYY")}</div>
+                            <div className="article-display-date">{moment(article?.date).format("DD.MM.YYYY")}</div>
                         </div>
-                        <div className="article-body-votes">
+                        <div className="article-display-body-votes">
                             <div>{article?.body}</div>
                             <Vote item={article} setItem={setArticle} itemType="article"/>
                             
@@ -48,11 +48,11 @@ const Article = () => {
                 </div>
 
 				{images?.length ? 
-				<div className="article-images">
+				<div className="article-display-images">
 					<Image.PreviewGroup>
 						{
 							images?.map(image => (
-								<span className="article-image">
+								<span className="article-display-image">
 									<Image width={100} height={100} src={image} />
 								</span>
 							))
