@@ -140,3 +140,6 @@ class Report(models.Model):
         return self.message
 
 
+class Label(models.Model):
+    name = models.CharField(max_length=100, null=False)
+

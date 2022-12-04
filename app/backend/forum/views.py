@@ -2,6 +2,7 @@ import os
 from typing import Optional
 
 from backend.models import CustomUser, Doctor, Member
+from django.db.models import Q
 from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
@@ -20,11 +21,23 @@ import math
 @api_view(['GET',])
 @permission_classes([AllowAny])
 def get_all_posts(request):
-
+    search_query = request.GET.get('q', None)
+    search_query = search_query if search_query is None else search_query.split(" ")
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
-    post_objects = Post.objects.all().order_by('-date')[0:10]
+    if search_query:
+        queryset_list1 = Q()
+
+        for keyword in search_query:
+            queryset_list1 |= (
+                    Q(title__icontains=keyword) |
+                    Q(body__icontains=keyword)
+            )
+
+            post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[0:10]
+    else:
+        post_objects = Post.objects.all().order_by('-date')[0:10]
 
 
     posts = []
