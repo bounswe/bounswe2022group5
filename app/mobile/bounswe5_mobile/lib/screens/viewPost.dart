@@ -222,19 +222,6 @@ class _ViewPostPageState extends State<ViewPostPage> {
                         ),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: (() {}),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.error,
-                      ),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.report),
-                          SizedBox(width: 4),
-                          Text('Report'),
-                        ],
-                      ),
-                    ),
                     isSessionActive
                         ? ElevatedButton(
                             onPressed: () async {
