@@ -1,3 +1,5 @@
+import os
+
 from backend.models import CustomUser, Doctor, Member
 from datetime import datetime
 from rest_framework.response import Response
