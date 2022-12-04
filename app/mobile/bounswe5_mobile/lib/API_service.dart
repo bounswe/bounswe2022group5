@@ -160,6 +160,7 @@ class ApiService {
     }
 
     if(image_uri.length == 0 && longitude.length == 0) {
+
       var uri = Uri.parse(
           "${baseURL}/forum/post/${postID.toString()}/comment");
       Map<String, String> headers = {
@@ -172,6 +173,7 @@ class ApiService {
       var response = await request.send();
       return response.statusCode;
     }
+
 
     var uri = Uri.parse("${baseURL}/forum/post/${postID.toString()}/comment");
     Map<String, String> headers =  {
@@ -467,6 +469,7 @@ class ApiService {
     return response.statusCode;
 
 
+
   }
   Future<int> updateUserInfo(User user, String name) async {
     var token = user.token;
@@ -489,6 +492,7 @@ class ApiService {
     });
     print(response.body);
     return response.statusCode;
+
   }
   Future<int> changeHospitalName(String token, String hospitalName) async {
     var uri = Uri.parse("$baseURL/profile/update_personal_info");

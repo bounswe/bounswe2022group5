@@ -77,8 +77,8 @@ const CommentEditor = ({ postId, setComments }) => {
 
         let postData = new FormData();
         postData.append("body", commentText);
-        postData.append("longitude", longitude || null);
-        postData.append("latitude", latitude || null);
+        if(longitude) postData.append("longitude", longitude);
+        if(latitude) postData.append("latitude", latitude);
 
         for (let i = 0; i<fileList.length; i++) {
             postData.append(`image${i+1}`, fileList[i]?.originFileObj);
@@ -86,7 +86,7 @@ const CommentEditor = ({ postId, setComments }) => {
 
         fetchCreateComment(postId, postData)
             .then((res) => {
-                setComments(comments => [ ...comments, { ...res, comment: { ...res?.comment, upvote: 0, downvote: 0, author: user }} ]);
+                setComments(comments => [ ...comments, { ...res, comment: { ...res?.comment, upvote: 0, downvote: 0, author: { ...user, profile_photo: user?.profile_image } }} ]);
                 setFileList([]);
                 setCommentText("");
                 setShowImageButton(true);
@@ -108,7 +108,7 @@ const CommentEditor = ({ postId, setComments }) => {
         <div className="comment-editor-container">
             <div className="comment-editor-body-container">
                 <div>
-                    <img className="comment-editor-avatar" alt="avatar" src={user?.avatar}/>
+                    <img className="comment-editor-avatar" alt="avatar" src={user?.profile_image}/>
                 </div>
                 <div className="comment-body-container">
                     <div className="comment-editor-body">
