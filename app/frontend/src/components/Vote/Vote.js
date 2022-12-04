@@ -8,12 +8,14 @@ import {
     fetchDownvoteComment, 
     fetchUpvoteComment, 
     fetchUpvotePost, 
-    fetchDownvotePost 
+    fetchDownvotePost, 
+    fetchUpvoteArticle,
+    fetchDownvoteArticle
 } from '../../redux/voteSlice';
 
 import "./Vote.css";
 
-const Vote = ({ item, setItem, className, isComment }) => {
+const Vote = ({ item, type, setItem, className }) => {
     
     const handleVote = (voteValue) => {
         if(voteValue === "upvote") {
@@ -25,10 +27,12 @@ const Vote = ({ item, setItem, className, isComment }) => {
                 setItem({ ...item, upvote: item?.upvote + 1, vote: "upvote" });
             }
 
-            if (isComment) {
+            if (type === "comment") {
                 fetchUpvoteComment(item.id);
-            } else {
+            } else if(type === "post"){
                 fetchUpvotePost(item.id);
+            }else{
+                fetchUpvoteArticle(item.id);
             }
         }
         if(voteValue === "downvote") {
@@ -40,10 +44,13 @@ const Vote = ({ item, setItem, className, isComment }) => {
                 setItem({ ...item, downvote: item?.downvote + 1, vote: "downvote" });
             }
             
-            if (isComment) {
+
+            if (type === "comment") {
                 fetchDownvoteComment(item.id);
-            } else {
+            } else if(type === "post"){
                 fetchDownvotePost(item.id);
+            }else{
+                fetchDownvoteArticle(item.id);
             }
         }
     }
