@@ -4,27 +4,17 @@ import 'package:flutter/material.dart';
 /// of a Member.
 class MemberInfo {
 
-  String firstName;
-  String lastName;
-  double weight;
-  double height;
-  int age;
-  String pastIllnesses;
-  String allergies;
-  String chronicDiseases;
-  String undergoneOperations;
-  String usedDrugs;
+  String? firstName;
+  String? lastName;
+  double? weight;
+  int? height;
+  int? age;
+  String? address;
+  List<dynamic>? pastIllnesses;
+  List<dynamic>? allergies;
+  List<dynamic>? chronicDiseases;
+  List<dynamic>? undergoneOperations;
+  List<dynamic>? usedDrugs;
 
-  MemberInfo({
-    this.firstName = "",
-    this.lastName = "",
-    this.weight = -1,
-    this.height = -1,
-    this.age = -1,
-    this.pastIllnesses = "",
-    this.allergies = "",
-    this.chronicDiseases = "",
-    this.undergoneOperations = "",
-    this.usedDrugs = ""
-  });
+  MemberInfo();
 }

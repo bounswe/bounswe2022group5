@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 import 'package:uri_to_file/uri_to_file.dart';
 import 'package:path/path.dart' as p;
+import 'package:bounswe5_mobile/models/category.dart';
+import 'package:bounswe5_mobile/models/user.dart';
+import 'package:bounswe5_mobile/models/memberInfo.dart';
 
 /// This class handles API calls.
 class ApiService {
@@ -85,6 +87,7 @@ class ApiService {
     final response = await http.post(uri, body: body, headers: {'content-type': "application/json"});
 
     if (response.statusCode == 200){
+      print("Response body:");
       print(response.body.toString());
       return jsonDecode(response.body)["token"];
     } else {
@@ -109,7 +112,7 @@ class ApiService {
   }
 
   Future<User?> getUserInfo(String token) async {
-    var uri = Uri.parse("$baseURL/auth/me");
+    var uri = Uri.parse("$baseURL/profile/get_personal_info");
 
     final header = {
     'Authorization': "token $token",
@@ -119,12 +122,78 @@ class ApiService {
 
     if (response.statusCode == 200){
       var body = jsonDecode(response.body);
+      int id = body["id"];
       String email = body["email"];
       int userType = body["type"];
+      String registerDate = body["register_date"];
+      String dateOfBirth = body["date_of_birth"];
+      String profileImageUrl = body["profile_image"];
+
+      MemberInfo memberinfo = MemberInfo();
       User user;
-      user = User(-1, token, email, userType);
+
+      if(userType == 1) { // doctor
+        String fullName = body["full_name"]; // doctor
+        String specializationName = body["specialization"]; // doctor
+        String hospitalName = body["hospital_name"]; // doctor
+        bool verified = body["verified"]; // doctor
+        String document = body["document"]; // doctor
+        Category specialization = Category(-1,specializationName,""); // doctor
+        user = User(id,token,email,userType,
+          fullName: fullName,
+          specialization: specialization,
+          hospitalName: hospitalName,
+          verified: verified,
+        );
+        user.documentUrl = document;
+      }
+
+      else { // member
+        String username = body["member_username"]; // member
+        String? firstName = body["firstname"]; // member
+        String? lastName = body["lastname"]; // member
+        String? address = body["address"]; // member
+        double? weight = body["weight"]; // member
+        int? height = body["height"]; // member
+        int? age = body["age"]; // member
+
+        print("past illnesses");
+        print(body["past_illnesses"].runtimeType);
+
+
+        List<dynamic> pastIllnesses = body["past_illnesses"]; // member
+        List<dynamic> allergies = body["allergies"]; // member
+        List<dynamic> chronicDiseases = body["chronic_diseases"]; // member
+        List<dynamic> undergoneOperations = body["undergone_operations"]; // member
+        List<dynamic> usedDrugs = body["used_drugs"]; // member
+
+
+        memberinfo.firstName = firstName;
+        memberinfo.lastName = lastName;
+        memberinfo.weight = weight;
+        memberinfo.height = height;
+        memberinfo.age = age;
+
+
+        memberinfo.pastIllnesses = pastIllnesses;
+        memberinfo.allergies = allergies;
+        memberinfo.chronicDiseases = chronicDiseases;
+        memberinfo.undergoneOperations = undergoneOperations;
+        memberinfo.usedDrugs = usedDrugs;
+        memberinfo.address = address;
+
+        user = User(id,token,email,userType,
+          username: username,
+        );
+        user.info = memberinfo;
+      }
+      user.profileImageUrl = profileImageUrl;
+      user.dateOfBirth = dateOfBirth;
+      user.registerDate = registerDate;
       return user;
+
     } else{
+      // User with id -1 means nobody logged in.
       return User(-1, '-1', '-1', -1);
     }
 
@@ -164,7 +233,4 @@ class ApiService {
     var response = await request.send();
     return response.statusCode;
   }
-
-
-
 }

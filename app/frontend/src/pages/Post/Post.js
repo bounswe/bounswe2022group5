@@ -10,13 +10,14 @@ import {
 import CommentEditor from "./CommentEditor";
 import Vote from "../../components/Vote/Vote";
 
+import logo from "../../layouts/NavBar/logo.png"
+
 import "./Post.css";
 
 import { fetchPostById } from "../../redux/postSlice";
 
 const Post = () => {
     const id = useParams()?.id;
-    const { user } = useSelector((state) => state.user);
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
@@ -29,6 +30,7 @@ const Post = () => {
                 setComments(res.comments);
                 setImages(res.image_urls);
             })
+            .catch(err => console.log(err))
     }, [id])
 
     const getCommentSetter = (commentId) => {
@@ -69,8 +71,10 @@ const Post = () => {
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
                         <div className="discussion-body-votes">
+
                             <div dangerouslySetInnerHTML={{ __html: post?.body }} />
-                            <Vote item={post} setItem={setPost}/>
+                            <Vote item={post} type={"post"} setItem={setPost}/>
+
                         </div>
                         { post?.commented_by_doctor ? <div className="discussion-doctor">
                              <CheckCircleOutlined className="discussion-check-sign"/>
@@ -112,11 +116,13 @@ const Post = () => {
                                         </span> : null}
                                     </div>
                                     <div className="discussion-comment-body">
+
                                         <div dangerouslySetInnerHTML={{ __html: item?.comment?.body }} />
                                         <div style={{ display: "flex", flexDirection: "row" }}>
                                             
-                                            <Vote item={item?.comment} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" isComment={true}/>
+                                            <Vote item={item?.comment} type={"comment"} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" isComment={true}/>
                                         </div>
+
                                     </div>
 
                                     {item?.image_urls ? 
