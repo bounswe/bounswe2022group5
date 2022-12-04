@@ -5,6 +5,7 @@ from rest_framework.validators import UniqueValidator
 
 
 class PostSerializer(serializers.ModelSerializer):
+    date = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
     class Meta:
         model = Post
         fields = '__all__'
@@ -24,6 +25,7 @@ class UpdatePostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    date = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
     class Meta:
         model = Comment
         fields = '__all__'
@@ -34,12 +36,13 @@ class CommentSerializer(serializers.ModelSerializer):
         return Comment.objects.create(**validated_data)
 
 class CreateCommentSerializer(serializers.ModelSerializer):
+    date = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
     class Meta:
         model = Comment
         fields =  'author', 'body', 'date', 'longitude', 'latitude', 'post'
 
     def create(self, validated_data):
-
+        validated_data['date'] = datetime.now()
         return Comment.objects.create(**validated_data)
 
 

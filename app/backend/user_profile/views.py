@@ -53,11 +53,11 @@ def set_avatar(request):
         return Response('Only members can set an avatar', status=403)
 
     member = Member.objects.get(user=user)
-    member.avatar = request.data["avatar"]
+    member.info.avatar = request.data["avatar"]
 
-    member.save()
+    member.info.save()
 
-    return Response({'profile_picture': f"https://api.multiavatar.com/{user.avatar}.svg?apikey={os.getenv('AVATAR')}"}, status=200)
+    return Response({'profile_picture': f"https://api.multiavatar.com/{member.info.avatar}.svg?apikey={os.getenv('AVATAR')}"}, status=200)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated,])
@@ -85,7 +85,7 @@ def get_upvoted_articles(request):
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
 
-    upvoter = CustomUser.objects.get(id=request.user.id)
+    upvoter = request.user
 
     upvoted_articles = upvoter.upvoted_articles
     articles = Article.objects.filter(id__in=upvoted_articles)
@@ -120,7 +120,7 @@ def get_upvoted_posts(request):
     paginator.max_page_size = 10
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
-    upvoter = CustomUser.objects.get(id=request.user.id)
+    upvoter = request.user
     upvoted_posts = upvoter.upvoted_posts
 
     posts = Post.objects.filter(id__in=upvoted_posts)
@@ -461,7 +461,7 @@ def update_personal_info(request):
 
     
 @api_view(['GET',])
-@permission_classes([AllowAny,])
+@permission_classes([AllowAny])
 def get_doctor_profile(request, id):
     # user = request.user  # Maybe we will use this in search history.
     user = CustomUser.objects.get(id=id)
