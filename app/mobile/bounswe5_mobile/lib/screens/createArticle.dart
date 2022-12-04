@@ -7,7 +7,14 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
-const List<String> categories = <String>['Anatomical Pathology', 'Anesthesiology','Cardiology','Hematology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy', 'Critical Care Medicine'];
+const List<String> categories = <String>["Anesthesiology", 'Cardiology',"Cardiovascular/Thoracic Surgery", "Clinical Immunology/Allergy",
+  "Critical Care Medicine", "Dermatology","Diagnostic Radiology", "Emergency Medicine","Endocrinology and Metabolism","Family Medicine",
+  "Gastroenterology", "General Internal Medicine", "General Surgery", "General/Clinical Pathology","Geriatric Medicine",
+  "Hematology","Medical Biochemistry","Medical Genetics","Medical Microbiology and Infectious Diseases",
+  "Medical Oncology","Nephrology","Neurology","Neurosurgery", "Nuclear Medicine","Obstetrics/Gynecology",
+  "Occupational Medicine","Ophthalmology","Orthopedic Surgery","Otolaryngology","Pediatrics","Physical Medicine and Rehabilitation (PM & R)",
+  "Plastic Surgery","Psychiatry","Public Health and Preventive Medicine","Radiation Oncology","Respirology",
+  "Rheumatology","Urology","Anatomical Pathology"];
 
 class CreateArticlePage extends StatefulWidget {
   const CreateArticlePage({Key? key, required User this.activeUser}) : super(key: key);
@@ -19,8 +26,8 @@ class CreateArticlePage extends StatefulWidget {
 
 class _CreateArticlePageState extends State<CreateArticlePage> {
 
-  Future<int> share(String token, String title, String body, String image_uri) async {
-    final result = await ApiService().createArticle(token, title, body, image_uri);
+  Future<int> share(String token, String title, String body, String image_uri, String category, String tags) async {
+    final result = await ApiService().createArticle(token, title, body, image_uri, category, tags);
     return result;
   }
   Future pickImage() async {
@@ -40,6 +47,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   }
 
   List tags = [];
+  List<String> labels = [];
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _title = TextEditingController();
   final TextEditingController _body = TextEditingController();
@@ -82,6 +90,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                                   child: DropdownButtonFormField<String>(
+                                    isExpanded: true,
                                     decoration: const InputDecoration(
                                       prefixIcon: Icon(Icons.search),
                                       border: OutlineInputBorder(),
@@ -112,6 +121,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                                         onSubmitted: (string) {
                                           setState(() {
                                             tags.add(Item(title: string));
+                                            labels.add(string);
                                           });
                                         },
                                       ),
@@ -127,6 +137,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                                             onRemoved: () {
                                               setState(() {
                                                 tags.removeAt(index);
+                                                labels.removeAt(index);
                                               });
                                               return true;
                                             },
@@ -230,12 +241,12 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                                                   if(image != null){
                                                     image_uri = "${image!.uri}";
                                                   }
-                                                  int shared = await share(token, _title.text, _body.text, image_uri);
+                                                  int shared = await share(token, _title.text, _body.text, image_uri,categoryValue, labels.join(','));
                                                   if (shared == 200) {
                                                     Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(content: Text("Could not share")),
+                                                      SnackBar(content: Text("Could not share ${shared}")),
                                                     );
                                                   }
                                                 }

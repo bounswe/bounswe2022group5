@@ -3,6 +3,7 @@ import 'package:bounswe5_mobile/models/article.dart';
 import 'package:bounswe5_mobile/widgets/ArticleItem.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
+
 /// This code was used for listing all articles but
 /// it is obsolete. Kept for possible later uses.
 class ArticlesList extends StatelessWidget{
@@ -11,7 +12,7 @@ class ArticlesList extends StatelessWidget{
   final List<Article> articles;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: articles.length,

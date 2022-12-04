@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     ApiService apiServer = ApiService();
+
 
     int postPerPage = 7;
 
@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage> {
         // a registered user entered the home page. In both cases
         // we should show the home page. Until that time, a loading
         // icon is shown.
+
         if( (snapshot.hasData || widget.token == '-1') && snapshot.data != null){
 
           dynamic result = snapshot.data;
@@ -68,71 +69,67 @@ class _HomePageState extends State<HomePage> {
 
           // Floating button that will be used to create posts/articles:
           Widget floatingButton = SizedBox.shrink();
-          if(isSessionActive){
-            if(currentIndex == 0){
+          if (isSessionActive) {
+            if (currentIndex == 0) {
               floatingButton = FloatingActionButton(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>
-                          CreatePostPage(activeUser: activeUser)),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CreatePostPage(activeUser: activeUser)),
                     );
                     print("User create post");
-                    },
+                  },
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   child: Icon(
                     Icons.create,
                     color: Theme.of(context).colorScheme.onPrimary,
-                  )
-              );
-            }
-            else if(currentIndex == 1){
+                  ));
+            } else if (currentIndex == 1) {
               print(activeUser.specialization);
-              if(activeUser.usertype == 1){
+              if (activeUser.usertype == 1) {
                 floatingButton = FloatingActionButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.push(
                         context,
+
                         MaterialPageRoute(builder: (context) =>
                             CreateArticlePage(activeUser: activeUser)),
+
                       );
                       print("Doctor create article");
-                      },
+                    },
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     child: Icon(
                       Icons.create,
                       color: Theme.of(context).colorScheme.onPrimary,
-                    )
-                );
+                    ));
               }
             }
-          }
-          else{
+          } else {
             floatingButton = const SizedBox.shrink();
           }
 
           return Scaffold(
-
             // App bar is the top bar shown in the screen.
             appBar: AppBar(
               title: const Center(
                 child: Text(
-                  // We do not have a logo yet. When we decided on that, we can add a logo here:
+                    // We do not have a logo yet. When we decided on that, we can add a logo here:
                     'Logo',
                     style: TextStyle(
                       fontSize: 28.0,
                       fontWeight: FontWeight.bold,
-                    )
-                ),
+                    )),
               ),
               elevation: 0.0,
               actions: <Widget>[
                 // This will implement search functionality later:
                 IconButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   icon: const Icon(Icons.search),
                   iconSize: 30.0,
-
                 )
               ],
             ),
@@ -158,25 +155,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 */
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.library_books),
-                    label: 'Articles'
-                ),
+                    icon: Icon(Icons.library_books), label: 'Articles'),
               ],
             ),
 
             // floating action button will be used for creating a new post or article later.
-            floatingActionButton: floatingButton,// If user not signed in, do not show create post button in the forum
+            floatingActionButton:
+                floatingButton, // If user not signed in, do not show create post button in the forum
 
             body: bodies[currentIndex],
           );
         }
         // Show a loading icon until the user data is loaded.
-        else{
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        else {
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
         }
       },
     );
-
   }
 }
 

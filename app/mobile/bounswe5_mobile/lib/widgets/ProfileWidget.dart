@@ -2,16 +2,16 @@ import 'package:bounswe5_mobile/screens/editprofile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ProfileWidget extends StatelessWidget{
-  final String tempImagePath;
+
   final VoidCallback onClicked;
   final User activeUser;
 
   const ProfileWidget({
     Key? key,
     required this.activeUser,
-    required this.tempImagePath,
     required this.onClicked,
   }) : super(key: key);
 
@@ -32,18 +32,23 @@ class ProfileWidget extends StatelessWidget{
     );
   }
   Widget buildImage(BuildContext context){
-    final image = AssetImage(tempImagePath);
-    return ClipOval(
-      child: Material(
-          color: Colors.transparent,
-          child: Ink.image(
-            image: image,
-            fit: BoxFit.cover,
-            width: 128,
-            height: 128,
-          ),
-      ),
-    );
+    Widget pp;
+    String tempImagePath = 'lib/assets/images/generic_user.jpg';
+    if(activeUser!.profileImageUrl == null){
+      pp = Image.asset(tempImagePath);
+    }
+    else if(activeUser!.usertype == 1){
+      pp = Image.network(activeUser!.profileImageUrl!);
+    }
+    else{
+      pp = SvgPicture.network(activeUser!.profileImageUrl!);
+    }
+    return CircleAvatar(
+      radius: 100.0,
+      child: ClipOval(
+        child: pp,
+)
+);
   }
   Widget buildEditIcon(Color color, BuildContext context) => buildCircle(
     color: Colors.white,
@@ -58,9 +63,12 @@ class ProfileWidget extends StatelessWidget{
           size: 20,
         ),
         onTap: (){
-          Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EditProfilePage()),
-          );},
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+                EditProfilePage(activeUser: activeUser!)),
+          );
+          },
       ),
     ),
   );

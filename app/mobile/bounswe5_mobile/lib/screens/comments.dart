@@ -7,8 +7,8 @@ import '../screens/profile.dart';
 import '../widgets/ProfileWidget.dart';
 
 class CommentsPage extends StatefulWidget {
-  const CommentsPage({Key? key}) : super(key: key);
-
+  const CommentsPage({Key? key, required User this.activeUser}) : super(key: key);
+  final User activeUser;
   @override
   State<CommentsPage> createState() => _CommentsPageState();
 }
