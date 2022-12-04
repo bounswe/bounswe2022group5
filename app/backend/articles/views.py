@@ -174,13 +174,19 @@ def article(request,id):
         response_dict["id"] = article.id
         response_dict["author"] = author_data
 
-        if article.id in request.user.upvoted_articles:
-            response_dict['vote'] = 'upvote'
-        elif article.id in request.user.downvoted_posts:
-            response_dict['vote'] = 'downvote'
+        try:
+            user = CustomUser.objects.get(email = request.user.email)
+        except:
+            user = None
+        if user:
+            if article.id in request.user.upvoted_articles:
+                response_dict['vote'] = 'upvote'
+            elif article.id in request.user.downvoted_posts:
+                response_dict['vote'] = 'downvote'
+            else:
+                response_dict['vote'] = None
         else:
             response_dict['vote'] = None
-
         response = {
             'article': response_dict,
             'image_urls': image_urls,
