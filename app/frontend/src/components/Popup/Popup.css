@@ -1,0 +1,28 @@
+.popup{
+    text-overflow: scroll;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0, 0.9);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-inner{
+    text-overflow: scroll;
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: #FFF;
+}
+
+.popup-inner .close-btn{
+    position: absolute;
+    top: 100px;
+    right: 10px;
+}

@@ -9,11 +9,11 @@ const Articles = ({articles}) => {
         articles?.map(article => (
           <Article
             header={article.title}
-            author={article.author}
+            author={article.author.username}
             date={article.date}
             dislike_count={article.downvote}
             like_count={article.upvote}
-            user_vote="dislike"
+            user_vote={article.vote}
           ></Article>
         ))
       }
@@ -26,43 +26,43 @@ const Articles = ({articles}) => {
 const voteReducer = (state, action) => {
   switch (action.type) {
     case "clickLike": {
-      if (state.userVote == "like") {
+      if (state.userVote == "upvote") {
         return {
           userVote: "",
           likeCount: state.likeCount - 1,
           dislikeCount: state.dislikeCount,
         };
       }
-      if (state.userVote == "dislike") {
+      if (state.userVote == "downvote") {
         return {
-          userVote: "like",
+          userVote: "upvote",
           likeCount: state.likeCount + 1,
           dislikeCount: state.dislikeCount - 1,
         };
       }
       return {
-        userVote: "like",
+        userVote: "upvote",
         likeCount: state.likeCount + 1,
         dislikeCount: state.dislikeCount,
       };
     }
     case "clickDislike": {
-      if (state.userVote == "dislike") {
+      if (state.userVote == "downvote") {
         return {
           userVote: "",
           likeCount: state.likeCount,
           dislikeCount: state.dislikeCount - 1,
         };
       }
-      if (state.userVote == "like") {
+      if (state.userVote == "upvote") {
         return {
-          userVote: "dislike",
+          userVote: "downvote",
           likeCount: state.likeCount - 1,
           dislikeCount: state.dislikeCount + 1,
         };
       }
       return {
-        userVote: "dislike",
+        userVote: "downvote",
         likeCount: state.likeCount,
         dislikeCount: state.dislikeCount + 1,
       };
@@ -122,7 +122,7 @@ const Article = (props) => {
                   className="like-icon"
                   onClick={(event) => handleOnVote(event, "clickLike")}
                 >
-                  {vote.userVote === "like" ? (
+                  {vote.userVote === "upvote" ? (
                     <LikeOutlined
                       style={{ fontSize: "30px", color: "#3EBE11" }}
                     />
@@ -137,7 +137,7 @@ const Article = (props) => {
                   className="dislike-icon"
                   onClick={(event) => handleOnVote(event, "clickDislike")}
                 >
-                  {vote.userVote === "dislike" ? (
+                  {vote.userVote === "downvote" ? (
                     <LikeOutlined
                       style={{
                         fontSize: "30px",
