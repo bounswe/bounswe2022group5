@@ -67,7 +67,7 @@ const Post = () => {
                         </div>
                         <div className="discussion-body-votes">
                             <div>{post?.body}</div>
-                            <Vote item={post} setItem={setPost}/>
+                            <Vote item={post} type={"post"} setItem={setPost}/>
                             
                         </div>
                         { post?.commented_by_doctor ? <div className="discussion-doctor">
@@ -108,7 +108,7 @@ const Post = () => {
                                     </div>
                                     <div className="discussion-comment-body">
                                         <span>{item?.comment?.body}</span>
-                                        <Vote item={item?.comment} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" isComment={true}/>
+                                        <Vote item={item?.comment} type={"comment"} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" />
                                     </div>
 
                                     {item?.image_urls ? 
