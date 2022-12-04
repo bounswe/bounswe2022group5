@@ -37,12 +37,25 @@ const SignUp = () => {
     const onFinish = (type) => {
         const allFields = userForm.getFieldsValue();
 
+        const memberFields = {
+            email: allFields?.email,
+            password: allFields?.password,
+            type,
+            date_of_birth: moment(dateOfBirth).format('YYYY-MM-DD'),
+            username
+        }
+
         var bodyFormData = new FormData();
         bodyFormData.append('email', allFields?.email);
         bodyFormData.append('password', allFields?.password);
         bodyFormData.append('type', type);
+        bodyFormData.append('firstname', firstName);
+        bodyFormData.append('lastname', lastName);
+        bodyFormData.append('branch', branch);
+        bodyFormData.append('date_of_birth', moment(dateOfBirth).format('YYYY-MM-DD'));
+        bodyFormData.append(`document`, fileList[0]?.originFileObj);
 
-        fetchRegister(bodyFormData)
+        fetchRegister(type === 1 ? bodyFormData : memberFields, type)
             .then((res) => {
                 notification["success"]({
                     message: 'Signup is successful',
@@ -53,7 +66,7 @@ const SignUp = () => {
                 navigate("/");
             })
             .catch((err) => {
-                console.log(err)
+                console.log(err?.response?.data)
                 notification["error"]({
                     message: "Signup is not successful",
                     description: Object.values(err?.response?.data).map(value => {
@@ -263,7 +276,6 @@ const SignUp = () => {
 
                     <Form 
                         form={userForm} 
-                        onFinish={onFinish} 
                         className="form"
                     >
                         <div className="input-inline">
