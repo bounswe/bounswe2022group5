@@ -6,8 +6,13 @@ import 'package:bounswe5_mobile/models/article.dart';
 import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
+enum Menu { itemOne, itemTwo }
+
 class ViewArticlePage extends StatefulWidget {
-  const ViewArticlePage({Key? key, required this.article}) : super(key: key);
+  const ViewArticlePage(
+      {Key? key, required this.activeUser, required this.article})
+      : super(key: key);
+  final User activeUser;
   final Article article;
 
   @override
@@ -15,7 +20,6 @@ class ViewArticlePage extends StatefulWidget {
 }
 
 class _ViewArticlePageState extends State<ViewArticlePage> {
-
   String tempImagePath = 'lib/assets/images/generic_user.jpg';
 
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
@@ -27,13 +31,13 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children:[Text(
-              'Logo',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              )
-          )],
+          children: [
+            Text('Logo',
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                ))
+          ],
         ),
         elevation: 0.0,
       ),
@@ -74,13 +78,52 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                             children: [
                               SizedBox(width: 5),
                               Text(
-                                "Published: " + formatter.format(widget.article.time),
+                                "Published: " +
+                                    formatter.format(widget.article.time),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
+                    SizedBox(width: 8.0),
+                    LayoutBuilder(builder: (context, constraints) {
+                      if (widget.activeUser == widget.article.author) {
+                        return PopupMenuButton<Menu>(
+                          onSelected: (Menu item) {
+                            setState(() {
+                              //_selectedMenu = item.name;
+                            });
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<Menu>>[
+                            const PopupMenuItem<Menu>(
+                              value: Menu.itemOne,
+                              child: Text('Edit'),
+                            ),
+                            const PopupMenuItem<Menu>(
+                              value: Menu.itemOne,
+                              child: Text('Delete'),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return PopupMenuButton<Menu>(
+                          onSelected: (Menu item) {
+                            setState(() {
+                              //_selectedMenu = item.name;
+                            });
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<Menu>>[
+                            const PopupMenuItem<Menu>(
+                              value: Menu.itemOne,
+                              child: Text('Report'),
+                            ),
+                          ],
+                        );
+                      }
+                    })
                   ],
                 ),
               ),
@@ -128,21 +171,18 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                           size: 30,
                           // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
                         ),
-                        onTap: ((){
+                        onTap: (() {
                           print("Article upvoted.");
                         }),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        widget.article.upvotes.toString(),
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20
-                        )
-                      )
+                      Text(widget.article.upvotes.toString(),
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20))
                     ],
                   ),
                   Row(
@@ -153,21 +193,18 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                           size: 30,
                           // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
                         ),
-                        onTap: ((){
+                        onTap: (() {
                           print("Article downvoted.");
                         }),
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        widget.article.downvotes.toString(),
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20
-                        )
-                      )
+                      Text(widget.article.downvotes.toString(),
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20))
                     ],
                   ),
                 ],
@@ -182,13 +219,12 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
   }
 }
 
-
-class CategoryViewer extends StatelessWidget{
+class CategoryViewer extends StatelessWidget {
   CategoryViewer({required this.name});
   final String name;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -207,7 +243,9 @@ class CategoryViewer extends StatelessWidget{
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
               SizedBox(width: 10.0),
-              Text(name, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+              Text(name,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary)),
             ],
           ),
         ),
