@@ -24,7 +24,7 @@ def get_all_articles(request):
     article_objects = Article.objects.all().order_by('-date')
     articles = []
     try:
-        user = request.user.id
+        user = request.user
     except:
         user = None
     for article in article_objects:
