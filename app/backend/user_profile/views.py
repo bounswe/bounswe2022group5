@@ -255,7 +255,7 @@ def get_personal_info(request):
         profile_picture = doctor.profile_picture
 
         personal_info['full_name'] = full_name
-        personal_info['specialization'] = specialization
+        personal_info['specialization'] = specialization.name
         personal_info['hospital_name'] = hospital_name
         personal_info['verified'] = verified
         personal_info['document'] = document
@@ -369,12 +369,7 @@ def update_personal_info(request):
 
         doctor.full_name = full_name
 
-        if 'specialization' in data:
-            specialization = data['specialization']
-        else:
-            specialization = doctor.specialization
 
-        doctor.specialization = specialization
 
         if 'hospital_name' in data:
             hospital_name = data['hospital_name']
@@ -393,7 +388,7 @@ def update_personal_info(request):
         doctor.save()
 
         personal_info['full_name'] = full_name
-        personal_info['specialization'] = specialization
+        personal_info['specialization'] = doctor.specialization.name
         personal_info['hospital_name'] = hospital_name
         personal_info['verified'] = verified
         personal_info['document'] = document

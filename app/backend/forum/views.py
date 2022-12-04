@@ -125,8 +125,7 @@ def get_posts_of_user(request, user_id):
             post_dict['vote'] = None
         response_dict.append(post_dict)
 
-
-
+    result_page = paginator.paginate_queryset(response_dict, request)
 
     return paginator.get_paginated_response(result_page)
 
