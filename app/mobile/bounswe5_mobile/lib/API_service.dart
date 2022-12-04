@@ -160,18 +160,20 @@ class ApiService {
     }
 
     if(image_uri.length == 0 && longitude.length == 0) {
-        var uri = Uri.parse(
-            "${baseURL}/forum/post/${postID.toString()}/comment");
-        Map<String, String> headers = {
-          'Authorization': "token $token",
-          'content-type': "multipart/form-data",
-        };
-        var request = http.MultipartRequest('POST', uri)
-          ..headers.addAll(headers)
-          ..fields['body'] = body;
-        var response = await request.send();
-        return response.statusCode;
-      }
+
+      var uri = Uri.parse(
+          "${baseURL}/forum/post/${postID.toString()}/comment");
+      Map<String, String> headers = {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['body'] = body;
+      var response = await request.send();
+      return response.statusCode;
+    }
+
 
     var uri = Uri.parse("${baseURL}/forum/post/${postID.toString()}/comment");
     Map<String, String> headers =  {
@@ -467,5 +469,76 @@ class ApiService {
     return response.statusCode;
 
 
+
   }
+  Future<int> updateUserInfo(User user, String name) async {
+    var token = user.token;
+    var uri = Uri.parse("$baseURL/profile/update_personal_info");
+    var body;
+    if(user.usertype == 2 ){
+      body = jsonEncode(<String, Object>{
+        'member_username': name
+      });
+      print("member");
+    }
+    else if(user.usertype == 1 ){
+      body = jsonEncode(<String, Object>{
+        'hospital_name': name
+      });
+    }
+    final response = await http.post(uri, body: body, headers: {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    });
+    print(response.body);
+    return response.statusCode;
+
+  }
+  Future<int> changeHospitalName(String token, String hospitalName) async {
+    var uri = Uri.parse("$baseURL/profile/update_personal_info");
+    Map<String, String> headers =  {
+      'Authorization': "token $token",
+      'content-type': "multipart/form-data",
+    };
+    var request = http.MultipartRequest('POST', uri)
+      ..headers.addAll(headers)
+      ..fields['hospital_name'] = hospitalName;
+
+    final body = jsonEncode(<String, String>{
+      'member_username': hospitalName
+    });
+    var response = await request.send();
+    return response.statusCode;
+  }
+  Future<int?> getAvatar(String token) async {
+    var uri = Uri.parse("$baseURL/profile/get_personal_info");
+
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.get(uri, headers: header);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+      int avatar = body["avatar"];
+      return avatar;
+    } else{
+      return null;
+    }
+  }
+
+  Future<int> changeAvatar(String token, int avatar) async {
+    var uri = Uri.parse("$baseURL/profile/update_personal_info");
+    Map<String, String> headers =  {
+      'Authorization': "token $token",
+      'content-type': "multipart/form-data",
+    };
+    final body = jsonEncode(<String, int>{
+      'avatar': avatar
+    });
+    final response = await http.post(uri, body: body, headers: headers);
+    return response.statusCode;
+  }
+
 }
