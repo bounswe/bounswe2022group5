@@ -128,6 +128,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                     SizedBox(
                       width: 8.0,
                     ),
+                    Icon(Icons.more_vert),
                   ],
                 ),
               ),
