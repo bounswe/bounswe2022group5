@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/article.dart';
 import 'package:intl/intl.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 
 class ViewArticlePage extends StatefulWidget {
-  const ViewArticlePage({Key? key}) : super(key: key);
+  const ViewArticlePage({Key? key, required this.article}) : super(key: key);
+  final Article article;
 
   @override
   State<ViewArticlePage> createState() => _ViewArticlePageState();
@@ -14,7 +16,6 @@ class ViewArticlePage extends StatefulWidget {
 
 class _ViewArticlePageState extends State<ViewArticlePage> {
 
-  Article article = articles[3];
   String tempImagePath = 'lib/assets/images/generic_user.jpg';
 
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
@@ -22,12 +23,17 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Logo',
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children:[Text(
+              'Logo',
               style: TextStyle(
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
-              )),
+              )
+          )],
         ),
         elevation: 0.0,
       ),
@@ -59,7 +65,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                               Icon(Icons.check),
                               SizedBox(width: 5),
                               Text(
-                                "Dr. " + article.author.fullName,
+                                "Dr. " + widget.article.author.fullName,
                                 maxLines: 2,
                               ),
                             ],
@@ -68,7 +74,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                             children: [
                               SizedBox(width: 5),
                               Text(
-                                "Published: " + formatter.format(article.time),
+                                "Published: " + formatter.format(widget.article.time),
                               ),
                             ],
                           ),
@@ -84,7 +90,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                 constraints: BoxConstraints(maxHeight: double.infinity),
                 width: double.infinity,
                 child: Text(
-                  article.header,
+                  widget.article.header,
                   maxLines: 3,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -101,7 +107,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                 constraints: BoxConstraints(maxHeight: double.infinity),
                 width: double.infinity,
                 child: Text(
-                  article.body,
+                  widget.article.body,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -130,7 +136,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         width: 10,
                       ),
                       Text(
-                        article.upvotes.toString(),
+                        widget.article.upvotes.toString(),
                         style: TextStyle(
                             color: Colors.green,
                             fontWeight: FontWeight.bold,
@@ -155,7 +161,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         width: 10,
                       ),
                       Text(
-                        article.downvotes.toString(),
+                        widget.article.downvotes.toString(),
                         style: TextStyle(
                             color: Colors.red,
                             fontWeight: FontWeight.bold,

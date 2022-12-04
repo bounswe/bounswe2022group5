@@ -1,4 +1,14 @@
+.profile-container {
+    background-color: #add8e6;
+}
+
 .profile-avatar {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.profile-edit-pp{
     display: flex;
     justify-content: center;
     padding: 50px;
@@ -26,3 +36,12 @@
     padding-left: 5vw;
     padding-top: 3vh;
 }
+
+.profile-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+
+

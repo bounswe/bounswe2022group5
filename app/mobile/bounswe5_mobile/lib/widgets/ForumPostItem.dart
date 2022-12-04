@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:intl/intl.dart';
+import 'package:bounswe5_mobile/screens/viewPost.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 
 /// A single post item shown in the Forum.
 class ForumPostItem extends StatelessWidget{
-  ForumPostItem({required this.index, required this.post, required this.formatter});
+  ForumPostItem({required this.activeUser, required this.index, required this.post, required this.formatter});
+  final User activeUser;
   final int index;
   final Post post;
   final DateFormat formatter;
@@ -12,7 +15,14 @@ class ForumPostItem extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return InkWell(
-      onTap: (){print("$index tapped.");},
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>
+              ViewPostPage(activeUser: activeUser, post: post)),
+        );
+        print("$index tapped.");
+        },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
         height: 120,
@@ -78,12 +88,9 @@ class ForumPostItem extends StatelessWidget{
                   children: [
                     Column(
                       children: [
-                        InkWell(
-                          onTap: (){print('upvoted $index');},
-                          child: const Icon(
-                            Icons.arrow_upward,
-                            size: 30.0,
-                          ),
+                        const Icon(
+                          Icons.arrow_upward,
+                          size: 30.0,
                         ),
                         Text(
                             post.upvotes.toString()
@@ -95,12 +102,9 @@ class ForumPostItem extends StatelessWidget{
                     ),
                     Column(
                       children: [
-                        InkWell(
-                          onTap: (){print('downvoted $index');},
-                          child: const Icon(
-                            Icons.arrow_downward,
-                            size: 30.0,
-                          ),
+                        const Icon(
+                          Icons.arrow_downward,
+                          size: 30.0,
                         ),
                         Text(
                             post.downvotes.toString()

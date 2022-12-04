@@ -37,16 +37,16 @@ List<Category> categories = [
 ];
 
 // Members:
-String ppUri = 'lib/assets/images/generic_user.jpg';
+int ppUri = 1;
 List<User> members = [
-  User(1, '', 'canberk@gmail.com', 1, memberid: 1, username: 'canberk', avatarUrl: ppUri),
-  User(2, '', 'bengin@gmail.com', 1, memberid:2, username: 'bengin', avatarUrl: ppUri),
-  User(3, '', 'burak@gmail.com', 1, memberid:3, username: 'burak', avatarUrl: ppUri),
-  User(4, '', 'engin@gmail.com',1, memberid:4, username: 'engin', avatarUrl: ppUri),
-  User(5, '', 'halil@gmail.com',1, memberid: 5, username: 'halil', avatarUrl: ppUri),
-  User(6, '', 'irfan@gmail.com',1, memberid: 6, username: 'irfan', avatarUrl: ppUri),
-  User(7, '', 'kardelen@gmail.com',1, memberid: 7, username: 'kardelen', avatarUrl: ppUri),
-  User(8, '', 'emre@gmail.com',1, memberid: 8, username: 'emre', avatarUrl: ppUri),
+  User(1, '', 'canberk@gmail.com', 1, memberid: 1, username: 'canberk'),
+  User(2, '', 'bengin@gmail.com', 1, memberid:2, username: 'bengin'),
+  User(3, '', 'burak@gmail.com', 1, memberid:3, username: 'burak'),
+  User(4, '', 'engin@gmail.com',1, memberid:4, username: 'engin'),
+  User(5, '', 'halil@gmail.com',1, memberid: 5, username: 'halil'),
+  User(6, '', 'irfan@gmail.com',1, memberid: 6, username: 'irfan'),
+  User(7, '', 'kardelen@gmail.com',1, memberid: 7, username: 'kardelen'),
+  User(8, '', 'emre@gmail.com',1, memberid: 8, username: 'emre'),
 ];
 
 // Doctors:
