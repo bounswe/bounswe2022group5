@@ -5,8 +5,8 @@ import 'package:bounswe5_mobile/screens/viewArticle.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
 class ArticleItem extends StatelessWidget{
-  ArticleItem({required this.index, required this.article});
-  final int index;
+  ArticleItem({required this.activeUser, required this.article});
+  final User activeUser;
   final Article article;
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
 
@@ -19,8 +19,6 @@ class ArticleItem extends StatelessWidget{
           MaterialPageRoute(builder: (context) =>
               ViewArticlePage(article: article)),
         );
-
-        print("Article $index tapped.");
         },
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),

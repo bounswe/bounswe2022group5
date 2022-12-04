@@ -6,11 +6,10 @@ import 'package:bounswe5_mobile/models/user.dart';
 
 /// A single post item shown in the Forum.
 class ForumPostItem extends StatelessWidget{
-  ForumPostItem({required this.activeUser, required this.index, required this.post, required this.formatter});
+  ForumPostItem({required this.activeUser, required this.post});
   final User activeUser;
-  final int index;
   final Post post;
-  final DateFormat formatter;
+  final DateFormat formatter = DateFormat('dd/MM/yyyy');
 
   @override
   Widget build(BuildContext context){
@@ -21,7 +20,6 @@ class ForumPostItem extends StatelessWidget{
           MaterialPageRoute(builder: (context) =>
               ViewPostPage(activeUser: activeUser, post: post)),
         );
-        print("$index tapped.");
         },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
