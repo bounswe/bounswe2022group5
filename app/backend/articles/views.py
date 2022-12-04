@@ -93,7 +93,7 @@ def get_articles_of_doctor(request, user_id):
 
     response = []
     if request.user:
-        user = request.user.id
+        user = request.user
         for article in articles:
             serializer_article_data = ArticleSerializer(article).data
             if article.id in user.upvoted_articles:

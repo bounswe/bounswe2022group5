@@ -338,7 +338,7 @@ def update_personal_info(request):
     personal_info['hospital_name'] = "-1"
     personal_info['verified'] = "-1"
     personal_info['document'] = "-1"
-    personal_info['profile_picture'] = "-1"
+    personal_info['profile_image'] = "-1"
     personal_info['member_username'] = "-1"
     personal_info['firstname'] = "-1"
     personal_info['lastname'] = "-1"
@@ -392,7 +392,7 @@ def update_personal_info(request):
         personal_info['hospital_name'] = hospital_name
         personal_info['verified'] = verified
         personal_info['document'] = document
-        personal_info['profile_picture'] = profile_picture
+        personal_info['profile_image'] = profile_picture
 
     elif int(user.type) == UserType.MEMBER.value:
         
