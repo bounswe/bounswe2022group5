@@ -21,7 +21,6 @@ export const fetchLogin = (userData) => {
 
 export const fetchMe = createAsyncThunk('user/fetchMe', async () => {
   const { data } = await axios.get(`${url}/auth/me`);
-  console.log(data)
   return data;
 });
 
@@ -40,7 +39,6 @@ const userSlice = createSlice({
       localStorage.removeItem('authToken');
       state.status = 'idle';
       state.user = {};
-      window.location.reload();
     },
     login: (state, action) => {
       localStorage.setItem('authToken', action.payload.token);
