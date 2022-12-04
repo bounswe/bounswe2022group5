@@ -10,7 +10,14 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
-const List<String> categories = <String>['Anatomical Pathology', 'Anesthesiology','Cardiology','Hematology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy', 'Critical Care Medicine'];
+const List<String> categories = <String>["Anatomical Pathology","Anesthesiology",'Cardiology',"Cardiovascular/Thoracic Surgery", "Clinical Immunology/Allergy",
+  "Critical Care Medicine", "Dermatology","Diagnostic Radiology", "Emergency Medicine","Endocrinology and Metabolism","Family Medicine",
+  "Gastroenterology", "General Internal Medicine", "General Surgery", "General/Clinical Pathology","Geriatric Medicine",
+  "Hematology","Medical Biochemistry","Medical Genetics","Medical Microbiology and Infectious Diseases",
+  "Medical Oncology","Nephrology","Neurology","Neurosurgery", "Nuclear Medicine","Obstetrics/Gynecology",
+  "Occupational Medicine","Ophthalmology","Orthopedic Surgery","Otolaryngology","Pediatrics","Physical Medicine and Rehabilitation (PM & R)",
+  "Plastic Surgery","Psychiatry","Public Health and Preventive Medicine","Radiation Oncology","Respirology",
+  "Rheumatology","Urology"];
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({Key? key, required User this.activeUser}) : super(key: key);
@@ -22,6 +29,7 @@ class CreatePostPage extends StatefulWidget {
 class _CreatePostPageState extends State<CreatePostPage> {
 
   List tags = [];
+  List<String> labels = [];
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _title = TextEditingController();
   final TextEditingController _body = TextEditingController();
@@ -29,8 +37,10 @@ class _CreatePostPageState extends State<CreatePostPage> {
   File? image;
   Position? _currentPosition;
 
-  Future<int> post(String token, String title, String body, String longitude, String latitude, String image_uri) async { //register API call handling function
-    final result = await ApiService().createPost(token, title, body, longitude, latitude, image_uri);
+
+
+  Future<int> post(String token, String title, String body, String longitude, String latitude, String image_uri, String category, String tags) async {
+    final result = await ApiService().createPost(token, title, body, longitude, latitude, image_uri, category, tags);
     return result;
   }
 
@@ -125,6 +135,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                                   child: DropdownButtonFormField<String>(
+                                    isExpanded: true,
                                     decoration: const InputDecoration(
                                       prefixIcon: Icon(Icons.search),
                                       border: OutlineInputBorder(),
@@ -155,6 +166,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                         onSubmitted: (string) {
                                           setState(() {
                                             tags.add(Item(title: string));
+                                            labels.add(string);
                                           });
                                         },
                                       ),
@@ -170,6 +182,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                             onRemoved: () {
                                               setState(() {
                                                 tags.removeAt(index);
+                                                labels.removeAt(index);
                                               });
                                               return true;
                                             },
@@ -307,12 +320,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                                   if(image != null){
                                                     image_uri = "${image!.uri}";
                                                   }
-                                                  int posted = await post(token, _title.text, _body.text, longitude, latitude, image_uri);
+                                                  int posted = await post(token, _title.text, _body.text, longitude, latitude, image_uri, categoryValue, labels.join(','));
                                                   if (posted == 200) {
                                                     Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(content: Text("Could not post")),
+                                                      SnackBar(content: Text("Could not post ${posted} ${labels.join(',')}")),
                                                     );
                                                   }
                                                 }
