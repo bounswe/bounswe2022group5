@@ -12,7 +12,7 @@ const Forum = ({posts}) => {
     <div className="forum-page">
       {
         posts?.map(post => (
-          <Post header={post.title} date={post.date} author={post.author} content={post.body} answeredBy={post.commented_by_doctor} dislikeCount={post.downvote} likeCount={post.upvote} userVote={post.vote}/>
+          <Post header={post.title} date={post.date} author={post.author.username} content={post.body} answeredBy={post.commented_by_doctor} dislikeCount={post.downvote} likeCount={post.upvote} userVote={post.vote}/>
         ))
 
         //check if current user liked this post.

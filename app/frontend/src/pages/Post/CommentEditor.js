@@ -145,16 +145,15 @@ const CommentEditor = ({ postId, setComments }) => {
             { !showImageButton ? <div className="comment-editor-images">
                 <Upload
                     listType="picture-card"
-                    fileList={fileList}
                     onPreview={handlePreview}
                     onChange={handleChange}
                 >
-                    {fileList.length >= 8 ? null : 
-                        <div>
-                            <PlusOutlined />
-                            <div style={{ marginTop: 8 }}>Upload</div>
-                        </div>
-                    }
+                    
+                    <div>
+                        <PlusOutlined />
+                        <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                    
                 </Upload>
                 <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />

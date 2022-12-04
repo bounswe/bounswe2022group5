@@ -9,7 +9,7 @@ const Articles = ({articles}) => {
         articles?.map(article => (
           <Article
             header={article.title}
-            author={article.author}
+            author={article.author.username}
             date={article.date}
             dislike_count={article.downvote}
             like_count={article.upvote}

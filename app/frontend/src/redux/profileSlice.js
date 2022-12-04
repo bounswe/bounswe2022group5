@@ -26,3 +26,9 @@ export const fetchUpdateAvatar = (idAvatar) => {
     const {data} = axios.post(`${url}/profile/set_avatar`, idAvatar);
     return data;
 }
+
+export const fetchUpdateProfilePicture = (img) => {
+    const {data} = axios.post(`${url}/profile/upload_profile_picture`, img);
+    return data;
+}
+

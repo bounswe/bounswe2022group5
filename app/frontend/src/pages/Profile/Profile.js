@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import NavBar from "../../layouts/NavBar/NavBar";
-import { Avatar, Button , Pagination , Image , Dropdown , Form , Input , notification, Card} from "antd";
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Button , Pagination , Image , Dropdown , Form , Input , notification, Card, Upload, Modal } from "antd";
+import { LoadingOutlined , PlusOutlined } from '@ant-design/icons';
 
 import "./Profile.css"
 import Popup from "../../components/Popup/Popup";
@@ -14,13 +14,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchPostByUserId } from "../../redux/postSlice";
 import { fetchArticleByUserId } from "../../redux/articleSlice";
-import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar } from "../../redux/profileSlice";
+import { fetchCommentByUserId } from "../../redux/commentSlice";
+import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture } from "../../redux/profileSlice";
 import { setUser } from "../../redux/userSlice";
 
 const {Meta} = Card;
 const AVATAR_API_KEY = process.env.AVATAR_API_KEY;
-
-
 
 const buttonStyleClicked = {
     width: "40%",
@@ -89,18 +88,24 @@ const renderUpvotedArticles = (results) => {
     )
 }
 
-const renderActivityHistory = (pageType, posts, articles, upvotedPosts, upvotedArticles) => {
+const renderActivityHistory = (pageType, posts, articles, comments, upvotedPosts, upvotedArticles) => {
     if (pageType==0) return renderPosts(posts);
     else if(pageType==1) return renderArticles(articles);
-    else if(pageType==2) return renderComments();
+    else if(pageType==2) return renderComments(comments);
     else if(pageType==3) return renderUpvotedPosts(upvotedPosts);
     else if(pageType==4) return renderUpvotedArticles(upvotedArticles);
 }
 
+const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader?.result);
+        reader.onerror = (error) => reject(error);
+    });
+};
 
 const Profile = () => {
-
-    const dispatch = useDispatch();
 
     const { status: userStatus, user } = useSelector((state) => state.user);
     const userID = user.id; //user.id
@@ -117,11 +122,8 @@ const Profile = () => {
         setPageNo(page);
     }
 
-    const userPhotoURL = `https://api.multiavatar.com/1.svg?apikey=${AVATAR_API_KEY}`; //user.profile_image
+    const userPhotoURL = user.profile_image; //user.profile_image
     
-
-    
-
     console.log(user);
     console.log(userID);
 
@@ -155,6 +157,19 @@ const Profile = () => {
         
     }, [pageNo, user]);
 
+    const [commentCount, setCommentCount] = useState();
+    const [comments, setComments] = useState();
+    
+    useEffect(() => {
+        if(user.id){
+            fetchCommentByUserId(userID, pageNo).then(res => {
+                setCommentCount(res.count);
+                setComments(res.results)
+            });
+        }
+        
+    }, [pageNo, user]);
+
     const [upvotedPostCount, setUpvotedPostCount] = useState();
     const [upvotedPosts, setUpvotedPosts] = useState();
 
@@ -174,27 +189,51 @@ const Profile = () => {
             setUpvotedArticles(res.results)
         })
     }, [pageNo])
+    
 
     const whichState = (pageType) => {
         if(pageType===0) return postCount;
-        else if(pageType===1) return articleCount; //articleCount;
-        else if(pageType===2) return postCount; //commentCount;
+        else if(pageType===1) return articleCount;
+        else if(pageType===2) return commentCount;
         else if(pageType===3) return upvotedPostCount;
         else if(pageType===4) return upvotedArticleCount;
     }
 
     const [username, setUsername] = useState();
+    const [hospitalName, setHospitalName] = useState();
 
     useEffect(() => {
         fetchPersonalInfo().then(res => {
             setUsername(res.member_username);
+            setHospitalName(res.hospital_name);
         })
-    }, [infoPopup])
+    }, [])
     
     const [form] = Form.useForm();
 
-    const onFinishInfo = (values) => {
+    const onFinishInfoMember = (values) => {
         const body = {...values, member_username:username}
+        
+        fetchUpdatePersonalInfo(body).then(res => {
+            notification["success"]({
+                message: 'Editing info is successful',
+                placement: "top"
+            });
+            
+            console.log("zartzurt");
+        }).catch((err) => {
+            notification["error"]({
+                message: "Editing info is not successful",
+                description: err?.message,
+                placement: "top"
+            });
+
+        })
+
+    };
+
+    const onFinishInfoDoctor = (values) => {
+        const body = {...values, hospital_name:hospitalName}
         
         fetchUpdatePersonalInfo(body).then(res => {
             notification["success"]({
@@ -219,18 +258,73 @@ const Profile = () => {
 
         fetchUpdateAvatar(body).then(res => {
             notification["success"]({
-                message: 'Editing info is successful',
+                message: 'Editing avatar is successful',
                 placement: "top"
             });
 
         }).catch((err) => {
             notification["error"]({
-                message: "Editing info is not successful",
+                message: "Editing avatar is not successful",
                 description: err?.message,
                 placement: "top"
             });
         })
     }
+
+    // const uploadButton = (
+    //     <div>
+    //       {loading ? <LoadingOutlined /> : <PlusOutlined />}
+    //       <div style={{ marginTop: 8 }}>Upload</div>
+    //     </div>
+    // );
+    const [previewOpen, setPreviewOpen] = useState(false);
+    const [previewImage, setPreviewImage] = useState('');
+    const [previewTitle, setPreviewTitle] = useState('');
+    const [fileList, setFileList] = useState([]);
+
+    const handleCancel = () => setPreviewOpen(false);
+
+    const handlePreviewProfilePicture = async (file) => {
+        if (!file.url && !file.preview) {
+        file.preview = await getBase64(file?.originFileObj);
+        }
+
+        setPreviewImage(file?.url || (file?.preview));
+        setPreviewOpen(true);
+        setPreviewTitle(file?.name || file?.url?.substring(file?.url?.lastIndexOf('/') + 1));
+    };
+
+    const handleChangeProfilePicture = ({ fileList: newFileList }) => {
+        if(fileList.length < newFileList.length) {
+            setFileList([...newFileList.slice(0, newFileList.length - 1), { ...newFileList[newFileList.length - 1], status: "done" }]);
+          } else if (fileList.length > newFileList.length){
+            setFileList(newFileList.filter(f => f.status !== "removed"));
+        }
+    };
+
+    const handleSubmit = async () => {
+
+        let postData = new FormData();
+
+        for (let i = 0; i<fileList.length; i++) {
+            postData.append(`image${i+1}`, fileList[i]?.originFileObj);
+        }
+
+        await fetchUpdateProfilePicture(postData)
+            .then((res) => {
+
+                notification["success"]({
+                    message: 'Profile picture is changed',
+                    placement: "top"
+                });
+            })
+            .catch(() => {
+                notification["error"]({
+                    message: 'Profile Picture is not changed',
+                    placement: "top"
+                });
+            })
+    };
 
     return (
         <div className="profile-container">
@@ -239,7 +333,7 @@ const Profile = () => {
             <div className="profile-header">
                 <div className="profile-avatar">
                     
-                    <Avatar size={100} src={<Image src={userPhoto}></Image>}>
+                    <Avatar size={100} src={<Image src={user.profile_image}></Image>}>
 
                     </Avatar>
                     <br></br>
@@ -349,8 +443,34 @@ const Profile = () => {
                             </Card>
                 
                             :
-                            <>sadasd</>
+                            <div>
+                                <Upload
+                                name="avatar"
+                                listType="picture-card"
+                                maxCount={1}
+                                onPreview={handlePreviewProfilePicture}
+                                onChange={handleChangeProfilePicture}
+                                >
+                                    <div>
+                                        <PlusOutlined />
+                                        <div style={{ marginTop: 8 }}>Upload</div>
+                                    </div>
+                                </Upload>
+                                <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+                                    <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                                </Modal>
 
+                                <Button 
+                                type="primary"
+                                shape="round" 
+                                size="large" 
+                                onClick={handleSubmit}
+                                >
+                                    Change Profile Picture
+                                </Button>
+
+                            </div>
+                            
                             
                             }
                         </Popup>
@@ -361,14 +481,16 @@ const Profile = () => {
 
 
                 <div className="profile-info">
-                    {user.email}
+                    Email: {user.email}
                     <br></br>
-                    user type {user.type}
-                    aa{username}aa
+                    {user.type===1 ? 'Name Surname' : 'Username'}: {user.username} 
+                    {/* user.username yerine const username'den cekmek istiyorum */}
                     <br></br>
-                    user id {userID}
+                    User ID: {userID}
                     <br></br>
-                    post count {postCount}
+                    User Type: {user.type===2 ? 'Member' : 'Doctor'}
+                    <br></br>
+                    {user.type===1 && hospitalName ? `Hospital Name: ${hospitalName}` : <></>}
                 </div>
 
                 {
@@ -381,14 +503,14 @@ const Profile = () => {
                         </Button>
                         
                         <Popup trigger={infoPopup} setTrigger={setInfoPopup}>
-                            
-                            <Form 
+                            {user.type===2 ? 
+                                <Form 
                                 form={form} 
                                 layout="inline" 
-                                onFinish={onFinishInfo} 
+                                onFinish={onFinishInfoMember} 
                                 className="form"
                                 initialValues={{ remember: true }}
-                            >
+                                >
                                 <Form.Item
                                     name="username"
                                 >
@@ -404,7 +526,36 @@ const Profile = () => {
                                         Submit
                                     </Button>
                                 </Form.Item>
-                            </Form>
+                                </Form>
+
+                                :
+                                
+                                <Form 
+                                form={form} 
+                                layout="inline" 
+                                onFinish={onFinishInfoDoctor} 
+                                className="form"
+                                initialValues={{ remember: true }}
+                                >
+                                <Form.Item
+                                    name="hospitalName"
+                                >
+                                    <Input 
+                                        placeholder="New Hospital Name"
+                                        value={hospitalName}
+                                        onChange={(e) => setHospitalName(e.target.value)}
+                                    />
+                                </Form.Item>
+
+                                <Form.Item >
+                                    <Button type="primary" htmlType="submit" className="input-box">
+                                        Submit
+                                    </Button>
+                                </Form.Item>
+                                </Form>
+
+                            }
+                            
 
                         </Popup>
 
@@ -422,7 +573,7 @@ const Profile = () => {
                     >
                         Posts
                 </Button>
-                {user.type === 2 ? 
+                {user.type === 1 ? 
                 <Button 
                     shape="round" 
                     size="large" 
@@ -460,7 +611,7 @@ const Profile = () => {
             : null}
 
             <div className="profile-activity">
-                {renderActivityHistory(pageType, posts, articles, upvotedPosts, upvotedArticles)}
+                {renderActivityHistory(pageType, posts, articles, comments, upvotedPosts, upvotedArticles)}
             </div>
             
             <div className="profile-pagination">
