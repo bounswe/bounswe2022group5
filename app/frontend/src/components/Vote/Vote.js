@@ -9,7 +9,6 @@ import {
     fetchUpvoteComment, 
     fetchUpvotePost, 
     fetchDownvotePost,
-    fetchDownvotePost, 
     fetchUpvoteArticle,
     fetchDownvoteArticle
 } from '../../redux/voteSlice';
