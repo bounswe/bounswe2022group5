@@ -1,4 +1,8 @@
+import os
+from typing import Optional
+
 from backend.models import CustomUser, Doctor, Member
+from django.db.models import Q
 from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
@@ -10,27 +14,75 @@ from common.views import upload_to_s3, delete_from_s3
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 import math
 # Create your views here.
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny])
 def get_all_posts(request):
+    search_query = request.GET.get('q', None)
+    search_query = search_query if search_query is None else search_query.split(" ")
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
-    post_objects = Post.objects.all().order_by('-date')
+    if search_query:
+        queryset_list1 = Q()
+
+        for keyword in search_query:
+            queryset_list1 |= (
+                    Q(title__icontains=keyword) |
+                    Q(body__icontains=keyword)
+            )
+
+            post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[0:10]
+    else:
+        post_objects = Post.objects.all().order_by('-date')[0:10]
+
+
     posts = []
-    user = CustomUser.objects.get(id= request.user.id)
+    try:
+        user = request.user
+        user = CustomUser.objects.get(email = user.email)
+    except:
+        user = None
+
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
-        if post.id in user.upvoted_posts:
-            serializer_post_data['vote'] = 'upvote'
-        elif post.id in user.downvoted_posts:
-            serializer_post_data['vote'] = 'downvote'
+        if user:
+            if post.id in user.upvoted_posts:
+                serializer_post_data['vote'] = 'upvote'
+            elif post.id in user.downvoted_posts:
+                serializer_post_data['vote'] = 'downvote'
+            else:
+                serializer_post_data['vote'] = None
         else:
             serializer_post_data['vote'] = None
+        author = post.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_post_data["author"] = author_data
         posts.append(serializer_post_data)
 
     result_page = paginator.paginate_queryset(posts, request)
@@ -39,7 +91,7 @@ def get_all_posts(request):
 
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny])
 def get_posts_of_user(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
@@ -61,11 +113,22 @@ def get_posts_of_user(request, user_id):
     elif sort == 'desc':
         posts = posts.order_by('-date')
 
-    result_page = paginator.paginate_queryset(posts, request)
+    response_dict=[]
+    for post in posts:
+        post_dict = PostSerializer(post).data
+        if post.id in request.user.upvoted_posts:
+            post_dict['vote'] = 'upvote'
+        elif post.id in request.user.downvoted_posts:
+            post_dict['vote'] = 'downvote'
+        else:
+            post_dict['vote'] = None
+        response_dict.append(post_dict)
 
-    serializer = PostSerializer(result_page, many=True)
+    result_page = paginator.paginate_queryset(response_dict, request)
 
-    return paginator.get_paginated_response(serializer.data)
+
+
+    return paginator.get_paginated_response(result_page)
 
 
 def _get_comment_of_post(id, author, user):
@@ -91,17 +154,22 @@ def _get_comment_of_post(id, author, user):
             author_data = {
                 'id': author.id,
                 'username': member_data.member_username,
-                'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
                 'is_doctor': False
             }
 
         comment_result['author'] = author_data
-        if comment.id in user.upvoted_comments:
-            comment_result['vote'] = 'upvote'
-        elif comment.id in user.downvoted_comments:
-            comment_result['vote'] = 'downvote'
+
+        if user:
+            if comment.id in user.upvoted_comments:
+                comment_result['vote'] = 'upvote'
+            elif comment.id in user.downvoted_comments:
+                comment_result['vote'] = 'downvote'
+            else:
+                comment_result['vote'] = None
         else:
             comment_result['vote'] = None
+        comment_result["id"] = comment.id
         data = {
             'comment' : comment_result,
             'image_urls': image_urls
@@ -112,10 +180,48 @@ def _get_comment_of_post(id, author, user):
 
     return comments
 
+@api_view(['GET',])
+@permission_classes([AllowAny])
+def get_comments_of_user(request, user_id):
 
+    author = CustomUser.objects.get(id=user_id)
+
+    paginator = PageNumberPagination()
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page', 1)
+
+    comments = Comment.objects.filter(author=author)
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
+
+    if sort == 'asc':
+        comments = comments.order_by('date')
+    elif sort == 'desc':
+        comments = comments.order_by('-date')
+
+    response_dict = []
+    for comment in comments:
+        comment_dict = CommentSerializer(comment).data
+        if comment.id in request.user.upvoted_posts:
+            comment_dict['vote'] = 'upvote'
+        elif comment.id in request.user.downvoted_posts:
+            comment_dict['vote'] = 'downvote'
+        else:
+            comment_dict['vote'] = None
+        response_dict.append(comment_dict)
+
+    result_page = paginator.paginate_queryset(response_dict, request)
+
+
+
+    return paginator.get_paginated_response(result_page)
 
 @api_view(['GET','DELETE', 'POST'])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny])
 def get_post(request,id):
     if (request.method == 'GET'):
         try:
@@ -125,7 +231,13 @@ def get_post(request,id):
         post_serializer = PostSerializer(post)
         response_dict = post_serializer.data
         author = post.author
-        comments = _get_comment_of_post(id, author, request.user)
+
+        try:
+            user = request.user
+            user = CustomUser.objects.get(email=user.email)
+        except:
+            user = None
+        comments = _get_comment_of_post(id, author, user)
         post_images = PostImages.objects.filter(post=post)
         image_urls = [image.image_url for image in post_images]
 
@@ -144,17 +256,19 @@ def get_post(request,id):
             author_data = {
                 'id': author.id,
                 'username': member_data.member_username,
-                'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
                 'is_doctor': False
             }
 
             response_dict["author"] = author_data
 
-
-        if post.id in request.user.upvoted_posts:
-            response_dict['vote'] = 'upvote'
-        elif post.id in request.user.downvoted_posts:
-            response_dict['vote'] = 'downvote'
+        if user:
+            if post.id in request.user.upvoted_posts:
+                response_dict['vote'] = 'upvote'
+            elif post.id in request.user.downvoted_posts:
+                response_dict['vote'] = 'downvote'
+            else:
+                response_dict['vote'] = None
         else:
             response_dict['vote'] = None
 
@@ -206,8 +320,14 @@ def create_post(request):
     body = request.data['body']
     date = datetime.now()
 
-    longitude = request.data['longitude']
-    latitude = request.data['latitude']
+    if "longitude" in request.data:
+        longitude = request.data['longitude']
+    else:
+        longitude = None
+    if "latitude" in request.data:
+        latitude = request.data['latitude']
+    else:
+        latitude = None
 
     post = Post(title=title, author=author, body=body, date=date, longitude= longitude, latitude = latitude)
     post.save()
@@ -226,7 +346,7 @@ def create_post(request):
         author_data = {
             'id': author.id,
             'username': member_data.member_username,
-            'profile_photo': f'https://group5static.s3.amazonaws.com/member/{member_data.info.avatar}',
+            'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
             'is_doctor': False
         }
 
@@ -236,7 +356,7 @@ def create_post(request):
         'title':title,
         'author': author,
         'body':body,
-        'date':date,
+        'date':date.strftime("%y-%m-%d %H:%M"),
         'longitude': longitude,
         'latitude': latitude
     }
@@ -264,7 +384,7 @@ def create_post(request):
 def upvote_post(request, id):
         try:
             post = Post.objects.get(id=id)
-            user_info = CustomUser.objects.get(id = request.user.id)
+            user_info = request.user
         except:
             return Response({'error': 'Post not found'}, status=400)
 
@@ -294,7 +414,7 @@ def upvote_post(request, id):
 def downvote_post(request, id):
         try:
             post = Post.objects.get(id=id)
-            user_info = CustomUser.objects.get(id = request.user.id)
+            user_info = request.user
         except:
             return Response({'error': 'Post not found'}, status=400)
         if id in user_info.downvoted_posts :
@@ -323,7 +443,7 @@ def downvote_post(request, id):
 def upvote_comment(request, id):
     try:
         comment = Comment.objects.get(id=id)
-        user_info = CustomUser.objects.get(id=request.user.id)
+        user_info = request.user
     except:
         return Response({'error': 'Comment not found'}, status=400)
 
@@ -353,7 +473,7 @@ def upvote_comment(request, id):
 def downvote_comment(request, id):
     try:
         comment = Comment.objects.get(id=id)
-        user_info = CustomUser.objects.get(id=request.user.id)
+        user_info = request.user
     except:
         return Response({'error': 'Comment not found'}, status=400)
 
@@ -380,13 +500,29 @@ def downvote_comment(request, id):
 
 
 @api_view(['GET','DELETE', 'POST'])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny])
 def get_comment(request,id):
     if (request.method == 'GET'):
-        comment = Comment.objects.get(id = id)
-        comment_serializer = CommentSerializer(comment)
+        try:
+            user = request.user
+            user = CustomUser.objects.get(email=user.email)
+        except:
+            user = None
+        comment = Comment.objects.get(id=id)
+        comment_result = CommentSerializer(comment).data
+        if user:
+            if comment.id in user.upvoted_comments:
+                comment_result['vote'] = 'upvote'
+            elif comment.id in user.downvoted_comments:
+                comment_result['vote'] = 'downvote'
+            else:
+                comment_result['vote'] = None
+        else:
+            comment_result['vote'] = None
 
-        return Response(comment_serializer.data, status=200)
+
+
+        return Response(comment_result, status=200)
 
 
     if (request.method == 'DELETE'):
@@ -429,8 +565,15 @@ def create_comment(request, id):
     body = request.data['body']
     date = datetime.now()
 
-    longitude = request.data['longitude']
-    latitude = request.data['latitude']
+    if "longitude" in request.data:
+        longitude = request.data['longitude']
+    else:
+        longitude = None
+
+    if "latitude" in request.data:
+        latitude = request.data['latitude']
+    else:
+        latitude = None
 
 
     comment = Comment(author=author, body=body, date=date, longitude=longitude, latitude=latitude, post=post)
@@ -467,4 +610,4 @@ def create_comment(request, id):
         return Response(response_object)
     else:
         error = serializer.errors
-        return Response(status=400, data={'error': f'Fields are missing'})
+        return Response(status=400, data={'error': error})

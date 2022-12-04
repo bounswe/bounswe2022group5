@@ -5,8 +5,8 @@ from rest_framework import status
 from articles.serializers import ArticleSerializer, CreateArticleSerializer
 from articles.models import Article, ArticleImages
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from common.views import upload_to_s3
 
@@ -14,28 +14,35 @@ from common.views import upload_to_s3
 # Create your views here.
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny])
 def get_all_articles(request):
     paginator = PageNumberPagination()
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
     article_objects = Article.objects.all().order_by('-date')
     articles = []
-    user = CustomUser.objects.get(id=request.user.id)
+    try:
+        user = request.user.id
+    except:
+        user = None
     for article in article_objects:
         serializer_article_data = ArticleSerializer(article).data
-        if article.id in user.upvoted_articles:
-            serializer_article_data['vote'] = 'upvote'
-        elif article.id in user.downvoted_articles:
-            serializer_article_data['vote'] = 'downvote'
+        if user:
+            if article.id in user.upvoted_articles:
+                serializer_article_data['vote'] = 'upvote'
+            elif article.id in user.downvoted_articles:
+                serializer_article_data['vote'] = 'downvote'
+            else:
+                serializer_article_data['vote'] = None
         else:
             serializer_article_data['vote'] = None
+        serializer_article_data['id'] = article.id
         articles.append(serializer_article_data)
     result_page = paginator.paginate_queryset(articles, request)
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET',])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny])
 def get_articles_of_doctor(request, user_id):
 
     author = CustomUser.objects.get(id=user_id)
@@ -57,14 +64,31 @@ def get_articles_of_doctor(request, user_id):
     elif sort == 'desc':
         articles = articles.order_by('-date')
 
-    result_page = paginator.paginate_queryset(articles, request)
+    response = []
+    if request.user:
+        user = request.user.id
+        for article in articles:
+            serializer_article_data = ArticleSerializer(article).data
+            if article.id in user.upvoted_articles:
+                serializer_article_data['vote'] = 'upvote'
+            elif article.id in user.downvoted_articles:
+                serializer_article_data['vote'] = 'downvote'
+            else:
+                serializer_article_data['vote'] = None
+            serializer_article_data['id'] = article.id
+            response.append(serializer_article_data)
+    else:
+        for article in articles:
+            serializer_article_data = ArticleSerializer(article).data
+            serializer_article_data['vote'] = None
+            serializer_article_data['id'] = article.id
+            response.append(serializer_article_data)
 
-    serializer = ArticleSerializer(result_page, many=True)
-
-    return paginator.get_paginated_response(serializer.data)
+    result_page = paginator.paginate_queryset(response, request)
+    return paginator.get_paginated_response(result_page)
 
 @api_view(['GET', 'POST', 'DELETE'])
-@permission_classes([IsAuthenticated,])
+@permission_classes([AllowAny])
 def article(request,id):
     if(request.method == 'GET'):
         try:
@@ -84,6 +108,7 @@ def article(request,id):
             'profile_photo': doctor_data.profile_picture,
             'is_doctor': True
         }
+        response_dict["id"] = article.id
         response_dict["author"] = author_data
 
         if article.id in request.user.upvoted_articles:
@@ -121,7 +146,7 @@ def article(request,id):
             article.body = data['body']
             article.save()
             article_serializer = ArticleSerializer(article)
-            
+            article_serializer["id"] = article.id
             return Response({'article':article_serializer.data}, status=200)
         else:
             data = validate_article.errors
@@ -169,7 +194,7 @@ def create_article(request):
 def upvote_article(request, id):
         try:
             article = Article.objects.get(id=id)
-            user_info = CustomUser.objects.get(id = request.user.id)
+            user_info = request.user
         except:
             return Response({'error': 'Article not found'}, status=400)
 
@@ -199,7 +224,7 @@ def upvote_article(request, id):
 def downvote_article(request, id):
         try:
             article = Article.objects.get(id=id)
-            user_info = CustomUser.objects.get(id = request.user.id)
+            user_info = request.user
         except:
             return Response({'error': 'Article not found'}, status=400)
 

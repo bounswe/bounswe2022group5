@@ -12,7 +12,9 @@ const Forum = ({posts}) => {
     <div className="forum-page">
       {
         posts?.map(post => (
+
           <Post title={post.title} date={post.date} author={post.author.username} body={post.body} commented_by_doctor={post.commented_by_doctor} downvote={post.downvote} upvote={post.upvote} vote={post.vote} id={post.id}/>
+
         ))
 
         //check if current user liked this post.
@@ -47,8 +49,10 @@ const Post = (propsComing) => {
             <div className="answered-by"> {props.commented_by_doctor ? <CheckCircleOutlined className="site-form-item-icon" /> : null } {props.commented_by_doctor} </div>
           </div>
           <div className="rating">
+
             <Vote item={props} type={"post"} setItem={setPost}/>
             </div>  
+
           </div>
         </div>
     </div>

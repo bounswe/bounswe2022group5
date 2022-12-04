@@ -17,3 +17,8 @@ export const fetchAllPosts = async (pageNo) => {
     return data;
 }
 
+export const fetchCreatePost = async (formData) => {
+    const {data} = await axios.post(`${url}/forum/post`, formData, {headers: { "Content-Type": "multipart/form-data" }});
+    return data;
+}
+

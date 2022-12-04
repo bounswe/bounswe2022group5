@@ -158,7 +158,23 @@ def logout_user(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def me(request):
-
-    user = CustomUser.objects.get(email = request.user.email)
+    user = request.user
     serialized = UserSerializer(user)
-    return Response(status=200, data=serialized.data)
+    data = serialized.data
+    if user.type == 1:
+        doctor = Doctor.objects.get(user=user)
+        profile_photo = doctor.profile_picture
+        id = user.id
+        username = doctor.full_name
+    if user.type == 2:
+
+        member = Member.objects.get(user=user)
+        profile_photo = f"https://api.multiavatar.com/{member.info.avatar}.svg?apikey={os.getenv('AVATAR')}"
+        id = user.id
+        username = member.member_username
+
+    data['profile_image'] = profile_photo
+    data['id'] = id
+    data['username'] = username
+
+    return Response(status=200, data=data)

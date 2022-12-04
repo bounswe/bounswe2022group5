@@ -26,7 +26,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _body = TextEditingController();
   final GlobalKey<TagsState> _tagKey = GlobalKey<TagsState>();
-  String _fileText = "";
   File? image;
   Position? _currentPosition;
 
@@ -313,7 +312,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                                     Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(content: Text("${posted} , ${image!.uri}")),
+                                                      SnackBar(content: Text("Could not post")),
                                                     );
                                                   }
                                                 }

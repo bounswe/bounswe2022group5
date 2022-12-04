@@ -9,13 +9,15 @@ const Articles = ({articles}) => {
       {
         articles?.map(article => (
           <Article
+
             title={article.title}
-            author={article.author}
+            author={article.author.username}
             date={article.date}
             downvote={article.downvote}
             upvote={article.upvote}
             vote={article.vote}
             id={article.id}
+
           ></Article>
         ))
       }
@@ -24,6 +26,7 @@ const Articles = ({articles}) => {
     </div>
   );
 };
+
 
 
 const Article = (propsComing) => {
@@ -49,7 +52,9 @@ const Article = (propsComing) => {
             </div>
 
             <div className="article-rating">
+
               <Vote item={props} setItem={setArticle}/>
+
             </div>
           </div>
         </div>

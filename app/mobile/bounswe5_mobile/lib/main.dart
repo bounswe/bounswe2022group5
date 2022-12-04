@@ -8,6 +8,7 @@ import 'package:bounswe5_mobile/screens/viewArticle.dart';
 import 'package:bounswe5_mobile/screens/createArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:bounswe5_mobile/mockData.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         // To use the playground font, add GoogleFonts package and uncomment
         // fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
