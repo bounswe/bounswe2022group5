@@ -227,7 +227,7 @@ def get_personal_info(request):
     personal_info['hospital_name'] = "-1"
     personal_info['verified'] = "-1"
     personal_info['document'] = "-1"
-    personal_info['profile_picture'] = "-1"
+    personal_info['profile_image'] = "-1"
     personal_info['member_username'] = "-1"
     personal_info['firstname'] = "-1"
     personal_info['lastname'] = "-1"
