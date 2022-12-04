@@ -5,7 +5,7 @@ const url = process.env.REACT_APP_BACKEND_URL;
 axios.interceptors.request.use(
   function (config) {
     const token = typeof window !== "undefined" ? localStorage.getItem('authToken') : null;
-
+    
     if (token) config.headers.authorization = `Token ${token}`;
 
     return config;

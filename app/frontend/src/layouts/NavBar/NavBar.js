@@ -49,7 +49,7 @@ const LogInLogOut = ({userStatus}) => {
             <UserOutlined />
             Profile Page
             </Button>
-            <Button style={buttonStyle} type="primary" className="logout-button" onClick={() => onLogout(dispatch)}>
+            <Button style={buttonStyle} type="primary" className="logout-button" onClick={() => {onLogout(dispatch) ; navigate("/")}}>
                 <CloseCircleOutlined />
                 Log Out
             </Button>

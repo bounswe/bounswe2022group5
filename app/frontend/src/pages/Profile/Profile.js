@@ -122,7 +122,7 @@ const Profile = () => {
         setPageNo(page);
     }
 
-    const userPhotoURL = user.profile_image; //user.profile_image
+    const userPhotoURL = user?.profile_image; //user.profile_image
     
     console.log(user);
     console.log(userID);
@@ -302,7 +302,7 @@ const Profile = () => {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
 
         let postData = new FormData();
 
@@ -310,7 +310,7 @@ const Profile = () => {
             postData.append(`image${i+1}`, fileList[i]?.originFileObj);
         }
 
-        await fetchUpdateProfilePicture(postData)
+        fetchUpdateProfilePicture(postData)
             .then((res) => {
 
                 notification["success"]({
@@ -333,7 +333,7 @@ const Profile = () => {
             <div className="profile-header">
                 <div className="profile-avatar">
                     
-                    <Avatar size={100} src={<Image src={user.profile_image}></Image>}>
+                    <Avatar size={100} src={<Image src={userPhoto}></Image>}>
 
                     </Avatar>
                     <br></br>
@@ -483,7 +483,7 @@ const Profile = () => {
                 <div className="profile-info">
                     Email: {user.email}
                     <br></br>
-                    {user.type===1 ? 'Name Surname' : 'Username'}: {user.username} 
+                    {user.type===1 ? 'Name Surname' : 'Username'}: {username} 
                     {/* user.username yerine const username'den cekmek istiyorum */}
                     <br></br>
                     User ID: {userID}
@@ -516,7 +516,6 @@ const Profile = () => {
                                 >
                                     <Input 
                                         placeholder="New Username"
-                                        value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                     />
                                 </Form.Item>
