@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder<User?>(
       future: apiServer.getUserInfo(widget.token),
       builder: (context,snapshot){
+        print(snapshot.data);
 
         // If widget token is -1, that means a non registered user
         // entered the home page. If snapshot has data, that means
@@ -47,6 +48,8 @@ class _HomePageState extends State<HomePage> {
           // Session activity means that a registered user is entered
           // the home page.
           bool isSessionActive = widget.token != '-1';
+
+          print(widget.token);
 
           print(isSessionActive);
 
