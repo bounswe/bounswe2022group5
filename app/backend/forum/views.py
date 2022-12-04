@@ -43,7 +43,6 @@ def get_all_posts(request):
 
     posts = []
     try:
-        user = request.user
         user = CustomUser.objects.get(email = user.email)
     except:
         user = None
