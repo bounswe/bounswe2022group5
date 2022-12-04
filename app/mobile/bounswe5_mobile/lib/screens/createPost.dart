@@ -325,7 +325,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                                     Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(content: Text("Could not post ${posted} ${labels.join(',')}")),
+                                                      SnackBar(content: Text("Could not post ${posted}")),
                                                     );
                                                   }
                                                 }
