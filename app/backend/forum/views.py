@@ -24,9 +24,17 @@ import math
 def get_all_posts(request):
     search_query = request.GET.get('q', None)
     search_query = search_query if search_query is None else search_query.split(" ")
+
+    category = request.GET.get("c", None)
+
     paginator = PageNumberPagination()
+    page_size = int(request.GET.get('page_size', 10))
     paginator.page_size = request.GET.get('page_size', 10)
-    paginator.page = request.GET.get('page', 1)
+    page = int(request.GET.get('page', 1))
+    paginator.page =  request.GET.get('page', 1)
+    if category:
+        category_object = Category.objects.get(name=category)
+        post_objects = Post.objects.filter(category=category_object)[(page-1):(page_size*page)]
     if search_query:
         queryset_list1 = Q()
 
@@ -35,15 +43,17 @@ def get_all_posts(request):
                     Q(title__icontains=keyword) |
                     Q(body__icontains=keyword)
             )
-
-            post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[0:10]
+            if category:
+                post_objects = Post.objects.filter(category=category_object).filter(queryset_list1)[(page-1):(page_size*page)]
+            else:
+                post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[(page-1):(page_size*page)]
     else:
-        post_objects = Post.objects.all().order_by('-date')[0:10]
+        post_objects = Post.objects.all().order_by('-date')[(page-1):(page_size*page)]
 
 
     posts = []
     try:
-        user = CustomUser.objects.get(email = user.email)
+        user = CustomUser.objects.get(email = request.user.email)
     except:
         user = None
 
@@ -635,4 +645,11 @@ def create_comment(request, id):
         return Response(response_object)
     else:
         error = serializer.errors
-        return Response(status=400, data={'error': error})
+        return Response(status=400)
+
+@api_view(['GET',])
+@permission_classes([AllowAny])
+def get_all_categories(request):
+    queryset = Category.objects.all()
+    serializer = CategorySerializer(queryset, many=True)
+    return Response(serializer.data)
