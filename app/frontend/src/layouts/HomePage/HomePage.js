@@ -5,6 +5,7 @@ import Articles from "../Article/Article";
 import Forum from "../Forum/Forum";
 
 import { useSelector} from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 import "./HomePage.css";
 import { Button, Input, Pagination} from "antd";
@@ -112,7 +113,8 @@ const renderCategories = (searchKey) => {
 }
 
 const HomePageLayout = () => {
-    const {status: userStatus } = useSelector((state) => state.user);
+    const navigate = useNavigate();
+    const {status: userStatus, user } = useSelector((state) => state.user);
     const [categorySearchInput, setCategorySearchInput] = useState("");
 
     const [pageType, setPageType] = useState(0);
@@ -175,8 +177,21 @@ const HomePageLayout = () => {
                 </div>
                 <div className="category-post-articles">
                     <div className="categories-and-create-post">
-                        {userStatus === "fulfilled" ? 
-                        <Button shape="round" size="large" style={{width:"60%", height:"12%", flex:1, marginLeft:"20%", marginTop:"5%"}}>
+                        {user.type === 1 ? 
+                        <Button 
+                        shape="round" 
+                        size="large" 
+                        onClick={() => navigate("/create-article")} 
+                        style={{width:"60%", height:"12%", flex:1, marginLeft:"20%", marginTop:"5%"}}>
+                            Create Article
+                        </Button> :
+                        null}
+                        {user.type === 1 || user.type === 2 ? 
+                        <Button 
+                        shape="round" 
+                        size="large"  
+                        onClick={() => navigate("/create-post")} 
+                        style={{width:"60%", height:"12%", flex:1, marginLeft:"20%", marginTop:"5%"}}>
                             Create Post
                         </Button> :
                         null}
@@ -206,4 +221,3 @@ const HomePageLayout = () => {
 }
 
 export default HomePageLayout;
-
