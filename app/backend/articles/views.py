@@ -31,16 +31,18 @@ def get_all_articles(request):
     paginator.page_size = request.GET.get('page_size', 10)
     page = int(request.GET.get('page', 1))
     paginator.page = request.GET.get('page', 1)
-    article_objects = Article.objects.all().order_by('-date')
+    ##article_objects = Article.objects.all().order_by('-date')
     articles = []
     try:
         user = CustomUser.objects.get(email=request.user.email)
     except:
         user = None
 
+    count = 0
     if category:
         category_object = Category.objects.get(name=category)
         article_objects = Article.objects.filter(category=category_object)[(page-1):(page_size*page)]
+        count = Article.objects.filter(category=category_object).count()
     if search_query:
         queryset_list1 = Q()
 
@@ -51,10 +53,13 @@ def get_all_articles(request):
             )
             if category:
                 article_objects = Article.objects.filter(category=category_object).filter(queryset_list1)[(page-1):(page_size*page)]
+                count = Article.objects.filter(category=category_object).filter(queryset_list1).count()
             else:
                 article_objects = Article.objects.filter(queryset_list1).distinct().order_by('-date')[(page-1):(page_size*page)]
-    else:
+                count = Article.objects.filter(queryset_list1).distinct().count()
+    if (not category) and (not search_query):
         article_objects = Article.objects.all().order_by('-date')[(page-1):(page_size*page)]
+        count = Article.objects.count()
 
     for article in article_objects:
         serializer_article_data = ArticleSerializer(article).data
@@ -96,7 +101,7 @@ def get_all_articles(request):
         articles.append(serializer_article_data)
     result_page = paginator.paginate_queryset(articles, request)
     response = paginator.get_paginated_response(result_page)
-    response.data["count"] = Article.objects.count()
+    response.data["count"] = count
     return response
 
 @api_view(['GET',])

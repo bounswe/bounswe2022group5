@@ -32,9 +32,11 @@ def get_all_posts(request):
     paginator.page_size = request.GET.get('page_size', 10)
     page = int(request.GET.get('page', 1))
     paginator.page =  request.GET.get('page', 1)
+    count = 0
     if category:
         category_object = Category.objects.get(name=category)
         post_objects = Post.objects.filter(category=category_object)[(page-1):(page_size*page)]
+        count = Post.objects.filter(category=category_object).count()
     if search_query:
         queryset_list1 = Q()
 
@@ -45,10 +47,13 @@ def get_all_posts(request):
             )
             if category:
                 post_objects = Post.objects.filter(category=category_object).filter(queryset_list1)[(page-1):(page_size*page)]
+                count = Post.objects.filter(category=category_object).filter(queryset_list1).count()
             else:
                 post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[(page-1):(page_size*page)]
-    else:
+                count = Post.objects.filter(queryset_list1).distinct().count()
+    if (not category) and (not search_query) :
         post_objects = Post.objects.all().order_by('-date')[(page-1):(page_size*page)]
+        count = Post.objects.count()
 
 
     posts = []
@@ -99,7 +104,7 @@ def get_all_posts(request):
 
     response = paginator.get_paginated_response(result_page)
 
-    response.data["count"] = Post.objects.count()
+    response.data["count"] = count
     return response
 
 
