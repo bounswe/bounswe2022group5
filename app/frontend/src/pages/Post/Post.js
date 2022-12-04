@@ -10,13 +10,14 @@ import {
 import CommentEditor from "./CommentEditor";
 import Vote from "../../components/Vote/Vote";
 
+import logo from "../../layouts/NavBar/logo.png"
+
 import "./Post.css";
 
 import { fetchPostById } from "../../redux/postSlice";
 
 const Post = () => {
     const id = useParams()?.id;
-    const { user } = useSelector((state) => state.user);
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
@@ -29,6 +30,7 @@ const Post = () => {
                 setComments(res.comments);
                 setImages(res.image_urls);
             })
+            .catch(err => console.log(err))
     }, [id])
 
     const getCommentSetter = (commentId) => {
