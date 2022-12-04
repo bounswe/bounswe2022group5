@@ -1,9 +1,11 @@
-from backend.models import CustomUser, Doctor
+from backend.models import CustomUser, Doctor, Member
 from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
 from articles.serializers import ArticleSerializer, CreateArticleSerializer
+from forum.serializers import LabelSerializer, CategorySerializer
 from articles.models import Article, ArticleImages
+from backend.models import Category, Label
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -37,6 +39,31 @@ def get_all_articles(request):
         else:
             serializer_article_data['vote'] = None
         serializer_article_data['id'] = article.id
+        author = article.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_article_data["author"] = author_data
         articles.append(serializer_article_data)
     result_page = paginator.paginate_queryset(articles, request)
     return paginator.get_paginated_response(result_page)
@@ -161,17 +188,17 @@ def create_article(request):
         author = request.user
         body = request.data['body']
         date = datetime.now()
-
         article = Article(title=title, author=author, body=body, date=date)
         article.save()
-
         data = {
             'id': article.id,
             'title': title,
             'author': author,
             'body': body,
-            'date': date
+            'date': date,
         }
+
+
         image_urls = []
         if len(request.FILES) > 0:
             count = 1
@@ -182,8 +209,28 @@ def create_article(request):
                 commentImage = ArticleImages(image_url=photo_url, article=article)
                 commentImage.save()
                 image_urls.append(photo_url)
-        serialized_data = ArticleSerializer(data)
-        return Response({'article': serialized_data.data, 'image_urls': image_urls})
+        serialized_data = ArticleSerializer(data).data
+        if 'category' in request.data:
+            category = request.data["category"]
+
+            category = Category.objects.get(name=category)
+            article.category = category
+            article.save()
+            category_serialized = CategorySerializer(category).data
+
+            serialized_data['category'] = category_serialized
+
+        if 'labels' in request.data:
+            labels = request.data["labels"].split(",")
+            l = []
+            for label in labels:
+                label = Label.objects.get(name=label)
+                article.labels.add(label)
+                article.save()
+                label_serialized = LabelSerializer(label).data
+                l.append(label_serialized)
+            serialized_data['labels'] = l
+        return Response({'article': serialized_data, 'image_urls': image_urls})
     else:
         data = validate_article.errors
         return Response(status=400,data={'error': f'Fields are missing'})

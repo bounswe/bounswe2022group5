@@ -1,13 +1,14 @@
+import json
 import os
 from typing import Optional
 
-from backend.models import CustomUser, Doctor, Member
+from backend.models import CustomUser, Doctor, Member, Label, Category
 from django.db.models import Q
 from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
 from rest_framework import status
-from forum.serializers import PostSerializer, CommentSerializer, UpdatePostSerializer, CreateCommentSerializer
+from forum.serializers import PostSerializer, CommentSerializer, UpdatePostSerializer, CreateCommentSerializer, LabelSerializer, CategorySerializer
 from backend.pagination import ForumPagination
 from forum.models import Post, Comment
 from common.views import upload_to_s3, delete_from_s3
@@ -124,7 +125,6 @@ def get_posts_of_user(request, user_id):
             post_dict['vote'] = None
         response_dict.append(post_dict)
 
-    result_page = paginator.paginate_queryset(response_dict, request)
 
 
 
@@ -320,6 +320,7 @@ def create_post(request):
     body = request.data['body']
     date = datetime.now()
 
+
     if "longitude" in request.data:
         longitude = request.data['longitude']
     else:
@@ -330,6 +331,8 @@ def create_post(request):
         latitude = None
 
     post = Post(title=title, author=author, body=body, date=date, longitude= longitude, latitude = latitude)
+
+
     post.save()
     if author.type == 1:
         doctor_data = Doctor.objects.get(user=author)
@@ -358,11 +361,35 @@ def create_post(request):
         'body':body,
         'date':date.strftime("%y-%m-%d %H:%M"),
         'longitude': longitude,
-        'latitude': latitude
+        'latitude': latitude,
     }
 
     response_object = {}
     response_object['post'] = PostSerializer(data).data
+    if 'category' in request.data:
+        category = request.data["category"]
+
+        category = Category.objects.get(name=category)
+        post.category = category
+        post.save()
+        category_serialized = CategorySerializer(category).data
+
+
+        response_object['post']['category'] = category_serialized
+
+    if 'labels' in request.data:
+        labels = request.data["labels"].split(",")
+        l = []
+        for label in labels:
+
+            label = Label.objects.get(name=label)
+            post.labels.add(label)
+            post.save()
+            label_serialized = LabelSerializer(label).data
+            l.append(label_serialized)
+
+        response_object['post']['labels'] = l
+
     response_object['post']['author'] = author_data
     image_urls = []
     if len(request.FILES) > 0:

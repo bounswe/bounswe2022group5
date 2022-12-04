@@ -1,4 +1,4 @@
-from backend.models import CustomUser, Label
+from backend.models import CustomUser, Label, Category
 from django.db import models
 
 # Create your models here.
@@ -14,6 +14,7 @@ class Post(models.Model):
     latitude = models.FloatField(default=0, null=True)
     commented_by_doctor = models.BooleanField(default=False)
     labels = models.ManyToManyField(Label)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
 
 class PostImages(models.Model):
     image_url = models.CharField(max_length=100)
