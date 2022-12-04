@@ -97,7 +97,10 @@ def get_all_posts(request):
 
     result_page = paginator.paginate_queryset(posts, request)
 
-    return paginator.get_paginated_response(result_page)
+    response = paginator.get_paginated_response(result_page)
+
+    response.data["count"] = Post.objects.count()
+    return response
 
 
 @api_view(['GET',])

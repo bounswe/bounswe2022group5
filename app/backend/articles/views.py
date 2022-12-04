@@ -95,7 +95,9 @@ def get_all_articles(request):
         serializer_article_data["author"] = author_data
         articles.append(serializer_article_data)
     result_page = paginator.paginate_queryset(articles, request)
-    return paginator.get_paginated_response(result_page)
+    response = paginator.get_paginated_response(result_page)
+    response.data["count"] = Article.objects.count()
+    return response
 
 @api_view(['GET',])
 @permission_classes([AllowAny])
