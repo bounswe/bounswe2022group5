@@ -4,6 +4,7 @@ import HomePageLayout from './layouts/HomePage/HomePage';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import Post from './pages/Post/Post';
+import Article from './pages/Article/Article';
 
 import Forum from './layouts/Forum/Forum';
 import CreatePost from './pages/CreatePost/CreatePost'
@@ -28,11 +29,14 @@ function App() {
 
         <Route path='/post/:id' element={ <Post /> }/>
 
+        <Route path='/article/:id' element={ <Article /> }/>
+
         <Route path='profile' element={ <Profile /> }/>
 
         <Route path='/create-post' element={ <CreatePost /> }/>
 
         <Route path='/create-article' element={ <CreateArticle /> }/>
+
       </Routes>
     </Router>
   );
