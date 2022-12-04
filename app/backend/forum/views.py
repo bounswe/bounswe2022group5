@@ -390,7 +390,7 @@ def create_post(request):
         l = []
         for label in labels:
 
-            label = Label.objects.get(name=label)
+            label = Label.objects.get_or_create(name=label)
             post.labels.add(label)
             post.save()
             label_serialized = LabelSerializer(label).data

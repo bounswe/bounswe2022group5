@@ -253,7 +253,7 @@ def create_article(request):
             labels = request.data["labels"].split(",")
             l = []
             for label in labels:
-                label = Label.objects.get(name=label)
+                label = Label.objects.get_or_create(name=label)
                 article.labels.add(label)
                 article.save()
                 label_serialized = LabelSerializer(label).data
