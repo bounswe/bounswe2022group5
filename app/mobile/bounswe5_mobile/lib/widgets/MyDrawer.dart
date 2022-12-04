@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/screens/login.dart';
 import 'package:bounswe5_mobile/API_service.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 /// This is the drawer used in the home page. Using this drawer,
 /// a registered user can reach his/her user page, notification center, or settings.
 /// A nonregistered user can log in or reach generic settings.
 class MyDrawer extends StatelessWidget{
-  MyDrawer({required this.color, this.activeUser});
+  MyDrawer({this.activeUser});
   final ApiService apiServer = ApiService();
-  final Color color;
   final User? activeUser;
 
   /// Function used for logging out
@@ -19,17 +19,42 @@ class MyDrawer extends StatelessWidget{
     return result;
   }
 
-  // For now, we used a temporary image for our users.
-  String tempImagePath = 'lib/assets/images/generic_user.jpg';
   @override
   Widget build(BuildContext context){
-    bool isSessionActive = activeUser != null;
+    bool isSessionActive = activeUser!.token != '-1';
+
+    int usertype = activeUser!.usertype;
+
     String displayName;
+
+    String tempImagePath = 'lib/assets/images/generic_user.jpg';
+    Widget pp;
+    if(isSessionActive){
+      if(activeUser!.profileImageUrl == null){
+        pp = Image.asset(tempImagePath);
+      }
+      else if(activeUser!.usertype == 1){
+        pp = Image.network(activeUser!.profileImageUrl!);
+      }
+      else{
+        pp = SvgPicture.network(activeUser!.profileImageUrl!);
+      }
+    }
+    else{
+      pp = Image.asset(tempImagePath);
+    }
+
 
     // While session is active, username or name will be displayed.
     // If not, a "sign in" text is showed.
     if(isSessionActive){
-      displayName = activeUser!.email;
+      if(usertype == 1){
+        displayName = activeUser!.fullName;
+      }
+      else{
+        displayName = activeUser!.username;
+      }
+
     }else{
       displayName = "Please sign in";
     }
@@ -41,7 +66,7 @@ class MyDrawer extends StatelessWidget{
             height: 240,
             child: DrawerHeader(
               decoration: BoxDecoration(
-                color: color,
+                color: Theme.of(context).colorScheme.primary,
               ),
 
               child: Column(
@@ -49,8 +74,10 @@ class MyDrawer extends StatelessWidget{
                   InkWell(
                     // Profile image
                     child: CircleAvatar(
-                      radius: 42,
-                      backgroundImage: AssetImage(tempImagePath),
+                      radius: 42.0,
+                      child: ClipOval(
+                        child: pp,
+                      )
                     ),
                     onTap: (){
                       // If session is active, user is directed to the profile page
@@ -102,12 +129,13 @@ class MyDrawer extends StatelessWidget{
                       }
 
                     },
-                  )
+                  ),
                 ],
               ),
             ),
           ),
 
+          /*
           // If session is active, notifications section is shown.
           isSessionActive ?
           ListTile(
@@ -127,7 +155,7 @@ class MyDrawer extends StatelessWidget{
               Navigator.pop(context);
             },
           ),
-
+          */
           // If session is active, a log out button is shown.
           isSessionActive ?
           ListTile(

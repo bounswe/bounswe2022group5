@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 
 import NavBar from "../NavBar/NavBar";
 import Articles from "../Article/Article";
 import Forum from "../Forum/Forum";
 
 import { useSelector} from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 import "./HomePage.css";
 import { Button, Input} from "antd";
+import { fetchAllPosts } from "../../redux/postSlice";
+import {fetchAllArticles} from "../../redux/articleSlice";
 
 const buttonStyleClicked = {
     width: "45%",
@@ -37,18 +40,18 @@ const categorySearchStyle = {
     width: "90%",
 }
 
-const renderPosts = () => {
+const renderPosts = (posts) => {
     return (
         <div>
-            <Forum/>
+            <Forum posts={posts}/>
         </div>
     )
 }
 
-const renderArticles = () => {
+const renderArticles = (articles) => {
     return (
         <div>
-            <Articles/>
+            <Articles articles={articles}/>
         </div>
     )
 }
@@ -109,11 +112,31 @@ const renderCategories = (searchKey) => {
 }
 
 const HomePageLayout = () => {
-    const {status: userStatus } = useSelector((state) => state.user);
+    const navigate = useNavigate();
+    const {status: userStatus, user } = useSelector((state) => state.user);
     const [categorySearchInput, setCategorySearchInput] = useState("");
 
     const [pageType, setPageType] = useState(0);
     // This is for determining whether the page renders post or article. 0 for post, 1 for article
+
+    const [postCount, setPostCount] = useState();
+    const [posts, setPosts] = useState();
+
+    const [articleCount, setArticleCount] = useState();
+    const [articles, setArticles] = useState();
+    
+    useEffect(() => {
+        fetchAllPosts(1).then(res => {
+            setPostCount(res.count);
+            setPosts(res.results)
+        });
+
+        fetchAllArticles(1).then(res => {
+            setArticleCount(res.count);
+            setArticles(res.results)
+        })
+        
+    }, []);
 
     return(
         <div className="layout">
@@ -141,8 +164,21 @@ const HomePageLayout = () => {
                 </div>
                 <div className="category-post-articles">
                     <div className="categories-and-create-post">
-                        {userStatus === "fulfilled" ? 
-                        <Button shape="round" size="large" style={{width:"60%", height:"12%", flex:1, marginLeft:"20%", marginTop:"5%"}}>
+                        {user.type === 1 ? 
+                        <Button 
+                        shape="round" 
+                        size="large" 
+                        onClick={() => navigate("/create-article")} 
+                        style={{width:"60%", height:"12%", flex:1, marginLeft:"20%", marginTop:"5%"}}>
+                            Create Article
+                        </Button> :
+                        null}
+                        {user.type === 1 || user.type === 2 ? 
+                        <Button 
+                        shape="round" 
+                        size="large"  
+                        onClick={() => navigate("/create-post")} 
+                        style={{width:"60%", height:"12%", flex:1, marginLeft:"20%", marginTop:"5%"}}>
                             Create Post
                         </Button> :
                         null}
@@ -159,7 +195,7 @@ const HomePageLayout = () => {
                         </div>
                     </div>
                     <div className="articles-or-posts">
-                        {pageType === 0 ? renderPosts(): renderArticles()}
+                        {pageType === 0 ? renderPosts(posts): renderArticles(articles)}
                     </div>
                 </div>
             </div>
@@ -171,4 +207,3 @@ const HomePageLayout = () => {
 }
 
 export default HomePageLayout;
-

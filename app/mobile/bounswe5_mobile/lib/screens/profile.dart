@@ -1,3 +1,5 @@
+import 'package:bounswe5_mobile/screens/posts.dart';
+import 'package:bounswe5_mobile/screens/upvotes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
@@ -5,6 +7,7 @@ import 'package:bounswe5_mobile/API_service.dart';
 import '../widgets/ProfileListItem.dart';
 import '../widgets/ProfileName.dart';
 import '../widgets/ProfileWidget.dart';
+import '../screens/comments.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, required User this.activeUser}) : super(key: key);
@@ -24,11 +27,10 @@ class _ProfilePageState extends State<ProfilePage> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                children: [Text(
+                children: const [Text(
                     'Logo',
                     style: TextStyle(
                       fontSize: 28.0,
@@ -54,14 +56,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 const ProfileListItem(
                   icon: Icons.arrow_upward,
                   text: 'Upvotes',
+                  routepage: UpvotesPage(),
                 ),
                 const ProfileListItem(
                   icon: Icons.post_add_outlined,
                   text: 'Posts',
+                  routepage: PostsPage(),
                 ),
                 const ProfileListItem(
                   icon: CupertinoIcons.bubble_right,
                   text: 'Comments',
+                  routepage: CommentsPage(),
                 ),
               ],
             ),

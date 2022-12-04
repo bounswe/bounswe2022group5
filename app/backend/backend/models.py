@@ -40,8 +40,14 @@ class CustomUser(AbstractUser):
     last_name = None
     password = models.CharField(max_length=200, null=False)
     email = models.CharField(max_length=100, null=False, unique=True) 
-
     type = models.IntegerField(null=False)
+    date_of_birth = models.DateField(null=True)
+    upvoted_posts = ArrayField(models.IntegerField(null=True), default=list)
+    downvoted_posts = ArrayField(models.IntegerField(null=True), default=list)
+    upvoted_comments = ArrayField(models.IntegerField(null=True), default=list)
+    downvoted_comments = ArrayField(models.IntegerField(null=True), default=list)
+    upvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
+    downvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -49,9 +55,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-class CustomAdmin(CustomUser):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    admin_username = models.CharField(max_length=50, null=False, unique=True)
+class CustomAdmin(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,)
+    admin_username = models.CharField(max_length=50, null=False, unique=True,primary_key=True)
 
     def __str__(self):
         return self.admin_username
@@ -63,6 +69,8 @@ class MemberInfo(models.Model):
     weight = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     height = models.IntegerField(null=True)
     age = models.IntegerField(null=True)
+
+    avatar = models.IntegerField(null=False, default=1)
 
     past_illnesses = ArrayField(
         models.CharField(max_length=25), null=True
@@ -81,7 +89,8 @@ class MemberInfo(models.Model):
     )
 
 
-class Member(CustomUser):
+class Member(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     member_username = models.CharField(max_length=50, null=False, unique=True)
     banned_by = models.CharField(max_length=50, null=True, default=None)  # username of admin
 
@@ -105,11 +114,14 @@ class Category(models.Model):
     definition = models.CharField(max_length=100, null=True)
 
 
-class Doctor(CustomUser):
+class Doctor(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50, null=False)
     specialization = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     hospital_name = models.CharField(max_length=100, null=True)
     verified = models.BooleanField(max_length=100, null=False, default=False)
+    document = models.TextField(null=True, default=None)
+    profile_picture = models.TextField(null=True)
 
     def __str__(self):
         return self.full_name
@@ -127,4 +139,7 @@ class Report(models.Model):
     def __str__(self):
         return self.message
 
+
+class Label(models.Model):
+    name = models.CharField(max_length=100, null=False)
 

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:bounswe5_mobile/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -55,16 +54,18 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
   final TextEditingController _date = TextEditingController();
+  FilePickerResult? fileResult = null;
   bool isMember = true;
   String _fileText = "";
 
-  Future<bool> register(String email, String password, int type) async { //register API call handling function
-    final result = await ApiService().signUp(email, password, type);
-    if (result == 200){
-      return true;
-    } else {
-      return false;
-    }
+  Future<int> registerMember(String email, String password, int type, String date_of_birth, String username) async { //register API call handling function
+    final result = await ApiService().memberSignUp(email, password, type, date_of_birth, username);
+    return result;
+  }
+
+  Future<int> registerDoctor(String email, String password, String type, String date_of_birth, String firstname, String lastname, String branch, File doc) async { //register API call handling function
+    final result = await ApiService().doctorSignUp(email, password, type, date_of_birth, firstname, lastname, branch, doc);
+    return result;
   }
 
   @override
@@ -287,7 +288,7 @@ class _SignupPageState extends State<SignupPage> {
 
                                 if (pickedDate != null) {
                                   setState(() {
-                                    _date.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+                                    _date.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                                   });
                                 }
                               },
@@ -297,8 +298,24 @@ class _SignupPageState extends State<SignupPage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                             child: ElevatedButton( //document upload button
-                              onPressed: _pickFile,
-                              child: const Text('Document'),
+                              child: Text("Document Upload"),
+                              onPressed: () async {
+                                fileResult = await FilePicker.platform.pickFiles(
+                                  type: FileType.custom,
+                                  allowedExtensions: ['jpg', 'pdf', 'doc'],
+                                );
+                              },
+                            ),
+                          ),
+                          (isMember || fileResult == null)? const SizedBox.shrink() :
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB( 15.0, 5.0, 10.0, 10.0),
+                            child: RichText(
+                              textAlign: TextAlign.left,
+                              text: const TextSpan(
+                                  text: "Document uploaded ✅",
+                                  style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold, color: Colors.grey)
+                              ),
                             ),
                           ),
                           Padding(
@@ -308,22 +325,59 @@ class _SignupPageState extends State<SignupPage> {
                                 // Validate returns true if the form is valid, or false otherwise.
                                 if (_formKey.currentState!.validate()) {
                                   int type;
+                                  String date_of_birth = _date.text;
                                   if (isMember) {
                                     type = 2;
                                   } else {
                                     type = 1;
                                   }
-                                  bool registered = await register(_email.text, _pass.text, type);
-                                  if (registered) { //if registered successfully, go to the login page
+                                  int registered = 0;
+                                  if (isMember) {
+                                    registered = await registerMember(_email.text, _pass.text, type, date_of_birth, _username.text);
+                                  } else {
+                                    if(fileResult == null) {
+                                      registered = 0;
+                                    } else {
+                                      //File file = File(fileResult!.names[0]!);
+                                      List<File> files = fileResult!.paths.map((path) => File(path!)).toList();
+                                      File doc = files[0];
+                                      registered = await registerDoctor(_email.text, _pass.text, type.toString() , date_of_birth, _name.text, _surname.text, branchValue, doc);
+                                    }
+                                  }
+                                  if (registered == 200) { //if registered successfully, go to the login page
                                     Navigator.pop(context);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text('Could not register')),
+                                      SnackBar(content: Text('Could not register')),
                                     );
                                   }
                                 }
                               },
                               child: const Text('Submit'),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB( 50.0, 20.0, 10.0, 10.0),
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: const TextSpan(
+                                  text: "By creating an account, you are agreeing to our\n",
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+                                  children: [
+                                    TextSpan(
+                                      text: "Terms & Conditions",
+                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                                    ),
+                                    TextSpan(
+                                      text: " and ",
+                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+                                    ),
+                                    TextSpan(
+                                      text: "Privacy Policy",
+                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                                    ),
+                                  ]
+                              ),
                             ),
                           ),
                         ],
@@ -333,22 +387,6 @@ class _SignupPageState extends State<SignupPage> {
             )
         )
     );
-  }
-  void _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowedExtensions: ['jpg', 'pdf', 'doc']
-    );
-
-    if (result != null && result.files.single.path != null) {
-      PlatformFile file = result.files.first;
-
-      File _file = File(result.files.single.path!);
-      setState(() {
-        _fileText = _file.path;
-      });
-    } else {
-      //user cancelled the picker
-    }
   }
 
 }

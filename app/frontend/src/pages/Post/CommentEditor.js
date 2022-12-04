@@ -20,6 +20,10 @@ const CommentEditor = ({ postId, setComments }) => {
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
     const [fileList, setFileList] = useState([]);
+    const [longitude, setLongitude] = useState(null);
+    const [latitude, setLatitude] = useState(null);
+    const [isSharedLocation, setIsSharedLocation] = useState(false);
+
     const { user } = useSelector((state) => state.user);
 
     const getBase64 = (file) => {
@@ -51,12 +55,30 @@ const CommentEditor = ({ postId, setComments }) => {
         }
     };
 
+    const handleLocation = () => {
+        if(!isSharedLocation) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    setLongitude(position.coords.longitude);
+                    setLatitude(position.coords.latitude);
+                    setIsSharedLocation(true);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        } else {
+            setLongitude(null);
+            setLatitude(null);
+            setIsSharedLocation(false);
+        }
+    }
+
     const handleSubmit = () => {
 
         let postData = new FormData();
         postData.append("body", commentText);
-        postData.append("longitude", 12);
-        postData.append("latitude", 12);
+        postData.append("longitude", longitude || null);
+        postData.append("latitude", latitude || null);
 
         for (let i = 0; i<fileList.length; i++) {
             postData.append(`image${i+1}`, fileList[i]?.originFileObj);
@@ -107,8 +129,15 @@ const CommentEditor = ({ postId, setComments }) => {
                                 setFileList([]);
                             }}/>
                         }</span>
+                        {longitude && latitude ? 
+                            <a href={`https://maps.google.com/?q=${latitude},${longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'24px'}}></i></a>
+                            : null
+                        }
                         <span className="comment-send-button">
                             <Button type="primary" disabled={!commentText.length} onClick={handleSubmit}>Send</Button>
+                        </span>
+                        <span className="comment-send-button">
+                            <Button type="primary" onClick={handleLocation}>{!isSharedLocation ? "Share My Location" : "Delete My Location"}</Button>
                         </span>
                     </div>
                 </div>

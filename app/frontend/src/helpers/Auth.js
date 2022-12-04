@@ -9,7 +9,7 @@ const Auth = (props) => {
   const { status: userStatus } = useSelector((state) => state.user);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (token && userStatus === 'idle') dispatch(fetchMe(token));
 
   }, [dispatch, userStatus]);
