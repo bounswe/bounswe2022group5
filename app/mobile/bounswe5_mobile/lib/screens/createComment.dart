@@ -233,7 +233,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                                                     Navigator.pop(context);
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(content: Text("Could not comment")),
+                                                      SnackBar(content: Text("Could not comment ${commented}")),
                                                     );
                                                   }
                                                 }

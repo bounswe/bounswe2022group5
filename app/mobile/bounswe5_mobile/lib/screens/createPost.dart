@@ -29,7 +29,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   File? image;
   Position? _currentPosition;
 
-  Future<int> post(String token, String title, String body, String longitude, String latitude, String image_uri) async { //register API call handling function
+  Future<int> post(String token, String title, String body, String longitude, String latitude, String image_uri) async {
     final result = await ApiService().createPost(token, title, body, longitude, latitude, image_uri);
     return result;
   }
