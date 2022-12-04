@@ -8,6 +8,8 @@ import 'package:bounswe5_mobile/screens/createComment.dart';
 import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
+enum Menu { itemOne, itemTwo }
+
 class ViewPostPage extends StatefulWidget {
   const ViewPostPage(
       {Key? key, required User this.activeUser, required this.post})
@@ -128,6 +130,43 @@ class _ViewPostPageState extends State<ViewPostPage> {
                     SizedBox(
                       width: 8.0,
                     ),
+                    LayoutBuilder(builder: (context, constraints) {
+                      if (widget.activeUser == widget.post.author) {
+                        return PopupMenuButton<Menu>(
+                          onSelected: (Menu item) {
+                            setState(() {
+                              //_selectedMenu = item.name;
+                            });
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<Menu>>[
+                            const PopupMenuItem<Menu>(
+                              value: Menu.itemOne,
+                              child: Text('Edit'),
+                            ),
+                            const PopupMenuItem<Menu>(
+                              value: Menu.itemOne,
+                              child: Text('Delete'),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return PopupMenuButton<Menu>(
+                          onSelected: (Menu item) {
+                            setState(() {
+                              //_selectedMenu = item.name;
+                            });
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<Menu>>[
+                            const PopupMenuItem<Menu>(
+                              value: Menu.itemOne,
+                              child: Text('Report'),
+                            ),
+                          ],
+                        );
+                      }
+                    })
                   ],
                 ),
               ),
@@ -315,7 +354,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       children: [
                         SizedBox(height: 20),
                         CircleAvatar(
-                          backgroundImage: NetworkImage(filedata[i]['pic']),
+                          backgroundImage: AssetImage(tempImagePath),
                           radius: 20,
                         ),
                       ],
@@ -348,7 +387,44 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                 SizedBox(
                                   width: 8.0,
                                 ),
-                                Icon(Icons.more_vert),
+                                LayoutBuilder(builder: (context, constraints) {
+                                  // TODO: Inside this if statement will change with comment author api.
+                                  if (widget.activeUser == widget.post.author) {
+                                    return PopupMenuButton<Menu>(
+                                      onSelected: (Menu item) {
+                                        setState(() {
+                                          //_selectedMenu = item.name;
+                                        });
+                                      },
+                                      itemBuilder: (BuildContext context) =>
+                                          <PopupMenuEntry<Menu>>[
+                                        const PopupMenuItem<Menu>(
+                                          value: Menu.itemOne,
+                                          child: Text('Edit'),
+                                        ),
+                                        const PopupMenuItem<Menu>(
+                                          value: Menu.itemOne,
+                                          child: Text('Delete'),
+                                        ),
+                                      ],
+                                    );
+                                  } else {
+                                    return PopupMenuButton<Menu>(
+                                      onSelected: (Menu item) {
+                                        setState(() {
+                                          //_selectedMenu = item.name;
+                                        });
+                                      },
+                                      itemBuilder: (BuildContext context) =>
+                                          <PopupMenuEntry<Menu>>[
+                                        const PopupMenuItem<Menu>(
+                                          value: Menu.itemOne,
+                                          child: Text('Report'),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                })
                               ],
                             ),
                           ),
