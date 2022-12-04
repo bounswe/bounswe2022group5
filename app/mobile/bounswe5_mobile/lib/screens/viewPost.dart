@@ -9,15 +9,15 @@ import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
 class ViewPostPage extends StatefulWidget {
-  const ViewPostPage({Key? key, required User this.activeUser}) : super(key: key);
+  const ViewPostPage({Key? key, required User this.activeUser, required this.post}) : super(key: key);
   final User activeUser;
+  final Post post;
 
   @override
   State<ViewPostPage> createState() => _ViewPostPageState();
 }
 
 class _ViewPostPageState extends State<ViewPostPage> {
-  Post post = posts[1];
   String tempImagePath = 'lib/assets/images/generic_user.jpg';
 
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
@@ -62,17 +62,24 @@ class _ViewPostPageState extends State<ViewPostPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isSessionActive = widget.activeUser.token != '-1';
+
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Logo',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              )),
-        ),
-        elevation: 0.0,
+      centerTitle: true,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children:[Text(
+            'Logo',
+            style: TextStyle(
+              fontSize: 28.0,
+              fontWeight: FontWeight.bold,
+            )
+        )],
       ),
+      elevation: 0.0,
+    ),
       body: ListView(children: [
         Container(
           constraints: BoxConstraints(maxHeight: double.infinity),
@@ -100,7 +107,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                             children: [
                               SizedBox(width: 5),
                               Text(
-                                post.author.username,
+                                widget.post.author.username,
                               ),
                             ],
                           ),
@@ -108,7 +115,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                             children: [
                               SizedBox(width: 5),
                               Text(
-                                "Published: " + formatter.format(post.time),
+                                "Published: " + formatter.format(widget.post.time),
                               ),
                             ],
                           ),
@@ -126,7 +133,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                 constraints: BoxConstraints(maxHeight: double.infinity),
                 width: double.infinity,
                 child: Text(
-                  post.header,
+                  widget.post.header,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -141,7 +148,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                 constraints: BoxConstraints(maxHeight: double.infinity),
                 width: double.infinity,
                 child: Text(
-                  post.body,
+                  widget.post.body,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.black,
@@ -173,7 +180,11 @@ class _ViewPostPageState extends State<ViewPostPage> {
                           children: [
                             InkWell(
                               onTap: ((){
-                                print("Post upvoted.");
+                                if(isSessionActive){
+                                  print("Post upvoted.");
+                                }
+
+
                               }),
                               child: Icon(
                                 Icons.arrow_upward,
@@ -185,7 +196,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                               width: 5,
                             ),
                             Text(
-                                post.upvotes.toString(),
+                                widget.post.upvotes.toString(),
                                 style: TextStyle(
                                     color: Colors.green,
                                     fontWeight: FontWeight.bold,
@@ -199,7 +210,11 @@ class _ViewPostPageState extends State<ViewPostPage> {
                           children: [
                             InkWell(
                               onTap: ((){
-                                print("Post downvoted.");
+                                if(isSessionActive){
+                                  print("Post downvoted.");
+                                }
+
+
                               }),
                               child: Icon(
                                 Icons.arrow_downward,
@@ -211,7 +226,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                               width: 5,
                             ),
                             Text(
-                                post.downvotes.toString(),
+                                widget.post.downvotes.toString(),
                                 style: TextStyle(
                                     color: Colors.red,
                                     fontWeight: FontWeight.bold,
@@ -235,12 +250,13 @@ class _ViewPostPageState extends State<ViewPostPage> {
                         ],
                       ),
                     ),
+                    isSessionActive ?
                     ElevatedButton(
                       onPressed: () async {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>  CreateCommentPage(activeUser: widget.activeUser, postID: post.id)),
+                              builder: (context) =>  CreateCommentPage(activeUser: widget.activeUser, postID: widget.post.id)),
                         );
                         setState(() {
                         }); //refresh the page so that the comment will be visible ???
@@ -256,7 +272,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                           ),
                         ],
                       ),
-                    ),
+                    ) : SizedBox.shrink(),
 
                   ],
                 ),
@@ -392,7 +408,10 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                       children: [
                                         InkWell(
                                           onTap: ((){
-                                            print("Post upvoted.");
+                                            if(isSessionActive){
+                                              print("Post upvoted.");
+                                            }
+
                                           }),
                                           child: Icon(
                                             Icons.arrow_upward,
@@ -418,7 +437,10 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                       children: [
                                         InkWell(
                                           onTap: ((){
-                                            print("Post downvoted.");
+                                            if(isSessionActive){
+                                              print("Comment downvoted.");
+                                            }
+
                                           }),
                                           child: Icon(
                                             Icons.arrow_downward,

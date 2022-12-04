@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/article.dart';
 import 'package:bounswe5_mobile/widgets/ArticleItem.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 
+// Active user may be empty don't forget
 class ArticlesList extends StatelessWidget{
   ArticlesList({required this.articles});
   final List<Article> articles;

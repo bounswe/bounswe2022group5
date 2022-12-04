@@ -125,7 +125,7 @@ class ApiService {
       user = User(-1, token, email, userType);
       return user;
     } else{
-      return null;
+      return User(-1, '-1', '-1', -1);
     }
 
   }

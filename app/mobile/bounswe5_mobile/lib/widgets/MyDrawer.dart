@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget{
   String tempImagePath = 'lib/assets/images/generic_user.jpg';
   @override
   Widget build(BuildContext context){
-    bool isSessionActive = activeUser != null;
+    bool isSessionActive = activeUser!.token != '-1';
     String displayName;
 
     // While session is active, username or name will be displayed.
