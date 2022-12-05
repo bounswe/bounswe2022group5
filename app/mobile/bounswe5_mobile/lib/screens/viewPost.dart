@@ -149,7 +149,12 @@ class _ViewPostPageState extends State<ViewPostPage> {
                               return PopupMenuButton<Menu>(
                                 onSelected: (Menu item) {
                                   setState(() {
-                                    //_selectedMenu = item.name;
+                                    if(item == Menu.itemOne) {
+                                      print("Edit Post");
+                                    }
+                                    else if(item == Menu.itemTwo){
+                                      print("Delete Post");
+                                    }
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -159,7 +164,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                     child: Text('Edit'),
                                   ),
                                   const PopupMenuItem<Menu>(
-                                    value: Menu.itemOne,
+                                    value: Menu.itemTwo,
                                     child: Text('Delete'),
                                   ),
                                 ],
@@ -168,7 +173,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                               return PopupMenuButton<Menu>(
                                 onSelected: (Menu item) {
                                   setState(() {
-                                    //_selectedMenu = item.name;
+                                    print("Report Post");
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -413,7 +418,6 @@ class _CommentItemState extends State<CommentItem> {
       pp = SvgPicture.network(comment.author.profileImageUrl!);
     }
 
-
     return Container(
       margin: EdgeInsets.all(20),
       child: Row(
@@ -461,11 +465,16 @@ class _CommentItemState extends State<CommentItem> {
                       ),
                       LayoutBuilder(builder: (context, constraints) {
                         // TODO: Inside this if statement will change with comment author api.
-                        if (activeUser.id == post.author.id) {
+                        if (activeUser.id == comment.author.id) {
                           return PopupMenuButton<Menu>(
                             onSelected: (Menu item) {
                               setState(() {
-                                //_selectedMenu = item.name;
+                                if(item == Menu.itemOne) {
+                                  print("Edit comment");
+                                }
+                                else if(item == Menu.itemTwo){
+                                  print("Delete comment");
+                                }
                               });
                             },
                             itemBuilder: (BuildContext context) =>
@@ -475,16 +484,17 @@ class _CommentItemState extends State<CommentItem> {
                                 child: Text('Edit'),
                               ),
                               const PopupMenuItem<Menu>(
-                                value: Menu.itemOne,
+                                value: Menu.itemTwo,
                                 child: Text('Delete'),
                               ),
                             ],
                           );
-                        } else {
+                        }
+                        else {
                           return PopupMenuButton<Menu>(
                             onSelected: (Menu item) {
                               setState(() {
-                                //_selectedMenu = item.name;
+                                print("Report Comment");
                               });
                             },
                             itemBuilder: (BuildContext context) =>
