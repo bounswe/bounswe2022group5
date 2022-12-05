@@ -1,5 +1,7 @@
+import 'package:bounswe5_mobile/screens/articles.dart';
 import 'package:bounswe5_mobile/screens/posts.dart';
-import 'package:bounswe5_mobile/screens/upvotes.dart';
+import 'package:bounswe5_mobile/screens/upvotedArticles.dart';
+import 'package:bounswe5_mobile/screens/upvotedPosts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
@@ -20,6 +22,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext  context) {
+    bool isMember = false;
+    if (widget.activeUser.usertype == 2){
+      isMember = true;
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -40,18 +46,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
       body: Column(
         children: <Widget>[
-          const SizedBox(height: 35),
+          const SizedBox(height: 25),
           ProfileWidget(
             activeUser: widget.activeUser,
             onClicked: () async {},
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           buildName(widget.activeUser),
-          SizedBox(height: 20),
+          SizedBox(height: 16),
+          isMember? SizedBox(height: 1) :
           ProfileListItem(
-            icon: Icons.arrow_upward,
-            text: 'Upvotes',
-            routepage: UpvotesPage(activeUser: widget.activeUser!)
+              icon: Icons.library_books,
+              text: 'Articles',
+              routepage: ArticlesPage(activeUser: widget.activeUser!)
           ),
           ProfileListItem(
             icon: Icons.post_add_outlined,
@@ -62,6 +69,16 @@ class _ProfilePageState extends State<ProfilePage> {
             icon: CupertinoIcons.bubble_right,
             text: 'Comments',
             routepage: CommentsPage(activeUser: widget.activeUser!),
+          ),
+          ProfileListItem(
+              icon: Icons.arrow_upward,
+              text: 'Upvoted Articles',
+              routepage: UpvotedArticlesPage(activeUser: widget.activeUser!)
+          ),
+          ProfileListItem(
+              icon: Icons.arrow_upward,
+              text: 'Upvoted Posts',
+              routepage: UpvotedPostsPage(activeUser: widget.activeUser!)
           ),
         ],
       ),
