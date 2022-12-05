@@ -61,16 +61,14 @@ const LogInLogOut = ({userStatus}) => {
 
 const NavBar = () => {
     const {status: userStatus } = useSelector((state) => state.user);
-
-    const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
+    const [searchInput, setSearchInput] = useState("");
 
     return (
-        <div className="nav-bar">
-            <div className="logo">
+        <div className="nav-bar"> 
                 
-                <Image src={logo} preview={false} onClick={()=> navigate("/")}/>   
-                
+            <div className="logo" onClick={() => navigate("/")}>
+                <Image src={logo} preview={false}/>
             </div>
             <div className="search-bar">
                 <Input 

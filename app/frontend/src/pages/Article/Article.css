@@ -11,6 +11,19 @@
     padding: 50px;
 }
 
+.article-display-logo {
+    width: 100%;
+    background-color: rgb(179, 220, 253);
+    display: flex;
+}
+
+.article-display-logo > div {
+    cursor: pointer;
+    width: 25%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
 .article-display-post {
     width: 70%;
     margin: auto;
@@ -18,7 +31,7 @@
     padding: 50px;
     border-radius: 50px;
     position: absolute;
-    top: 50px;
+    top: 10px;
     display: flex;
     flex-direction: column;
     gap: 20px;

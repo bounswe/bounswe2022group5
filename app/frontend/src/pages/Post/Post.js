@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector} from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Image } from 'antd';
 import moment from "moment";
 import {
@@ -18,6 +18,7 @@ import { fetchPostById } from "../../redux/postSlice";
 
 const Post = () => {
     const id = useParams()?.id;
+    const navigate = useNavigate();
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
@@ -52,8 +53,12 @@ const Post = () => {
         }
     }
 
-    return(
+    return(<>
+        <div className="discussion-logo" onClick={() => navigate("/")}>
+            <Image src={logo} preview={false}/>
+        </div>
         <div className="discussion-container">
+            <div>sldknjf</div>
             { post ? <div className="discussion-post">
                 <div className="discussion-avatar-body">
                     <div>
@@ -142,7 +147,7 @@ const Post = () => {
 					}
                 </div> : null}
             </div> : null}
-        </div>
+        </div></>
     );
 };
 
