@@ -144,7 +144,12 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                 return PopupMenuButton<Menu>(
                                   onSelected: (Menu item) {
                                     setState(() {
-                                      //_selectedMenu = item.name;
+                                      if(item == Menu.itemOne) {
+                                        print("Edit article");
+                                      }
+                                      else if(item == Menu.itemTwo){
+                                        print("Delete article");
+                                      }
                                     });
                                   },
                                   itemBuilder: (BuildContext context) =>
@@ -154,7 +159,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                       child: Text('Edit'),
                                     ),
                                     const PopupMenuItem<Menu>(
-                                      value: Menu.itemOne,
+                                      value: Menu.itemTwo,
                                       child: Text('Delete'),
                                     ),
                                   ],
@@ -163,7 +168,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                 return PopupMenuButton<Menu>(
                                   onSelected: (Menu item) {
                                     setState(() {
-                                      //_selectedMenu = item.name;
+                                      print("Report article");
                                     });
                                   },
                                   itemBuilder: (BuildContext context) =>
