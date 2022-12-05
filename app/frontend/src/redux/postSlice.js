@@ -12,8 +12,8 @@ export const fetchPostByUserId = async (id, pageNo) => {
     return data;
 }
 
-export const fetchAllPosts = async (pageNo,category) => {
-    const {data} = await axios.get(`${url}/forum/posts?page=${pageNo}&page_size=10&c=${category}`);
+export const fetchAllPosts = async (pageNo,pageSize,category) => {
+    const {data} = await axios.get(`${url}/forum/posts?page=${pageNo}&page_size=${pageSize}&c=${category}`);
     return data;
 }
 

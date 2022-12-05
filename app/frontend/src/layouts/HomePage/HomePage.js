@@ -8,7 +8,7 @@ import { useSelector} from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 import "./HomePage.css";
-import { Button, Input} from "antd";
+import { Button, Input, Pagination} from "antd";
 import { fetchAllPosts } from "../../redux/postSlice";
 import {fetchAllArticles} from "../../redux/articleSlice";
 import { fetchCategories } from "../../redux/categorySlice";
@@ -59,7 +59,9 @@ const renderArticles = (articles) => {
     )
 }
 
+
 const RenderCategories = (searchKey) => {
+
     // There should be categories and related links
     const navigate = useNavigate();
 
@@ -104,17 +106,33 @@ const HomePageLayout = () => {
     const [articles, setArticles] = useState();
     
     useEffect(() => {
-        fetchAllPosts(1,category).then(res => {
-            setPostCount(res.count);
+        fetchAllPosts(1,10,category).then(res => {
             setPosts(res.results)
+            setPostCount(res.count);
         });
 
-        fetchAllArticles(1).then(res => {
+        fetchAllArticles(1,10,category).then(res => {
             setArticleCount(res.count);
             setArticles(res.results)
         })
-        
-    }, []);
+        return () =>{
+
+        }
+    },
+ [category]);
+
+
+    const onChangePost = (pageNumber, itemPerPage) => {
+        fetchAllPosts(pageNumber,itemPerPage,category).then(res => {
+            setPosts(res.results)
+        });
+    };
+
+    const onChangeArticle = (pageNumber, itemPerPage) => {
+        fetchAllArticles(pageNumber,itemPerPage,category).then(res => {
+            setArticles(res.results)
+        });
+    };
 
     return(
         <div className="layout">
@@ -174,6 +192,7 @@ const HomePageLayout = () => {
                     </div>
                     <div className="articles-or-posts">
                         {pageType === 0 ? renderPosts(posts): renderArticles(articles)}
+                        {pageType === 0 ? <Pagination  showQuickJumper defaultCurrent={1} total={postCount} onChange={onChangePost} /> : <Pagination showQuickJumper defaultCurrent={1} total={articleCount} onChange={onChangeArticle} /> }
                     </div>
                 </div>
             </div>

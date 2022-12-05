@@ -6,9 +6,11 @@ import SignUp from './pages/SignUp/SignUp';
 import Post from './pages/Post/Post';
 import Article from './pages/Article/Article';
 
-import Forum from './layouts/Forum/Forum';
 import CreatePost from './pages/CreatePost/CreatePost'
 import CreateArticle from './pages/CreateArticle/CreateArticle'
+import Forum from './layouts/Forum/Forum';
+
+
 
 
 import './App.css';
