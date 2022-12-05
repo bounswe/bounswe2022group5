@@ -210,7 +210,10 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       constraints: BoxConstraints(maxHeight: double.infinity),
                       width: double.infinity,
                       child: Html(
-                          data:post.body,
+                        data:post.body,
+                        defaultTextStyle: TextStyle(
+                            fontSize: 15
+                        ),
                       ),
 
                       /*
