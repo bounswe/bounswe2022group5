@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bounswe5_mobile/API_service.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 enum Menu { itemOne, itemTwo }
 
@@ -218,7 +219,15 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(15.0),
                       constraints: BoxConstraints(maxHeight: double.infinity),
                       width: double.infinity,
-                      child: Text(
+                      child: Html(
+                        data:post.body,
+                        defaultTextStyle: TextStyle(
+                            fontSize: 15
+                        ),
+                      ),
+
+                      /*
+                      Text(
                         post.body,
                         textAlign: TextAlign.left,
                         style: TextStyle(
@@ -227,6 +236,8 @@ class _ViewPostPageState extends State<ViewPostPage> {
                           fontSize: 16,
                         ),
                       ),
+                      */
+
                     ),
                     SizedBox(height: 18),
                     Container(
