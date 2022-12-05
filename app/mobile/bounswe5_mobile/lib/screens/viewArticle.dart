@@ -6,6 +6,7 @@ import 'package:bounswe5_mobile/models/article.dart';
 import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/API_service.dart';
+import 'package:bounswe5_mobile/screens/home.dart';
 
 enum Menu { itemOne, itemTwo }
 
@@ -44,6 +45,11 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
 
   Future<int> articleDownvote(int articleID, String token) async {
     final result = await ApiService().articleDownvote(articleID, token);
+    return result;
+  }
+
+  Future<int> articleDelete(int articleID, String token) async {
+    final result = await ApiService().articleDelete(articleID, token);
     return result;
   }
 
@@ -152,13 +158,31 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                             LayoutBuilder(builder: (context, constraints) {
                               if (activeUser.id == article.author.id) {
                                 return PopupMenuButton<Menu>(
-                                  onSelected: (Menu item) {
-                                    setState(() {
+                                  onSelected: (Menu item) async {
+                                    setState(() async {
                                       if(item == Menu.itemOne) {
                                         print("Edit article");
                                       }
                                       else if(item == Menu.itemTwo){
                                         print("Delete article");
+                                        int deleted = await articleDelete(widget.article.id, widget.activeUser.token);
+                                        if(deleted == 200){
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => HomePage(
+                                                  token: activeUser.token,
+                                                  index: 1,
+                                                )),
+                                          );
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(content: Text(
+                                                "Could not delete ${deleted}")),
+                                          );
+                                        }
+
                                       }
                                     });
                                   },
@@ -233,12 +257,6 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                           Row(
                             children: [
                               InkWell(
-                                child: Icon(
-                                  Icons.arrow_upward,
-                                  color: widget.article.voteOfActiveUser == "upvote" ? Colors.green : Colors.black,
-                                  size: 30,
-                                  // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
-                                ),
                                 onTap: (() async {
                                   print("Article upvoted.");
                                   final statusCode = await articleUpvote(widget.article.id , widget.activeUser.token);
@@ -254,6 +272,12 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                     });
                                   }
                                 }),
+                                child: Icon(
+                                  Icons.arrow_upward,
+                                  color: widget.article.voteOfActiveUser == "upvote" ? Colors.green : Colors.black,
+                                  size: 30,
+                                  // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
+                                ),
                               ),
                               SizedBox(
                                 width: 10,
@@ -268,12 +292,6 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                           Row(
                             children: [
                               InkWell(
-                                child: Icon(
-                                  Icons.arrow_downward,
-                                  color: widget.article.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
-                                  size: 30,
-                                  // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
-                                ),
                                 onTap: (() async {
                                   print("Article downvoted.");
                                   final statusCode = await articleDownvote(widget.article.id , widget.activeUser.token);
@@ -289,6 +307,12 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                     });
                                   }
                                 }),
+                                child: Icon(
+                                  Icons.arrow_downward,
+                                  color: widget.article.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
+                                  size: 30,
+                                  // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
+                                ),
                               ),
                               SizedBox(
                                 width: 10,

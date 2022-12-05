@@ -35,7 +35,14 @@ bool isEmail(String em) { //validator for email
 
 
 const List<String> list = <String>['Member', 'Doctor'];
-const List<String> branches = <String>['Anatomical Pathology', 'Anesthesiology','Cardiology','Hematology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy', 'Critical Care Medicine'];
+const List<String> branches= <String>["Anatomical Pathology","Anesthesiology",'Cardiology',"Cardiovascular-Thoracic Surgery", "Clinical Immunology-Allergy",
+  "Critical Care Medicine", "Dermatology","Diagnostic Radiology", "Emergency Medicine","Endocrinology and Metabolism","Family Medicine",
+  "Gastroenterology", "General Internal Medicine", "General Surgery", "General-Clinical Pathology","Geriatric Medicine",
+  "Hematology","Medical Biochemistry","Medical Genetics","Medical Microbiology and Infectious Diseases",
+  "Medical Oncology","Nephrology","Neurology","Neurosurgery", "Nuclear Medicine","Obstetrics-Gynecology",
+  "Occupational Medicine","Ophthalmology","Orthopedic Surgery","Otolaryngology","Pediatrics","Physical Medicine and Rehabilitation (PM & R)",
+  "Plastic Surgery","Psychiatry","Public Health and Preventive Medicine","Radiation Oncology","Respirology",
+  "Rheumatology","Urology"];
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
 
@@ -202,6 +209,7 @@ class _SignupPageState extends State<SignupPage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB( 10.0, 25.0, 10.0, 0.0),
                             child: DropdownButtonFormField<String>(
+                              isExpanded: true,
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.assignment_ind_rounded),
                                 border: OutlineInputBorder(),

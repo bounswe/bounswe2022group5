@@ -6,6 +6,7 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:bounswe5_mobile/screens/home.dart';
 
 const List<String> categories = <String>["Anatomical Pathology","Anesthesiology",'Cardiology',"Cardiovascular-Thoracic Surgery", "Clinical Immunology-Allergy",
   "Critical Care Medicine", "Dermatology","Diagnostic Radiology", "Emergency Medicine","Endocrinology and Metabolism","Family Medicine",
@@ -243,7 +244,14 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                                                   }
                                                   int shared = await share(token, _title.text, _body.text, image_uri,categoryValue, labels.join(','));
                                                   if (shared == 200) {
-                                                    Navigator.pop(context);
+                                                    Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => HomePage(
+                                                            token: token,
+                                                            index: 1,
+                                                          )),
+                                                    );
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                       SnackBar(content: Text("Could not share ${shared}")),
