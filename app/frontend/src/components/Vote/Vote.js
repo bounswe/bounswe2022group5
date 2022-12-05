@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 
 import {
     LikeOutlined
@@ -16,6 +18,7 @@ import {
 import "./Vote.css";
 
 const Vote = ({ item, type, setItem, className }) => {
+    const { status: userStatus } = useSelector((state) => state.user);
     
     const handleVote = (voteValue) => {
         if(voteValue === "upvote") {
@@ -61,7 +64,7 @@ const Vote = ({ item, type, setItem, className }) => {
                 <div className="upvote-count">{item?.upvote}</div>
                 <div
                     className="like-icon"
-                    onClick={() => handleVote("upvote")}
+                    onClick={() => userStatus === "fulfilled" ? handleVote("upvote") : null}
                 >
                     {item?.vote === "upvote" ? (
                         <LikeOutlined
@@ -76,7 +79,7 @@ const Vote = ({ item, type, setItem, className }) => {
                 <div className="downvote-count">{item?.downvote}</div>
                 <div
                     className="dislike-icon"
-                    onClick={() => handleVote("downvote")}
+                    onClick={() => userStatus === "fulfilled" ? handleVote("downvote") : null}
                 >
                 {item?.vote === "downvote" ? (
                     <LikeOutlined
