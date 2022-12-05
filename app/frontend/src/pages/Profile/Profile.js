@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import NavBar from "../../layouts/NavBar/NavBar";
-import { Avatar, Button , Pagination , Image , Dropdown , Form , Input , notification, Card, Upload, Modal } from "antd";
+import { Avatar, Button , Pagination , Image , Dropdown , Form , Input , notification, Card, Upload, Modal , Collapse , Space } from "antd";
 import { LoadingOutlined , PlusOutlined } from '@ant-design/icons';
 
 import "./Profile.css"
@@ -19,6 +19,7 @@ import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInf
 import { setUser } from "../../redux/userSlice";
 
 const {Meta} = Card;
+const {Panel} = Collapse;
 const AVATAR_API_KEY = process.env.AVATAR_API_KEY;
 
 const buttonStyleClicked = {
@@ -200,18 +201,55 @@ const Profile = () => {
 
     const [username, setUsername] = useState();
     const [hospitalName, setHospitalName] = useState();
+    const [weight, setWeight] = useState();
+    const [height, setHeight] = useState();
+    const [pastIllnesses, setPastIlnesses] = useState();
+    const [undergoneOperations, setUndergoneOperations] = useState();
+    const [usedDrugs, setUsedDrugs] = useState();
+    const [registerDate, setRegisterDate] = useState();
+    const [allergies, setAllergies] = useState();
+    const [chronicDiseases, setChronicDiseases] = useState();
+    const [age, setAge] = useState();
+    const [address, setAddress] = useState();
+    const [dateOfBirth, setDateOfBirth] = useState();
+    const [email, setEmail] = useState();
+    const [specialization, setSpecialization] = useState();
+
 
     useEffect(() => {
         fetchPersonalInfo().then(res => {
-            setUsername(res.member_username);
-            setHospitalName(res.hospital_name);
+            setRegisterDate(res.register_date);
+            setDateOfBirth(res.date_of_birth);
+            setEmail(res.email);
+            setUserPhoto(res.profile_image);
+
+            if(user.type===1){
+                setUsername(res.full_name);
+                setHospitalName(res.hospital_name);
+                setSpecialization(res.specialization);
+            }
+            else{
+                setUsername(res.member_username);
+                setWeight(res.weight);
+                setHeight(res.height);
+                setPastIlnesses(res.past_illnesses);
+                setUndergoneOperations(res.undergone_operations);
+                setUsedDrugs(res.used_drugs);
+                setAllergies(res.allergies);
+                setChronicDiseases(res.chronic_diseases);
+                setAge(res.age);
+                setAddress(res.address);
+            }
+            
+            
+            
         })
     }, [])
     
     const [form] = Form.useForm();
 
     const onFinishInfoMember = (values) => {
-        const body = {...values, member_username:username}
+        const body = {...values, member_username:username, weight:weight, height:height}
         
         fetchUpdatePersonalInfo(body).then(res => {
             notification["success"]({
@@ -240,7 +278,6 @@ const Profile = () => {
                 placement: "top"
             });
             
-            console.log("zartzurt");
         }).catch((err) => {
             notification["error"]({
                 message: "Editing info is not successful",
@@ -472,20 +509,116 @@ const Profile = () => {
                     </div> : null
                 }
                 
-
-
+                {user.type===1 ? 
                 <div className="profile-info">
-                    Email: {user.email}
-                    <br></br>
-                    {user.type===1 ? 'Name Surname' : 'Username'}: {username} 
-                    {/* user.username yerine const username'den cekmek istiyorum */}
-                    <br></br>
-                    User ID: {userID}
-                    <br></br>
-                    User Type: {user.type===2 ? 'Member' : 'Doctor'}
-                    <br></br>
-                    {user.type===1 && hospitalName ? `Hospital Name: ${hospitalName}` : <></>}
-                </div>
+                    <Space direction="vertical">
+                        <Collapse>
+                        <Panel header="Doctor Info" >
+                            Email: {user.email}
+                            <br></br>
+                            {username ? `Full Name: ${username}` : <></>}
+                            <br></br>
+                            {hospitalName ? `Hospital Name: ${hospitalName}` : <></>}
+                            <br></br>
+                            {specialization ? `Specialization: ${specialization}` : <></>}
+                        </Panel>
+                        </Collapse>
+                    </Space>
+                </div> 
+                :
+                <div className="profile-info">
+                    <Space direction="vertical">
+                        <Collapse>
+                        <Panel header="Member Info" >
+                            Email: {user.email}
+                            <br></br>
+                            {username ? `Username: ${username}` : <></>}
+                            <br></br>
+                            {age ? `Age: ${age}` : <></>}
+                            <br></br>
+                            {weight ? `Weight: ${weight}` : <></>}
+                            <br></br>
+                            {height ? `Height: ${height}` : <></>}
+                        </Panel>
+                        </Collapse>
+
+                        <Collapse>
+                        <Panel header="Medical History" >
+                        <Collapse>
+                        <Panel header="Past Illnesses" >
+                            {
+                                pastIllnesses ? 
+                                pastIllnesses.map(item => (
+                                    <span>{item}<br></br></span>
+                                )) 
+                                :
+                                <></>
+                            }
+                            
+                        </Panel>
+                        </Collapse>
+                        <Collapse>
+                        <Panel header="Used Drugs" >
+                            {
+                                usedDrugs ? 
+                                usedDrugs.map(item => (
+                                    <span>{item}<br></br></span>
+                                )) 
+                                :
+                                <></>
+                            }
+                            
+                        </Panel>
+                        </Collapse>
+                        <Collapse>
+                        <Panel header="Undergone Operations" >
+                            {
+                                undergoneOperations ? 
+                                undergoneOperations.map(item => (
+                                    <span>{item}<br></br></span>
+                                )) 
+                                :
+                                <></>
+                            }
+                            
+                        </Panel>
+                        </Collapse>
+                        <Collapse>
+                        <Panel header="Allergies" >
+                            {
+                                allergies ? 
+                                allergies.map(item => (
+                                    <span>{item}<br></br></span>
+                                )) 
+                                :
+                                <></>
+                            }
+                            
+                        </Panel>
+                        </Collapse>
+                        <Collapse>
+                        <Panel header="Chronic Diseases" >
+                            {
+                                chronicDiseases ? 
+                                chronicDiseases.map(item => (
+                                    <span>{item}<br></br></span>
+                                )) 
+                                :
+                                <></>
+                            }
+                            
+                        </Panel>
+                        </Collapse>
+                            
+                        </Panel>
+                        </Collapse>
+                    </Space>
+                </div> 
+                }
+                
+
+
+                
 
                 {
                     !picturePopup && userStatus==="fulfilled" ? 
@@ -511,6 +644,22 @@ const Profile = () => {
                                     <Input 
                                         placeholder="New Username"
                                         onChange={(e) => setUsername(e.target.value)}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="weight"
+                                >
+                                    <Input 
+                                        placeholder="New Weight"
+                                        onChange={(e) => setWeight(e.target.value)}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="height"
+                                >
+                                    <Input 
+                                        placeholder="New Height"
+                                        onChange={(e) => setHeight(e.target.value)}
                                     />
                                 </Form.Item>
 
