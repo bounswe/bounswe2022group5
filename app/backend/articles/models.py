@@ -1,4 +1,4 @@
-from backend.models import CustomUser
+from backend.models import CustomUser, Label, Category
 from django.db import models
 
 # Create your models here.
@@ -10,6 +10,8 @@ class Article(models.Model):
     date = models.DateTimeField()
     upvote = models.IntegerField(null=False, default=0)
     downvote = models.IntegerField(null=False, default=0)
+    labels = models.ManyToManyField(Label)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
 
 class ArticleImages(models.Model):
     image_url = models.CharField(max_length=100)

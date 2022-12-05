@@ -7,8 +7,8 @@ import '../screens/profile.dart';
 import '../widgets/ProfileWidget.dart';
 
 class UpvotesPage extends StatefulWidget {
-  const UpvotesPage({Key? key}) : super(key: key);
-
+  const UpvotesPage({Key? key, required User this.activeUser}) : super(key: key);
+  final User activeUser;
   @override
   State<UpvotesPage> createState() => _UpvotesPageState();
 }

@@ -1,19 +1,185 @@
+
+
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 import 'package:uri_to_file/uri_to_file.dart';
 import 'package:path/path.dart' as p;
+import 'package:bounswe5_mobile/models/category.dart';
+import 'package:bounswe5_mobile/models/label.dart';
+import 'package:bounswe5_mobile/models/user.dart';
+import 'package:bounswe5_mobile/models/memberInfo.dart';
+import 'package:bounswe5_mobile/models/post.dart';
+import 'package:bounswe5_mobile/models/article.dart';
+import 'package:intl/intl.dart';
+
 
 /// This class handles API calls.
 class ApiService {
   /// Base URL of backend
   var baseURL = "http://ec2-3-87-119-148.compute-1.amazonaws.com:8000";
 
+  Future<int> postUpvote(int postID, String token) async {
+    var uri = Uri.parse("$baseURL/forum/post/${postID.toString()}/upvote");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.post(uri, headers: header);
+    return response.statusCode;
+  }
+
+  Future<int> postDownvote(int postID, String token) async {
+    var uri = Uri.parse("$baseURL/forum/post/${postID.toString()}/downvote");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.post(uri, headers: header);
+    return response.statusCode;
+  }
+
+  Future<int> commentUpvote(int commentID, String token) async {
+    var uri = Uri.parse("$baseURL/forum/post/comment/${commentID.toString()}/upvote");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.post(uri, headers: header);
+    return response.statusCode;
+  }
+
+  Future<int> commentDownvote(int commentID, String token) async {
+    var uri = Uri.parse("$baseURL/forum/post/comment/${commentID.toString()}/downvote");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.post(uri, headers: header);
+    return response.statusCode;
+  }
+  Future<int> articleUpvote(int articleID, String token) async {
+    var uri = Uri.parse("$baseURL/articles/article/${articleID.toString()}/upvote");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.post(uri, headers: header);
+    return response.statusCode;
+  }
+
+  Future<int> articleDownvote(int articleID, String token) async {
+    var uri = Uri.parse("$baseURL/articles/article/${articleID.toString()}/downvote");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.post(uri, headers: header);
+    return response.statusCode;
+  }
+
+  Future<int> articleDelete(int articleID, String token) async {
+    var uri = Uri.parse("$baseURL/articles/article/${articleID.toString()}");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.delete(uri, headers: header);
+    return response.statusCode;
+  }
+  Future<int> postDelete(int postID, String token) async {
+    var uri = Uri.parse("$baseURL/forum/post/${postID.toString()}");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.delete(uri, headers: header);
+    return response.statusCode;
+  }
+
+  Future<int> postUpdate(String token, int postID, String title, String body, String longitude, String latitude) async {
+    var uri = Uri.parse("$baseURL/forum/post/${postID.toString()}");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final body_ = jsonEncode(<String, Object>{
+      'title': title,
+      'body': body,
+      'longitude': longitude,
+      'latitude': latitude,
+    });
+    final response = await http.post(uri, body: body_, headers: header);
+
+    return response.statusCode;
+  }
+
+  Future<int> articleUpdate(String token, int articleID, String title, String body) async {
+    var uri = Uri.parse("$baseURL/articles/article/${articleID.toString()}");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final body_ = jsonEncode(<String, Object>{
+      'title': title,
+      'body': body,
+    });
+    final response = await http.post(uri, body: body_, headers: header);
+
+    return response.statusCode;
+  }
+
   Future<int> createComment(int postID, token, String body, String longitude, String latitude, String image_uri) async {
-    File file = await toFile(image_uri);
+    if (image_uri != "" && longitude.length != 0){
+      File file = await toFile(image_uri);
+      var uri = Uri.parse("${baseURL}/forum/post/${postID.toString()}/comment");
+      Map<String, String> headers =  {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['body'] = body
+        ..fields['longitude'] = longitude
+        ..fields['latitude'] = latitude
+        ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      var response = await request.send();
+      return response.statusCode;
+    }
+
+    if(image_uri != "" && longitude.length == 0){
+      File file = await toFile(image_uri);
+      var uri = Uri.parse("${baseURL}/forum/post/${postID.toString()}/comment");
+      Map<String, String> headers =  {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['body'] = body
+        ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      var response = await request.send();
+      return response.statusCode;
+    }
+
+    if(image_uri.length == 0 && longitude.length == 0) {
+
+      var uri = Uri.parse(
+          "${baseURL}/forum/post/${postID.toString()}/comment");
+      Map<String, String> headers = {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['body'] = body;
+      var response = await request.send();
+      return response.statusCode;
+    }
+
+
     var uri = Uri.parse("${baseURL}/forum/post/${postID.toString()}/comment");
     Map<String, String> headers =  {
       'Authorization': "token $token",
@@ -23,10 +189,11 @@ class ApiService {
       ..headers.addAll(headers)
       ..fields['body'] = body
       ..fields['longitude'] = longitude
-      ..fields['latitude'] = latitude
-      ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      ..fields['latitude'] = latitude;
     var response = await request.send();
     return response.statusCode;
+
+
   }
 
   Future<int> memberSignUp(String email, String password, int type, String date_of_birth, String username) async {
@@ -71,7 +238,7 @@ class ApiService {
       'type': type,
     });
     final response = await http.post(uri, body: body, headers: {'content-type': "application/json"});
-    print(response.body.toString());
+
     return response.statusCode;
   }
 
@@ -85,7 +252,6 @@ class ApiService {
     final response = await http.post(uri, body: body, headers: {'content-type': "application/json"});
 
     if (response.statusCode == 200){
-      print(response.body.toString());
       return jsonDecode(response.body)["token"];
     } else {
       return "Error";
@@ -109,30 +275,147 @@ class ApiService {
   }
 
   Future<User?> getUserInfo(String token) async {
-    var uri = Uri.parse("$baseURL/auth/me");
+    var uri = Uri.parse("$baseURL/profile/get_personal_info");
 
     final header = {
-    'Authorization': "token $token",
-    'content-type': "application/json",
+      'Authorization': "token $token",
+      'content-type': "application/json",
     };
     final response = await http.get(uri, headers: header);
 
     if (response.statusCode == 200){
       var body = jsonDecode(response.body);
+      int id = body["id"];
       String email = body["email"];
       int userType = body["type"];
+      String registerDate = body["register_date"];
+      String dateOfBirth = body["date_of_birth"];
+      String profileImageUrl = body["profile_image"];
+
+      MemberInfo memberinfo = MemberInfo();
       User user;
-      user = User(-1, token, email, userType);
+
+      if(userType == 1) { // doctor
+        String fullName = body["full_name"]; // doctor
+        String specializationName = body["specialization"]; // doctor
+        String hospitalName = body["hospital_name"]; // doctor
+        bool verified = body["verified"]; // doctor
+        String document = body["document"]; // doctor
+        Category specialization = Category(-1,specializationName,""); // doctor
+        user = User(id,token,email,userType,
+          fullName: fullName,
+          specialization: specialization,
+          hospitalName: hospitalName,
+          verified: verified,
+        );
+        user.documentUrl = document;
+      }
+
+      else { // member
+        String username = body["member_username"]; // member
+        String? firstName = body["firstname"]; // member
+        String? lastName = body["lastname"]; // member
+        String? address = body["address"]; // member
+        double? weight = body["weight"]; // member
+        int? height = body["height"]; // member
+        int? age = body["age"]; // member
+
+
+        List<dynamic> pastIllnesses = body["past_illnesses"]; // member
+        List<dynamic> allergies = body["allergies"]; // member
+        List<dynamic> chronicDiseases = body["chronic_diseases"]; // member
+        List<dynamic> undergoneOperations = body["undergone_operations"]; // member
+        List<dynamic> usedDrugs = body["used_drugs"]; // member
+
+
+        memberinfo.firstName = firstName;
+        memberinfo.lastName = lastName;
+        memberinfo.weight = weight;
+        memberinfo.height = height;
+        memberinfo.age = age;
+
+
+        memberinfo.pastIllnesses = pastIllnesses;
+        memberinfo.allergies = allergies;
+        memberinfo.chronicDiseases = chronicDiseases;
+        memberinfo.undergoneOperations = undergoneOperations;
+        memberinfo.usedDrugs = usedDrugs;
+        memberinfo.address = address;
+
+        user = User(id,token,email,userType,
+          username: username,
+        );
+        user.info = memberinfo;
+      }
+      user.profileImageUrl = profileImageUrl;
+      user.dateOfBirth = dateOfBirth;
+      user.registerDate = registerDate;
       return user;
+
     } else{
-      return null;
+      // User with id -1 means nobody logged in.
+      return User(-1, '-1', '-1', -1);
     }
 
   }
 
-  Future<int> createPost(String token, String title, String body_, String longitude, String latitude, String image_uri ) async {
 
-    File file = await toFile(image_uri);
+  Future<int> createPost(String token, String title, String body_, String longitude, String latitude, String image_uri, String category, String labels ) async {
+
+    if (image_uri != "" && longitude.length != 0){
+      File file = await toFile(image_uri);
+      var uri = Uri.parse("${baseURL}/forum/post");
+      Map<String, String> headers =  {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['title'] = title
+        ..fields['body'] = body_
+        ..fields['longitude'] = longitude
+        ..fields['latitude'] = latitude
+        ..fields['category'] = category
+        ..fields['labels'] = labels
+        ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      var response = await request.send();
+      return response.statusCode;
+    }
+
+    if(longitude.length == 0 && latitude.length == 0 && image_uri.length == 0){
+      var uri = Uri.parse("${baseURL}/forum/post");
+      Map<String, String> headers =  {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['title'] = title
+        ..fields['body'] = body_
+        ..fields['category'] = category
+        ..fields['labels'] = labels;
+      var response = await request.send();
+      return response.statusCode;
+    }
+
+    if(longitude.length == 0 && latitude.length == 0 && image_uri.length != 0){
+      File file = await toFile(image_uri);
+      var uri = Uri.parse("${baseURL}/forum/post");
+      Map<String, String> headers =  {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['title'] = title
+        ..fields['body'] = body_
+        ..fields['category'] = category
+        ..fields['labels'] = labels
+        ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      var response = await request.send();
+      return response.statusCode;
+    }
+
     var uri = Uri.parse("${baseURL}/forum/post");
     Map<String, String> headers =  {
       'Authorization': "token $token",
@@ -144,13 +427,33 @@ class ApiService {
       ..fields['body'] = body_
       ..fields['longitude'] = longitude
       ..fields['latitude'] = latitude
-      ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      ..fields['category'] = category
+      ..fields['labels'] = labels;
     var response = await request.send();
     return response.statusCode;
+
+
   }
 
-  Future<int> createArticle(String token, String title, String body_, String image_uri) async {
-    File file = await toFile(image_uri);
+  Future<int> createArticle(String token, String title, String body_, String image_uri, String category, String labels) async {
+    if(image_uri != "") {
+      File file = await toFile(image_uri);
+      var uri = Uri.parse("${baseURL}/articles/article");
+      Map<String, String> headers =  {
+        'Authorization': "token $token",
+        'content-type': "multipart/form-data",
+      };
+      var request = http.MultipartRequest('POST', uri)
+        ..headers.addAll(headers)
+        ..fields['title'] = title
+        ..fields['body'] = body_
+        ..fields['category'] = category
+        ..fields['labels'] = labels
+        ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      var response = await request.send();
+      return response.statusCode;
+    }
+
     var uri = Uri.parse("${baseURL}/articles/article");
     Map<String, String> headers =  {
       'Authorization': "token $token",
@@ -160,11 +463,290 @@ class ApiService {
       ..headers.addAll(headers)
       ..fields['title'] = title
       ..fields['body'] = body_
-      ..files.add(http.MultipartFile.fromBytes('file', file.readAsBytesSync(), filename: 'test'));
+      ..fields['category'] = category
+      ..fields['labels'] = labels;
     var response = await request.send();
     return response.statusCode;
+
+
+
   }
 
 
+  /// Returns number of posts and List of (paginaetd) Posts
+  /// in a dynamic list.
+  Future<dynamic> getPosts(String token, int page, int pageSize) async {
+    var uri = Uri.parse("$baseURL/forum/posts?page=$page&page_size=$pageSize");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    int count = 0;
+    List<dynamic> results;
+    List<Post> posts = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      results = body["results"];
+      count = body["count"];
+
+      int i;
+      for(i = 0 ; i < results.length ; i++){
+        int id = results[i]["id"];
+
+        String date = results[i]["date"];
+        String title = results[i]["title"];
+        String postBody = results[i]["body"];
+        int upvotes = results[i]["upvote"];
+        int downvotes = results[i]["downvote"];
+        double longitude = results[i]["longitude"];
+        double latitude = results[i]["latitude"];
+        bool commentedByDoctor = results[i]["commented_by_doctor"];
+
+        var categoryraw = results[i]["category"];
+        Category category = Category(-1,"","");
+        if(categoryraw != null){
+          category = Category(categoryraw["id"], categoryraw["name"], "");
+        }
+
+        List<dynamic> labelsraw = results[i]["labels"];
+        List<Label> labels = List.empty(growable: true);
+
+        for(int j = 0 ; j < labels.length; j++){
+          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+          labels.add(label);
+        }
+
+        int authorId = results[i]["author"]["id"];
+        String authorUsername = results[i]["author"]["username"];
+        String profileImage = results[i]["author"]["profile_photo"];
+        bool isAuthorDoctor = results[i]["author"]["is_doctor"];
+        String voteOfActiveUser = results[i]["vote"];
+
+        PostAuthor postAuthor = PostAuthor(authorId, authorUsername, profileImage, isAuthorDoctor);
+
+        var dateTime = DateTime.parse(date);
+
+        Post p = Post(id,
+            postAuthor,
+            dateTime,
+            title,
+            postBody,
+            upvotes: upvotes,
+            downvotes: downvotes,
+            isDoctorReplied: commentedByDoctor,
+        );
+
+        p.category = category;
+        p.labels = labels;
+        p.voteOfActiveUser = voteOfActiveUser;
+
+        posts.add(p);
+      }
+
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(count);
+    result.add(posts);
+
+    return result;
+  }
+
+
+  /// Returns number of articles and List of (paginaetd) Articles
+  /// in a dynamic list.
+  Future<dynamic> getArticles(String token, int page, int pageSize) async {
+    var uri = Uri.parse("$baseURL/articles/all?page=$page&page_size=$pageSize");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    int count = 0;
+    List<dynamic> results;
+    List<Article> articles = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      count = body["count"];
+      results = body["results"];
+
+
+      int i;
+      for(i = 0 ; i < results.length ; i++){
+
+        int id = results[i]["id"];
+        String date = results[i]["date"];
+
+        List<dynamic> labelsraw = results[i]["labels"];
+        List<Label> labels = List.empty(growable: true);
+
+        for(int j = 0 ; j < labels.length; j++){
+          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+          labels.add(label);
+        }
+
+        var categoryraw = results[i]["category"];
+        Category category = Category(-1,"","");
+        if(categoryraw != null){
+          category = Category(categoryraw["id"], categoryraw["name"], "");
+        }
+
+        String title = results[i]["title"];
+        String articleBody = results[i]["body"];
+        int upvotes = results[i]["upvote"];
+        int downvotes = results[i]["downvote"];
+
+        int authorId = results[i]["author"]["id"];
+        String authorUsername = results[i]["author"]["username"];
+        String profileImage = results[i]["author"]["profile_photo"];
+
+        String voteOfActiveUser = results[i]["vote"];
+
+        ArticleAuthor articleAuthor = ArticleAuthor(authorId, authorUsername, profileImage);
+
+        var dateTime = DateTime.parse(date);
+
+        Article a = Article(
+          id,
+          dateTime,
+          title,
+          articleBody,
+          articleAuthor,
+          upvotes: upvotes,
+          downvotes: downvotes,
+        );
+        articles.add(a);
+      }
+
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(count);
+    result.add(articles);
+
+    return result;
+  }
+
+  /// Preparing home page: Getting active user, number of posts, list of posts,
+  /// number of articles and list of articles.
+  Future<dynamic> prepareHomePage(String token, int page, int pageSize) async {
+
+    final user = await getUserInfo(token);
+    final posts = await getPosts(token, page, pageSize);
+    final articles = await getArticles(token, page, pageSize);
+
+    List<dynamic> result = List.empty(growable: true);
+
+    print(posts[0]);
+
+    result.add(user);
+    result.add(posts[0]);
+    result.add(posts[1]);
+    result.add(articles[0]);
+    result.add(articles[1]);
+
+    return result;
+  }
+  
+  Future<int> updateUserInfo(User user, String name) async {
+    var token = user.token;
+    var uri = Uri.parse("$baseURL/profile/update_personal_info");
+    var body;
+    if(user.usertype == 2 ){
+      body = jsonEncode(<String, Object>{
+        'member_username': name
+      });
+      print("member");
+    }
+    else if(user.usertype == 1 ){
+      body = jsonEncode(<String, Object>{
+        'hospital_name': name
+      });
+    }
+    final response = await http.post(uri, body: body, headers: {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    });
+    print(response.body);
+    return response.statusCode;
+
+  }
+  
+  Future<int> changeHospitalName(String token, String hospitalName) async {
+    var uri = Uri.parse("$baseURL/profile/update_personal_info");
+    Map<String, String> headers =  {
+      'Authorization': "token $token",
+      'content-type': "multipart/form-data",
+    };
+    var request = http.MultipartRequest('POST', uri)
+      ..headers.addAll(headers)
+      ..fields['hospital_name'] = hospitalName;
+
+    final body = jsonEncode(<String, String>{
+      'member_username': hospitalName
+    });
+    var response = await request.send();
+    return response.statusCode;
+  }
+  
+  Future<int?> getAvatar(String token) async {
+    var uri = Uri.parse("$baseURL/profile/get_personal_info");
+
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.get(uri, headers: header);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+      int avatar = body["avatar"];
+      return avatar;
+    } else{
+      return null;
+    }
+  }
+
+  Future<int> changeAvatar(String token, int avatar) async {
+    var uri = Uri.parse("$baseURL/profile/update_personal_info");
+    Map<String, String> headers =  {
+      'Authorization': "token $token",
+      'content-type': "multipart/form-data",
+    };
+    final body = jsonEncode(<String, int>{
+      'avatar': avatar
+    });
+    final response = await http.post(uri, body: body, headers: headers);
+    return response.statusCode;
+  }
 
 }

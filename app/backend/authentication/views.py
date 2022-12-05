@@ -114,9 +114,8 @@ def register_user(request):
 def login_user(request):
 
         data = {}
-        reqBody = json.loads(request.body)
-        email1 = reqBody['email']
-        password = reqBody['password']
+        email1 = request.data['email']
+        password = request.data['password']
         
         if User.objects.filter(email = email1).exists():
             Account = User.objects.get(email=email1)
@@ -158,8 +157,7 @@ def logout_user(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def me(request):
-
-    user = CustomUser.objects.get(email = request.user.email)
+    user = request.user
     serialized = UserSerializer(user)
     data = serialized.data
     if user.type == 1:
@@ -168,6 +166,7 @@ def me(request):
         id = user.id
         username = doctor.full_name
     if user.type == 2:
+
         member = Member.objects.get(user=user)
         profile_photo = f"https://api.multiavatar.com/{member.info.avatar}.svg?apikey={os.getenv('AVATAR')}"
         id = user.id
@@ -177,4 +176,4 @@ def me(request):
     data['id'] = id
     data['username'] = username
 
-    return Response(status=200, data=serialized.data)
+    return Response(status=200, data=data)

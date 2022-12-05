@@ -7,6 +7,9 @@ import Post from './pages/Post/Post';
 import CreatePost from './pages/CreatePost/CreatePost'
 import CreateArticle from './pages/CreateArticle/CreateArticle'
 import Forum from './layouts/Forum/Forum';
+import Article from './pages/Article/Article';
+
+
 
 import './App.css';
 import 'antd/dist/antd.css'
@@ -16,6 +19,8 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path=':category' element={ <HomePageLayout /> }/>
+
         <Route path='/' element={ <HomePageLayout /> }/>
 
         <Route path='/signup' element={ <SignUp /> }/>
@@ -26,11 +31,14 @@ function App() {
 
         <Route path='/post/:id' element={ <Post /> }/>
 
+        <Route path='/article/:id' element={ <Article /> }/>
+
         <Route path='profile' element={ <Profile /> }/>
 
         <Route path='/create-post' element={ <CreatePost /> }/>
 
         <Route path='/create-article' element={ <CreateArticle /> }/>
+
       </Routes>
     </Router>
   );

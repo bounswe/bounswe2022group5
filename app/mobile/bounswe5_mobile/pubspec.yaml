@@ -51,6 +51,7 @@ dependencies:
   geocoding: ^2.0.0
   geolocator: ^7.0.3
   permission_handler: ^10.2.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
