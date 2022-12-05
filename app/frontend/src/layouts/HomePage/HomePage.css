@@ -21,7 +21,7 @@
     width: 100%;
     display: flex;
     align-content: center;
-    justify-content: center;
+    justify-content: space-around;
     padding-top: 3vh;
     background-color: rgb(244, 255, 253);
     margin: 0 auto;
@@ -43,10 +43,10 @@
 
 .categories {
     display: block;
-    height: 44vh;
+    height: 54vh;
     width: 18vw;
     margin-top: 2vh;
-    margin-left: 1vw;
+    margin-left: 3vw;
     padding-top: 1vh;
     padding-left: 2vw;
     padding-bottom: 1vh;
@@ -67,5 +67,6 @@
 }
 
 .category-search-bar {
-    width: 25vw,
+    width: 2,5vw;
+    margin-bottom: 10px;
 }

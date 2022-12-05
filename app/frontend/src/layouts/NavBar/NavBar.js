@@ -9,16 +9,15 @@ import logo from './logo.png';
 import "./NavBar.css";
 
 const buttonStyle = {
-    borderRadius: 50,
+    borderRadius: 3,
     borderColor:'rgba(0,0,0,0.5)',
     backgroundColor: 'rgb(104,172,252)',
   }
 
 const searchBarStyle = {
-    borderRadius: 50,
+    borderRadius: 3,
     borderColor:'rgba(0,0,0,0.5)',
     fontSize: 14,
-    backgroundColor: 'rgba(230,230,230)',
 }
 
 const onLogout = (dispatch) => {

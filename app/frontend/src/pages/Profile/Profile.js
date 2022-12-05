@@ -49,7 +49,7 @@ const renderPosts = (results, setPosts) => {
     return (
         
         <div>
-            <Forum posts={results} setPosts={setPosts}/>
+            <Forum posts={results} setPosts={setPosts} isProfile={true}/>
         </div>
         
         
@@ -59,15 +59,16 @@ const renderPosts = (results, setPosts) => {
 const renderArticles = (results, setArticles) => {
     return (
         <div>
-            <Articles articles={results} setArticles={setArticles}/>
+            <Articles articles={results} setArticles={setArticles} isProfile={true}/>
         </div>
     )
 }
 
 const renderComments = (results, setPosts) => {
+    console.log(results)
     return (
         <div>
-            <Forum posts={results} setPosts={setPosts}/>
+            <Forum posts={results} setPosts={setPosts} isComment={true} isProfile={true} />
         </div>
     )
 }
@@ -83,7 +84,7 @@ const renderUpvotedPosts = (results, setPosts) => {
 const renderUpvotedArticles = (results, setArticles) => {
     return (
         <div>
-            <Articles articles={results} setArticles={setArticles}/>
+            <Articles articles={results} setArticles={setArticles} isProfile={true}/>
         </div>
     )
 }
@@ -114,9 +115,6 @@ const Profile = () => {
     }
 
     const userPhotoURL = user?.profile_image; //user.profile_image
-    
-    console.log(user);
-    console.log(userID);
 
     //const userName = user.username;
 

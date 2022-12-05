@@ -180,7 +180,7 @@ const CreatePost = () => {
         postData.append("body", postText);
         postData.append("longitude", location.longitude);
         postData.append("latitude", location.latitude);
-        postData.append("category", category);
+        if(category) postData.append("category", category);
         postData.append("labels", labels);
 
         for (let i = 0; i<fileList.length; i++) {
@@ -189,13 +189,15 @@ const CreatePost = () => {
 
         await fetchCreatePost(postData)
             .then((res) => {
+                console.log(res)
                 notification["success"]({
                     message: 'Post is created',
                     placement: "top"
                 });
                 navigate(`/post/${res.post.id}`)
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err.response.data)
                 notification["error"]({
                     message: 'Post is not created',
                     placement: "top"

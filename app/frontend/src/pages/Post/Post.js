@@ -22,11 +22,12 @@ const Post = () => {
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
-    const [images, setImages] = useState();
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         fetchPostById(id)
             .then(res => {
+                console.log(res)
                 setPost(res.post);
                 setComments(res.comments);
                 setImages(res.image_urls);
@@ -85,7 +86,7 @@ const Post = () => {
                     </div>
                 </div>
 
-				{images?.lenght ? 
+				{Object.values(images).length ? 
 				<div className="discussion-images">
 					<Image.PreviewGroup>
 						{
@@ -113,7 +114,7 @@ const Post = () => {
                                         <span className="discussion-commment-author">{item?.comment?.author?.username}</span>
                                         <span> at </span>
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
-                                        { item?.comment?.longitude && post?.latitude ? <span style={{ marginLeft: "6px" }}>
+                                        { item?.comment?.longitude && item?.comment?.latitude ? <span style={{ marginLeft: "6px" }}>
                                             in <a href={`https://maps.google.com/?q=${item?.comment?.latitude},${item?.comment?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'14px'}}></i></a>
                                         </span> : null}
                                     </div>

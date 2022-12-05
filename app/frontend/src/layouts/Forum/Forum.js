@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useSelector } from "react-redux";
 import {
   LikeOutlined,
   CheckCircleOutlined,
@@ -8,7 +9,8 @@ import Vote from "../../components/Vote/Vote";
 import { useNavigate } from "react-router-dom";
 
 
-const Forum = ({posts, setPosts}) => {
+const Forum = ({posts, setPosts, isComment, isProfile}) => {
+  console.log(posts)
   return (
     <div className="forum-page">
       {
@@ -23,8 +25,10 @@ const Forum = ({posts, setPosts}) => {
             downvote={post.downvote} 
             upvote={post.upvote} 
             vote={post.vote} 
-            id={post.id} 
+            id={isComment ? post?.post : post.id} 
             setPosts={setPosts}
+            isComment={isComment}
+            isProfile={isProfile}
           />
 
         ))
@@ -39,8 +43,7 @@ const Forum = ({posts, setPosts}) => {
 const Post = (props) => {
 
   const navigate = useNavigate();
-
-  console.log(props)
+  const { user } = useSelector((state) => state.user);
 
   return (
     <div className="post-container">
@@ -48,12 +51,12 @@ const Post = (props) => {
         <div className="post-header" onClick={() => navigate(`/post/${props.id}`)}>
           <div className="post-header-text">
             <div>
-              <img className="post-avatar" alt="avatar" src={props?.author?.profile_photo}/>
+              <img className="post-avatar" alt="avatar" src={props?.isProfile ? user?.profile_image : props?.author?.profile_photo}/>
             </div>
             <h2>{props.title}</h2>
             <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
             <div className="date-and-author">
-                <span> &nbsp; by <span>{props.author?.username}</span></span>&nbsp;
+                <span> &nbsp; by <span>{props?.isProfile ? user?.username : props.author?.username}</span></span>&nbsp;
                 <span>&nbsp;</span>
                 <span> at {props.date}</span>
               </div>
