@@ -5,6 +5,7 @@ import {
 } from "@ant-design/icons";
 import "./Forum.css";
 import Vote from "../../components/Vote/Vote";
+import { useNavigate } from "react-router-dom";
 
 
 const Forum = ({posts}) => {
@@ -26,12 +27,13 @@ const Forum = ({posts}) => {
 
 const Post = (propsComing) => {
 
+  const navigate = useNavigate();
   const [props, setPost] = useState(propsComing);
 
   return (
     <div className="post-container">
       <div className="post">
-        <div className="post-header">
+        <div className="post-header" onClick={() => navigate(`/post/${props.id}`)}>
             <div className="post-header-text">
             <h2>{props.title}</h2>
             </div>

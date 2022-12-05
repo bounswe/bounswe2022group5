@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import NavBar from "../../layouts/NavBar/NavBar";
-import { Button, Input, notification, Upload, Modal, } from 'antd';
+import { Button, Input, notification, Upload, Modal, Form, Select} from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +9,12 @@ import {
 } from "@ant-design/icons";
 
 import "./CreatePost.css";
-import { fetchCreatePost } from "../../redux/postSlice";
+import { fetchCreatePost, fetchAllCategories } from "../../redux/postSlice";
 
 
 const CreatePost = () => {
     const navigate = useNavigate();
+    const { Option } = Select;
 
     const [location, setLocation] = useState({
         longitude: 0,
@@ -26,6 +27,18 @@ const CreatePost = () => {
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
     const [fileList, setFileList] = useState([]);
+
+    const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState();
+
+    useEffect(() => {
+        fetchAllCategories()
+            .then(res => {
+                console.log(res)
+                setCategories(res)
+            })
+            .catch(err => console.log(err))
+    }, []);
 
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -126,6 +139,7 @@ const CreatePost = () => {
         postData.append("body", postText);
         postData.append("longitude", location.longitude);
         postData.append("latitude", location.latitude);
+        postData.append("category", category);
 
         for (let i = 0; i<fileList.length; i++) {
             postData.append(`image${i+1}`, fileList[i]?.originFileObj);
@@ -204,6 +218,21 @@ const CreatePost = () => {
                                 </div> : null
                             }
                         </div>
+
+                        <div className="label-input">
+                            <br></br>
+                            <Form.Item
+                                name="category"
+                            >
+                                <Select onChange={(e) => setCategory(e)} value={category} placeholder="Category">
+                                    <Option key="empty" value=""></Option>
+                                    { categories.map(category => (
+                                        <Option key={category?.id} value={category?.name}>{category?.name}</Option>
+                                    )) }
+                                </Select>
+                            </Form.Item>
+                        </div>
+
                         <div className="create-post-geolocation">
                             {location.latitude ? renderResetMyLocationButton() : renderUseMyLocationButton()}
                             <div className="create-post-geolocation-text">
