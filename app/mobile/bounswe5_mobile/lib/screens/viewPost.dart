@@ -5,6 +5,7 @@ import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/comment.dart';
 import 'package:bounswe5_mobile/screens/createComment.dart';
+import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,6 +53,11 @@ class _ViewPostPageState extends State<ViewPostPage> {
 
   Future<int> postDownvote(int postID, String token) async {
     final result = await ApiService().postDownvote(postID, token);
+    return result;
+  }
+
+  Future<int> postDelete(int postID, String token) async {
+    final result = await ApiService().postDelete(postID, token);
     return result;
   }
 
@@ -159,12 +165,27 @@ class _ViewPostPageState extends State<ViewPostPage> {
                             if (widget.activeUser.id == post.author.id) {
                               return PopupMenuButton<Menu>(
                                 onSelected: (Menu item) {
-                                  setState(() {
+                                  setState(() async {
                                     if(item == Menu.itemOne) {
                                       print("Edit Post");
                                     }
                                     else if(item == Menu.itemTwo){
                                       print("Delete Post");
+                                      int deleted = await postDelete(widget.post.id, widget.activeUser.token);
+                                      if(deleted == 200){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => HomePage(
+                                                token: token,
+                                                index: 0,
+                                              )),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text("Could not delete ${deleted}")),
+                                        );
+                                      }
                                     }
                                   });
                                 },
@@ -449,6 +470,7 @@ class _CommentItemState extends State<CommentItem> {
     return result;
   }
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -602,12 +624,12 @@ class _CommentItemState extends State<CommentItem> {
                                     final statusCode = await commentUpvote(widget.comment.id , widget.activeUser.token);
                                     if(statusCode == 200) {
                                       setState(() {
-                                        if(widget.comment.voteOfActiveUser == null || widget.comment.voteOfActiveUser == "downvote") {
-                                          widget.comment.upvotes = widget.comment.upvotes + 1;
-                                          widget.comment.voteOfActiveUser = "upvote";
+                                        if(comment.voteOfActiveUser == null || comment.voteOfActiveUser == "downvote") {
+                                          comment.upvotes = comment.upvotes + 1;
+                                          comment.voteOfActiveUser = "upvote";
                                         } else {
-                                          widget.comment.upvotes = widget.comment.upvotes - 1;
-                                          widget.comment.voteOfActiveUser = null;
+                                          comment.upvotes = comment.upvotes - 1;
+                                          comment.voteOfActiveUser = null;
                                         }
                                       });
                                     }
@@ -615,9 +637,8 @@ class _CommentItemState extends State<CommentItem> {
                                 }),
                                 child: Icon(
                                   Icons.arrow_upward,
-                                  color: widget.comment.voteOfActiveUser == "upvote" ? Colors.green : Colors.black,
+                                  color: comment.voteOfActiveUser == "upvote" ? Colors.green : Colors.black,
                                   size: 30,
-                                  // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
                                 ),
                               ),
                               SizedBox(
@@ -642,12 +663,12 @@ class _CommentItemState extends State<CommentItem> {
                                     final statusCode = await commentDownvote(widget.comment.id , widget.activeUser.token);
                                     if(statusCode == 200) {
                                       setState(() {
-                                        if(widget.comment.voteOfActiveUser == null || widget.comment.voteOfActiveUser == "upvote") {
-                                          widget.comment.downvotes = widget.comment.downvotes + 1;
-                                          widget.comment.voteOfActiveUser = "downvote";
+                                        if(comment.voteOfActiveUser == null || comment.voteOfActiveUser == "upvote") {
+                                          comment.downvotes = comment.downvotes + 1;
+                                          comment.voteOfActiveUser = "downvote";
                                         } else {
-                                          widget.comment.downvotes = widget.comment.downvotes - 1;
-                                          widget.comment.voteOfActiveUser = null;
+                                          comment.downvotes = comment.downvotes - 1;
+                                          comment.voteOfActiveUser = null;
                                         }
                                       });
                                     }
@@ -655,15 +676,14 @@ class _CommentItemState extends State<CommentItem> {
                                 }),
                                 child: Icon(
                                   Icons.arrow_downward,
-                                  color: widget.comment.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
+                                  color: comment.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
                                   size: 30,
-                                  // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
                                 ),
                               ),
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(comment.downvotes.toString(),
+                             Text(comment.downvotes.toString(),
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold,

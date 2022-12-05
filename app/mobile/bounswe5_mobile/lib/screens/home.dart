@@ -14,8 +14,9 @@ import 'package:bounswe5_mobile/models/article.dart';
 
 /// This is the implementation of the home page.
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.token}) : super(key: key);
+  HomePage({Key? key, required this.token, required this.index}) : super(key: key);
   final String token;
+  var index;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -23,11 +24,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   /// currentIndex is for keeping home page status.
   /// 0 for forum, 1 for articles, 2 for chatbot (not implemented yet.)
-  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     ApiService apiServer = ApiService();
+    //int currentIndex = widget.index;
 
 
     return FutureBuilder<User?>(
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
           // Floating button that will be used to create posts/articles:
           Widget floatingButton = SizedBox.shrink();
           if (isSessionActive) {
-            if (currentIndex == 0) {
+            if (widget.index == 0) {
               floatingButton = FloatingActionButton(
                   onPressed: () {
                     Navigator.push(
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     Icons.create,
                     color: Theme.of(context).colorScheme.onPrimary,
                   ));
-            } else if (currentIndex == 1) {
+            } else if (widget.index == 1) {
               print(activeUser.specialization);
               if (activeUser.usertype == 1) {
                 floatingButton = FloatingActionButton(
@@ -138,8 +139,8 @@ class _HomePageState extends State<HomePage> {
             // Bottom navigation bar is used for switching between forum, articles and
             // chatbot.
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: (index) => setState(() => currentIndex = index),
+              currentIndex: widget.index,
+              onTap: (index) => setState(() => widget.index = index),
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.bubble_chart),
@@ -161,7 +162,7 @@ class _HomePageState extends State<HomePage> {
             floatingActionButton:
                 floatingButton, // If user not signed in, do not show create post button in the forum
 
-            body: bodies[currentIndex],
+            body: bodies[widget.index],
           );
         }
         // Show a loading icon until the user data is loaded.

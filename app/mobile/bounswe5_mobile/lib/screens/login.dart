@@ -123,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialPageRoute(
                               builder: (context) => HomePage(
                                     token: token,
+                                    index: 0,
                                   )),
                         );
                       } else {
@@ -188,8 +189,9 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomePage(
+                        builder: (context) => HomePage(
                               token: '-1',
+                              index: 0
                             )),
                   );
                 },
