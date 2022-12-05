@@ -1,16 +1,33 @@
 import React, { useState , useEffect } from "react";
 import NavBar from "../../layouts/NavBar/NavBar";
-import { Button, Input, notification, Upload, Modal, Form, Select} from 'antd';
+import { Button, Input, notification, Upload, Modal, Form, Select, Drawer} from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import {
-    PlusOutlined
+    PlusOutlined,
+    MinusCircleOutlined
 } from "@ant-design/icons";
 
 import "./CreatePost.css";
 import { fetchCreatePost, fetchAllCategories } from "../../redux/postSlice";
 
+const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 4 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 20 },
+    },
+  };
+  const formItemLayoutWithOutLabel = {
+    wrapperCol: {
+      xs: { span: 24, offset: 0 },
+      sm: { span: 20, offset: 4 },
+    },
+  };
 
 const CreatePost = () => {
     const navigate = useNavigate();
@@ -28,8 +45,20 @@ const CreatePost = () => {
     const [previewTitle, setPreviewTitle] = useState('');
     const [fileList, setFileList] = useState([]);
 
+    const [open, setOpen] = useState(false);
+
+    const showDrawer = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
+
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState();
+
+    const [labels, setLabels] = useState([]);
 
     useEffect(() => {
         fetchAllCategories()
@@ -131,6 +160,18 @@ const CreatePost = () => {
             </div>
         )
     }
+
+    const onFinishLabels = (values) => {
+
+        let labelText = values.labels.toString();
+        setLabels(labelText);        
+
+        notification["success"]({
+            message: 'Adding labels is successful',
+            placement: "top"
+        });
+
+    };
         
 
     const onCreatePost = async () => {
@@ -140,6 +181,7 @@ const CreatePost = () => {
         postData.append("longitude", location.longitude);
         postData.append("latitude", location.latitude);
         postData.append("category", category);
+        postData.append("labels", labels);
 
         for (let i = 0; i<fileList.length; i++) {
             postData.append(`image${i+1}`, fileList[i]?.originFileObj);
@@ -232,6 +274,80 @@ const CreatePost = () => {
                                 </Select>
                             </Form.Item>
                         </div>
+                        
+                        <Button type="secondary" shape="round" size="large" onClick={showDrawer}>
+                            Add Labels
+                        </Button>
+                        <Drawer title="Type Labels" placement="right" onClose={onClose} open={open}>
+                            
+
+
+<Form name="dynamic_form_item" {...formItemLayoutWithOutLabel} onFinish={onFinishLabels}>
+      <Form.List
+        name="labels"
+      >
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map((field, index) => (
+              <Form.Item
+                {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                label={index === 0 ? 'Labels' : ''}
+                required={false}
+                key={field.key}
+              >
+                <Form.Item
+                  {...field}
+                  validateTrigger={['onChange', 'onBlur']}
+                  noStyle
+                >
+                  <Input placeholder="Your Label" style={{ width: '60%' }} />
+                </Form.Item>
+                {fields.length > 0 ? (
+                  <MinusCircleOutlined
+                    className="dynamic-delete-button"
+                    onClick={() => remove(field.name)}
+                  />
+                ) : null}
+              </Form.Item>
+            ))}
+            <Form.Item>
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                style={{ width: '60%' }}
+                icon={<PlusOutlined />}
+              >
+                Add new label
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" onClick={onClose}>
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </Drawer>
 
                         <div className="create-post-geolocation">
                             {location.latitude ? renderResetMyLocationButton() : renderUseMyLocationButton()}

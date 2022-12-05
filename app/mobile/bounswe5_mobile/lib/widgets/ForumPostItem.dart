@@ -3,6 +3,8 @@ import 'package:bounswe5_mobile/models/post.dart';
 import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/screens/viewPost.dart';
 import 'package:bounswe5_mobile/models/user.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/parser.dart';
 
 /// A single post item shown in the Forum.
 class ForumPostItem extends StatelessWidget{
@@ -51,14 +53,18 @@ class ForumPostItem extends StatelessWidget{
                 const SizedBox(height: 5.0,),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.65,
-                  child: Text(
-                    post.body,
+                  child:
+
+                  Text(
+                    _parseHtmlString(post.body),
                     style: const TextStyle(
                       fontSize: 16.0,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: post.isDoctorReplied ? 2 : 3,
                   ),
+
+
                 ),
                 const SizedBox(height: 5.0,),
                 // If doctor replied to a post, a banner is showed:
@@ -120,5 +126,12 @@ class ForumPostItem extends StatelessWidget{
       ),
     );
   }
+}
+
+String _parseHtmlString(String htmlString) {
+  final document = parse(htmlString);
+  final String parsedString = parse(document.body.text).documentElement.text;
+
+  return parsedString;
 }
 
