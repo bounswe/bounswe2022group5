@@ -7,6 +7,9 @@ services:
     environment:
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PW=${DATABASE_PW}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AVATAR=${AVATAR}
     volumes:
       - .:/app
     ports:
