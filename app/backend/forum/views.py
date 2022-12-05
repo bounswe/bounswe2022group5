@@ -31,11 +31,12 @@ def get_all_posts(request):
     page_size = int(request.GET.get('page_size', 10))
     paginator.page_size = request.GET.get('page_size', 10)
     page = int(request.GET.get('page', 1))
-    paginator.page =  request.GET.get('page', 1)
+    paginator.page = request.GET.get('page', 1)
+
     count = 0
     if category:
         category_object = Category.objects.get(name=category)
-        post_objects = Post.objects.filter(category=category_object)[(page-1):(page_size*page)]
+        post_objects = Post.objects.filter(category=category_object)[((page-1)*page_size):(page_size*page)]
         count = Post.objects.filter(category=category_object).count()
     if search_query:
         queryset_list1 = Q()
@@ -46,13 +47,13 @@ def get_all_posts(request):
                     Q(body__icontains=keyword)
             )
             if category:
-                post_objects = Post.objects.filter(category=category_object).filter(queryset_list1)[(page-1):(page_size*page)]
+                post_objects = Post.objects.filter(category=category_object).filter(queryset_list1)[((page-1)*page_size):(page_size*page)]
                 count = Post.objects.filter(category=category_object).filter(queryset_list1).count()
             else:
-                post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[(page-1):(page_size*page)]
+                post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[((page-1)*page_size):(page_size*page)]
                 count = Post.objects.filter(queryset_list1).distinct().count()
     if (not category) and (not search_query) :
-        post_objects = Post.objects.all().order_by('-date')[(page-1):(page_size*page)]
+        post_objects = Post.objects.all().order_by('-date')[((page-1)*page_size):(page_size*page)]
         count = Post.objects.count()
 
 
@@ -100,12 +101,15 @@ def get_all_posts(request):
         serializer_post_data["author"] = author_data
         posts.append(serializer_post_data)
 
-    result_page = paginator.paginate_queryset(posts, request)
+    #result_page = paginator.paginate_queryset(posts, request)
 
-    response = paginator.get_paginated_response(result_page)
-
-    response.data["count"] = count
-    return response
+    #response = paginator.get_paginated_response(result_page)
+    response = {}
+    response["count"] = count
+    response['next'] = None
+    response['previous'] = None
+    response['results'] = posts
+    return Response(response, status=200)
 
 
 @api_view(['GET',])
@@ -147,11 +151,12 @@ def get_posts_of_user(request, user_id):
     return paginator.get_paginated_response(result_page)
 
 
-def _get_comment_of_post(id, author, user):
+def _get_comment_of_post(id, user):
     post = Post.objects.get(id=id)
     comments= []
-    comments_queryset = Comment.objects.filter(post=post).order_by('date')
+    comments_queryset = Comment.objects.filter(post=post).order_by('-date')
     for comment in comments_queryset:
+        author = comment.author
         comment_images = CommentImages.objects.filter(comment=comment)
         image_urls = [image.image_url for image in comment_images]
         comment_serializer = CommentSerializer(comment)
@@ -253,7 +258,7 @@ def get_post(request,id):
             user = CustomUser.objects.get(email=user.email)
         except:
             user = None
-        comments = _get_comment_of_post(id, author, user)
+        comments = _get_comment_of_post(id, user)
         post_images = PostImages.objects.filter(post=post)
         image_urls = [image.image_url for image in post_images]
 
