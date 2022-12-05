@@ -45,55 +45,47 @@ const editButton = {
     color: 'rgb(104,172,252)',
 }
 
-const renderPosts = (results) => {
+const renderPosts = (results, setPosts) => {
     return (
         
         <div>
-            <Forum posts={results}/>
+            <Forum posts={results} setPosts={setPosts}/>
         </div>
         
         
     )
 }
 
-const renderArticles = (results) => {
+const renderArticles = (results, setArticles) => {
     return (
         <div>
-            <Articles articles={results}/>
+            <Articles articles={results} setArticles={setArticles}/>
         </div>
     )
 }
 
-const renderComments = (results) => {
+const renderComments = (results, setPosts) => {
     return (
         <div>
-            <Forum posts={results}/>
+            <Forum posts={results} setPosts={setPosts}/>
         </div>
     )
 }
 
-const renderUpvotedPosts = (results) => {
+const renderUpvotedPosts = (results, setPosts) => {
     return (
         <div>
-            <Forum posts={results}/>
+            <Forum posts={results} setPosts={setPosts}/>
         </div>
     )
 }
 
-const renderUpvotedArticles = (results) => {
+const renderUpvotedArticles = (results, setArticles) => {
     return (
         <div>
-            <Articles articles={results}/>
+            <Articles articles={results} setArticles={setArticles}/>
         </div>
     )
-}
-
-const renderActivityHistory = (pageType, posts, articles, comments, upvotedPosts, upvotedArticles) => {
-    if (pageType==0) return renderPosts(posts);
-    else if(pageType==1) return renderArticles(articles);
-    else if(pageType==2) return renderComments(comments);
-    else if(pageType==3) return renderUpvotedPosts(upvotedPosts);
-    else if(pageType==4) return renderUpvotedArticles(upvotedArticles);
 }
 
 const getBase64 = (file) => {
@@ -268,6 +260,14 @@ const Profile = () => {
                 placement: "top"
             });
         })
+    }
+
+    const renderActivityHistory = () => {
+        if (pageType==0) return renderPosts(posts, setPosts);
+        else if(pageType==1) return renderArticles(articles, setArticles);
+        else if(pageType==2) return renderComments(comments, setComments);
+        else if(pageType==3) return renderUpvotedPosts(upvotedPosts, setUpvotedPosts);
+        else if(pageType==4) return renderUpvotedArticles(upvotedArticles, setUpvotedArticles);
     }
 
    
