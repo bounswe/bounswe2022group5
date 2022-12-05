@@ -43,7 +43,7 @@ const Article = (props) => {
 
         <div className="article-footer">
           <div className="article-author"></div>
-          {props.author}
+          Author: {props.author}
           <div className="article-info">
             <div className="article-date">
               {

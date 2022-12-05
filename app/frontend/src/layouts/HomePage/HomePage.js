@@ -14,16 +14,16 @@ import {fetchAllArticles} from "../../redux/articleSlice";
 import { fetchCategories } from "../../redux/categorySlice";
 
 const buttonStyleClicked = {
-    width: "45%",
-    borderRadius: 50,
+    width: "30%",
+    borderRadius: 2,
     borderColor:'rgba(0,0,0,0.5)',
     backgroundColor: 'rgb(104,172,252)',
     color: 'rgb(255,255,255)'
 }
 
 const buttonStyleUnclicked = {
-    width: "45%",
-    borderRadius: 50,
+    width: "30%",
+    borderRadius: 2,
     borderColor:'rgba(0,0,0,0.5)',
     backgroundColor: 'rgb(255,255,255)',
     color: 'rgb(104,172,252)',
@@ -143,18 +143,16 @@ const HomePageLayout = () => {
             <div className="content">
                 <div className="forum-article-buttons">
                     <Button 
-                    shape="round" 
-                    size="large" 
-                    style={pageType === 0 ? buttonStyleClicked : buttonStyleUnclicked}
-                    onClick={() => setPageType(0)}
+                        size="large" 
+                        style={pageType === 0 ? buttonStyleClicked : buttonStyleUnclicked}
+                        onClick={() => setPageType(0)}
                     >
                         Posts
                     </Button>
                     <Button 
-                    shape="round" 
-                    size="large" 
-                    style={pageType === 1 ? buttonStyleClicked : buttonStyleUnclicked}
-                    onClick={() => setPageType(1)}
+                        size="large" 
+                        style={pageType === 1 ? buttonStyleClicked : buttonStyleUnclicked}
+                        onClick={() => setPageType(1)}
                     >
                         Articles
                     </Button>
@@ -197,9 +195,6 @@ const HomePageLayout = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className="footer">
-                Footer
-            </div> */}
         </div>
     )
 }

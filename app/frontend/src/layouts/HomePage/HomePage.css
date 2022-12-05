@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
     display: block;
+    background-color: rgb(244, 255, 253);
 }
 
 .header {
@@ -10,15 +11,9 @@
 }
 
 .content {
-    background-image: url("./HomepageBackground.jpg");
     width: 100%;
-    height: 93vh;
-}
-
-.footer {
-    width: 100%;
-    height: 8vh;
-    background-color: lightgray;
+    height: 100%;
+    background-color: rgb(244, 255, 253);
 }
 
 .forum-article-buttons {
@@ -26,19 +21,18 @@
     width: 100%;
     display: flex;
     align-content: center;
-    justify-content: space-between;
-    padding-right: 5vw;
-    padding-left: 5vw;
+    justify-content: center;
     padding-top: 3vh;
+    background-color: rgb(244, 255, 253);
+    margin: 0 auto;
 }
 
 .category-post-articles {
     display: flex;
-    height: 76vh;
-    width: 96vw;
-    margin-left: 2vw;
-    margin-right: 2vw;
-    margin-top: 3vh;
+    width: 100vw;
+    background-color: rgb(244, 255, 253);
+    overflow: scroll;
+    margin-bottom: 30px;
 }
 
 .categories-and-create-post {
@@ -63,17 +57,13 @@
 }
 
 .articles-or-posts {
-    border-radius: 5%;
-    border: 4px solid lightblue;
-    height: 74vh;
+    border-radius: 5px;
     width: 74vw;
     padding-left: 2vw;
     padding-top: 1vh;
     padding-right: 2vw;
     padding-bottom: 2vw;
     margin-left: 2vw;
-    overflow: scroll;
-    background: rgba(240,255,240,0.6);
 }
 
 .category-search-bar {

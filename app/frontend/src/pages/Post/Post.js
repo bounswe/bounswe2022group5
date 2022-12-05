@@ -80,7 +80,7 @@ const Post = () => {
                         </div>
                         { post?.commented_by_doctor ? <div className="discussion-doctor">
                              <CheckCircleOutlined className="discussion-check-sign"/>
-                            Answered by {post?.answered_by}
+                            Answered by a doctor
                         </div> : null }
                     </div>
                 </div>
