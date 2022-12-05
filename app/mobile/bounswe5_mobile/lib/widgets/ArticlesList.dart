@@ -3,8 +3,10 @@ import 'package:bounswe5_mobile/models/article.dart';
 import 'package:bounswe5_mobile/widgets/ArticleItem.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
-// Active user may be empty don't forget
-class ArticlesList extends StatelessWidget {
+
+/// This code was used for listing all articles but
+/// it is obsolete. Kept for possible later uses.
+class ArticlesList extends StatelessWidget{
   ArticlesList({required this.activeUser, required this.articles});
   final User activeUser;
   final List<Article> articles;
@@ -16,8 +18,7 @@ class ArticlesList extends StatelessWidget {
       itemCount: articles.length,
       itemBuilder: (BuildContext context, int index) {
         final article = articles[index];
-        return ArticleItem(
-            activeUser: activeUser, index: index, article: article);
+        return ArticleItem(activeUser: activeUser, article: article);
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
