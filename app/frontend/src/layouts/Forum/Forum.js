@@ -43,9 +43,7 @@ const Post = (propsComing) => {
         
         <div className="post-body">
           <div className="post-content">
-            <p>
-              {props.body}
-            </p>
+            <p dangerouslySetInnerHTML={{ __html: props?.body }} />
             <div className="answered-by"> {props.commented_by_doctor ? <CheckCircleOutlined className="site-form-item-icon" /> : null } {props.commented_by_doctor} </div>
           </div>
           <div className="rating">

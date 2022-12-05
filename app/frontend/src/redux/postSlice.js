@@ -22,3 +22,8 @@ export const fetchCreatePost = async (formData) => {
     return data;
 }
 
+export const fetchAllCategories = async () => {
+    const {data} = await axios.get(`${url}/forum/categories`);
+    return data;
+}
+
