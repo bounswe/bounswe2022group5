@@ -5,8 +5,25 @@ import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/article.dart';
 import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/models/user.dart';
+import 'package:bounswe5_mobile/API_service.dart';
 
 enum Menu { itemOne, itemTwo }
+
+PreferredSizeWidget? myAppBar = AppBar(
+  centerTitle: true,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text('Logo',
+          style: TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.bold,
+          ))
+    ],
+  ),
+  elevation: 0.0,
+);
 
 class ViewArticlePage extends StatefulWidget {
   const ViewArticlePage(
@@ -25,196 +42,234 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Logo',
-                style: TextStyle(
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                ))
-          ],
-        ),
-        elevation: 0.0,
-      ),
-      body: ListView(children: [
-        Container(
-          constraints: BoxConstraints(maxHeight: double.infinity),
-          color: Theme.of(context).colorScheme.surface,
-          width: double.infinity,
-          margin: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(12.0),
-                child: Row(
+    ApiService apiServer = ApiService();
+    User activeUser = widget.activeUser;
+    bool isSessionActive = activeUser.token != '-1';
+    String token = activeUser.token;
+    int articleid = widget.article.id;
+
+    String tempImagePath = 'lib/assets/images/generic_user.jpg';
+
+    return FutureBuilder(
+        future: apiServer.getSingleArticle(token, articleid),
+        builder: (context,snapshot){
+
+          if( (snapshot.hasData || token == '-1') && snapshot.data != null){
+
+            dynamic result = snapshot.data;
+            Article article = result;
+
+            Widget pp;
+            //print(post.author.profileImageUrl);
+            if(article.author.profileImageUrl == null || article.author.profileImageUrl == ""){
+              pp = Image.asset(tempImagePath);
+            }
+            else{
+              pp = Image.network(article.author.profileImageUrl!);
+            }
+
+            return Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: AssetImage(tempImagePath),
-                    ),
-                    SizedBox(
-                      width: 8.0,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    Text('Logo',
+                        style: TextStyle(
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
+                        ))
+                  ],
+                ),
+                elevation: 0.0,
+              ),
+              body: ListView(children: [
+                Container(
+                  constraints: BoxConstraints(maxHeight: double.infinity),
+                  color: Theme.of(context).colorScheme.surface,
+                  width: double.infinity,
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(12.0),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              child: ClipOval(
+                                child: pp,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 8.0,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.check),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        "Dr. " + widget.article.author.fullName,
+                                        maxLines: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(width: 5),
+                                      Text(
+                                        "Published: " +
+                                            formatter.format(widget.article.time),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 8.0),
+                            LayoutBuilder(builder: (context, constraints) {
+                              if (widget.activeUser.id == widget.article.author.id) {
+                                return PopupMenuButton<Menu>(
+                                  onSelected: (Menu item) {
+                                    setState(() {
+                                      //_selectedMenu = item.name;
+                                    });
+                                  },
+                                  itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<Menu>>[
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemOne,
+                                      child: Text('Edit'),
+                                    ),
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemOne,
+                                      child: Text('Delete'),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return PopupMenuButton<Menu>(
+                                  onSelected: (Menu item) {
+                                    setState(() {
+                                      //_selectedMenu = item.name;
+                                    });
+                                  },
+                                  itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<Menu>>[
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemOne,
+                                      child: Text('Report'),
+                                    ),
+                                  ],
+                                );
+                              }
+                            })
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Container(
+                        padding: EdgeInsets.all(5.0),
+                        constraints: BoxConstraints(maxHeight: double.infinity),
+                        width: double.infinity,
+                        child: Text(
+                          widget.article.header,
+                          maxLines: 3,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Container(
+                        padding: EdgeInsets.all(15.0),
+                        constraints: BoxConstraints(maxHeight: double.infinity),
+                        width: double.infinity,
+                        child: Text(
+                          widget.article.body,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 18),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.check),
-                              SizedBox(width: 5),
-                              Text(
-                                "Dr. " + widget.article.author.fullName,
-                                maxLines: 2,
+                              InkWell(
+                                child: Icon(
+                                  Icons.arrow_upward,
+                                  size: 30,
+                                  // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
+                                ),
+                                onTap: (() {
+                                  print("Article upvoted.");
+                                }),
                               ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(widget.article.upvotes.toString(),
+                                  style: TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20))
                             ],
                           ),
                           Row(
                             children: [
-                              SizedBox(width: 5),
-                              Text(
-                                "Published: " +
-                                    formatter.format(widget.article.time),
+                              InkWell(
+                                child: Icon(
+                                  Icons.arrow_downward,
+                                  size: 30,
+                                  // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
+                                ),
+                                onTap: (() {
+                                  print("Article downvoted.");
+                                }),
                               ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(widget.article.downvotes.toString(),
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20))
                             ],
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(width: 8.0),
-                    LayoutBuilder(builder: (context, constraints) {
-                      if (widget.activeUser == widget.article.author) {
-                        return PopupMenuButton<Menu>(
-                          onSelected: (Menu item) {
-                            setState(() {
-                              //_selectedMenu = item.name;
-                            });
-                          },
-                          itemBuilder: (BuildContext context) =>
-                              <PopupMenuEntry<Menu>>[
-                            const PopupMenuItem<Menu>(
-                              value: Menu.itemOne,
-                              child: Text('Edit'),
-                            ),
-                            const PopupMenuItem<Menu>(
-                              value: Menu.itemOne,
-                              child: Text('Delete'),
-                            ),
-                          ],
-                        );
-                      } else {
-                        return PopupMenuButton<Menu>(
-                          onSelected: (Menu item) {
-                            setState(() {
-                              //_selectedMenu = item.name;
-                            });
-                          },
-                          itemBuilder: (BuildContext context) =>
-                              <PopupMenuEntry<Menu>>[
-                            const PopupMenuItem<Menu>(
-                              value: Menu.itemOne,
-                              child: Text('Report'),
-                            ),
-                          ],
-                        );
-                      }
-                    })
-                  ],
-                ),
-              ),
-              SizedBox(height: 8),
-              Container(
-                padding: EdgeInsets.all(5.0),
-                constraints: BoxConstraints(maxHeight: double.infinity),
-                width: double.infinity,
-                child: Text(
-                  widget.article.header,
-                  maxLines: 3,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
-                ),
-              ),
-              SizedBox(height: 8),
-              Container(
-                padding: EdgeInsets.all(15.0),
-                constraints: BoxConstraints(maxHeight: double.infinity),
-                width: double.infinity,
-                child: Text(
-                  widget.article.body,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              SizedBox(height: 18),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        child: Icon(
-                          Icons.arrow_upward,
-                          size: 30,
-                          // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
-                        ),
-                        onTap: (() {
-                          print("Article upvoted.");
-                        }),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(widget.article.upvotes.toString(),
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20))
+                      SizedBox(height: 10.0),
                     ],
                   ),
-                  Row(
-                    children: [
-                      InkWell(
-                        child: Icon(
-                          Icons.arrow_downward,
-                          size: 30,
-                          // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
-                        ),
-                        onTap: (() {
-                          print("Article downvoted.");
-                        }),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(widget.article.downvotes.toString(),
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20))
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.0),
-            ],
-          ),
-        ),
-        CategoryViewer(name: "Pediatry"),
-      ]),
+                ),
+                widget.article.category != null ?
+                CategoryViewer(name: widget.article.category!.name)
+                : SizedBox.shrink(),
+              ]),
+            );
+          }
+          else {
+            return Scaffold(
+                appBar: myAppBar,
+                body: Center(child: CircularProgressIndicator()));
+          }
+      }
     );
   }
 }

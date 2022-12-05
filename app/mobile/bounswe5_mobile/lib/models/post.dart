@@ -16,10 +16,10 @@ class Post {
   bool isDoctorReplied;
   double? longitude;
   double? latitude;
-  List<String>? imageUrls; //????
+  List<String> imageUrls = []; //????
 
   Category? category;
-  List<Label>? labels;
+  List<Label> labels = [];
 
   String? voteOfActiveUser;
 
@@ -34,18 +34,37 @@ class Post {
         this.isDoctorReplied = false,
       }
       );
+
+  setVoteOfActiveUser(String vote){
+    voteOfActiveUser = vote;
+  }
+
+  setCategory(Category c){
+    category = c;
+  }
+
+  setLongitude(double newLongitude){
+    longitude = newLongitude;
+  }
+
+  setLatitude(double newLatitude){
+    latitude = newLatitude;
+  }
 }
 
 class PostAuthor {
   final int id;
   final String username;
-  final String profileImageUrl;
+  String? profileImageUrl;
   final bool isDoctor;
 
   PostAuthor(
       this.id,
       this.username,
-      this.profileImageUrl,
       this.isDoctor
       );
+
+  setProfileImageUrl(String url) {
+    profileImageUrl = url;
+  }
 }

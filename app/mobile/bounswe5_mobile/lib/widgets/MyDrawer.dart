@@ -23,7 +23,7 @@ class MyDrawer extends StatelessWidget{
   Widget build(BuildContext context){
     bool isSessionActive = activeUser!.token != '-1';
 
-    int usertype = activeUser!.usertype;
+    int usertype = activeUser!.usertype; // -1 if session is not active
 
     String displayName;
 

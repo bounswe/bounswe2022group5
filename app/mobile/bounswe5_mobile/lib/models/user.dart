@@ -28,7 +28,7 @@ class User {
   final int doctorid;
   final String fullName;
   Category specialization; // Every doctor has 1 and only 1 specialization (?)
-  final String hospitalName;
+  String hospitalName;
 
   final bool verified;
 

@@ -13,6 +13,7 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/models/memberInfo.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/article.dart';
+import 'package:bounswe5_mobile/models/comment.dart';
 import 'package:intl/intl.dart';
 
 
@@ -473,7 +474,7 @@ class ApiService {
   }
 
 
-  /// Returns number of posts and List of (paginaetd) Posts
+  /// Returns number of posts and List of (paginated) Posts
   /// in a dynamic list.
   Future<dynamic> getPosts(String token, int page, int pageSize) async {
     var uri = Uri.parse("$baseURL/forum/posts?page=$page&page_size=$pageSize");
@@ -512,8 +513,8 @@ class ApiService {
         String postBody = results[i]["body"];
         int upvotes = results[i]["upvote"];
         int downvotes = results[i]["downvote"];
-        double longitude = results[i]["longitude"];
-        double latitude = results[i]["latitude"];
+        double? longitude = results[i]["longitude"];
+        double? latitude = results[i]["latitude"];
         bool commentedByDoctor = results[i]["commented_by_doctor"];
 
         var categoryraw = results[i]["category"];
@@ -534,9 +535,10 @@ class ApiService {
         String authorUsername = results[i]["author"]["username"];
         String profileImage = results[i]["author"]["profile_photo"];
         bool isAuthorDoctor = results[i]["author"]["is_doctor"];
-        String voteOfActiveUser = results[i]["vote"];
+        String? voteOfActiveUser = results[i]["vote"];
 
-        PostAuthor postAuthor = PostAuthor(authorId, authorUsername, profileImage, isAuthorDoctor);
+        PostAuthor postAuthor = PostAuthor(authorId, authorUsername, isAuthorDoctor);
+        postAuthor.profileImageUrl = profileImage;
 
         var dateTime = DateTime.parse(date);
 
@@ -568,7 +570,7 @@ class ApiService {
   }
 
 
-  /// Returns number of articles and List of (paginaetd) Articles
+  /// Returns number of articles and List of (paginated) Articles
   /// in a dynamic list.
   Future<dynamic> getArticles(String token, int page, int pageSize) async {
     var uri = Uri.parse("$baseURL/articles/all?page=$page&page_size=$pageSize");
@@ -628,9 +630,10 @@ class ApiService {
         String authorUsername = results[i]["author"]["username"];
         String profileImage = results[i]["author"]["profile_photo"];
 
-        String voteOfActiveUser = results[i]["vote"];
+        String? voteOfActiveUser = results[i]["vote"];
 
-        ArticleAuthor articleAuthor = ArticleAuthor(authorId, authorUsername, profileImage);
+        ArticleAuthor articleAuthor = ArticleAuthor(authorId, authorUsername);
+        articleAuthor.setProfileImageUrl(profileImage);
 
         var dateTime = DateTime.parse(date);
 
@@ -666,7 +669,6 @@ class ApiService {
 
     List<dynamic> result = List.empty(growable: true);
 
-    print(posts[0]);
 
     result.add(user);
     result.add(posts[0]);
@@ -685,7 +687,6 @@ class ApiService {
       body = jsonEncode(<String, Object>{
         'member_username': name
       });
-      print("member");
     }
     else if(user.usertype == 1 ){
       body = jsonEncode(<String, Object>{
@@ -696,7 +697,6 @@ class ApiService {
       'Authorization': "token $token",
       'content-type': "application/json",
     });
-    print(response.body);
     return response.statusCode;
 
   }
@@ -747,6 +747,249 @@ class ApiService {
     });
     final response = await http.post(uri, body: body, headers: headers);
     return response.statusCode;
+  }
+
+
+  /// Returns a specific post and its comments
+  Future<dynamic> getSinglePost(String token, int postid) async {
+    var uri = Uri.parse("$baseURL/forum/post/$postid");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    Post? post;
+
+    List<Comment> comments = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      dynamic rawpost = body["post"];
+
+      int id = rawpost["id"];
+
+      String date = rawpost["date"];
+      String title = rawpost["title"];
+      String postBody = rawpost["body"];
+      int upvotes = rawpost["upvote"];
+      int downvotes = rawpost["downvote"];
+      double? longitude = rawpost["longitude"];
+      double? latitude = rawpost["latitude"];
+      bool commentedByDoctor = rawpost["commented_by_doctor"];
+
+      var categoryraw = rawpost["category"];
+      Category category = Category(-1,"","");
+      if(categoryraw != null){
+        category = Category(categoryraw["id"], categoryraw["name"], "");
+      }
+
+      List<dynamic> labelsraw = rawpost["labels"];
+      List<Label> labels = List.empty(growable: true);
+
+      for(int j = 0 ; j < labels.length; j++){
+        Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+        labels.add(label);
+      }
+
+      dynamic rawauthor = rawpost["author"];
+
+      int authorId = rawauthor["id"];
+      String authorUsername = rawauthor["username"];
+      String profileImage = rawauthor["profile_photo"];
+      bool isAuthorDoctor = rawauthor["is_doctor"];
+
+      String? voteOfActiveUser = rawpost["vote"];
+
+      PostAuthor postAuthor = PostAuthor(authorId, authorUsername, isAuthorDoctor);
+      postAuthor.setProfileImageUrl(profileImage);
+
+      List<dynamic> rawImageUrls = body["image_urls"];
+
+      List<String> imageUrls = [];
+      for(int i = 0 ; i < rawImageUrls.length ; i++){
+        String url = rawImageUrls[i];
+        imageUrls.add(url);
+      }
+
+      var dateTime = DateTime.parse(date);
+
+      post = Post(id,
+        postAuthor,
+        dateTime,
+        title,
+        postBody,
+        upvotes: upvotes,
+        downvotes: downvotes,
+        isDoctorReplied: commentedByDoctor,
+      );
+
+      post.category = category;
+      post.labels = labels;
+      post.voteOfActiveUser = voteOfActiveUser;
+      post.imageUrls = imageUrls;
+      post.longitude = longitude;
+      post.latitude = latitude;
+
+      List<dynamic> rawcomments = body["comments"];
+
+      for(int i = 0 ; i < rawcomments.length ; i++){
+
+        dynamic rawcomment = rawcomments[i]["comment"];
+
+        int commentid = rawcomment["id"];
+        String commentdate = rawcomment["date"];
+        var commentDateTime = DateTime.parse(commentdate);
+        String commentbody = rawcomment["body"];
+        int commentupvotes = rawcomment["upvote"];
+        int commentdownvotes = rawcomment["downvote"];
+        double? commentlongitude = rawcomment["longitude"];
+        double? commentlatitude = rawcomment["latitude"];
+
+        dynamic rawcommentauthor = rawcomment["author"];
+
+        int authorId = rawcommentauthor["id"];
+        String authorUsername = rawcommentauthor["username"];
+        String profileImage = rawcommentauthor["profile_photo"];
+        bool isAuthorDoctor = rawcommentauthor["is_doctor"];
+
+        CommentAuthor commentAuthor = CommentAuthor(authorId, authorUsername, isAuthorDoctor);
+        commentAuthor.setProfileImageUrl(profileImage);
+
+        int postidOfComment = rawcomment["post"];
+        String? voteOfActiveUserForComment = rawcomment["vote"];
+
+        Comment c  = Comment(
+          commentid,
+          commentDateTime,
+          commentbody,
+          commentAuthor,
+          postidOfComment,
+        );
+
+        dynamic rawCommentImageUrls = rawcomments[i]["image_urls"];
+        List<String> commentImageUrls = [];
+        for(int i = 0 ; i < rawCommentImageUrls.length ; i++){
+          String url = rawCommentImageUrls[i];
+          commentImageUrls.add(url);
+        }
+
+        c.latitude = commentlatitude;
+        c.longitude = commentlongitude;
+        c.upvotes = commentupvotes;
+        c.downvotes = commentdownvotes;
+        c.voteOfActiveUser = voteOfActiveUserForComment;
+        c.imageUrls = commentImageUrls;
+
+        comments.add(c);
+      }
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(post);
+    result.add(comments);
+
+    return result;
+  }
+
+
+  /// Returns a specific article
+  Future<dynamic> getSingleArticle(String token, int articleid) async {
+    var uri = Uri.parse("$baseURL/articles/article/$articleid");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    Article? article;
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      dynamic rawarticle = body["article"];
+
+      int id = rawarticle["id"];
+      String date = rawarticle["date"];
+      List<dynamic> labelsraw = rawarticle["labels"];
+      List<Label> labels = List.empty(growable: true);
+
+      for(int j = 0 ; j < labels.length; j++){
+        Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+        labels.add(label);
+      }
+
+      var categoryraw = rawarticle["category"];
+      Category category = Category(-1,"","");
+      if(categoryraw != null){
+        category = Category(categoryraw["id"], categoryraw["name"], "");
+      }
+
+      String articleTitle = rawarticle["title"];
+      String articleBody = rawarticle["body"];
+      int upvotes = rawarticle["upvote"];
+      int downvotes = rawarticle["downvote"];
+
+      dynamic rawauthor = rawarticle["author"];
+      int authorId = rawauthor["id"];
+      String authorUsername = rawauthor["username"];
+      String profileImage = rawauthor["profile_photo"];
+
+      ArticleAuthor articleAuthor = ArticleAuthor(authorId, authorUsername);
+      articleAuthor.setProfileImageUrl(profileImage);
+
+      String? voteOfActiveUser = rawarticle["vote"];
+
+      List<dynamic> rawImageUrls = body["image_urls"];
+
+      List<String> imageUrls = [];
+      for(int i = 0 ; i < rawImageUrls.length ; i++){
+        String url = rawImageUrls[i];
+        imageUrls.add(url);
+      }
+
+      var dateTime = DateTime.parse(date);
+
+      article = Article(
+        id,
+        dateTime,
+        articleTitle,
+        articleBody,
+        articleAuthor,
+        upvotes: upvotes,
+        downvotes: downvotes,
+      );
+
+      article.category = category;
+      article.labels = labels;
+      article.voteOfActiveUser = voteOfActiveUser;
+      article.imageUrls = imageUrls;
+
+    }
+
+    return article;
   }
 
 }

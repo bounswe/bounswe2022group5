@@ -22,7 +22,7 @@ class _PostsOverviewScreenState extends State<PostsOverviewScreen> {
   late int _pageNumber;
   late bool _error;
   late bool _loading;
-  final int _numberOfPostsPerRequest = 7;
+  final int _numberOfPostsPerRequest = 15;
   late List<Post> _posts;
   final int _nextPageTrigger = 2;
 
@@ -42,12 +42,18 @@ class _PostsOverviewScreenState extends State<PostsOverviewScreen> {
   Future<void> fetchData() async {
     try{
       List<dynamic> postInfo = await ApiService().getPosts(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest);
+      int totalNofPosts = postInfo[0];
+      //print("/forum/posts?page=$_pageNumber&page_size=$_numberOfPostsPerRequest");
+      //print("total posts: $totalNofPosts");
       List<Post> postList = postInfo[1];
       setState(() {
-        _isLastPage = postList.length < _numberOfPostsPerRequest;
+
         _loading = false;
         _pageNumber = _pageNumber + 1;
         _posts.addAll(postList);
+        _isLastPage = postList.isEmpty;
+        //_isLastPage = _posts.length == totalNofPosts; // Actual code
+
       });
     } catch (e) {
       print("error --> $e");

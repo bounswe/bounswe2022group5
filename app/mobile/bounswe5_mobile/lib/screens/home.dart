@@ -30,10 +30,8 @@ class _HomePageState extends State<HomePage> {
     ApiService apiServer = ApiService();
 
 
-    int postPerPage = 7;
-
-    return FutureBuilder<dynamic>(
-      future: apiServer.prepareHomePage(widget.token,1,postPerPage),
+    return FutureBuilder<User?>(
+      future: apiServer.getUserInfo(widget.token),
       builder: (context,snapshot){
 
         // If widget token is -1, that means a non registered user
@@ -46,7 +44,7 @@ class _HomePageState extends State<HomePage> {
 
           dynamic result = snapshot.data;
 
-          User activeUser = result[0] ?? User(-1, '-1', '-1', -1);
+          User activeUser = result ?? User(-1, '-1', '-1', -1);
 
           /*
           int numberOfPosts = result[1];
@@ -186,9 +184,10 @@ class _HomePageState extends State<HomePage> {
 
     ApiService apiServer = ApiService();
 
-    return FutureBuilder<void>(
-      future: apiServer.prepareHomePage("-1",1, 10),
+    return FutureBuilder<dynamic>(
+      future: apiServer.getSinglePost(widget.token, 79),
       builder: (context,snapshot){
+        print(snapshot.data);
         return Container();
       },
     );

@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         // To use the playground font, add GoogleFonts package and uncomment
         // fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
-      home: LoginPage(),
+      home: HomePage(token:'-1'),
     );
   }
 }
