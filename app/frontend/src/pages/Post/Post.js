@@ -58,7 +58,6 @@ const Post = () => {
             <Image src={logo} preview={false}/>
         </div>
         <div className="discussion-container">
-            <div>sldknjf</div>
             { post ? <div className="discussion-post">
                 <div className="discussion-avatar-body">
                     <div>

@@ -12,8 +12,15 @@ export const fetchPostByUserId = async (id, pageNo) => {
     return data;
 }
 
-export const fetchAllPosts = async (pageNo,pageSize,category) => {
-    const {data} = await axios.get(`${url}/forum/posts?page=${pageNo}&page_size=${pageSize}&c=${category}`);
+export const fetchAllPosts = async (pageNo, pageSize, category, query = "") => {
+    let queryString = "";
+
+    if(pageNo) queryString = `page=${pageNo}`;
+    if(pageSize) queryString += `&page_size=${pageSize}`;
+    if(category) queryString += `&c=${category}`;
+    if(query) queryString += `&q=${query}`;
+
+    const {data} = await axios.get(`${url}/forum/posts?${queryString}`);
     return data;
 }
 

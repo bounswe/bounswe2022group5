@@ -5,13 +5,12 @@ import Vote from "../../components/Vote/Vote";
 import { useNavigate } from "react-router-dom";
 
 
-const Articles = ({articles}) => {
+const Articles = ({articles, setArticles}) => {
   return (
     <div className="articles">
       {
         articles?.map(article => (
           <Article
-
             title={article.title}
             author={article.author.username}
             date={article.date}
@@ -19,8 +18,8 @@ const Articles = ({articles}) => {
             upvote={article.upvote}
             vote={article.vote}
             id={article.id}
-
-          ></Article>
+            setArticles={setArticles}
+          />
         ))
       }
   
@@ -31,10 +30,9 @@ const Articles = ({articles}) => {
 
 
 
-const Article = (propsComing) => {
+const Article = (props) => {
 
   const navigate = useNavigate();
-  const [props, setArticle] = useState(propsComing);
 
   return (
     <div className="article-container">
@@ -56,7 +54,7 @@ const Article = (propsComing) => {
 
             <div className="article-rating">
 
-              <Vote item={props} setItem={setArticle}/>
+              <Vote item={props} setItem={props.setArticle}/>
 
             </div>
           </div>

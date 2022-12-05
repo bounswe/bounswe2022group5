@@ -2,8 +2,15 @@ import axios from "axios";
 
 const url = process.env.REACT_APP_BACKEND_URL;
 
-export const fetchAllArticles = async (pageNo,pageSize,category) => {
-    const {data} = await axios.get(`${url}/articles/all?page=${pageNo}&page_size=${pageSize}&c=${category}`);
+export const fetchAllArticles = async (pageNo, pageSize, category, query) => {
+    let queryString = "";
+
+    if(pageNo) queryString = `page=${pageNo}`;
+    if(pageSize) queryString += `&page_size=${pageSize}`;
+    if(category) queryString += `&c=${category}`;
+    if(query) queryString += `&q=${query}`;
+
+    const {data} = await axios.get(`${url}/articles/all?${queryString}`);
     return data;
 }
 

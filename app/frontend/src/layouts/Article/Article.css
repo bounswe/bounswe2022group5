@@ -28,7 +28,7 @@ h2{
     height: 150px;
     align-items: center;
     margin-top: 10px;
-    
+    cursor: pointer;
     padding: 10px;
 }
 

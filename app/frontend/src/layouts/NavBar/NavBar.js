@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {NotificationOutlined, UserOutlined, UserAddOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Input, Image} from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
@@ -59,10 +59,25 @@ const LogInLogOut = ({userStatus}) => {
 }
 
 
-const NavBar = () => {
+const NavBar = ({query}) => {
     const {status: userStatus } = useSelector((state) => state.user);
     const navigate = useNavigate();
-    const [searchInput, setSearchInput] = useState("");
+    const [searchInput, setSearchInput] = useState(query);
+
+    useEffect(() => {
+        var input = document.getElementById("search-input");
+
+        // Execute a function when the user presses a key on the keyboard
+        input.addEventListener("keypress", function(event) {
+          // If the user presses the "Enter" key on the keyboard
+          if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("search-submit").click();
+          }
+        });
+    }, []);
 
     return (
         <div className="nav-bar"> 
@@ -72,12 +87,19 @@ const NavBar = () => {
             </div>
             <div className="search-bar">
                 <Input 
+                    id="search-input"
                     style={searchBarStyle}
                     placeholder="Search in Website" 
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                 />
-                <Button style={buttonStyle} type="primary">
+                <Button style={buttonStyle} type="primary" id="search-submit" onClick={() => {
+                    if(searchInput) {
+                        navigate(`/search/${searchInput}`)
+                    } else {
+                        navigate(`/`)
+                    }
+                }}>
                     Search
                 </Button>
             </div>

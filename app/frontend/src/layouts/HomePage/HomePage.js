@@ -43,18 +43,18 @@ const categorySearchStyle = {
     width: "90%",
 }
 
-const renderPosts = (posts) => {
+const renderPosts = (posts, setPosts) => {
     return (
         <div>
-            <Forum posts={posts}/>
+            <Forum posts={posts} setPosts={setPosts}/>
         </div>
     )
 }
 
-const renderArticles = (articles) => {
+const renderArticles = (articles, setArticles) => {
     return (
         <div>
-            <Articles articles={articles}/>
+            <Articles articles={articles} setArticles={setArticles}/>
         </div>
     )
 }
@@ -89,7 +89,9 @@ const RenderCategories = (searchKey) => {
 }
 
 const HomePageLayout = () => {
-    const param = useParams()?.category
+    const param = useParams()?.category?.replaceAll("%20", "");
+    const query = useParams()?.query?.replaceAll("%20", "");
+
     const category = param !== undefined ? param : "";
 
     const navigate = useNavigate();
@@ -106,20 +108,19 @@ const HomePageLayout = () => {
     const [articles, setArticles] = useState();
     
     useEffect(() => {
-        fetchAllPosts(1,10,category).then(res => {
+        fetchAllPosts(1, 10, query ? null : category, query !== "" ? query : null).then(res => {
             setPosts(res.results)
             setPostCount(res.count);
         });
 
-        fetchAllArticles(1,10,category).then(res => {
+        fetchAllArticles(1, 10, query ? null : category, query !== "" ? query : null).then(res => {
             setArticleCount(res.count);
             setArticles(res.results)
         })
         return () =>{
 
         }
-    },
- [category]);
+    }, [category, query]);
 
 
     const onChangePost = (pageNumber, itemPerPage) => {
@@ -137,7 +138,7 @@ const HomePageLayout = () => {
     return(
         <div className="layout">
             <div className="header">
-                <NavBar></NavBar>
+                <NavBar query={query}></NavBar>
             </div>
             <div className="content">
                 <div className="forum-article-buttons">
@@ -191,7 +192,7 @@ const HomePageLayout = () => {
                         </div>
                     </div>
                     <div className="articles-or-posts">
-                        {pageType === 0 ? renderPosts(posts): renderArticles(articles)}
+                        {pageType === 0 ? renderPosts(posts, setPosts): renderArticles(articles, setArticles)}
                         {pageType === 0 ? <Pagination  showQuickJumper defaultCurrent={1} total={postCount} onChange={onChangePost} /> : <Pagination showQuickJumper defaultCurrent={1} total={articleCount} onChange={onChangeArticle} /> }
                     </div>
                 </div>

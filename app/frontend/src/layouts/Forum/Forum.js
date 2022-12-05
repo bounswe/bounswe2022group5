@@ -8,13 +8,24 @@ import Vote from "../../components/Vote/Vote";
 import { useNavigate } from "react-router-dom";
 
 
-const Forum = ({posts}) => {
+const Forum = ({posts, setPosts}) => {
   return (
     <div className="forum-page">
       {
         posts?.map(post => (
 
-          <Post title={post.title} date={post.date} author={post.author.username} body={post.body} commented_by_doctor={post.commented_by_doctor} downvote={post.downvote} upvote={post.upvote} vote={post.vote} id={post.id}/>
+          <Post 
+            title={post.title} 
+            date={post.date} 
+            author={post.author.username} 
+            body={post.body} 
+            commented_by_doctor={post.commented_by_doctor} 
+            downvote={post.downvote} 
+            upvote={post.upvote} 
+            vote={post.vote} 
+            id={post.id} 
+            setPosts={setPosts}
+          />
 
         ))
 
@@ -25,10 +36,9 @@ const Forum = ({posts}) => {
   );
 }
 
-const Post = (propsComing) => {
+const Post = (props) => {
 
   const navigate = useNavigate();
-  const [props, setPost] = useState(propsComing);
 
   return (
     <div className="post-container">
@@ -50,7 +60,7 @@ const Post = (propsComing) => {
           </div>
           <div className="rating">
 
-            <Vote item={props} type={"post"} setItem={setPost}/>
+            <Vote item={props} type={"post"} setItem={props?.setPost}/>
             </div>  
 
           </div>
