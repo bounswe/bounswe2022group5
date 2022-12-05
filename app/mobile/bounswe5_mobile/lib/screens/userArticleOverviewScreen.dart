@@ -24,7 +24,7 @@ class _UserArticlesOverviewScreenState extends State<UserArticlesOverviewScreen>
   late bool _loading;
   final int _numberOfArticlesPerRequest = 7;
   late List<Article> _articles;
-  final int _nextPageTrigger = 2;
+  final int _nextPageTrigger = 5;
 
   ApiService apiService = ApiService();
 
@@ -41,7 +41,7 @@ class _UserArticlesOverviewScreenState extends State<UserArticlesOverviewScreen>
 
   Future<void> fetchData() async {
     try{
-      List<dynamic> articlesInfo = await ApiService().getArticles(widget.activeUser.token, _pageNumber, _numberOfArticlesPerRequest);
+      List<dynamic> articlesInfo = await ApiService().getDoctorArticles(widget.activeUser, _pageNumber, _numberOfArticlesPerRequest);
       List<Article> articlesList = articlesInfo[1];
       setState(() {
         _isLastPage = articlesList.length < _numberOfArticlesPerRequest;
