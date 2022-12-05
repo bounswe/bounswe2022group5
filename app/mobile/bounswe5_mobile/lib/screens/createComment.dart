@@ -1,3 +1,4 @@
+import 'package:bounswe5_mobile/screens/viewPost.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -8,13 +9,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/user.dart';
+import 'package:bounswe5_mobile/models/post.dart';
 
 const List<String> categories = <String>['Anatomical Pathology', 'Anesthesiology','Cardiology','Hematology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy', 'Critical Care Medicine'];
 
 class CreateCommentPage extends StatefulWidget {
-  const CreateCommentPage({Key? key, required User this.activeUser, required int this.postID}) : super(key: key);
+  const CreateCommentPage({Key? key, required User this.activeUser, required Post this.post}) : super(key: key);
   final User activeUser;
-  final int postID;
+  final Post post;
   @override
   State<CreateCommentPage> createState() => _CreateCommentPageState();
 }
@@ -88,7 +90,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    int postID = widget.post.id;
     ApiService apiServer = ApiService();
     return  FutureBuilder<User?>(
         future: apiServer.getUserInfo(widget.activeUser.token),
@@ -228,9 +230,16 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
                                                   if(image != null){
                                                     image_uri = "${image!.uri}";
                                                   }
-                                                  int commented = await comment(widget.postID, token, _body.text, longitude, latitude, image_uri);
+                                                  int commented = await comment(postID, token, _body.text, longitude, latitude, image_uri);
                                                   if (commented == 200) {
                                                     Navigator.pop(context);
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) => ViewPostPage(activeUser: widget.activeUser, post:widget.post)
+                                                        )
+                                                    );
+
                                                   } else {
                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                       SnackBar(content: Text("Could not comment ${commented}")),
