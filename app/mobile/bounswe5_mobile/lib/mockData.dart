@@ -24,8 +24,9 @@ List<Category> categories = [
   genetics, neurology, nuclear
 ];
 
-PostAuthor pa = PostAuthor(1, "https://api.multiavatar.com/7.svg?apikey=BWcb3EHf8CruYh", '', false);
-ArticleAuthor aa = ArticleAuthor(2, "Ali Veli", "https://api.multiavatar.com/7.svg?apikey=BWcb3EHf8CruYh");
+PostAuthor pa = PostAuthor(1, 'deneme', false);
+ArticleAuthor aa = ArticleAuthor(2, "Ali Veli");
+
 // Members:
 int ppUri = 1;
 List<User> members = [
@@ -198,30 +199,5 @@ List<Post> posts = [
     upvotes : 7,
     downvotes : 2,
     isDoctorReplied : true,
-  ),
-];
-
-// Comments:
-List<Comment> comments = [
-  Comment(
-    1,
-    posts[0],
-    members[1],
-    DateTime.utc(2022, 3, 22),
-    'Comment1'
-  ),
-  Comment(
-    2,
-    posts[0],
-    members[2],
-    DateTime.utc(2022, 3, 23),
-    'Comment2'
-  ),
-  Comment(
-    3,
-    posts[0],
-    members[3],
-    DateTime.utc(2022, 3, 25),
-    'Comment3'
   ),
 ];

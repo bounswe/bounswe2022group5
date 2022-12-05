@@ -13,6 +13,7 @@ class Article {
   int downvotes;
   final ArticleAuthor author;
   String? voteOfActiveUser;
+  List<String> imageUrls = []; //????
 
   Article(
       this.id,
@@ -23,17 +24,25 @@ class Article {
       {this.upvotes = 0,
         this.downvotes = 0}
       );
+
+  setVoteOfActiveUser(String vote){
+    voteOfActiveUser = vote;
+  }
+
 }
 
 
 class ArticleAuthor {
   final int id;
   final String fullName;
-  final String profileImageUrl;
+  String? profileImageUrl;
 
   ArticleAuthor(
       this.id,
       this.fullName,
-      this.profileImageUrl,
       );
+
+  setProfileImageUrl(String url) {
+    profileImageUrl = url;
+  }
 }
