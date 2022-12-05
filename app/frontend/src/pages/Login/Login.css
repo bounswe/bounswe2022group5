@@ -9,8 +9,18 @@
     border: 1px solid black;
 }
 
-.logo {
-    margin-top: 10px
+.login-logo {
+    width: 100%;
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.login-logo > div {
+    cursor: pointer;
+    width: 25%;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .login-background {
@@ -28,8 +38,8 @@
 
 .login-container {
     width: 40%;
-    height: 55%;
-    margin: auto;
+    height: 50%;
+    margin: 5em auto;
     background-color: #e7f7f7;
     border-radius: 5%;
     border: 3px solid rgb(98, 163, 161);

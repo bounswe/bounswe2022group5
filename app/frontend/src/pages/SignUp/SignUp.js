@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import ReactCardFlip from 'react-card-flip';
 import { LockOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, Upload, DatePicker, notification } from 'antd';
+import { Button, Form, Input, Select, Upload, DatePicker, notification, Image } from 'antd';
 import Switch from "react-switch";
 import { FaStethoscope } from 'react-icons/fa';
 import { fetchRegister, login } from "../../redux/userSlice";
@@ -11,6 +11,7 @@ import { fetchAllCategories } from "../../redux/postSlice";
 import moment from "moment";
 
 import "./SignUp.css";
+import logo from "../../layouts/NavBar/logo.png";
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -36,7 +37,6 @@ const SignUp = () => {
     useEffect(() => {
         fetchAllCategories()
             .then(res => {
-                console.log(res)
                 setCategories(res)
             })
             .catch(err => console.log(err))
@@ -100,9 +100,9 @@ const SignUp = () => {
     return(
         <div className="signup-background">
 
-            <div className="navbar">
-                <a href="/" className="logo"><h1>LOGO</h1></a>
-            </div>
+        <div className="signup-logo" >
+            <Image src={logo} preview={false} onClick={() => navigate("/")}/>
+        </div>
 
             <ReactCardFlip isFlipped={flipped} flipDirection="horizontal" className="card-flip">
 

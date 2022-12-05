@@ -49,20 +49,34 @@
 
 .signup-user-container, .signup-doctor-container {
     width: 60%;
-    height: 80%;
-    margin: 6em auto;
+    height: 85%;
+    margin: 2em auto;
     background-color: #e7f7f7;
     border-radius: 5%;
     border: 3px solid rgb(98, 163, 161);
     padding: 60px;
-    box-shadow: 20px 20px 400px rgb(38, 97, 108)
+    box-shadow: 20px 20px 150px rgb(38, 97, 108)
 }
 
 .signup-doctor-container {
     position: relative;
-    top: 5em;
+    top: 2em;
     margin: 0em auto !important;
     height: 95%;
+}
+
+.signup-logo {
+    width: 100%;
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.signup-logo > div {
+    cursor: pointer;
+    width: 25%;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .submit-container {

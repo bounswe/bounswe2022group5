@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, notification } from 'antd';
+import { Button, Checkbox, Form, Input, notification, Image } from 'antd';
 import { fetchLogin, login, fetchMe } from "../../redux/userSlice";
 
 import "./Login.css";
+import logo from "../../layouts/NavBar/logo.png";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -43,9 +44,9 @@ const Login = () => {
     return(
         <div className="login-background">
 
-            <div className="navbar">
-                <a href="/" className="logo"><h1>LOGO</h1></a>
-            </div>
+        <div className="login-logo" >
+            <Image src={logo} preview={false} onClick={() => navigate("/")}/>
+        </div>
 
             <div className="login-container">
                 <h1 className="title">Login</h1>
