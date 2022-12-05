@@ -388,28 +388,34 @@ def create_post(request):
     response_object = {}
     response_object['post'] = PostSerializer(data).data
     if 'category' in request.data:
-        category = request.data["category"]
+        try:
+            category = request.data["category"]
 
-        category = Category.objects.get(name=category)
-        post.category = category
-        post.save()
-        category_serialized = CategorySerializer(category).data
+            category = Category.objects.get(name=category)
+            post.category = category
+            post.save()
+            category_serialized = CategorySerializer(category).data
 
 
-        response_object['post']['category'] = category_serialized
+            response_object['post']['category'] = category_serialized
+        except:
+            pass
 
     if 'labels' in request.data:
-        labels = request.data["labels"].split(",")
-        l = []
-        for label in labels:
+        try:
+            labels = request.data["labels"].split(",")
+            l = []
+            for label in labels:
 
-            label, valid = Label.objects.get_or_create(name=label)
-            post.labels.add(label)
-            post.save()
-            label_serialized = LabelSerializer(label).data
-            l.append(label_serialized)
+                label, valid = Label.objects.get_or_create(name=label)
+                post.labels.add(label)
+                post.save()
+                label_serialized = LabelSerializer(label).data
+                l.append(label_serialized)
 
-        response_object['post']['labels'] = l
+            response_object['post']['labels'] = l
+        except:
+            pass
 
     response_object['post']['author'] = author_data
     image_urls = []

@@ -257,25 +257,32 @@ def create_article(request):
                 image_urls.append(photo_url)
         serialized_data = ArticleSerializer(data).data
         if 'category' in request.data:
-            category = request.data["category"]
+            try:
+                category = request.data["category"]
 
-            category = Category.objects.get(name=category)
-            article.category = category
-            article.save()
-            category_serialized = CategorySerializer(category).data
+                category = Category.objects.get(name=category)
+                article.category = category
+                article.save()
+                category_serialized = CategorySerializer(category).data
 
-            serialized_data['category'] = category_serialized
+                serialized_data['category'] = category_serialized
+            except:
+                pass
 
         if 'labels' in request.data:
-            labels = request.data["labels"].split(",")
-            l = []
-            for label in labels:
-                label, valid = Label.objects.get_or_create(name=label)
-                article.labels.add(label)
-                article.save()
-                label_serialized = LabelSerializer(label).data
-                l.append(label_serialized)
-            serialized_data['labels'] = l
+            try:
+                labels = request.data["labels"].split(",")
+                l = []
+                for label in labels:
+                    label, valid = Label.objects.get_or_create(name=label)
+                    article.labels.add(label)
+                    article.save()
+                    label_serialized = LabelSerializer(label).data
+                    l.append(label_serialized)
+                serialized_data['labels'] = l
+            except:
+                pass
+
         return Response({'article': serialized_data, 'image_urls': image_urls})
     else:
         data = validate_article.errors
