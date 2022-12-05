@@ -86,8 +86,9 @@ class ForumPostItem extends StatelessWidget{
                   children: [
                     Column(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.arrow_upward,
+                          color: post.voteOfActiveUser == "upvote" ? Colors.green : Colors.black,
                           size: 30.0,
                         ),
                         Text(
@@ -100,8 +101,9 @@ class ForumPostItem extends StatelessWidget{
                     ),
                     Column(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.arrow_downward,
+                          color: post.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
                           size: 30.0,
                         ),
                         Text(
