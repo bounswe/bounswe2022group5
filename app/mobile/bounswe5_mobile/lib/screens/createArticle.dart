@@ -7,14 +7,14 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
-const List<String> categories = <String>["Anesthesiology", 'Cardiology',"Cardiovascular/Thoracic Surgery", "Clinical Immunology/Allergy",
+const List<String> categories = <String>["Anatomical Pathology","Anesthesiology",'Cardiology',"Cardiovascular-Thoracic Surgery", "Clinical Immunology-Allergy",
   "Critical Care Medicine", "Dermatology","Diagnostic Radiology", "Emergency Medicine","Endocrinology and Metabolism","Family Medicine",
-  "Gastroenterology", "General Internal Medicine", "General Surgery", "General/Clinical Pathology","Geriatric Medicine",
+  "Gastroenterology", "General Internal Medicine", "General Surgery", "General-Clinical Pathology","Geriatric Medicine",
   "Hematology","Medical Biochemistry","Medical Genetics","Medical Microbiology and Infectious Diseases",
-  "Medical Oncology","Nephrology","Neurology","Neurosurgery", "Nuclear Medicine","Obstetrics/Gynecology",
+  "Medical Oncology","Nephrology","Neurology","Neurosurgery", "Nuclear Medicine","Obstetrics-Gynecology",
   "Occupational Medicine","Ophthalmology","Orthopedic Surgery","Otolaryngology","Pediatrics","Physical Medicine and Rehabilitation (PM & R)",
   "Plastic Surgery","Psychiatry","Public Health and Preventive Medicine","Radiation Oncology","Respirology",
-  "Rheumatology","Urology","Anatomical Pathology"];
+  "Rheumatology","Urology"];
 
 class CreateArticlePage extends StatefulWidget {
   const CreateArticlePage({Key? key, required User this.activeUser}) : super(key: key);

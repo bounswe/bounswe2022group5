@@ -92,8 +92,9 @@ class ArticleItem extends StatelessWidget{
                         children: [
                           Column(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.arrow_upward,
+                                color: article.voteOfActiveUser == "upvote" ? Colors.green : Colors.black,
                                 size: 30.0,
                               ),
                               Text(article.upvotes.toString())
@@ -104,8 +105,9 @@ class ArticleItem extends StatelessWidget{
                           ),
                           Column(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.arrow_downward,
+                                color: article.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
                                 size: 30.0,
                               ),
                               Text(article.downvotes.toString())

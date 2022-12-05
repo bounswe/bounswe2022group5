@@ -44,6 +44,16 @@ class ViewPostPage extends StatefulWidget {
 CommentAuthor ca = CommentAuthor(7,'deneme',false);
 
 class _ViewPostPageState extends State<ViewPostPage> {
+  Future<int> postUpvote(int postID, String token) async {
+    final result = await ApiService().postUpvote(postID, token);
+    return result;
+  }
+
+  Future<int> postDownvote(int postID, String token) async {
+    final result = await ApiService().postDownvote(postID, token);
+    return result;
+  }
+
   String tempImagePath = 'lib/assets/images/generic_user.jpg';
 
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
@@ -225,13 +235,26 @@ class _ViewPostPageState extends State<ViewPostPage> {
                               Row(
                                 children: [
                                   InkWell(
-                                    onTap: (() {
+                                    onTap: (() async {
                                       if (isSessionActive) {
                                         print("Post upvoted.");
+                                        final statusCode = await postUpvote(widget.post.id, widget.activeUser.token);
+                                        if(statusCode == 200) {
+                                          setState(() {
+                                            if(widget.post.voteOfActiveUser == null || widget.post.voteOfActiveUser == "downvote") {
+                                              widget.post.upvotes = widget.post.upvotes + 1;
+                                              widget.post.voteOfActiveUser = "upvote";
+                                            } else {
+                                              widget.post.downvotes = widget.post.downvotes - 1;
+                                              widget.post.voteOfActiveUser = null;
+                                            }
+                                          });
+                                        }
                                       }
                                     }),
                                     child: Icon(
                                       Icons.arrow_upward,
+                                      color: widget.post.voteOfActiveUser == "upvote" ? Colors.green : Colors.black ,
                                       size: 30,
                                       // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
                                     ),
@@ -252,13 +275,26 @@ class _ViewPostPageState extends State<ViewPostPage> {
                               Row(
                                 children: [
                                   InkWell(
-                                    onTap: (() {
+                                    onTap: (() async {
                                       if (isSessionActive) {
                                         print("Post downvoted.");
+                                        final statusCode = await postDownvote(widget.post.id, widget.activeUser.token);
+                                        if(statusCode == 200) {
+                                          setState(() {
+                                            if(widget.post.voteOfActiveUser == null || widget.post.voteOfActiveUser == "upvote") {
+                                              widget.post.downvotes = widget.post.downvotes + 1;
+                                              widget.post.voteOfActiveUser = "downvote";
+                                            } else {
+                                              widget.post.downvotes = widget.post.downvotes - 1;
+                                              widget.post.voteOfActiveUser = null;
+                                            }
+                                          });
+                                        }
                                       }
                                     }),
                                     child: Icon(
                                       Icons.arrow_downward,
+                                      color: widget.post.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
                                       size: 30,
                                       // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
                                     ),
@@ -387,6 +423,16 @@ class CommentItem extends StatefulWidget {
 }
 
 class _CommentItemState extends State<CommentItem> {
+  Future<int> commentUpvote(int commentID, String token) async {
+    final result = await ApiService().commentUpvote(commentID, token);
+    return result;
+  }
+
+  Future<int> commentDownvote(int commentID, String token) async {
+    final result = await ApiService().commentDownvote(commentID, token);
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -529,13 +575,26 @@ class _CommentItemState extends State<CommentItem> {
                           Row(
                             children: [
                               InkWell(
-                                onTap: (() {
-                                  if (isSessionActive) {
-                                    print("Post upvoted.");
+                                onTap: (() async {
+                                  if (isSessionActive)  {
+                                    print("Comment upvoted.");
+                                    final statusCode = await commentUpvote(widget.comment.id , widget.activeUser.token);
+                                    if(statusCode == 200) {
+                                      setState(() {
+                                        if(widget.comment.voteOfActiveUser == null || widget.comment.voteOfActiveUser == "downvote") {
+                                          widget.comment.upvotes = widget.comment.upvotes + 1;
+                                          widget.comment.voteOfActiveUser = "upvote";
+                                        } else {
+                                          widget.comment.upvotes = widget.comment.upvotes - 1;
+                                          widget.comment.voteOfActiveUser = null;
+                                        }
+                                      });
+                                    }
                                   }
                                 }),
                                 child: Icon(
                                   Icons.arrow_upward,
+                                  color: widget.comment.voteOfActiveUser == "upvote" ? Colors.green : Colors.black,
                                   size: 30,
                                   // color: Colors.green, // This part will be implemented later: If user upvoted, color will be green.
                                 ),
@@ -556,13 +615,26 @@ class _CommentItemState extends State<CommentItem> {
                           Row(
                             children: [
                               InkWell(
-                                onTap: (() {
+                                onTap: (() async {
                                   if (isSessionActive) {
                                     print("Comment downvoted.");
+                                    final statusCode = await commentDownvote(widget.comment.id , widget.activeUser.token);
+                                    if(statusCode == 200) {
+                                      setState(() {
+                                        if(widget.comment.voteOfActiveUser == null || widget.comment.voteOfActiveUser == "upvote") {
+                                          widget.comment.downvotes = widget.comment.downvotes + 1;
+                                          widget.comment.voteOfActiveUser = "downvote";
+                                        } else {
+                                          widget.comment.downvotes = widget.comment.downvotes - 1;
+                                          widget.comment.voteOfActiveUser = null;
+                                        }
+                                      });
+                                    }
                                   }
                                 }),
                                 child: Icon(
                                   Icons.arrow_downward,
+                                  color: widget.comment.voteOfActiveUser == "downvote" ? Colors.red : Colors.black,
                                   size: 30,
                                   // color: Colors.red, // This part will be implemented later: If user downvoted, color will be red.
                                 ),
