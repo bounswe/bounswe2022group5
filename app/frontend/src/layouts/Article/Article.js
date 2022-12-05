@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { CalendarOutlined } from "@ant-design/icons";
 import "./Article.css";
 import Vote from "../../components/Vote/Vote";
+import { useNavigate } from "react-router-dom";
+
 
 const Articles = ({articles}) => {
   return (
@@ -31,12 +33,13 @@ const Articles = ({articles}) => {
 
 const Article = (propsComing) => {
 
+  const navigate = useNavigate();
   const [props, setArticle] = useState(propsComing);
 
   return (
     <div className="article-container">
       <div className="article">
-        <div className="article-header">
+        <div className="article-header" onClick={() => navigate(`/article/${props.id}`)}>
           <h2>{props.title}</h2>
         </div>
 
