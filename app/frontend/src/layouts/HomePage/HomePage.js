@@ -106,8 +106,7 @@ const HomePageLayout = () => {
     const [articles, setArticles] = useState();
     
     useEffect(() => {
-        fetchAllPosts(1,category).then(res => {
-            setPostCount(res.count);
+        fetchAllPosts(1,10,category).then(res => {
             setPosts(res.results)
             setPostCount(res.count);
         });
@@ -116,8 +115,12 @@ const HomePageLayout = () => {
             setArticleCount(res.count);
             setArticles(res.results)
         })
+        return () =>{
 
-    }, [category]);
+        }
+    },
+ [category]);
+
 
     const onChangePost = (pageNumber, itemPerPage) => {
         fetchAllPosts(pageNumber,itemPerPage,category).then(res => {
