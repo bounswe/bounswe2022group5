@@ -942,6 +942,8 @@ class ApiService {
       }
 
       var categoryraw = rawarticle["category"];
+
+
       Category category = Category(-1,"","");
       if(categoryraw != null){
         category = Category(categoryraw["id"], categoryraw["name"], "");

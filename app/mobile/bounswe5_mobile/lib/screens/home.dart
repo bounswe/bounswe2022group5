@@ -185,9 +185,8 @@ class _HomePageState extends State<HomePage> {
     ApiService apiServer = ApiService();
 
     return FutureBuilder<dynamic>(
-      future: apiServer.getSinglePost(widget.token, 79),
+      future: apiServer.getSingleArticle(widget.token, 17),
       builder: (context,snapshot){
-        print(snapshot.data);
         return Container();
       },
     );

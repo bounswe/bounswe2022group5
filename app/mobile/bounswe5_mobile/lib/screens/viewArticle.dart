@@ -60,12 +60,19 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
             Article article = result;
 
             Widget pp;
-            //print(post.author.profileImageUrl);
+
             if(article.author.profileImageUrl == null || article.author.profileImageUrl == ""){
               pp = Image.asset(tempImagePath);
             }
             else{
               pp = Image.network(article.author.profileImageUrl!);
+            }
+
+            Widget categoryWidget = SizedBox.shrink();
+            if(article.category != null){
+              if(article.category!.name != ""){
+                categoryWidget = CategoryViewer(name: article.category!.name);
+              }
             }
 
             return Scaffold(
@@ -114,7 +121,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                       Icon(Icons.check),
                                       SizedBox(width: 5),
                                       Text(
-                                        "Dr. " + widget.article.author.fullName,
+                                        "Dr. " + article.author.fullName,
                                         maxLines: 2,
                                       ),
                                     ],
@@ -124,7 +131,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                       SizedBox(width: 5),
                                       Text(
                                         "Published: " +
-                                            formatter.format(widget.article.time),
+                                            formatter.format(article.time),
                                       ),
                                     ],
                                   ),
@@ -133,7 +140,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                             ),
                             SizedBox(width: 8.0),
                             LayoutBuilder(builder: (context, constraints) {
-                              if (widget.activeUser.id == widget.article.author.id) {
+                              if (activeUser.id == article.author.id) {
                                 return PopupMenuButton<Menu>(
                                   onSelected: (Menu item) {
                                     setState(() {
@@ -178,7 +185,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         constraints: BoxConstraints(maxHeight: double.infinity),
                         width: double.infinity,
                         child: Text(
-                          widget.article.header,
+                          article.header,
                           maxLines: 3,
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -195,7 +202,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         constraints: BoxConstraints(maxHeight: double.infinity),
                         width: double.infinity,
                         child: Text(
-                          widget.article.body,
+                          article.body,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.black,
@@ -223,7 +230,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Text(widget.article.upvotes.toString(),
+                              Text(article.upvotes.toString(),
                                   style: TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.bold,
@@ -245,7 +252,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Text(widget.article.downvotes.toString(),
+                              Text(article.downvotes.toString(),
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold,
@@ -258,9 +265,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                     ],
                   ),
                 ),
-                widget.article.category != null ?
-                CategoryViewer(name: widget.article.category!.name)
-                : SizedBox.shrink(),
+                categoryWidget,
               ]),
             );
           }
@@ -288,8 +293,6 @@ class CategoryViewer extends StatelessWidget {
               color: Theme.of(context).colorScheme.outline,
               borderRadius: BorderRadius.all(Radius.circular(20))),
           margin: EdgeInsets.all(15),
-          height: 35,
-          width: 120,
           child: Row(
             children: [
               SizedBox(width: 15.0),
@@ -301,6 +304,7 @@ class CategoryViewer extends StatelessWidget {
               Text(name,
                   style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary)),
+              SizedBox(width: 10.0),
             ],
           ),
         ),
