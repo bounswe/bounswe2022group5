@@ -5,16 +5,16 @@ import 'package:bounswe5_mobile/API_service.dart';
 import '../widgets/ProfileListItem.dart';
 import '../screens/profile.dart';
 import '../widgets/ProfileWidget.dart';
-import '../screens/userPostOverviewScreen.dart';
+import '../screens/userArticleOverviewScreen.dart';
 
-class PostsPage extends StatefulWidget {
-  const PostsPage({Key? key, required User this.activeUser}) : super(key: key);
+class ArticlesPage extends StatefulWidget {
+  const ArticlesPage({Key? key, required User this.activeUser}) : super(key: key);
   final User activeUser;
   @override
-  State<PostsPage> createState() => _PostsPageState();
+  State<ArticlesPage> createState() => _ArticlesPageState();
 }
 
-class _PostsPageState extends State<PostsPage> {
+class _ArticlesPageState extends State<ArticlesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class _PostsPageState extends State<PostsPage> {
         ),
         elevation: 0.0,
       ),
-      body: UserPostsOverviewScreen(activeUser: widget.activeUser),
+      body: UserArticlesOverviewScreen(activeUser: widget.activeUser),
     );
   }
 }

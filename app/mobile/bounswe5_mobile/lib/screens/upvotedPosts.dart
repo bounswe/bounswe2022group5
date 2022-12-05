@@ -1,3 +1,4 @@
+import 'package:bounswe5_mobile/screens/upvotedPostsOverviewScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
@@ -6,14 +7,14 @@ import '../widgets/ProfileListItem.dart';
 import '../screens/profile.dart';
 import '../widgets/ProfileWidget.dart';
 
-class UpvotesPage extends StatefulWidget {
-  const UpvotesPage({Key? key, required User this.activeUser}) : super(key: key);
+class UpvotedPostsPage extends StatefulWidget {
+  const UpvotedPostsPage({Key? key, required User this.activeUser}) : super(key: key);
   final User activeUser;
   @override
-  State<UpvotesPage> createState() => _UpvotesPageState();
+  State<UpvotedPostsPage> createState() => _UpvotedPostsPageState();
 }
 
-class _UpvotesPageState extends State<UpvotesPage> {
+class _UpvotedPostsPageState extends State<UpvotedPostsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +34,7 @@ class _UpvotesPageState extends State<UpvotesPage> {
         ),
         elevation: 0.0,
       ),
+      body: UpvotedPostsOverviewScreen(activeUser: widget.activeUser),
     );
   }
 }
