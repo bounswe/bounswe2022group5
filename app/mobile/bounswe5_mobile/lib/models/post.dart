@@ -1,4 +1,5 @@
-import 'package:bounswe5_mobile/models/user.dart';
+import 'package:bounswe5_mobile/models/category.dart';
+import 'package:bounswe5_mobile/models/label.dart';
 
 /// Post is the main element of the forum.
 class Post {
@@ -6,13 +7,21 @@ class Post {
   /// and then call API again using id of the author to get the
   /// author.
   final int id;
-  final User author;
   final DateTime time;
+  final PostAuthor author;
   final String header;
   final String body;
   int upvotes;
   int downvotes;
   bool isDoctorReplied;
+  double? longitude;
+  double? latitude;
+  List<String> imageUrls = []; //????
+
+  Category? category;
+  List<Label> labels = [];
+
+  String? voteOfActiveUser;
 
   Post(
       this.id,
@@ -22,6 +31,40 @@ class Post {
       this.body,
       {this.upvotes = 0,
         this.downvotes = 0,
-        this.isDoctorReplied = false,}
+        this.isDoctorReplied = false,
+      }
       );
+
+  setVoteOfActiveUser(String vote){
+    voteOfActiveUser = vote;
+  }
+
+  setCategory(Category c){
+    category = c;
+  }
+
+  setLongitude(double newLongitude){
+    longitude = newLongitude;
+  }
+
+  setLatitude(double newLatitude){
+    latitude = newLatitude;
+  }
+}
+
+class PostAuthor {
+  final int id;
+  final String username;
+  String? profileImageUrl;
+  final bool isDoctor;
+
+  PostAuthor(
+      this.id,
+      this.username,
+      this.isDoctor
+      );
+
+  setProfileImageUrl(String url) {
+    profileImageUrl = url;
+  }
 }

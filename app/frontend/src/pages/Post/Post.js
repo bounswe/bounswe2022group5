@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector} from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Image } from 'antd';
 import moment from "moment";
 import {
@@ -10,13 +10,15 @@ import {
 import CommentEditor from "./CommentEditor";
 import Vote from "../../components/Vote/Vote";
 
+import logo from "../../layouts/NavBar/logo.png"
+
 import "./Post.css";
 
 import { fetchPostById } from "../../redux/postSlice";
 
 const Post = () => {
     const id = useParams()?.id;
-    const { user } = useSelector((state) => state.user);
+    const navigate = useNavigate();
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
@@ -29,6 +31,7 @@ const Post = () => {
                 setComments(res.comments);
                 setImages(res.image_urls);
             })
+            .catch(err => console.log(err))
     }, [id])
 
     const getCommentSetter = (commentId) => {
@@ -50,8 +53,12 @@ const Post = () => {
         }
     }
 
-    return(
+    return(<>
+        <div className="discussion-logo" onClick={() => navigate("/")}>
+            <Image src={logo} preview={false}/>
+        </div>
         <div className="discussion-container">
+            <div>sldknjf</div>
             { post ? <div className="discussion-post">
                 <div className="discussion-avatar-body">
                     <div>
@@ -70,7 +77,7 @@ const Post = () => {
                         </div>
                         <div className="discussion-body-votes">
                             <div dangerouslySetInnerHTML={{ __html: post?.body }} />
-                            <Vote item={post} setItem={setPost}/>
+                            <Vote item={post} type={"post"} setItem={setPost}/>
                         </div>
                         { post?.commented_by_doctor ? <div className="discussion-doctor">
                              <CheckCircleOutlined className="discussion-check-sign"/>
@@ -112,11 +119,13 @@ const Post = () => {
                                         </span> : null}
                                     </div>
                                     <div className="discussion-comment-body">
+                                    
                                         <div dangerouslySetInnerHTML={{ __html: item?.comment?.body }} />
                                         <div style={{ display: "flex", flexDirection: "row" }}>
                                             
-                                            <Vote item={item?.comment} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote" isComment={true}/>
+                                            <Vote item={item?.comment} type={"comment"} setItem={getCommentSetter(item?.comment?.id)} className="discussion-vote"/>
                                         </div>
+
                                     </div>
 
                                     {item?.image_urls ? 
@@ -138,7 +147,7 @@ const Post = () => {
 					}
                 </div> : null}
             </div> : null}
-        </div>
+        </div></>
     );
 };
 

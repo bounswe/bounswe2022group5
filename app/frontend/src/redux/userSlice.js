@@ -5,7 +5,7 @@ const url = process.env.REACT_APP_BACKEND_URL;
 axios.interceptors.request.use(
   function (config) {
     const token = typeof window !== "undefined" ? localStorage.getItem('authToken') : null;
-
+    
     if (token) config.headers.authorization = `Token ${token}`;
 
     return config;
@@ -21,7 +21,6 @@ export const fetchLogin = (userData) => {
 
 export const fetchMe = createAsyncThunk('user/fetchMe', async () => {
   const { data } = await axios.get(`${url}/auth/me`);
-  console.log(data)
   return data;
 });
 
@@ -40,7 +39,6 @@ const userSlice = createSlice({
       localStorage.removeItem('authToken');
       state.status = 'idle';
       state.user = {};
-      window.location.reload();
     },
     login: (state, action) => {
       localStorage.setItem('authToken', action.payload.token);

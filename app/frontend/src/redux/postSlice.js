@@ -12,13 +12,18 @@ export const fetchPostByUserId = async (id, pageNo) => {
     return data;
 }
 
-export const fetchAllPosts = async (pageNo) => {
-    const {data} = await axios.get(`${url}/forum/posts?page=${pageNo}&page_size=10`);
+export const fetchAllPosts = async (pageNo,pageSize,category) => {
+    const {data} = await axios.get(`${url}/forum/posts?page=${pageNo}&page_size=${pageSize}&c=${category}`);
     return data;
 }
 
 export const fetchCreatePost = async (formData) => {
     const {data} = await axios.post(`${url}/forum/post`, formData, {headers: { "Content-Type": "multipart/form-data" }});
+    return data;
+}
+
+export const fetchAllCategories = async () => {
+    const {data} = await axios.get(`${url}/forum/categories`);
     return data;
 }
 

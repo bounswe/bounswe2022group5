@@ -1,0 +1,109 @@
+.article-display-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(179, 220, 253);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    padding: 50px;
+}
+
+.article-display-logo {
+    width: 100%;
+    background-color: rgb(179, 220, 253);
+    display: flex;
+}
+
+.article-display-logo > div {
+    cursor: pointer;
+    width: 25%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.article-display-post {
+    width: 70%;
+    margin: auto;
+    background-color: rgb(247, 253, 252);
+    padding: 50px;
+    border-radius: 50px;
+    position: absolute;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.article-display-upper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.article-display-date {
+    font-weight: 500;
+    color: rgb(182, 181, 181);
+}
+
+.article-display-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+}
+
+.article-display-title-text {
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.article-display-title-author {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.article-display-body-votes {
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.upvote-count, .downvote-count {
+    text-align: center;
+}
+
+.article-display-rating {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.article-display-upvote, .article-display-downvote {
+    display: flex;
+    flex-direction: column;
+}
+
+.article-display-avatar-body {
+    display: flex;
+    flex-direction: row;
+    gap: 20px
+}
+
+.article-display-images {
+    margin-left: 120px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.article-display-image {
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.article-display-vote {
+    margin-top: -40px;
+}

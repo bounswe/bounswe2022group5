@@ -114,9 +114,8 @@ def register_user(request):
 def login_user(request):
 
         data = {}
-        reqBody = json.loads(request.body)
-        email1 = reqBody['email']
-        password = reqBody['password']
+        email1 = request.data['email']
+        password = request.data['password']
         
         if User.objects.filter(email = email1).exists():
             Account = User.objects.get(email=email1)

@@ -15,16 +15,24 @@ class User {
 
   // Member specific fields:
   final int memberid;
+
+  String? profileImageUrl;
+
+  String? dateOfBirth;
+  String? registerDate;
+
   String username;
-  String avatarUrl;
   MemberInfo info;
 
   //Doctor specific fields:
   final int doctorid;
   final String fullName;
   Category specialization; // Every doctor has 1 and only 1 specialization (?)
-  final String hospitalName;
+  String hospitalName;
 
+  final bool verified;
+
+  String? documentUrl;
 
   User(
       this.id,
@@ -34,12 +42,12 @@ class User {
       {
         this.memberid = -1,
         this.username = "",
-        this.avatarUrl = "",
 
         this.doctorid = -1,
         this.fullName = "",
         this.specialization = const Category(-1,"",""),
         this.hospitalName = "",
+        this.verified = false,
       }
       ) : info = MemberInfo();
 }

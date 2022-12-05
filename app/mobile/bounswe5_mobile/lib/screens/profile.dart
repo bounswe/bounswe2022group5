@@ -20,59 +20,52 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext  context) {
-    ApiService apiServer = ApiService();
-    return  FutureBuilder<User?>(
-        future: apiServer.getUserInfo(widget.activeUser.token),
-        builder: (context,snapshot) {
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: const [Text(
-                    'Logo',
-                    style: TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    )
-                )
-                ],
-              ),
-              elevation: 0.0,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: const [Text(
+              'Logo',
+              style: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              )
+          )
+          ],
+        ),
+        elevation: 0.0,
+      ),
 
-            body: Column(
-              children: <Widget>[
-                const SizedBox(height: 24),
-                ProfileWidget(
-                  activeUser: widget.activeUser,
-                  tempImagePath: 'lib/assets/images/generic_user.jpg',
-                  onClicked: () async {},
-                ),
-                const SizedBox(height: 24),
-                buildName(widget.activeUser),
-                SizedBox(height: 20),
-                const ProfileListItem(
-                  icon: Icons.arrow_upward,
-                  text: 'Upvotes',
-                  routepage: UpvotesPage(),
-                ),
-                const ProfileListItem(
-                  icon: Icons.post_add_outlined,
-                  text: 'Posts',
-                  routepage: PostsPage(),
-                ),
-                const ProfileListItem(
-                  icon: CupertinoIcons.bubble_right,
-                  text: 'Comments',
-                  routepage: CommentsPage(),
-                ),
-              ],
-            ),
-          );
-        }
-        );
+      body: Column(
+        children: <Widget>[
+          const SizedBox(height: 35),
+          ProfileWidget(
+            activeUser: widget.activeUser,
+            onClicked: () async {},
+          ),
+          const SizedBox(height: 24),
+          buildName(widget.activeUser),
+          SizedBox(height: 20),
+          ProfileListItem(
+            icon: Icons.arrow_upward,
+            text: 'Upvotes',
+            routepage: UpvotesPage(activeUser: widget.activeUser!)
+          ),
+          ProfileListItem(
+            icon: Icons.post_add_outlined,
+            text: 'Posts',
+            routepage: PostsPage(activeUser: widget.activeUser!),
+          ),
+          ProfileListItem(
+            icon: CupertinoIcons.bubble_right,
+            text: 'Comments',
+            routepage: CommentsPage(activeUser: widget.activeUser!),
+          ),
+        ],
+      ),
+    );
   }
 }
 

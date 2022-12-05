@@ -2,8 +2,13 @@ import axios from "axios";
 
 const url = process.env.REACT_APP_BACKEND_URL;
 
-export const fetchAllArticles = async (pageNo) => {
-    const {data} = await axios.get(`${url}/articles/all?page=${pageNo}&page_size=10`);
+export const fetchAllArticles = async (pageNo,pageSize,category) => {
+    const {data} = await axios.get(`${url}/articles/all?page=${pageNo}&page_size=${pageSize}&c=${category}`);
+    return data;
+}
+
+export const fetchArticleById = async (id) => {
+    const { data } = await axios.get(`${url}/articles/article/${id}`);
     return data;
 }
 
@@ -13,5 +18,8 @@ export const fetchCreateArticle = async (formData) => {
 }
 
 
-
+export const fetchArticleByUserId = async (id, pageNo) => {
+    const { data } = await axios.get(`${url}/articles/article/user/${id}?page=${pageNo}&page_size=10`);
+    return data;
+}
 

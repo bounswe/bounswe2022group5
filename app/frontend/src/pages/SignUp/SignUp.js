@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import ReactCardFlip from 'react-card-flip';
@@ -7,6 +7,7 @@ import { Button, Form, Input, Select, Upload, DatePicker, notification } from 'a
 import Switch from "react-switch";
 import { FaStethoscope } from 'react-icons/fa';
 import { fetchRegister, login } from "../../redux/userSlice";
+import { fetchAllCategories } from "../../redux/postSlice";
 import moment from "moment";
 
 import "./SignUp.css";
@@ -20,6 +21,8 @@ const SignUp = () => {
 
     const { Option } = Select;
 
+    const [categories, setCategories] = useState([]);
+
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -29,6 +32,15 @@ const SignUp = () => {
     const [dateOfBirth, setDateOfBirth] = useState();
     const [branch, setBranch] = useState();
     const [fileList, setFileList] = useState([]);
+
+    useEffect(() => {
+        fetchAllCategories()
+            .then(res => {
+                console.log(res)
+                setCategories(res)
+            })
+            .catch(err => console.log(err))
+    }, []);
 
     const handleClick = () => {
         setFlipped(!flipped);
@@ -84,16 +96,6 @@ const SignUp = () => {
         height: "100%",
         fontSize: 20
     }
-
-    const FAKE_BRANCH_DATA = [
-        "Dermatology",
-        "Allergy and Immunology",
-        "Emergncy Medicine",
-        "Neurology",
-        "Internal Medicine", 
-        "Pediatrics",
-        "Radiation Oncology"
-    ]
 
     return(
         <div className="signup-background">
@@ -331,8 +333,8 @@ const SignUp = () => {
                                 >
                                     <Select onChange={(e) => setBranch(e)} value={branch} placeholder="Branch">
                                         <Option key="empty" value=""></Option>
-                                        { FAKE_BRANCH_DATA.map(branch => (
-                                            <Option key={branch} value={branch}>{branch}</Option>
+                                        { categories.map(category => (
+                                            <Option key={category?.id} value={category?.name}>{category?.name}</Option>
                                         )) }
                                     </Select>
                                 </Form.Item>
