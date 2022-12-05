@@ -49,7 +49,7 @@ const LogInLogOut = ({userStatus}) => {
             <UserOutlined />
             Profile Page
             </Button>
-            <Button style={buttonStyle} type="primary" className="logout-button" onClick={() => onLogout(dispatch)}>
+            <Button style={buttonStyle} type="primary" className="logout-button" onClick={() => {onLogout(dispatch) ; navigate("/")}}>
                 <CloseCircleOutlined />
                 Log Out
             </Button>
@@ -61,12 +61,13 @@ const LogInLogOut = ({userStatus}) => {
 
 const NavBar = () => {
     const {status: userStatus } = useSelector((state) => state.user);
-
+    const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState("");
 
     return (
-        <div className="nav-bar">
-            <div className="logo">
+        <div className="nav-bar"> 
+                
+            <div className="logo" onClick={() => navigate("/")}>
                 <Image src={logo} preview={false}/>
             </div>
             <div className="search-bar">

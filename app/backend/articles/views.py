@@ -1,9 +1,15 @@
-from backend.models import CustomUser, Doctor
+import os
+
+from backend.models import CustomUser, Doctor, Member
 from datetime import datetime
+
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import status
 from articles.serializers import ArticleSerializer, CreateArticleSerializer
+from forum.serializers import LabelSerializer, CategorySerializer
 from articles.models import Article, ArticleImages
+from backend.models import Category, Label
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -16,15 +22,45 @@ from common.views import upload_to_s3
 @api_view(['GET',])
 @permission_classes([AllowAny])
 def get_all_articles(request):
+    search_query = request.GET.get('q', None)
+    search_query = search_query if search_query is None else search_query.split(" ")
+
+    category = request.GET.get("c", None)
     paginator = PageNumberPagination()
+    page_size = int(request.GET.get('page_size', 10))
     paginator.page_size = request.GET.get('page_size', 10)
+    page = int(request.GET.get('page', 1))
     paginator.page = request.GET.get('page', 1)
-    article_objects = Article.objects.all().order_by('-date')
+    ##article_objects = Article.objects.all().order_by('-date')
     articles = []
     try:
-        user = request.user.id
+        user = CustomUser.objects.get(email=request.user.email)
     except:
         user = None
+
+    count = 0
+    if category:
+        category_object = Category.objects.get(name=category)
+        article_objects = Article.objects.filter(category=category_object)[(page-1):(page_size*page)]
+        count = Article.objects.filter(category=category_object).count()
+    if search_query:
+        queryset_list1 = Q()
+
+        for keyword in search_query:
+            queryset_list1 |= (
+                    Q(title__icontains=keyword) |
+                    Q(body__icontains=keyword)
+            )
+            if category:
+                article_objects = Article.objects.filter(category=category_object).filter(queryset_list1)[(page-1):(page_size*page)]
+                count = Article.objects.filter(category=category_object).filter(queryset_list1).count()
+            else:
+                article_objects = Article.objects.filter(queryset_list1).distinct().order_by('-date')[(page-1):(page_size*page)]
+                count = Article.objects.filter(queryset_list1).distinct().count()
+    if (not category) and (not search_query):
+        article_objects = Article.objects.all().order_by('-date')[(page-1):(page_size*page)]
+        count = Article.objects.count()
+
     for article in article_objects:
         serializer_article_data = ArticleSerializer(article).data
         if user:
@@ -37,9 +73,36 @@ def get_all_articles(request):
         else:
             serializer_article_data['vote'] = None
         serializer_article_data['id'] = article.id
+        author = article.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_article_data["author"] = author_data
         articles.append(serializer_article_data)
     result_page = paginator.paginate_queryset(articles, request)
-    return paginator.get_paginated_response(result_page)
+    response = paginator.get_paginated_response(result_page)
+    response.data["count"] = count
+    return response
 
 @api_view(['GET',])
 @permission_classes([AllowAny])
@@ -66,7 +129,7 @@ def get_articles_of_doctor(request, user_id):
 
     response = []
     if request.user:
-        user = request.user.id
+        user = request.user
         for article in articles:
             serializer_article_data = ArticleSerializer(article).data
             if article.id in user.upvoted_articles:
@@ -111,13 +174,19 @@ def article(request,id):
         response_dict["id"] = article.id
         response_dict["author"] = author_data
 
-        if article.id in request.user.upvoted_articles:
-            response_dict['vote'] = 'upvote'
-        elif article.id in request.user.downvoted_posts:
-            response_dict['vote'] = 'downvote'
+        try:
+            user = CustomUser.objects.get(email = request.user.email)
+        except:
+            user = None
+        if user:
+            if article.id in request.user.upvoted_articles:
+                response_dict['vote'] = 'upvote'
+            elif article.id in request.user.downvoted_posts:
+                response_dict['vote'] = 'downvote'
+            else:
+                response_dict['vote'] = None
         else:
             response_dict['vote'] = None
-
         response = {
             'article': response_dict,
             'image_urls': image_urls,
@@ -161,17 +230,17 @@ def create_article(request):
         author = request.user
         body = request.data['body']
         date = datetime.now()
-
         article = Article(title=title, author=author, body=body, date=date)
         article.save()
-
         data = {
             'id': article.id,
             'title': title,
             'author': author,
             'body': body,
-            'date': date
+            'date': date,
         }
+
+
         image_urls = []
         if len(request.FILES) > 0:
             count = 1
@@ -182,8 +251,28 @@ def create_article(request):
                 commentImage = ArticleImages(image_url=photo_url, article=article)
                 commentImage.save()
                 image_urls.append(photo_url)
-        serialized_data = ArticleSerializer(data)
-        return Response({'article': serialized_data.data, 'image_urls': image_urls})
+        serialized_data = ArticleSerializer(data).data
+        if 'category' in request.data:
+            category = request.data["category"]
+
+            category = Category.objects.get(name=category)
+            article.category = category
+            article.save()
+            category_serialized = CategorySerializer(category).data
+
+            serialized_data['category'] = category_serialized
+
+        if 'labels' in request.data:
+            labels = request.data["labels"].split(",")
+            l = []
+            for label in labels:
+                label, valid = Label.objects.get_or_create(name=label)
+                article.labels.add(label)
+                article.save()
+                label_serialized = LabelSerializer(label).data
+                l.append(label_serialized)
+            serialized_data['labels'] = l
+        return Response({'article': serialized_data, 'image_urls': image_urls})
     else:
         data = validate_article.errors
         return Response(status=400,data={'error': f'Fields are missing'})

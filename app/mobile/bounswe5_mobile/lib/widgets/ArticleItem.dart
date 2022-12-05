@@ -4,11 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:bounswe5_mobile/screens/viewArticle.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
-class ArticleItem extends StatelessWidget {
-  ArticleItem(
-      {required this.activeUser, required this.index, required this.article});
+class ArticleItem extends StatelessWidget{
+  ArticleItem({required this.activeUser, required this.article});
   final User activeUser;
-  final int index;
   final Article article;
   final DateFormat formatter = DateFormat('dd/MM/yyyy');
 
@@ -24,9 +22,7 @@ class ArticleItem extends StatelessWidget {
                     activeUser: activeUser,
                   )),
         );
-
-        print("Article $index tapped.");
-      },
+        },
       child: Container(
           margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),

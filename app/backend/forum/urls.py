@@ -14,4 +14,5 @@ urlpatterns = [
     path('post/comment/<int:id>/downvote', views.downvote_comment, name='downvote a comment'),
     path('post/comment/<int:id>', views.get_comment, name='get comment'),
     path('post/<int:id>/comment', views.create_comment, name='create comment'),
+    path('categories', views.get_all_categories, name='get_all_categories'),
 ]

@@ -7,8 +7,10 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/screens/createPost.dart';
 import 'package:bounswe5_mobile/screens/createArticle.dart';
-import 'package:bounswe5_mobile/screens/viewPost.dart';
-import 'package:bounswe5_mobile/screens/viewArticle.dart';
+import 'package:bounswe5_mobile/screens/postOverviewScreen.dart';
+import 'package:bounswe5_mobile/screens/articleOverviewScreen.dart';
+import 'package:bounswe5_mobile/models/post.dart';
+import 'package:bounswe5_mobile/models/article.dart';
 
 /// This is the implementation of the home page.
 class HomePage extends StatefulWidget {
@@ -27,9 +29,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     ApiService apiServer = ApiService();
 
-    return FutureBuilder<User?>(
-      future: apiServer.getUserInfo(widget.token),
 
+    int postPerPage = 7;
+
+    return FutureBuilder<dynamic>(
+      future: apiServer.prepareHomePage(widget.token,1,postPerPage),
       builder: (context,snapshot){
 
         // If widget token is -1, that means a non registered user
@@ -37,29 +41,31 @@ class _HomePageState extends State<HomePage> {
         // a registered user entered the home page. In both cases
         // we should show the home page. Until that time, a loading
         // icon is shown.
-        if (snapshot.hasData || widget.token == '-1') {
-          print(snapshot.data);
-          User activeUser = snapshot.data ?? User(-1, '-1', '-1', -1);
+
+        if( (snapshot.hasData || widget.token == '-1') && snapshot.data != null){
+
+          dynamic result = snapshot.data;
+
+          User activeUser = result[0] ?? User(-1, '-1', '-1', -1);
+
+          /*
+          int numberOfPosts = result[1];
+          List<Post> posts = result[2];
+          int numberOfArticles = result[3];
+          List<Article> articles = result[4];
+
+           */
+
 
           /// Forum, Articles and Chatbot bodies.
           List<Widget> bodies = [
-            ForumList(
-              activeUser: activeUser,
-              posts: posts,
-            ),
-            ArticlesList(
-              activeUser: activeUser,
-              articles: articles,
-            )
+            PostsOverviewScreen(activeUser: activeUser,),
+            ArticlesOverviewScreen(activeUser: activeUser,),
           ];
 
           // Session activity means that a registered user is entered
           // the home page.
           bool isSessionActive = widget.token != '-1';
-
-          print(widget.token);
-
-          print(isSessionActive);
 
           // Floating button that will be used to create posts/articles:
           Widget floatingButton = SizedBox.shrink();
@@ -87,9 +93,10 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CreateArticlePage(activeUser: snapshot.data!)),
+
+                        MaterialPageRoute(builder: (context) =>
+                            CreateArticlePage(activeUser: activeUser)),
+
                       );
                       print("Doctor create article");
                     },
@@ -103,6 +110,7 @@ class _HomePageState extends State<HomePage> {
           } else {
             floatingButton = const SizedBox.shrink();
           }
+
           return Scaffold(
             // App bar is the top bar shown in the screen.
             appBar: AppBar(
@@ -127,9 +135,7 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // Side bar
-            drawer: MyDrawer(
-              activeUser: snapshot.data,
-            ),
+            drawer: MyDrawer(activeUser: activeUser,),
 
             // Bottom navigation bar is used for switching between forum, articles and
             // chatbot.
@@ -157,17 +163,6 @@ class _HomePageState extends State<HomePage> {
             floatingActionButton:
                 floatingButton, // If user not signed in, do not show create post button in the forum
 
-            /*
-            isSessionActive && currentIndex == 0 ?
-            FloatingActionButton(
-              onPressed: (){},
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: Icon(
-                  Icons.create,
-                  color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ) : const SizedBox.shrink(),
-            */
             body: bodies[currentIndex],
           );
         }
@@ -180,3 +175,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+/*
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+
+    ApiService apiServer = ApiService();
+
+    return FutureBuilder<void>(
+      future: apiServer.prepareHomePage("-1",1, 10),
+      builder: (context,snapshot){
+        return Container();
+      },
+    );
+
+  }
+}
+*/

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, notification } from 'antd';
-import { fetchLogin, login } from "../../redux/userSlice";
+import { fetchLogin, login, fetchMe } from "../../redux/userSlice";
 
 import "./Login.css";
 
@@ -28,6 +28,7 @@ const Login = () => {
                 });
 
                 dispatch(login({ ...res.data?.data, token: res.data?.token }));
+                dispatch(fetchMe(res.data?.token));
                 navigate("/")
             })
             .catch((err) => {

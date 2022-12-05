@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Image } from 'antd';
 import moment from "moment";
 
 import Vote from "../../components/Vote/Vote";
 
 import "./Article.css";
+import logo from "../../layouts/NavBar/logo.png"
 
 import { fetchArticleById } from "../../redux/articleSlice";
 
 const Article = () => {
     const id = useParams()?.id;
+    const navigate = useNavigate();
 
     const [article, setArticle] = useState();
     const [images, setImages] = useState([]);
@@ -24,7 +26,10 @@ const Article = () => {
             })
     }, [id]);
 
-    return(
+    return(<>
+        <div className="article-display-logo" onClick={() => navigate("/")}>
+            <Image src={logo} preview={false}/>
+        </div>
         <div className="article-display-container">
             <div className="article-display-post">
                 <div className="article-display-avatar-body">
@@ -61,7 +66,7 @@ const Article = () => {
 				</div> : null}
 
             </div>
-        </div>
+        </div></>
     );
 };
 

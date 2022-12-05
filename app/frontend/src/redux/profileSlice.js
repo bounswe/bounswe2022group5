@@ -17,18 +17,18 @@ export const fetchPersonalInfo = async () => {
     return data;
 }
 
-export const fetchUpdatePersonalInfo = (userData) => {
-    const {data} = axios.post(`${url}/profile/update_personal_info`, userData);
+export const fetchUpdatePersonalInfo = async (userData) => {
+    const {data} = await axios.post(`${url}/profile/update_personal_info`, userData);
     return data;
 }
 
-export const fetchUpdateAvatar = (idAvatar) => {
-    const {data} = axios.post(`${url}/profile/set_avatar`, idAvatar);
+export const fetchUpdateAvatar = async (idAvatar) => {
+    const {data} = await axios.post(`${url}/profile/set_avatar`, idAvatar);
     return data;
 }
 
-export const fetchUpdateProfilePicture = (img) => {
-    const {data} = axios.post(`${url}/profile/upload_profile_picture`, img);
+export const fetchUpdateProfilePicture = async (img) => {
+    const {data} = await axios.post(`${url}/profile/upload_profile_picture`, img);
     return data;
 }
 

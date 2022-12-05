@@ -28,21 +28,21 @@ PROFILE_PICTURE_FILE_NAME = "pp/{user_id}.jpg"
 def upload_profile_picture(request):
 
     user = request.user
-    if int(user.type) == UserType.DOCTOR.value:
+    if int(user.type) != UserType.DOCTOR.value:
         return Response('Only doctors can upload a profile picture', status=403)
+    image_url = ""
 
-    file_name = PROFILE_PICTURE_FILE_NAME.format(user_id=str(user.id))
+    for filename, file in request.FILES.items():
+        image = file.read()
+        photo_url = upload_to_s3(image, f'pp/{user.id}.jpg')
+        doctor_obj = Doctor.objects.get(user=user)
+        doctor_obj.profile_picture = photo_url
+        doctor_obj.save()
+        image_url = photo_url
 
-    img = request.data['img'].read()
 
-    pp_url = upload_to_s3(img, file_name)
 
-    doctor_obj = Doctor.objects.get(user=user)
-    doctor_obj.profile_picture = file_name
-
-    doctor_obj.save()
-
-    return Response({'profile_picture': pp_url}, status=200)
+    return Response({'profile_picture': image_url}, status=200)
 
 
 @api_view(['POST', ])
@@ -107,6 +107,31 @@ def get_upvoted_articles(request):
     for article in articles:
         serializer_data = ArticleSerializer(article).data
         serializer_data['vote'] = "upvote"
+        author = article.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_data["author"] = author_data
         articles_response.append(serializer_data)
 
     result_page = paginator.paginate_queryset(articles_response, request)
@@ -140,8 +165,33 @@ def get_upvoted_posts(request):
 
     post_response = []
     for post in posts:
-        serializer_data = ArticleSerializer(post).data
+        serializer_data = PostSerializer(post).data
         serializer_data['vote'] = "upvote"
+        author = post.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_data["author"] = author_data
         post_response.append(serializer_data)
 
     result_page = paginator.paginate_queryset(post_response, request)
@@ -177,7 +227,7 @@ def get_personal_info(request):
     personal_info['hospital_name'] = "-1"
     personal_info['verified'] = "-1"
     personal_info['document'] = "-1"
-    personal_info['profile_picture'] = "-1"
+    personal_info['profile_image'] = "-1"
     personal_info['member_username'] = "-1"
     personal_info['firstname'] = "-1"
     personal_info['lastname'] = "-1"
@@ -205,7 +255,7 @@ def get_personal_info(request):
         profile_picture = doctor.profile_picture
 
         personal_info['full_name'] = full_name
-        personal_info['specialization'] = specialization
+        personal_info['specialization'] = specialization.name
         personal_info['hospital_name'] = hospital_name
         personal_info['verified'] = verified
         personal_info['document'] = document
@@ -288,7 +338,7 @@ def update_personal_info(request):
     personal_info['hospital_name'] = "-1"
     personal_info['verified'] = "-1"
     personal_info['document'] = "-1"
-    personal_info['profile_picture'] = "-1"
+    personal_info['profile_image'] = "-1"
     personal_info['member_username'] = "-1"
     personal_info['firstname'] = "-1"
     personal_info['lastname'] = "-1"
@@ -319,12 +369,7 @@ def update_personal_info(request):
 
         doctor.full_name = full_name
 
-        if 'specialization' in data:
-            specialization = data['specialization']
-        else:
-            specialization = doctor.specialization
 
-        doctor.specialization = specialization
 
         if 'hospital_name' in data:
             hospital_name = data['hospital_name']
@@ -343,11 +388,11 @@ def update_personal_info(request):
         doctor.save()
 
         personal_info['full_name'] = full_name
-        personal_info['specialization'] = specialization
+        personal_info['specialization'] = doctor.specialization.name
         personal_info['hospital_name'] = hospital_name
         personal_info['verified'] = verified
         personal_info['document'] = document
-        personal_info['profile_picture'] = profile_picture
+        personal_info['profile_image'] = profile_picture
 
     elif int(user.type) == UserType.MEMBER.value:
         
