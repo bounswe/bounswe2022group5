@@ -19,6 +19,8 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path=':category' element={ <HomePageLayout /> }/>
+
         <Route path='/' element={ <HomePageLayout /> }/>
 
         <Route path='/signup' element={ <SignUp /> }/>

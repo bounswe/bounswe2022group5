@@ -1,5 +1,5 @@
 import React, { useState , useEffect} from "react";
-
+import { useParams } from 'react-router-dom';
 import NavBar from "../NavBar/NavBar";
 import Articles from "../Article/Article";
 import Forum from "../Forum/Forum";
@@ -11,6 +11,7 @@ import "./HomePage.css";
 import { Button, Input} from "antd";
 import { fetchAllPosts } from "../../redux/postSlice";
 import {fetchAllArticles} from "../../redux/articleSlice";
+import { fetchCategories } from "../../redux/categorySlice";
 
 const buttonStyleClicked = {
     width: "45%",
@@ -29,11 +30,13 @@ const buttonStyleUnclicked = {
 }
 
 const categoryButtonsStyle = {
-    height: "10%",
     width: "90%",
     borderRadius: "15%",
     backgroundColor: 'rgb(173,216,230)',
-    marginTop: "1%"
+    marginTop: "1%",
+    whiteSpace: "normal",
+    height:'auto',
+    marginBottom:'2%'
 }
 
 const categorySearchStyle = {
@@ -56,46 +59,18 @@ const renderArticles = (articles) => {
     )
 }
 
-const renderCategories = (searchKey) => {
+const RenderCategories = (searchKey) => {
     // There should be categories and related links
-    const categories = [
-        {
-            name: "Dermatology",
-            link: "/"
-        }, 
-        {
-            name: "Cardiovascular",
-            link: "/"
-        }, 
-        {
-            name: "Infection",
-            link: "/"
-        }, 
-        {
-            name: "Cancer and Neoplasms",
-            link: "/"
-        }, 
-        {
-            name: "Inflamatory and Immune",
-            link: "/"
-        }, 
-        {
-            name: "Mental Health",
-            link: "/"
-        }, 
-        {
-            name: "Metabolic and Endocrine",
-            link: "/"
-        }, 
-        {
-            name: "Musculosketal",
-            link: "/"
-        }, 
-        {
-            name: "Neurological",
-            link: "/"
-        }, 
-    ]
+    const navigate = useNavigate();
+
+    const [categories, setCategories] = useState([]);
+    
+    useEffect(() => {
+        fetchCategories().then(res => {
+            setCategories(res);
+        });
+    }, []);
+     
 
     return (
         categories.filter((obj) => {
@@ -104,7 +79,7 @@ const renderCategories = (searchKey) => {
             }
             return null;
           }).map((item) => (
-            <Button style={categoryButtonsStyle}>
+            <Button style={categoryButtonsStyle} onClick={() => navigate('/' + item.name )}>
                 {item.name}
             </Button>
         ))
@@ -112,6 +87,9 @@ const renderCategories = (searchKey) => {
 }
 
 const HomePageLayout = () => {
+    const param = useParams()?.category
+    const category = param !== undefined ? param : "";
+
     const navigate = useNavigate();
     const {status: userStatus, user } = useSelector((state) => state.user);
     const [categorySearchInput, setCategorySearchInput] = useState("");
@@ -126,7 +104,7 @@ const HomePageLayout = () => {
     const [articles, setArticles] = useState();
     
     useEffect(() => {
-        fetchAllPosts(1).then(res => {
+        fetchAllPosts(1,category).then(res => {
             setPostCount(res.count);
             setPosts(res.results)
         });
@@ -191,7 +169,7 @@ const HomePageLayout = () => {
                                     onChange={(e) => setCategorySearchInput(e.target.value)}
                                 />
                             </div>
-                            {renderCategories(categorySearchInput)}
+                            {RenderCategories(categorySearchInput)}
                         </div>
                     </div>
                     <div className="articles-or-posts">
