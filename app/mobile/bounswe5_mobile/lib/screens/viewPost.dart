@@ -335,7 +335,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                 MaterialPageRoute(
                                     builder: (context) => CreateCommentPage(
                                         activeUser: widget.activeUser,
-                                        postID: post.id)),
+                                        post: post)),
                               );
                               setState(
                                       () {}); //refresh the page so that the comment will be visible ???
