@@ -109,7 +109,6 @@ const Profile = () => {
 
     const { status: userStatus, user } = useSelector((state) => state.user);
     const userID = user.id; //user.id
-    //const [userID, setUserID] = useState(user.id);
 
     const [pageType, setPageType] = useState(0);
 
@@ -142,7 +141,7 @@ const Profile = () => {
             });
         }
         
-    }, [pageNo, user]);
+    }, [pageNo, user, pageType]);
 
     const [articleCount, setArticleCount] = useState();
     const [articles, setArticles] = useState();
@@ -155,7 +154,7 @@ const Profile = () => {
             });
         }
         
-    }, [pageNo, user]);
+    }, [pageNo, user, pageType]);
 
     const [commentCount, setCommentCount] = useState();
     const [comments, setComments] = useState();
@@ -168,7 +167,7 @@ const Profile = () => {
             });
         }
         
-    }, [pageNo, user]);
+    }, [pageNo, user, pageType]);
 
     const [upvotedPostCount, setUpvotedPostCount] = useState();
     const [upvotedPosts, setUpvotedPosts] = useState();
@@ -178,7 +177,7 @@ const Profile = () => {
             setUpvotedPostCount(res.count);
             setUpvotedPosts(res.results)
         })
-    }, [pageNo])
+    }, [pageNo, pageType])
 
     const [upvotedArticleCount, setUpvotedArticleCount] = useState();
     const [upvotedArticles, setUpvotedArticles] = useState();
@@ -188,7 +187,7 @@ const Profile = () => {
             setUpvotedArticleCount(res.count);
             setUpvotedArticles(res.results)
         })
-    }, [pageNo])
+    }, [pageNo, pageType])
     
 
     const whichState = (pageType) => {
@@ -271,12 +270,7 @@ const Profile = () => {
         })
     }
 
-    // const uploadButton = (
-    //     <div>
-    //       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-    //       <div style={{ marginTop: 8 }}>Upload</div>
-    //     </div>
-    // );
+   
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
