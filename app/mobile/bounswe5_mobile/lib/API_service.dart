@@ -768,7 +768,6 @@ class ApiService {
     }
 
     final response = await http.get(uri, headers: header);
-
     Post? post;
 
     List<Comment> comments = List.empty(growable: true);
@@ -1367,104 +1366,91 @@ class ApiService {
     return result;
   }
 
-  Future<dynamic> getUserComments(User user, int page, int pageSize) async {
-    var token = user.token;
-    var userid = user.id;
-    var uri = Uri.parse("$baseURL/forum/post/user/$userid?page=$page&page_size=$pageSize");
-    var header;
-    if(token != "-1"){
-      header = {
-        'Authorization': "token $token",
-        'content-type': "application/json",
-      };
-    }
-    else{
-      header = {
-        'content-type': "application/json",
-      };
-    }
-
-    final response = await http.get(uri, headers: header);
-
-    int count = 0;
-    List<dynamic> results;
-    List<Post> posts = List.empty(growable: true);
-
-    if (response.statusCode == 200){
-
-      var body = jsonDecode(response.body);
-
-      results = body["results"];
-      count = body["count"];
-
-      int i;
-      for(i = 0 ; i < results.length ; i++){
-        int id = results[i]["id"];
-
-        String date = results[i]["date"];
-        String title = results[i]["title"];
-        String postBody = results[i]["body"];
-        int upvotes = results[i]["upvote"];
-        int downvotes = results[i]["downvote"];
-        double longitude = results[i]["longitude"];
-        double latitude = results[i]["latitude"];
-        bool commentedByDoctor = results[i]["commented_by_doctor"];
-
-        var categoryraw = results[i]["category"];
-        Category category = Category(-1,"","");
-        if(categoryraw != null){
-          category = Category(categoryraw["id"], categoryraw["name"], "");
-        }
-
-        List<dynamic> labelsraw = results[i]["labels"];
-        List<Label> labels = List.empty(growable: true);
-
-        for(int j = 0 ; j < labels.length; j++){
-          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
-          labels.add(label);
-        }
-        print(results[i]["author"]["id"]);
-        int authorId = results[i]["author"]["id"];
-        String voteOfActiveUser = results[i]["vote"];
-        String? profileImageUrl = user.profileImageUrl;
-
-
-        bool isAuthorDoctor = false;
-        String name = user.username;
-        if(user.usertype == 1){
-          isAuthorDoctor = true;
-          name = user.fullName;
-        }
-
-        PostAuthor postAuthor = PostAuthor(authorId, name, isAuthorDoctor);
-
-        var dateTime = DateTime.parse(date);
-
-        Post p = Post(id,
-          postAuthor,
-          dateTime,
-          title,
-          postBody,
-          upvotes: upvotes,
-          downvotes: downvotes,
-          isDoctorReplied: commentedByDoctor,
-        );
-
-        p.category = category;
-        p.labels = labels;
-        p.voteOfActiveUser = voteOfActiveUser;
-
-        posts.add(p);
+    Future<dynamic> getUserComments(User user, int page, int pageSize) async {
+      var token = user.token;
+      var userid = user.id;
+      var uri = Uri.parse("$baseURL/forum/post/user/$userid/comment?page=$page&page_size=$pageSize");
+      var header;
+      if(token != "-1"){
+        header = {
+          'Authorization': "token $token",
+          'content-type': "application/json",
+        };
+      }
+      else{
+        header = {
+          'content-type': "application/json",
+        };
       }
 
+      final response = await http.get(uri, headers: header);
+
+      int count = 0;
+      List<dynamic> results;
+      List<Comment> comments = List.empty(growable: true);
+      List<Post> posts = List.empty(growable: true);
+      if (response.statusCode == 200){
+
+        var body = jsonDecode(response.body);
+
+        results = body["results"];
+        count = body["count"];
+
+        int i;
+        for(i = 0 ; i < results.length ; i++){
+          int id = results[i]["id"];
+
+          String date = results[i]["date"];
+          String commentBody = results[i]["body"];
+          int upvotes = results[i]["upvote"];
+          int downvotes = results[i]["downvote"];
+          double longitude = results[i]["longitude"];
+          double latitude = results[i]["latitude"];
+          int authorId = results[i]["author"];
+          int postId = results[i]["post"];
+          String voteOfActiveUser = results[i]["vote"];
+
+
+          bool isAuthorDoctor = false;
+          String name = user.username;
+          if(user.usertype == 1){
+            isAuthorDoctor = true;
+            name = user.fullName;
+          }
+          List<dynamic> result = await getSinglePost(token, postId);
+          Post p = result[0];
+
+          posts.add(p);
+
+          CommentAuthor commentAuthor = CommentAuthor(authorId, name, isAuthorDoctor);
+
+          var dateTime = DateTime.parse(date);
+
+          Comment c = Comment(
+            id,
+            dateTime,
+            commentBody,
+            commentAuthor,
+            postId,
+            upvotes: upvotes,
+            downvotes: downvotes,
+          );
+
+          c.longitude = longitude;
+          c.latitude = latitude;
+          c.voteOfActiveUser = voteOfActiveUser;
+
+          comments.add(c);
+        }
+
+      }
+
+      List<dynamic> result = List.empty(growable: true);
+
+      result.add(count);
+      result.add(comments);
+      result.add(posts);
+      return result;
     }
-
-    List<dynamic> result = List.empty(growable: true);
-
-    result.add(count);
-    result.add(posts);
-
-    return result;
-  }
 
 }
