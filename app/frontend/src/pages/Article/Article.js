@@ -45,7 +45,7 @@ const Article = () => {
                             <div className="article-display-date">{moment(article?.date).format("DD.MM.YYYY")}</div>
                         </div>
                         <div className="article-display-body-votes">
-                            <div>{article?.body}</div>
+                            <div dangerouslySetInnerHTML={{ __html: article?.body }} />
                             <Vote item={article} setItem={setArticle} itemType="article"/>
                             
                         </div>
