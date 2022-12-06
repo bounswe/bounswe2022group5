@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bounswe5_mobile/screens/imagesGrid.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/article.dart';
@@ -8,24 +9,9 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 
 enum Menu { itemOne, itemTwo }
-
-PreferredSizeWidget? myAppBar = AppBar(
-  centerTitle: true,
-  title: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('Logo',
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
-          ))
-    ],
-  ),
-  elevation: 0.0,
-);
 
 class ViewArticlePage extends StatefulWidget {
   const ViewArticlePage(
@@ -56,7 +42,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
 
   String tempImagePath = 'lib/assets/images/generic_user.jpg';
 
-  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+  final DateFormat formatter = DateFormat('dd/MM/yyyy hh:mm');
   @override
   Widget build(BuildContext context) {
     ApiService apiServer = ApiService();
@@ -67,6 +53,9 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
 
     String tempImagePath = 'lib/assets/images/generic_user.jpg';
 
+
+
+
     return FutureBuilder(
         future: apiServer.getSingleArticle(token, articleid),
         builder: (context,snapshot){
@@ -75,6 +64,8 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
 
             dynamic result = snapshot.data;
             Article article = result;
+
+            List<String> listOfUrls = article.imageUrls;
 
             Widget pp;
 
@@ -92,23 +83,15 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
               }
             }
 
+
+
             return Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Logo',
-                        style: TextStyle(
-                          fontSize: 28.0,
-                          fontWeight: FontWeight.bold,
-                        ))
-                  ],
-                ),
-                elevation: 0.0,
-              ),
-              body: ListView(children: [
+              appBar: myAppBar,
+              body:
+
+
+              ListView(children: [
+
                 Container(
                   constraints: BoxConstraints(maxHeight: double.infinity),
                   color: Theme.of(context).colorScheme.surface,
@@ -247,18 +230,27 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                               fontSize: 15
                           ),
                         )
-
-                        /*
-                        Text(
-                          article.body,
-                          textAlign: TextAlign.left,
+                      ),
+                      SizedBox(height: 18),
+                      article.imageUrls.isEmpty ?
+                      SizedBox.shrink():
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => imagesGrid(urls: listOfUrls)),
+                          );
+                        },
+                        child: Text(
+                          'See Images',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            decoration: TextDecoration.underline,
+                            color: Colors.blueAccent,
+                            fontSize: 20,
                           ),
                         ),
-                        */
                       ),
                       SizedBox(height: 18),
                       Row(
@@ -342,6 +334,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                 ),
                 categoryWidget,
               ]),
+
             );
           }
           else {

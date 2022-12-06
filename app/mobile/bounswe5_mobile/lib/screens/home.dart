@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
               title: const Center(
                 child: Text(
                     // We do not have a logo yet. When we decided on that, we can add a logo here:
-                    'Logo',
+                    'Hippocrates',
                     style: TextStyle(
                       fontSize: 28.0,
                       fontWeight: FontWeight.bold,

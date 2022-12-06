@@ -1,3 +1,4 @@
+import 'package:bounswe5_mobile/screens/viewPost.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:bounswe5_mobile/screens/home.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 
 const List<String> categories = <String>["Anatomical Pathology","Anesthesiology",'Cardiology',"Cardiovascular-Thoracic Surgery", "Clinical Immunology-Allergy",
   "Critical Care Medicine", "Dermatology","Diagnostic Radiology", "Emergency Medicine","Endocrinology and Metabolism","Family Medicine",
@@ -64,21 +66,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
         future: apiServer.getUserInfo(widget.activeUser.token),
         builder: (context,snapshot) {
           return Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children:[Text(
-                      'Logo',
-                      style: TextStyle(
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold,
-                      )
-                  )],
-                ),
-                elevation: 0.0,
-              ),
+              appBar: myAppBar,
               body: Container(
                   child: SingleChildScrollView(
                       child: Form(

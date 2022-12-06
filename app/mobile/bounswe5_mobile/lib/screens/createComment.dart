@@ -1,4 +1,5 @@
 import 'package:bounswe5_mobile/screens/viewPost.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/models/post.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 
 const List<String> categories = <String>['Anatomical Pathology', 'Anesthesiology','Cardiology','Hematology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy', 'Critical Care Medicine'];
 
@@ -96,21 +98,7 @@ class _CreateCommentPageState extends State<CreateCommentPage> {
         future: apiServer.getUserInfo(widget.activeUser.token),
         builder: (context,snapshot) {
           return Scaffold(
-              appBar: AppBar(
-                centerTitle: true,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children:[Text(
-                      'Logo',
-                      style: TextStyle(
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold,
-                      )
-                  )],
-                ),
-                elevation: 0.0,
-              ),
+              appBar: myAppBar,
               body: Container(
                   child: SingleChildScrollView(
                       child: Form(
