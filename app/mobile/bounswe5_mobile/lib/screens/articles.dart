@@ -1,3 +1,4 @@
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
@@ -18,23 +19,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: const [Text(
-              'Logo',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              )
-          )
-          ],
-        ),
-        elevation: 0.0,
-      ),
-      body: UserArticlesOverviewScreen(activeUser: widget.activeUser),
+      appBar: myAppBar
     );
   }
 }

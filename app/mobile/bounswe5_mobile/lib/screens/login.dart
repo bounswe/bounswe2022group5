@@ -2,6 +2,7 @@
 
 import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:bounswe5_mobile/screens/signup.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -32,16 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // App Bar at the top of the app
-      appBar: AppBar(
-        title: const Center(
-          child: Text('Logo',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              )),
-        ),
-        elevation: 0.0,
-      ),
+      appBar: myAppBar,
       body: Form(
         key: _formKey,
         child: Center(

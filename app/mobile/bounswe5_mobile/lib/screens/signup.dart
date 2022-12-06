@@ -1,4 +1,5 @@
 import 'package:bounswe5_mobile/screens/login.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
@@ -81,21 +82,7 @@ class _SignupPageState extends State<SignupPage> {
     String dropdownValue = list.first;
     String branchValue = branches.first;
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children:[Text(
-                'Logo',
-                style: TextStyle(
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                )
-            )],
-          ),
-          elevation: 0.0,
-        ),
+        appBar: myAppBar,
         body: Container(
             child: SingleChildScrollView(
                 child: Form(

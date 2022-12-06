@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import '../widgets/ProfileListItem.dart';
 import '../screens/profile.dart';
 import '../widgets/ProfileWidget.dart';
-import 'package:bounswe5_mobile/API_service.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key, required User this.activeUser}) : super(key: key);
@@ -57,22 +57,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       isMember = true;
     }
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: const [Text(
-              'Logo',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              )
-          )
-          ],
-        ),
-        elevation: 0.0,
-      ),
+      appBar: myAppBar,
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(

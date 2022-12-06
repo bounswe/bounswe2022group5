@@ -11,26 +11,10 @@ import 'package:bounswe5_mobile/models/user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:bounswe5_mobile/screens/imagesGrid.dart';
+import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 
 enum Menu { itemOne, itemTwo }
-
-
-PreferredSizeWidget? myAppBar = AppBar(
-  centerTitle: true,
-  title: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('Logo',
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
-          ))
-    ],
-  ),
-  elevation: 0.0,
-);
-
 
 class ViewPostPage extends StatefulWidget {
   const ViewPostPage(
@@ -63,7 +47,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
 
   String tempImagePath = 'lib/assets/images/generic_user.jpg';
 
-  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+  final DateFormat formatter = DateFormat('dd/MM/yyyy hh:mm');
 
   List<Comment> mockcomments = [
     Comment(
@@ -246,19 +230,26 @@ class _ViewPostPageState extends State<ViewPostPage> {
                             fontSize: 15
                         ),
                       ),
-
-                      /*
-                      Text(
-                        post.body,
-                        textAlign: TextAlign.left,
+                    ),
+                    post.imageUrls.isEmpty ?
+                    SizedBox.shrink():
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => imagesGrid(urls: post.imageUrls)),
+                        );
+                      },
+                      child: Text(
+                        'See Images',
                         style: TextStyle(
-                          color: Colors.black,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          decoration: TextDecoration.underline,
+                          color: Colors.blueAccent,
+                          fontSize: 20,
                         ),
                       ),
-                      */
-
                     ),
                     SizedBox(height: 18),
                     Container(
@@ -477,7 +468,7 @@ class _CommentItemState extends State<CommentItem> {
     User activeUser = widget.activeUser;
     Comment comment = widget.comment;
     Post post = widget.post;
-    final DateFormat formatter = DateFormat('dd/MM/yyyy');
+    final DateFormat formatter = DateFormat('dd/MM/yyyy hh:mm');
 
     bool isSessionActive = activeUser!.token != '-1';
 
@@ -605,6 +596,28 @@ class _CommentItemState extends State<CommentItem> {
                     ),
                   ),
                 ),
+
+                comment.imageUrls.isEmpty ?
+                SizedBox.shrink():
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => imagesGrid(urls: comment.imageUrls)),
+                    );
+                  },
+                  child: Text(
+                    'See Images',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      decoration: TextDecoration.underline,
+                      color: Colors.blueAccent,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+
                 SizedBox(height: 18),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
