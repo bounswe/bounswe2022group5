@@ -6,6 +6,7 @@ import 'package:bounswe5_mobile/API_service.dart';
 import '../widgets/ProfileListItem.dart';
 import '../screens/profile.dart';
 import '../widgets/ProfileWidget.dart';
+import '../screens/userPostOverviewScreen.dart';
 
 class PostsPage extends StatefulWidget {
   const PostsPage({Key? key, required User this.activeUser}) : super(key: key);

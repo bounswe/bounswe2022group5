@@ -14,7 +14,7 @@ import {fetchAllArticles} from "../../redux/articleSlice";
 import { fetchCategories } from "../../redux/categorySlice";
 
 const buttonStyleClicked = {
-    width: "30%",
+    width: "40%",
     borderRadius: 2,
     borderColor:'rgba(0,0,0,0.5)',
     backgroundColor: 'rgb(104,172,252)',
@@ -22,7 +22,7 @@ const buttonStyleClicked = {
 }
 
 const buttonStyleUnclicked = {
-    width: "30%",
+    width: "40%",
     borderRadius: 2,
     borderColor:'rgba(0,0,0,0.5)',
     backgroundColor: 'rgb(255,255,255)',
@@ -31,12 +31,11 @@ const buttonStyleUnclicked = {
 
 const categoryButtonsStyle = {
     width: "90%",
-    borderRadius: "15%",
+    borderRadius: "4px",
     backgroundColor: 'rgb(173,216,230)',
-    marginTop: "1%",
+    marginTop: "2%",
     whiteSpace: "normal",
     height:'auto',
-    marginBottom:'2%'
 }
 
 const categorySearchStyle = {
@@ -141,22 +140,6 @@ const HomePageLayout = () => {
                 <NavBar query={query}></NavBar>
             </div>
             <div className="content">
-                <div className="forum-article-buttons">
-                    <Button 
-                        size="large" 
-                        style={pageType === 0 ? buttonStyleClicked : buttonStyleUnclicked}
-                        onClick={() => setPageType(0)}
-                    >
-                        Posts
-                    </Button>
-                    <Button 
-                        size="large" 
-                        style={pageType === 1 ? buttonStyleClicked : buttonStyleUnclicked}
-                        onClick={() => setPageType(1)}
-                    >
-                        Articles
-                    </Button>
-                </div>
                 <div className="category-post-articles">
                     <div className="categories-and-create-post">
                         {user.type === 1 ? 
@@ -178,6 +161,7 @@ const HomePageLayout = () => {
                         </Button> :
                         null}
                         <div className="categories">
+                            <h3>CATEGORIES</h3>
                             <div className="category-search-bar">
                                 <Input 
                                     style={categorySearchStyle}
@@ -190,6 +174,22 @@ const HomePageLayout = () => {
                         </div>
                     </div>
                     <div className="articles-or-posts">
+                        <div className="forum-article-buttons">
+                            <Button 
+                                size="large" 
+                                style={pageType === 0 ? buttonStyleClicked : buttonStyleUnclicked}
+                                onClick={() => setPageType(0)}
+                            >
+                                Posts
+                            </Button>
+                            <Button 
+                                size="large" 
+                                style={pageType === 1 ? buttonStyleClicked : buttonStyleUnclicked}
+                                onClick={() => setPageType(1)}
+                            >
+                                Articles
+                            </Button>
+                        </div>
                         {pageType === 0 ? renderPosts(posts, setPosts): renderArticles(articles, setArticles)}
                         {pageType === 0 ? <Pagination  showQuickJumper defaultCurrent={1} total={postCount} onChange={onChangePost} /> : <Pagination showQuickJumper defaultCurrent={1} total={articleCount} onChange={onChangeArticle} /> }
                     </div>
