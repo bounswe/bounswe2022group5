@@ -16,7 +16,7 @@
     <img width="311" alt="Ekran Resmi 2022-12-06 20 01 36" src="https://user-images.githubusercontent.com/74200767/205978231-d106157f-edc4-4963-a32b-137c68dd3ced.png">
     
      ***Signup Page***:
-    - Code: [Drawer](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/widgets/MyDrawer.dart)
+    - Code: [Signup](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/signup.dart)
     - UI: 
 
     <img width="297" alt="Ekran Resmi 2022-12-06 20 24 17" src="https://user-images.githubusercontent.com/74200767/205980198-3fa17a9e-b90e-4ae0-b6fc-e3df3f56a167.png"> <img width="299" alt="Ekran Resmi 2022-12-06 20 24 30" src="https://user-images.githubusercontent.com/74200767/205980235-b6badfc7-883e-435d-abb8-d6f9d3ccf0c3.png"> <img width="294" alt="Ekran Resmi 2022-12-06 20 24 39" src="https://user-images.githubusercontent.com/74200767/205980273-85b0d8fd-3ca4-4050-a1ee-3c274710c3e9.png">
@@ -72,6 +72,22 @@
     - UI: 
     
     <img width="300" alt="Ekran Resmi 2022-12-06 20 40 23" src="https://user-images.githubusercontent.com/74200767/205983805-a281e117-a3bd-4451-ae6b-83ee7a83d5a1.png"> <img width="304" alt="Ekran Resmi 2022-12-06 20 41 04" src="https://user-images.githubusercontent.com/74200767/205983848-7f69cc65-4a3a-4fe0-86f8-6df393a08476.png">
+    
+     ***View Post Page***:
+    - Code: [View Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewPost.dart)
+    - UI: 
+
+     <img width="304" alt="Ekran Resmi 2022-12-06 20 45 19" src="https://user-images.githubusercontent.com/74200767/205984713-63822a96-b616-46d8-9a85-260b9624bae1.png"> After clicking "See Images" --> <img width="307" alt="Ekran Resmi 2022-12-06 20 45 32" src="https://user-images.githubusercontent.com/74200767/205984911-793a33a8-c4c1-4dab-b02f-c96b6c509eea.png">
+     
+      ***View Article Page***:
+    - Code: [View Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewArticle.dart)
+    - UI: 
+
+     <img width="299" alt="Ekran Resmi 2022-12-06 20 46 34" src="https://user-images.githubusercontent.com/74200767/205985087-3ee3dc49-712e-4dc1-aeb5-2cffe2fdc9bd.png">
+
+
+
+
 
 
 
