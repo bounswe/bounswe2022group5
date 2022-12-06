@@ -108,6 +108,96 @@
     - UI: 
 
      <img width="303" alt="Ekran Resmi 2022-12-06 21 01 22" src="https://user-images.githubusercontent.com/74200767/205987554-9c7acede-0f2d-4b8d-b6fc-6a73f1b32026.png"> <img width="302" alt="Ekran Resmi 2022-12-06 21 02 16" src="https://user-images.githubusercontent.com/74200767/205987566-8b28a1ac-5b6e-4f65-bebc-426ee158a504.png">
+     
+     
+     
+     
+     
+      #### Web Application:
+     
+    ***Login Page***:
+    - Code: [Login](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Login/Login.js)
+    - UI: 
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 04 04" src="https://user-images.githubusercontent.com/73655554/206015759-74c0336e-c0ca-4097-b235-a8f8a8538073.png">
+
+    
+     ***Signup Page***:
+    - Code: [Signup](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/SignUp/SignUp.js)
+    - UI: 
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 04 23" src="https://user-images.githubusercontent.com/73655554/206015814-d6987cd3-039a-4166-83ab-9c469ec75ffa.png">
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 04 30" src="https://user-images.githubusercontent.com/73655554/206015821-b843ae7a-8aec-4995-b981-6fd23a4d2d08.png">
+
+
+    
+     ***Home Page***:
+    - Code: [Home](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/layouts/HomePage/HomePage.js)
+    and [Navigation Bar](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/layouts/NavBar/NavBar.js)
+    with [Post cards](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/layouts/Forum/Forum.js) and [Article cards](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/layouts/Article/Article.js)
+    - UI: 
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 05 27" src="https://user-images.githubusercontent.com/73655554/206016335-d06de689-2a7e-4ed8-a500-30d44f79bd6f.png">
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 05 49" src="https://user-images.githubusercontent.com/73655554/206016352-a02b0396-3b04-44d1-af60-39b36335f9d7.png">
+
+
+     ***Profile Page***:
+    - Code: [Profile](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js)
+    - UI: 
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 06 35" src="https://user-images.githubusercontent.com/73655554/206017089-49e04492-fe17-4729-8f02-51dd6a75acef.png">
+
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 17 14" src="https://user-images.githubusercontent.com/73655554/206017152-dc7a6a1c-f39e-443d-957e-b02d6c077397.png">
+
+    
+    ***Activity History Section***:
+    - Code: [Activity History](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js)
+    - UI: 
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 07 26" src="https://user-images.githubusercontent.com/73655554/206017514-245b9e1d-3de4-4aa6-a58a-f7c1581bfab9.png">
+
+    
+     ***Edit Profile Info Page***:
+    - Code: [Edit Info](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js)
+    with [Popup](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/components/Popup/Popup.js)    
+    - UI: 
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 07 52" src="https://user-images.githubusercontent.com/73655554/206017653-87038999-4bbd-4083-9cd1-d3abd92d0529.png">
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 18 01" src="https://user-images.githubusercontent.com/73655554/206017681-769f35a6-5c2b-411c-b873-efc4c10e5931.png">
+    
+    ***Edit Profile Picture or Avatar Page***:
+    - Code: [Edit Profile Picture](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js)
+    with [Popup](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/components/Popup/Popup.js)
+    - UI: 
+    <img width="1800" alt="Screenshot 2022-12-06 at 23 12 53" src="https://user-images.githubusercontent.com/73655554/206018541-9a54e448-3ffd-42e4-8e14-ad7d887cb1f5.png">
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 17 45" src="https://user-images.githubusercontent.com/73655554/206018558-d5befd69-098e-4a74-85ab-eb22d6ff8bad.png">
+
+
+    
+    
+     ***View Post Page***:
+    - Code: [View Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js)
+    - UI: 
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 14 04" src="https://user-images.githubusercontent.com/73655554/206017792-989b10f6-d2f4-44c3-acae-9ca3fd6c0a44.png">
+
+     
+      ***View Article Page***:
+    - Code: [View Article](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Article/Article.js)
+    - UI: 
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 14 40" src="https://user-images.githubusercontent.com/73655554/206017915-08a5c733-e387-432c-953d-7151b6402400.png">
+
+     
+     
+     ***Create Post Page***:
+    - Code: [Create Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/CreatePost/CreatePost.js)
+    - UI: 
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 15 53" src="https://user-images.githubusercontent.com/73655554/206017999-f109332f-e997-4d0e-8d22-8672215b2874.png">
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 16 14" src="https://user-images.githubusercontent.com/73655554/206018110-d66a2405-0c8d-4ca3-9fb1-2feed4aa1cda.png">
+
+    
+    
+    ***Create Article Page***:
+    - Code: [Create Article](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/CreateArticle/CreateArticle.js)
+    - UI: 
+     <img width="1800" alt="Screenshot 2022-12-06 at 23 16 45" src="https://user-images.githubusercontent.com/73655554/206018238-9c33366f-25d2-484a-b889-edee63e347c6.png">
+
+     
+     
+
 
 
 
