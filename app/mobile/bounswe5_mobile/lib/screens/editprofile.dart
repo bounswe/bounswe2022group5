@@ -73,6 +73,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(
                 height: 15,
               ),
+              isMember?
               Center(
                 child: Column(
                   children: [
@@ -87,7 +88,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           },
                           child: const CircleAvatar(
                             radius: 50,
-                            backgroundImage: NetworkImage("https://api.multiavatar.com/1.pngs"),
+                            backgroundImage: NetworkImage("https://api.multiavatar.com/1.png"),
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -189,6 +190,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     )
                   ],
                 )
+              ):
+              CircleAvatar(
+                  radius: 100.0,
+                  child: ClipOval(
+                    child: pp,
+                  )
               ),
               const SizedBox(height: 25),
               TextField(

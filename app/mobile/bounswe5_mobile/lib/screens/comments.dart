@@ -1,3 +1,4 @@
+import 'package:bounswe5_mobile/screens/userCommentsOverviewScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/user.dart';
@@ -18,7 +19,8 @@ class _CommentsPageState extends State<CommentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar
+      appBar: myAppBar,
+      body: UserCommentsOverviewScreen(activeUser: widget.activeUser),
     );
   }
 }

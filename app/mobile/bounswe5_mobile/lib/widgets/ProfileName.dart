@@ -11,7 +11,7 @@ Widget buildName(User user) => Column(
           "Doctor":"Member"
       ),
       Text(
-          user.email,
+          (user.usertype == 1) ? user.hospitalName: user.email,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)
       ),
       Text(
