@@ -19,7 +19,8 @@ class _ArticlesPageState extends State<ArticlesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar
+      appBar: myAppBar,
+      body: UserArticlesOverviewScreen(activeUser: widget.activeUser),
     );
   }
 }

@@ -19,7 +19,8 @@ class _PostsPageState extends State<PostsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar
+      appBar: myAppBar,
+      body: UserPostsOverviewScreen(activeUser: widget.activeUser),
     );
   }
 }
