@@ -84,12 +84,24 @@
     - UI: 
 
      <img width="299" alt="Ekran Resmi 2022-12-06 20 46 34" src="https://user-images.githubusercontent.com/74200767/205985087-3ee3dc49-712e-4dc1-aeb5-2cffe2fdc9bd.png">
+     
+     ***Create Post Page***:
+    - Code: [Create Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createPost.dart)
+    - UI: 
 
+    <img width="305" alt="Ekran Resmi 2022-12-06 20 54 31" src="https://user-images.githubusercontent.com/74200767/205986706-60318f97-fa0c-4600-9b89-da37fb830c07.png"> <img width="303" alt="Ekran Resmi 2022-12-06 20 57 38" src="https://user-images.githubusercontent.com/74200767/205986741-40d65665-5782-40c0-8846-04bef05a1c94.png">
+    
+    ***Create Article Page***:
+    - Code: [Create Article](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createArticle.dart)
+    - UI: 
 
+     <img width="303" alt="Ekran Resmi 2022-12-06 21 00 15" src="https://user-images.githubusercontent.com/74200767/205987078-eef5a908-feab-4570-84f2-429b806ab547.png"> <img width="299" alt="Ekran Resmi 2022-12-06 21 00 23" src="https://user-images.githubusercontent.com/74200767/205987091-d0ae5d4e-83a7-469f-8592-689dfb3cbf48.png">
+     
+      ***Create Comment Page***:
+    - Code: [Create Comment](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createComment.dart)
+    - UI: 
 
-
-
-
+     <img width="303" alt="Ekran Resmi 2022-12-06 21 01 22" src="https://user-images.githubusercontent.com/74200767/205987554-9c7acede-0f2d-4b8d-b6fc-6a73f1b32026.png"> <img width="302" alt="Ekran Resmi 2022-12-06 21 02 16" src="https://user-images.githubusercontent.com/74200767/205987566-8b28a1ac-5b6e-4f65-bebc-426ee158a504.png">
 
 
 
