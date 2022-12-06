@@ -208,3 +208,63 @@
  * ### Standards
 
 ## Individual Reports
+
+
+  
+
+<details><summary>Yavuz Samet Topcuoglu</summary>
+
+  
+
+## **Member:** [Yavuz Samet Topcuoglu](https://github.com/bounswe/bounswe2022group5/wiki/Yavuz-Samet-Topcuoglu), Group 5 - Frontend.
+
+### **Responsibilities:**
+
+Implementing one of the pages of the website, namely profile page, and its functionalities as well as documenting responsibilities were my main responsibility throughout the period between two milestones. 
+
+Apart from the profile page, I have taken responsibility in some other aspects of the web application such as post creation and helped my teammates. Also, I have taken the responsibility of designing the logo of our application and presented it to my teammates.
+
+On top of the main and side responsibilities, the maintenance of the previous implementations of mine was under my hood.
+
+  
+
+### **Main contributions:**
+
+- Implemented [profile page](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/pages/Profile) and its helper files which can be found [here](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/redux).
+
+- Created the [text logo](https://user-images.githubusercontent.com/73655554/205593357-77705b01-a6bb-4e89-aecb-fde86cf37440.png) of the application.
+- Added functionalities to the [post creation page](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/pages/CreatePost).
+- Handled and fixed minor bugs in various files and systems in the application.
+
+  
+
+  **Code related significant issues:**
+
+* [Issue #288](https://github.com/bounswe/bounswe2022group5/issues/288): Initialization of the profile page for registered users.
+
+* [Issue #370](https://github.com/bounswe/bounswe2022group5/issues/370): Implementing functionalities to the profile page, such as editing buttons for both members and doctors.
+
+* [Issue #404](https://github.com/bounswe/bounswe2022group5/issues/404): Navigation handling of some buttons in the navbar and homepage.
+* [Issue #406](https://github.com/bounswe/bounswe2022group5/issues/406): Adding category addition section to the post creation page.
+* [Issue #413](https://github.com/bounswe/bounswe2022group5/issues/413): Bug Fix: Disabling voting mechanism for guest users.
+* [Issue #416](https://github.com/bounswe/bounswe2022group5/issues/416): Adding label functionality to the post creation page.
+
+  **Management related significant issues:**
+
+* [Issue #401](https://github.com/bounswe/bounswe2022group5/issues/401): Informing other team members with logo and text photo usage in frontend.
+
+### **Pull requests:**
+
+- [Pull Request #356](https://github.com/bounswe/bounswe2022group5/pull/356): Profile page creation.
+
+- [Pull Request #384](https://github.com/bounswe/bounswe2022group5/pull/384): Implementing functionalities to the profile page.
+
+- [Pull Request #405](https://github.com/bounswe/bounswe2022group5/pull/405): Bug Fix: Notification messages, API calls are fixed.
+- [Pull Request #407](https://github.com/bounswe/bounswe2022group5/pull/407): Category functionality added to the post creation page and Post and Article Card navigation handled.
+- [Pull Request #414](https://github.com/bounswe/bounswe2022group5/pull/414): Bug Fix: Voting mechanism for guest users is disabled.
+- [Pull Request #417](https://github.com/bounswe/bounswe2022group5/pull/417): Implementing label functionality to the post creation page.
+- [Pull Request #424](https://github.com/bounswe/bounswe2022group5/pull/424): Enhancements on the profile page, medical history for members are added.
+  
+  
+
+</details>
