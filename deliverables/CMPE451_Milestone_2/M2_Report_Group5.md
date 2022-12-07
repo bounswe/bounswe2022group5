@@ -26,7 +26,7 @@
     - Code: [Home](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/home.dart)
     - UI: 
     
-    <img width="302" alt="Ekran Resmi 2022-12-06 21 02 16" src="https://user-images.githubusercontent.com/74200767/205988491-9e932199-d585-460a-b5b3-13aedc2710d8.png"> <img width="305" alt="Ekran Resmi 2022-12-06 20 17 28" src="https://user-images.githubusercontent.com/74200767/205978784-5864304c-121a-4fba-842b-aaed68da6cb5.png">
+    <img width="303" alt="Ekran Resmi 2022-12-06 21 08 01" src="https://user-images.githubusercontent.com/74200767/206289661-d1a92586-9cbf-42db-a56e-64fb9b62a0d0.png"> <img width="305" alt="Ekran Resmi 2022-12-06 20 17 28" src="https://user-images.githubusercontent.com/74200767/205978784-5864304c-121a-4fba-842b-aaed68da6cb5.png">
     
     ***Drawer***:
     - Code: [Drawer](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/widgets/MyDrawer.dart)
