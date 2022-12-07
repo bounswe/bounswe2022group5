@@ -264,7 +264,58 @@ On top of the main and side responsibilities, the maintenance of the previous im
 - [Pull Request #414](https://github.com/bounswe/bounswe2022group5/pull/414): Bug Fix: Voting mechanism for guest users is disabled.
 - [Pull Request #417](https://github.com/bounswe/bounswe2022group5/pull/417): Implementing label functionality to the post creation page.
 - [Pull Request #424](https://github.com/bounswe/bounswe2022group5/pull/424): Enhancements on the profile page, medical history for members are added.
-  
+  </details><details>
+  <summary>Oguzhan Demirel</summary>
+     
+## **Member:** [Oguzhan Demirel](https://github.com/bounswe/bounswe2022group5/wiki/O%C4%9Fuzhan-Demirel), Group 5 - Backend.
+
+### **Responsibilities:**
+Implemented voting system for the backend side. It used for upvoting and downvoting posts, articles, comments. I implemented also User side for these voting system. We have to store all upvoted comments posts and articles in order to use later in profile page. Added necessary changes on db schema.
+Implemented one of the article endpoints' for fetch spesific user's article in order to show on Doctor's profile page. Used pagination for efficient response.
+Wrote unit tests for all of my newly added functions.
+Apart from that, helped all of my team members to maintain our develop process.
+
+### **Main contributions:**
+
+- Implemented [Voting System for Posts](https://github.com/bounswe/bounswe2022group5/issues/313).
+- Implemented [Voting System for Articles](https://github.com/bounswe/bounswe2022group5/issues/312).
+- Implemented [Voting System Improvements](https://github.com/bounswe/bounswe2022group5/issues/329).
+- Implemented an endpoint for [Get a Doctor's all Articles](https://github.com/bounswe/bounswe2022group5/pull/355)
+- Handled and fixed minor bugs.
+
   
 
+  **Code related significant issues:**
+
+* [Issue #313](https://github.com/bounswe/bounswe2022group5/issues/313): Implemented voting system for Posts.
+
+* [Issue #312](https://github.com/bounswe/bounswe2022group5/issues/312): Implemented voting system for Articles.
+
+* [Issue #329](https://github.com/bounswe/bounswe2022group5/issues/329): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed. 
+* [Issue #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
+
+### **Pull requests:**
+- [Pull Request #321](https://github.com/bounswe/bounswe2022group5/pull/321): Implemented voting system for Posts.
+     
+- [Pull Request #314](https://github.com/bounswe/bounswe2022group5/pull/314): Implemented voting system for Articles.
+     
+- [Pull Request #331](https://github.com/bounswe/bounswe2022group5/pull/331): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed.
+     
+- [Pull Request #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
+
+### **Unit tests:**
+- [test_upvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L90)
+- [test_upvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L100)
+- [test_upvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L112)
+- [test_downvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L123)
+- [test_downvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L133)
+- [test_downvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L144)
+- [test_upvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L12)
+- [test_upvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L21)
+- [test_upvote_post_when_already_upvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L32)
+- [test_downvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L42)
+- [test_downvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L51)
+- [test_downvote_post_when_already_downvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L62)
+     
+     
 </details>
