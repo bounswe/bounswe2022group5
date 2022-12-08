@@ -210,6 +210,46 @@
 ## Individual Reports
 
 
+<details><summary>Burak Mert</summary>
+     
+     
+### Member: [Burak Mert](https://github.com/bounswe/bounswe2022group5/wiki/Burak-Mert)
+
+### Responsibilities:
+
+- Attending all the meetings.
+- As a member of the frontend team, contributing to the implementation and debugging of the frontend application and the main decisions about the development and design.
+-  Reviewing issues of frontend team.
+- Reviewing the code written by my teammates.
+- Debugging my code and helping my teammates to find a solution to their bugs.
+- Deploying frontend application.
+- Improving design and styling of the whole frontend application. 
+### Main Contributions:
+- Debugging and finalizing [signup page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/SignUp/SignUp.js) and [login page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Login/Login.js).
+-  Development of the [discussion thread page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js) for frontend application together with the backend connection. 
+-  Development of the [comment editor component](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/CommentEditor.js) for using in discussion thread page. 
+-  Development of the geolocation functionality for [discussion thread page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js). 
+-  Development of the [article display page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Article/Article.js) for frontend application together with the backend connection. 
+- Implementing upvote/downvote functionality for a post and its comments in discussion thread page.
+- Improving general design and styling of the frontend application via basic CSS.
+- Creating a new AWS instance, because of free tire limitations of the previous account, and deploying frontend application to [this address](http://3.91.54.225:3000).
+
+* *Code related significant issues:*
+	* Finalizing the login and sign-up page: [#289](https://github.com/bounswe/bounswe2022group5/issues/289)
+	* Implementing discussion thread page: [#323](https://github.com/bounswe/bounswe2022group5/issues/323)
+	* Adding geolocation feature for discussion thread page: [#364](https://github.com/bounswe/bounswe2022group5/issues/364)
+	* Implementing Article Display Page: [#374](https://github.com/bounswe/bounswe2022group5/issues/374)
+
+### Pull Requests:
+*  Implementation of discussion thread page: [#349](https://github.com/bounswe/bounswe2022group5/pull/349)
+* Adding geolocation feature for discussion thread page: [#375](https://github.com/bounswe/bounswe2022group5/pull/375)
+* Implementation of Article Display Page: [#392](https://github.com/bounswe/bounswe2022group5/pull/392)
+
+     
+     
+     </details>
+
+
 <details><summary>Kardelen Demiral</summary>
      
      
