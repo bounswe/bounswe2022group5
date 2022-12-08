@@ -210,7 +210,53 @@
 ## Individual Reports
 
 
-  
+<details><summary>Kardelen Demiral</summary>
+     
+     
+### Member: [Kardelen Demiral](https://github.com/bounswe/bounswe2022group5/wiki/Kardelen-Demiral)
+
+### Responsibilities:
+
+- Attending all the meetings.
+- As a member of the mobile team, contributing to the development of the mobile application and the main decisions about the development and design.
+-  Reviewing issues that I was assigned to as a reviewer.
+- Reviewing the code written by other mobile developers.
+- Taking notes in the Customer Milestone 2 Presentation.
+### Main Contributions:
+- Making improvements on the [sign-up screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/signup.dart).
+-  Development of the [create article screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createArticle.dart) for mobile application together with the backend connection. 
+-  Development of the [create post screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createPost.dart) for mobile application together with the backend connection. 
+-  Development of the [create comment screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createComment.dart) for mobile application together with the backend connection. 
+- Implementing upvote/downvote functionality for post/comment/article.
+- Implementing deletion functionality for post/article.
+- Preparing the [User Interface/User Experience](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_2/M2_Report_Group5.md#user-interface--user-experience) section for mobile in the Milestone 2 Report.
+- Creating a [wiki page](https://github.com/bounswe/bounswe2022group5/wiki/Milestone-2-Presentation-Notes) for Milestone 2 Presentation notes  for the team members to get a feedback for later improvements.
+
+* *Code related significant issues:*
+	* Finalizing the sign-up page: [#293](https://github.com/bounswe/bounswe2022group5/issues/293)
+	* Implementing mobile post and article creation pages: [#294](https://github.com/bounswe/bounswe2022group5/issues/294)
+	* API connections of create post and create article pages: [#330](https://github.com/bounswe/bounswe2022group5/issues/330)
+	* Finalizing signup API calls: [#352](https://github.com/bounswe/bounswe2022group5/issues/352)
+	* Implementing comment create page: [#358](https://github.com/bounswe/bounswe2022group5/issues/358)
+	* Implementing article/post/comment upvote/downvote functionalities: [#359](https://github.com/bounswe/bounswe2022group5/issues/359)
+	* Implementing article/post/comment deletion functionalities: [#360](https://github.com/bounswe/bounswe2022group5/issues/360)
+	* Adding categories and tags fields to the post/article API calls: [#393](https://github.com/bounswe/bounswe2022group5/issues/393)
+* *Management related significant issues:*
+	* Creating a wiki page including Milestone 2 Presentation notes: [#428](https://github.com/bounswe/bounswe2022group5/issues/428)
+
+### Pull Requests:
+* Initial implementations of create post and create article pages: [#296](https://github.com/bounswe/bounswe2022group5/pull/296)
+* Create post/article api calls added: [#350](https://github.com/bounswe/bounswe2022group5/pull/350)
+* KVKK and Document Upload for Signup added: [#351](https://github.com/bounswe/bounswe2022group5/pull/351)
+* Signup is finalized: [#354](https://github.com/bounswe/bounswe2022group5/pull/354)
+* Comment create functionality added: [#368](https://github.com/bounswe/bounswe2022group5/pull/368)
+* Create post and create article are revised: [#395](https://github.com/bounswe/bounswe2022group5/pull/395)
+* Upvote/downvote implemented: [#415](https://github.com/bounswe/bounswe2022group5/pull/415)
+* Post/article delete implemented: [#419](https://github.com/bounswe/bounswe2022group5/pull/419)
+
+     
+     
+     </details>
 
 <details><summary>Yavuz Samet Topcuoglu</summary>
 
@@ -319,3 +365,5 @@ Apart from that, helped all of my team members to maintain our develop process.
      
      
 </details>
+
+
