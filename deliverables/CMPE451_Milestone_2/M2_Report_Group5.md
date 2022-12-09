@@ -239,6 +239,101 @@ As we are coming to the end of the development of our project, we are planning t
  * ### Standards
 
 ## Individual Reports
+<details><summary>Mehmet Emre Akbulut</summary>  
+## **Member:** [Mehmet Emre Akbulut](https://github.com/bounswe/bounswe2022group5/wiki/Mehmet-Emre-Akbulut), Group 5 - Backend.
+
+### **Responsibilities:**
+
+Prior to implementation responsibilities, I attended all meetings as a Group 5 team member. 
+I expressed my ideas in the discussion topics, came up with new ideas and helped the team in determining the action items. 
+Additionally, I was part of the backend team. Here, I fulfilled my responsibilities in the development, improvement and necessary bug fixes of Forum, Articles, Post, Comments and Profile pages, as well as the authentiocation implementation in the first milestone. 
+I also played more of a role in Deploy processes in addition to previous milestones.
+In addition to all these, I also helped my friends in the frontend and mobile teams, especially when they had problems with getting data from the backend.
+  
+
+### **Main contributions:**
+
+- Implemented [Forum module](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/forum). These module contatins necessary functionalities and models related
+to Posts, Comments and Upvote-Downvote system.
+- Implemented [Articles module](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/articles). These module contatins necessary functionalities and models related
+to User and his/her Profile.
+- Implemented Catalogs and Labels. 
+- Implemented Search API among posts and articles
+- Contributed to [User Profile module](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/user_profile). These module contatins necessary functionalities and models related
+to Articles and Upvote-Downvote system.
+- Created the [API Documentation](https://github.com/bounswe/bounswe2022group5/wiki/API-Documentation-V2).
+- Formatting responses of APIs and reinforced communication of backend with app.
+- Fixing bugs related to backend.
+- Searched W3 Web Annotation Data Model and created initial Annotation Server.
+- Searched National Library of Medicine and found a way to use its Ontology for our project.
+- Helped Canberk and Oğuzhan to create scenarios and participated to Milestone 2 Demo.
+
+  
+
+  **Code related significant issues:**
+
+* [Issue #290](https://github.com/bounswe/bounswe2022group5/issues/290): Implementing Create, Update, Read and Delete operations related with Post.
+
+* [Issue #303](https://github.com/bounswe/bounswe2022group5/issues/303): Implementing Create, Update, Read and Delete operations related with Articles.
+
+* [Issue #305](https://github.com/bounswe/bounswe2022group5/issues/305): Search about what is the best practice of Documentation. Created Postman Doc.
+
+* [Issue #309](https://github.com/bounswe/bounswe2022group5/issues/309): Revising Auth APIs for guest users.
+
+* [Issue #324](https://github.com/bounswe/bounswe2022group5/issues/324): Extending upvote-downvote system for comments.
+
+* [Issue #338](https://github.com/bounswe/bounswe2022group5/issues/338): Fixing bugs and communication problems with app (mainly related to Posts and Articles).
+
+* [Issue #366](https://github.com/bounswe/bounswe2022group5/issues/366): Response formatting for Profile, Posts and Articles.
+
+* [Issue #383](https://github.com/bounswe/bounswe2022group5/issues/383): Implementing Catalogs and Labels.
+
+
+  **Management related significant issues:**
+
+* [Issue #361](https://github.com/bounswe/bounswe2022group5/issues/401): Creating scenarios with team members and preparing for demos.
+
+### **Pull requests:**
+
+- [Pull Request #291](https://github.com/bounswe/bounswe2022group5/pull/291): Implementing Create, Update, Read and Delete operations related with Post.
+
+- [Pull Request #304](https://github.com/bounswe/bounswe2022group5/pull/304): Implementing Create, Update, Read and Delete operations related with Articles.
+
+- [Pull Request #311](https://github.com/bounswe/bounswe2022group5/pull/311): Revising Auth APIs for guest users.
+
+- [Pull Request #328](https://github.com/bounswe/bounswe2022group5/pull/328): Extending upvote-downvote system for comments.
+
+- [Pull Request #344](https://github.com/bounswe/bounswe2022group5/pull/344): Fixing bugs and communication problems with app (mainly related to Posts and Articles).
+
+- [Pull Request #348](https://github.com/bounswe/bounswe2022group5/pull/348): Adding voting info to post and comments.
+
+- [Pull Request #378](https://github.com/bounswe/bounswe2022group5/pull/378) and [Pull Request #379](https://github.com/bounswe/bounswe2022group5/pull/379): Response formatting for Profile, Posts and Articles.
+
+- [Pull Request #381](https://github.com/bounswe/bounswe2022group5/pull/381): Fixing responses and implementing Search.
+
+- [Pull Request #403](https://github.com/bounswe/bounswe2022group5/pull/403): Implementing Catalogs and Labels.
+
+### **Unit tests:**
+#### [General](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/tests)
+- test_admin_creation
+#### [Articles](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/articles)
+- test_create_article_valid
+- test_create_article_invalid
+- test_get_article
+- test_get_article_invalid_id
+- test_update_article_valid
+- test_update_article_missing_fields
+- test_update_article_invalid_id
+- test_delete_article
+- test_get_article_invalid_id
+
+#### [Posts](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/forum)
+- test_upvote_comment
+- test_upvote_comment_invalid_id
+- test_downvote_comment
+- test_downvote_comment_invalid_id
+
+  </details>
 
 <details><summary>Alper Canberk Balcı</summary>  
 
