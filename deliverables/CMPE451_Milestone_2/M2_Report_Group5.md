@@ -489,44 +489,53 @@ Overall description of the responsibilities that are assigned to me _**since Mil
 
  </details>
 
-<details><summary>Burak Mert</summary>
-     
-     
-### Member: [Burak Mert](https://github.com/bounswe/bounswe2022group5/wiki/Burak-Mert)
 
-### Responsibilities:
+<details><summary>Irfan Bozkurt</summary>
+    
+## **Member:** [Irfan Bozkurt](https://github.com/bounswe/bounswe2022group5/wiki/Irfan-Bozkurt)
 
-- Attending all the meetings.
-- As a member of the frontend team, contributing to the implementation and debugging of the frontend application and the main decisions about the development and design.
--  Reviewing issues of frontend team.
-- Reviewing the code written by my teammates.
-- Debugging my code and helping my teammates to find a solution to their bugs.
-- Deploying frontend application.
-- Improving design and styling of the whole frontend application. 
-### Main Contributions:
-- Debugging and finalizing [signup page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/SignUp/SignUp.js) and [login page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Login/Login.js).
--  Development of the [discussion thread page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js) for frontend application together with the backend connection. 
--  Development of the [comment editor component](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/CommentEditor.js) for using in discussion thread page. 
--  Development of the geolocation functionality for [discussion thread page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js). 
--  Development of the [article display page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Article/Article.js) for frontend application together with the backend connection. 
-- Implementing upvote/downvote functionality for a post and its comments in discussion thread page.
-- Improving general design and styling of the frontend application via basic CSS.
-- Creating a new AWS instance, because of free tire limitations of the previous account, and deploying frontend application to [this address](http://3.91.54.225:3000).
+### **Responsibilities:**
 
-* *Code related significant issues:*
-	* Finalizing the login and sign-up page: [#289](https://github.com/bounswe/bounswe2022group5/issues/289)
-	* Implementing discussion thread page: [#323](https://github.com/bounswe/bounswe2022group5/issues/323)
-	* Adding geolocation feature for discussion thread page: [#364](https://github.com/bounswe/bounswe2022group5/issues/364)
-	* Implementing Article Display Page: [#374](https://github.com/bounswe/bounswe2022group5/issues/374)
+- Attending weekly general meetings, and taking meeting notes
+- Attending backend team meetings
+- Contributing in the code design, implementation, and testing
+- Providing support to active developments by performing deployments
+- Reviewing all backend related code
+- Documenting new functionalities that I introduced
 
-### Pull Requests:
-*  Implementation of discussion thread page: [#349](https://github.com/bounswe/bounswe2022group5/pull/349)
-* Adding geolocation feature for discussion thread page: [#375](https://github.com/bounswe/bounswe2022group5/pull/375)
-* Implementation of Article Display Page: [#392](https://github.com/bounswe/bounswe2022group5/pull/392)
 
-     
-     
-     </details>
+### **Main contributions:**
+
+- Code refactoring & bug fixing
+- Infrastructural contributions
+- Code reviewing
+- Code writing & peer coding
+- Documenting new endpoints
+
+
+  **Code / Infrastructure related significant issues:**
+
+* [Revising Database Schema with respect to new features](https://github.com/bounswe/bounswe2022group5/issues/292)
+* [Refactor the code](https://github.com/bounswe/bounswe2022group5/issues/297)
+* [Posts bugfix](https://github.com/bounswe/bounswe2022group5/issues/299)
+* [Integrate S3 bucket interaction](https://github.com/bounswe/bounswe2022group5/issues/306)
+* [Profile module & profile picture capability](https://github.com/bounswe/bounswe2022group5/issues/308)
+* [Getting all posts of a user](https://github.com/bounswe/bounswe2022group5/issues/332)
+* [Getting upvoted posts of a user](https://github.com/bounswe/bounswe2022group5/issues/334)
+* [Getting upvotes (articles) of a user](https://github.com/bounswe/bounswe2022group5/issues/336)
+
+
+### **Pull requests:**
+
+- [Pull Request #298](https://github.com/bounswe/bounswe2022group5/pull/298)
+- [Pull Request #300](https://github.com/bounswe/bounswe2022group5/pull/300)
+- [Pull Request #307](https://github.com/bounswe/bounswe2022group5/pull/307)
+- [Pull Request #315](https://github.com/bounswe/bounswe2022group5/pull/315)
+- [Pull Request #333](https://github.com/bounswe/bounswe2022group5/pull/333)
+- [Pull Request #335](https://github.com/bounswe/bounswe2022group5/pull/335)
+- [Pull Request #337](https://github.com/bounswe/bounswe2022group5/pull/337)
+
+</details>
 
 
 <details><summary>Kardelen Demiral</summary>
@@ -577,6 +586,251 @@ Overall description of the responsibilities that are assigned to me _**since Mil
      
      </details>
 
+
+
+
+
+<details>
+  <summary>Oguzhan Demirel</summary>
+     
+## **Member:** [Oguzhan Demirel](https://github.com/bounswe/bounswe2022group5/wiki/O%C4%9Fuzhan-Demirel), Group 5 - Backend.
+
+### **Responsibilities:**
+Implemented voting system for the backend side. It used for upvoting and downvoting posts, articles, comments. I implemented also User side for these voting system. We have to store all upvoted comments posts and articles in order to use later in profile page. Added necessary changes on db schema.
+Implemented one of the article endpoints' for fetch spesific user's article in order to show on Doctor's profile page. Used pagination for efficient response.
+Wrote unit tests for all of my newly added functions.
+Apart from that, helped all of my team members to maintain our develop process.
+
+### **Main contributions:**
+
+- Implemented [Voting System for Posts](https://github.com/bounswe/bounswe2022group5/issues/313).
+- Implemented [Voting System for Articles](https://github.com/bounswe/bounswe2022group5/issues/312).
+- Implemented [Voting System Improvements](https://github.com/bounswe/bounswe2022group5/issues/329).
+- Implemented an endpoint for [Get a Doctor's all Articles](https://github.com/bounswe/bounswe2022group5/pull/355)
+- Handled and fixed minor bugs.
+
+  
+
+  **Code related significant issues:**
+
+* [Issue #313](https://github.com/bounswe/bounswe2022group5/issues/313): Implemented voting system for Posts.
+
+* [Issue #312](https://github.com/bounswe/bounswe2022group5/issues/312): Implemented voting system for Articles.
+
+* [Issue #329](https://github.com/bounswe/bounswe2022group5/issues/329): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed. 
+* [Issue #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
+
+### **Pull requests:**
+- [Pull Request #321](https://github.com/bounswe/bounswe2022group5/pull/321): Implemented voting system for Posts.
+     
+- [Pull Request #314](https://github.com/bounswe/bounswe2022group5/pull/314): Implemented voting system for Articles.
+     
+- [Pull Request #331](https://github.com/bounswe/bounswe2022group5/pull/331): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed.
+     
+- [Pull Request #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
+
+### **Unit tests:**
+- [test_upvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L90)
+- [test_upvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L100)
+- [test_upvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L112)
+- [test_downvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L123)
+- [test_downvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L133)
+- [test_downvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L144)
+- [test_upvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L12)
+- [test_upvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L21)
+- [test_upvote_post_when_already_upvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L32)
+- [test_downvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L42)
+- [test_downvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L51)
+- [test_downvote_post_when_already_downvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L62)
+     
+     
+</details>
+
+
+<details><summary>Sinan Kerem Gündüz</summary>
+
+## **Member:** [Sinan Kerem Gündüz](https://github.com/bounswe/bounswe2022group5/wiki/Sinan-Kerem-Gündüz), Group 5 - Frontend.
+
+###  **Responsibilities:** 
+- As a member of Frontend Team, my main responsibility was creating the pages that we will be use in the UI. One of them was the post creation page which will be used by the registered users, i.e. both doctors and members of the website, and the other one was the article creation page that will be used by only doctors. Addition to that, I have also made improvements on the Homepage and the Navigation bar that I have constructed before the Milestone 1, maintaining the landing page was my responsibility.
+
+- Participating the customer meetings and team meetings was also one of my responsibilities.
+
+- Taking notes on the milestone presentation was also a responsibility of mine.
+
+
+###  **Main contributions:** 
+
+- For this milestone, I have created 2 seperate pages and also made necessary alignments and changes in the existing ones. Created Article Creation and Post Creation pages on my own and edited HomePage and Navigation Bar with the newly added features on to the system. Adding logo, implementing button functionalities in the homepage are some of them. In order to improve the frontend, I have also do a lot of research about the components that we can use with React.
+- Also, for the process of the project, I have taken a role of taking and collecting notes in the milestone presentation. Documented them on GitHub.
+
+
+#### Code related significant issues:
+- [#362](https://github.com/bounswe/bounswe2022group5/issues/362) This one is for creating the post creation page for the website.
+- [#363](https://github.com/bounswe/bounswe2022group5/issues/363) This one is for improving the Homepage and Navigation Bar by adding necessary buttons.
+- [#365](https://github.com/bounswe/bounswe2022group5/issues/365) This one is for creating the article creation page for the website.
+
+#### Management related significant issues:
+
+- [#283](https://github.com/bounswe/bounswe2022group5/issues/283) Customer Milestone Meeting Notes.
+
+
+### Pull Requests:
+- [#371](https://github.com/bounswe/bounswe2022group5/pull/371) Post Creation Page, closed by me without merging.
+- [#372](https://github.com/bounswe/bounswe2022group5/pull/372) Adding buttons to the Homepage and the Navbar..
+- [#373](https://github.com/bounswe/bounswe2022group5/pull/373) Article Creation Page.
+- [#377](https://github.com/bounswe/bounswe2022group5/pull/377) Post Creation Page, opened instead of the closed one.
+ </details>
+
+
+
+
+<details><summary>Ozan Kılıç</summary>
+	
+## **Member:** [Ozan Kılıç](https://github.com/bounswe/bounswe2022group5/wiki/Ozan-K%C4%B1l%C4%B1%C3%A7), Group 5 - Frontend.
+
+### **Responsibilities:**
+
+Implementing functionalities and responsive design of posts and articles in homepage.
+
+Other than the mentioned responsibility, I worked collaboratively with backend and helped to develop required endpoints. Also, I checked and gave feedbacks to my teammates' pull requests.
+
+
+### **Main contributions:**
+
+- Implemented [articles part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Article) of the homepage
+- Implemented [posts part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Forum) of the homepage
+- Implemented [category part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/HomePage) of the homepage and helper of category part [here](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/redux/categorySlice.js)
+- Documenting [frontend code conventions](https://github.com/bounswe/bounswe2022group5/wiki/Frontend-Code-Conventions)
+- Arranging frontend [communication plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page)
+	
+  **Code related significant issues:**
+
+* [Issue #367](https://github.com/bounswe/bounswe2022group5/issues/367): Implementing agination for Posts and Articles at Home page
+* [Issue #302](https://github.com/bounswe/bounswe2022group5/issues/302): Implementing improvement on the forum part
+* [Issue #301](https://github.com/bounswe/bounswe2022group5/issues/301): Implementing categories at the sidebar
+
+  **Management related significant issues:**
+
+* [Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274): Communication plan for frontend
+
+### **Pull requests:**
+
+- [Pull Request #397](https://github.com/bounswe/bounswe2022group5/pull/397): Making categories bar at homepage responsive
+- [Pull Request #385](https://github.com/bounswe/bounswe2022group5/pull/385): Making improvements on forumage
+- [Pull Request #369](https://github.com/bounswe/bounswe2022group5/pull/369): Homepage pagination
+</details>
+
+<details><summary>Burak Mert</summary>
+     
+     
+### Member: [Burak Mert](https://github.com/bounswe/bounswe2022group5/wiki/Burak-Mert)
+
+### Responsibilities:
+
+- Attending all the meetings.
+- As a member of the frontend team, contributing to the implementation and debugging of the frontend application and the main decisions about the development and design.
+-  Reviewing issues of frontend team.
+- Reviewing the code written by my teammates.
+- Debugging my code and helping my teammates to find a solution to their bugs.
+- Deploying frontend application.
+- Improving design and styling of the whole frontend application. 
+### Main Contributions:
+- Debugging and finalizing [signup page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/SignUp/SignUp.js) and [login page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Login/Login.js).
+-  Development of the [discussion thread page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js) for frontend application together with the backend connection. 
+-  Development of the [comment editor component](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/CommentEditor.js) for using in discussion thread page. 
+-  Development of the geolocation functionality for [discussion thread page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js). 
+-  Development of the [article display page](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Article/Article.js) for frontend application together with the backend connection. 
+- Implementing upvote/downvote functionality for a post and its comments in discussion thread page.
+- Improving general design and styling of the frontend application via basic CSS.
+- Creating a new AWS instance, because of free tire limitations of the previous account, and deploying frontend application to [this address](http://3.91.54.225:3000).
+
+* *Code related significant issues:*
+	* Finalizing the login and sign-up page: [#289](https://github.com/bounswe/bounswe2022group5/issues/289)
+	* Implementing discussion thread page: [#323](https://github.com/bounswe/bounswe2022group5/issues/323)
+	* Adding geolocation feature for discussion thread page: [#364](https://github.com/bounswe/bounswe2022group5/issues/364)
+	* Implementing Article Display Page: [#374](https://github.com/bounswe/bounswe2022group5/issues/374)
+
+### Pull Requests:
+*  Implementation of discussion thread page: [#349](https://github.com/bounswe/bounswe2022group5/pull/349)
+* Adding geolocation feature for discussion thread page: [#375](https://github.com/bounswe/bounswe2022group5/pull/375)
+* Implementation of Article Display Page: [#392](https://github.com/bounswe/bounswe2022group5/pull/392)
+
+     
+     
+     </details>
+
+
+
+ 
+ <details><summary>Halil Burak Pala</summary>
+     
+     
+### Member: [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala)
+
+### Responsibilities:
+- Attending general and mobile team meetings. Taking notes during mobile meetings.
+- Contributing to the creation of new pages and functionalities of the mobile application of our app.
+- Reviewing issues and pull requests of teammates
+- Helping my teammates with their code related problems.
+	
+### Main Contributions:
+- Implementing the functionality of getting images of posts/comments/articles and showing them in the post/article reading pages.
+- Implementing the functionality of showing an HTML body of a post and a post.
+- Implementing the functionality of updating pages after comment/article/post creations.
+- Fixing bugs in the comment dropdowns
+- Implementing post/article reading page API functions. Writing necessary functions to fetch a specific post, its comments and an article from the backend.
+- Implementing home page API functions. Writing necessary functions to fetch posts/articles from the backend.
+- Updating the drawer in the home page.
+- Connecting post and article reading/creation pages to the home page
+- Reviewing and redesigning post/article reading pages.
+- Creating and maintaining mobile Articles home page.
+- Updating the app theme and colors. Writing a [color selection guide](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Code-Conventions#app-theme-and-colors) for our team members.
+- Updating, making necessary changes when needed in mobile models, creating new ones. Creating and maintaining mock data. 
+- Taking notes during the mobile meetings.
+
+
+* *Code related significant issues:*
+	* Updating models and creating new ones: [#295](https://github.com/bounswe/bounswe2022group5/issues/295)
+	* Creating articles home page: [#322](https://github.com/bounswe/bounswe2022group5/issues/322)
+	* Updating the app theme: [#327](https://github.com/bounswe/bounswe2022group5/issues/327)
+	* Changing model structure to have a single User class: [#340](https://github.com/bounswe/bounswe2022group5/issues/340)
+	* Adding article creation floating button: [#341](https://github.com/bounswe/bounswe2022group5/issues/341)
+	* Connecting post and article reading/creation pages to the home page: [#342](https://github.com/bounswe/bounswe2022group5/issues/342)
+	* Implementing Home Page API connections: [#343](https://github.com/bounswe/bounswe2022group5/issues/343)
+	* Updating the drawer: [#382](https://github.com/bounswe/bounswe2022group5/issues/382)
+	* Getting posts and articles from backend: [#391](https://github.com/bounswe/bounswe2022group5/issues/391)
+	* Getting a specific post and article from backend and displaying them: [#402](https://github.com/bounswe/bounswe2022group5/issues/402)
+	* Fixing bugs in the comment dropdown menu: [#409](https://github.com/bounswe/bounswe2022group5/issues/409)
+	* Updating pages after comment/article/post creations: [#411](https://github.com/bounswe/bounswe2022group5/issues/411)
+	* Showing HTML body of a post/article: [#412](https://github.com/bounswe/bounswe2022group5/issues/412)
+	* Showing images of Post/Article/Comment: [#421](https://github.com/bounswe/bounswe2022group5/issues/421)
+* *Management related significant issues:*
+	
+
+### Pull Requests:
+* Model updates and mock data creation has been done: [#317](https://github.com/bounswe/bounswe2022group5/pull/317)
+* Articles home page has been created : [#325](https://github.com/bounswe/bounswe2022group5/pull/325)
+* App theme has been updated: [#339](https://github.com/bounswe/bounswe2022group5/pull/339)
+* Change in model structure to have a single User class has been done: [#345](https://github.com/bounswe/bounswe2022group5/pull/345)
+* Floating action button for post/article creation has been implemented: [#347](https://github.com/bounswe/bounswe2022group5/pull/347)
+* Necessary page connections in the home page have been implemented: [#380](https://github.com/bounswe/bounswe2022group5/pull/380)
+* Drawer has been updated. getUserInfo API function has been redesigned: [#389](https://github.com/bounswe/bounswe2022group5/pull/389)
+* Getting posts and articles from the backend in the home page has been implemented: [#400](https://github.com/bounswe/bounswe2022group5/pull/400)
+* Showing a single post/article by fetching them from backend has been done: [#408](https://github.com/bounswe/bounswe2022group5/pull/408)
+* Necessary fixes in the comment dropdown have been implemented: [#410](https://github.com/bounswe/bounswe2022group5/pull/410)
+* Showing HTML has been implemented: [#418](https://github.com/bounswe/bounswe2022group5/pull/418)
+* Updating post page after new comment has been done: [#420](https://github.com/bounswe/bounswe2022group5/pull/420)
+* Images has been made reachable in post/comment/article pages: [#420](https://github.com/bounswe/bounswe2022group5/pull/420)
+
+### Additional Information
+* Attended general meetings: Meeting [18.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-18.1), [19.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-19.1), [20.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-20.1), [21.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-21.1)
+* Attended and took notes during mobile meetings: Mobile Meeting [4](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-), [5](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-5)
+* Revised or contributed issues: [#294](https://github.com/bounswe/bounswe2022group5/issues/294), [#330](https://github.com/bounswe/bounswe2022group5/issues/330), [#352](https://github.com/bounswe/bounswe2022group5/issues/352), [#358](https://github.com/bounswe/bounswe2022group5/issues/358), [#387](https://github.com/bounswe/bounswe2022group5/issues/387)
+* Reviewed PRs: [#296](https://github.com/bounswe/bounswe2022group5/pull/296), [#354](https://github.com/bounswe/bounswe2022group5/pull/354), [#394](https://github.com/bounswe/bounswe2022group5/pull/394), [#415](https://github.com/bounswe/bounswe2022group5/pull/415), [#419](https://github.com/bounswe/bounswe2022group5/pull/419), [#422](https://github.com/bounswe/bounswe2022group5/pull/422)
+
+     
+     </details>
 
 <details><summary>Engin Oğuzhan Şenol</summary>
 
@@ -690,253 +944,8 @@ On top of the main and side responsibilities, the maintenance of the previous im
 - [Pull Request #414](https://github.com/bounswe/bounswe2022group5/pull/414): Bug Fix: Voting mechanism for guest users is disabled.
 - [Pull Request #417](https://github.com/bounswe/bounswe2022group5/pull/417): Implementing label functionality to the post creation page.
 - [Pull Request #424](https://github.com/bounswe/bounswe2022group5/pull/424): Enhancements on the profile page, medical history for members are added.
-  </details><details>
-  <summary>Oguzhan Demirel</summary>
-     
-## **Member:** [Oguzhan Demirel](https://github.com/bounswe/bounswe2022group5/wiki/O%C4%9Fuzhan-Demirel), Group 5 - Backend.
-
-### **Responsibilities:**
-Implemented voting system for the backend side. It used for upvoting and downvoting posts, articles, comments. I implemented also User side for these voting system. We have to store all upvoted comments posts and articles in order to use later in profile page. Added necessary changes on db schema.
-Implemented one of the article endpoints' for fetch spesific user's article in order to show on Doctor's profile page. Used pagination for efficient response.
-Wrote unit tests for all of my newly added functions.
-Apart from that, helped all of my team members to maintain our develop process.
-
-### **Main contributions:**
-
-- Implemented [Voting System for Posts](https://github.com/bounswe/bounswe2022group5/issues/313).
-- Implemented [Voting System for Articles](https://github.com/bounswe/bounswe2022group5/issues/312).
-- Implemented [Voting System Improvements](https://github.com/bounswe/bounswe2022group5/issues/329).
-- Implemented an endpoint for [Get a Doctor's all Articles](https://github.com/bounswe/bounswe2022group5/pull/355)
-- Handled and fixed minor bugs.
-
-  
-
-  **Code related significant issues:**
-
-* [Issue #313](https://github.com/bounswe/bounswe2022group5/issues/313): Implemented voting system for Posts.
-
-* [Issue #312](https://github.com/bounswe/bounswe2022group5/issues/312): Implemented voting system for Articles.
-
-* [Issue #329](https://github.com/bounswe/bounswe2022group5/issues/329): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed. 
-* [Issue #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
-
-### **Pull requests:**
-- [Pull Request #321](https://github.com/bounswe/bounswe2022group5/pull/321): Implemented voting system for Posts.
-     
-- [Pull Request #314](https://github.com/bounswe/bounswe2022group5/pull/314): Implemented voting system for Articles.
-     
-- [Pull Request #331](https://github.com/bounswe/bounswe2022group5/pull/331): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed.
-     
-- [Pull Request #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
-
-### **Unit tests:**
-- [test_upvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L90)
-- [test_upvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L100)
-- [test_upvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L112)
-- [test_downvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L123)
-- [test_downvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L133)
-- [test_downvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L144)
-- [test_upvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L12)
-- [test_upvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L21)
-- [test_upvote_post_when_already_upvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L32)
-- [test_downvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L42)
-- [test_downvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L51)
-- [test_downvote_post_when_already_downvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L62)
-     
-     
-</details>
+  </details>
 
 
-
-<details><summary>Irfan Bozkurt</summary>
-    
-## **Member:** [Irfan Bozkurt](https://github.com/bounswe/bounswe2022group5/wiki/Irfan-Bozkurt)
-
-### **Responsibilities:**
-
-- Attending weekly general meetings, and taking meeting notes
-- Attending backend team meetings
-- Contributing in the code design, implementation, and testing
-- Providing support to active developments by performing deployments
-- Reviewing all backend related code
-- Documenting new functionalities that I introduced
-
-
-### **Main contributions:**
-
-- Code refactoring & bug fixing
-- Infrastructural contributions
-- Code reviewing
-- Code writing & peer coding
-- Documenting new endpoints
-
-
-  **Code / Infrastructure related significant issues:**
-
-* [Revising Database Schema with respect to new features](https://github.com/bounswe/bounswe2022group5/issues/292)
-* [Refactor the code](https://github.com/bounswe/bounswe2022group5/issues/297)
-* [Posts bugfix](https://github.com/bounswe/bounswe2022group5/issues/299)
-* [Integrate S3 bucket interaction](https://github.com/bounswe/bounswe2022group5/issues/306)
-* [Profile module & profile picture capability](https://github.com/bounswe/bounswe2022group5/issues/308)
-* [Getting all posts of a user](https://github.com/bounswe/bounswe2022group5/issues/332)
-* [Getting upvoted posts of a user](https://github.com/bounswe/bounswe2022group5/issues/334)
-* [Getting upvotes (articles) of a user](https://github.com/bounswe/bounswe2022group5/issues/336)
-
-
-### **Pull requests:**
-
-- [Pull Request #298](https://github.com/bounswe/bounswe2022group5/pull/298)
-- [Pull Request #300](https://github.com/bounswe/bounswe2022group5/pull/300)
-- [Pull Request #307](https://github.com/bounswe/bounswe2022group5/pull/307)
-- [Pull Request #315](https://github.com/bounswe/bounswe2022group5/pull/315)
-- [Pull Request #333](https://github.com/bounswe/bounswe2022group5/pull/333)
-- [Pull Request #335](https://github.com/bounswe/bounswe2022group5/pull/335)
-- [Pull Request #337](https://github.com/bounswe/bounswe2022group5/pull/337)
-
-</details>
-
-
-
-<details><summary>Ozan Kılıç</summary>
-	
-## **Member:** [Ozan Kılıç](https://github.com/bounswe/bounswe2022group5/wiki/Ozan-K%C4%B1l%C4%B1%C3%A7), Group 5 - Frontend.
-
-### **Responsibilities:**
-
-Implementing functionalities and responsive design of posts and articles in homepage.
-
-Other than the mentioned responsibility, I worked collaboratively with backend and helped to develop required endpoints. Also, I checked and gave feedbacks to my teammates' pull requests.
-
-
-### **Main contributions:**
-
-- Implemented [articles part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Article) of the homepage
-- Implemented [posts part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Forum) of the homepage
-- Implemented [category part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/HomePage) of the homepage and helper of category part [here](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/redux/categorySlice.js)
-- Documenting [frontend code conventions](https://github.com/bounswe/bounswe2022group5/wiki/Frontend-Code-Conventions)
-- Arranging frontend [communication plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page)
-	
-  **Code related significant issues:**
-
-* [Issue #367](https://github.com/bounswe/bounswe2022group5/issues/367): Implementing agination for Posts and Articles at Home page
-* [Issue #302](https://github.com/bounswe/bounswe2022group5/issues/302): Implementing improvement on the forum part
-* [Issue #301](https://github.com/bounswe/bounswe2022group5/issues/301): Implementing categories at the sidebar
-
-  **Management related significant issues:**
-
-* [Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274): Communication plan for frontend
-
-### **Pull requests:**
-
-- [Pull Request #397](https://github.com/bounswe/bounswe2022group5/pull/397): Making categories bar at homepage responsive
-- [Pull Request #385](https://github.com/bounswe/bounswe2022group5/pull/385): Making improvements on forumage
-- [Pull Request #369](https://github.com/bounswe/bounswe2022group5/pull/369): Homepage pagination
-</details>
-
-<details><summary>Sinan Kerem Gündüz</summary>
-
-## **Member:** [Sinan Kerem Gündüz](https://github.com/bounswe/bounswe2022group5/wiki/Sinan-Kerem-Gündüz), Group 5 - Frontend.
-
-###  **Responsibilities:** 
-- As a member of Frontend Team, my main responsibility was creating the pages that we will be use in the UI. One of them was the post creation page which will be used by the registered users, i.e. both doctors and members of the website, and the other one was the article creation page that will be used by only doctors. Addition to that, I have also made improvements on the Homepage and the Navigation bar that I have constructed before the Milestone 1, maintaining the landing page was my responsibility.
-
-- Participating the customer meetings and team meetings was also one of my responsibilities.
-
-- Taking notes on the milestone presentation was also a responsibility of mine.
-
-
-###  **Main contributions:** 
-
-- For this milestone, I have created 2 seperate pages and also made necessary alignments and changes in the existing ones. Created Article Creation and Post Creation pages on my own and edited HomePage and Navigation Bar with the newly added features on to the system. Adding logo, implementing button functionalities in the homepage are some of them. In order to improve the frontend, I have also do a lot of research about the components that we can use with React.
-- Also, for the process of the project, I have taken a role of taking and collecting notes in the milestone presentation. Documented them on GitHub.
-
-
-#### Code related significant issues:
-- [#362](https://github.com/bounswe/bounswe2022group5/issues/362) This one is for creating the post creation page for the website.
-- [#363](https://github.com/bounswe/bounswe2022group5/issues/363) This one is for improving the Homepage and Navigation Bar by adding necessary buttons.
-- [#365](https://github.com/bounswe/bounswe2022group5/issues/365) This one is for creating the article creation page for the website.
-
-#### Management related significant issues:
-
-- [#283](https://github.com/bounswe/bounswe2022group5/issues/283) Customer Milestone Meeting Notes.
-
-
-### Pull Requests:
-- [#371](https://github.com/bounswe/bounswe2022group5/pull/371) Post Creation Page, closed by me without merging.
-- [#372](https://github.com/bounswe/bounswe2022group5/pull/372) Adding buttons to the Homepage and the Navbar..
-- [#373](https://github.com/bounswe/bounswe2022group5/pull/373) Article Creation Page.
-- [#377](https://github.com/bounswe/bounswe2022group5/pull/377) Post Creation Page, opened instead of the closed one.
- </details>
-
-
- 
- <details><summary>Halil Burak Pala</summary>
-     
-     
-### Member: [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala)
-
-### Responsibilities:
-- Attending general and mobile team meetings. Taking notes during mobile meetings.
-- Contributing to the creation of new pages and functionalities of the mobile application of our app.
-- Reviewing issues and pull requests of teammates
-- Helping my teammates with their code related problems.
-	
-### Main Contributions:
-- Implementing the functionality of getting images of posts/comments/articles and showing them in the post/article reading pages.
-- Implementing the functionality of showing an HTML body of a post and a post.
-- Implementing the functionality of updating pages after comment/article/post creations.
-- Fixing bugs in the comment dropdowns
-- Implementing post/article reading page API functions. Writing necessary functions to fetch a specific post, its comments and an article from the backend.
-- Implementing home page API functions. Writing necessary functions to fetch posts/articles from the backend.
-- Updating the drawer in the home page.
-- Connecting post and article reading/creation pages to the home page
-- Reviewing and redesigning post/article reading pages.
-- Creating and maintaining mobile Articles home page.
-- Updating the app theme and colors. Writing a [color selection guide](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Code-Conventions#app-theme-and-colors) for our team members.
-- Updating, making necessary changes when needed in mobile models, creating new ones. Creating and maintaining mock data. 
-- Taking notes during the mobile meetings.
-
-
-* *Code related significant issues:*
-	* Updating models and creating new ones: [#295](https://github.com/bounswe/bounswe2022group5/issues/295)
-	* Creating articles home page: [#322](https://github.com/bounswe/bounswe2022group5/issues/322)
-	* Updating the app theme: [#327](https://github.com/bounswe/bounswe2022group5/issues/327)
-	* Changing model structure to have a single User class: [#340](https://github.com/bounswe/bounswe2022group5/issues/340)
-	* Adding article creation floating button: [#341](https://github.com/bounswe/bounswe2022group5/issues/341)
-	* Connecting post and article reading/creation pages to the home page: [#342](https://github.com/bounswe/bounswe2022group5/issues/342)
-	* Implementing Home Page API connections: [#343](https://github.com/bounswe/bounswe2022group5/issues/343)
-	* Updating the drawer: [#382](https://github.com/bounswe/bounswe2022group5/issues/382)
-	* Getting posts and articles from backend: [#391](https://github.com/bounswe/bounswe2022group5/issues/391)
-	* Getting a specific post and article from backend and displaying them: [#402](https://github.com/bounswe/bounswe2022group5/issues/402)
-	* Fixing bugs in the comment dropdown menu: [#409](https://github.com/bounswe/bounswe2022group5/issues/409)
-	* Updating pages after comment/article/post creations: [#411](https://github.com/bounswe/bounswe2022group5/issues/411)
-	* Showing HTML body of a post/article: [#412](https://github.com/bounswe/bounswe2022group5/issues/412)
-	* Showing images of Post/Article/Comment: [#421](https://github.com/bounswe/bounswe2022group5/issues/421)
-* *Management related significant issues:*
-	
-
-### Pull Requests:
-* Model updates and mock data creation has been done: [#317](https://github.com/bounswe/bounswe2022group5/pull/317)
-* Articles home page has been created : [#325](https://github.com/bounswe/bounswe2022group5/pull/325)
-* App theme has been updated: [#339](https://github.com/bounswe/bounswe2022group5/pull/339)
-* Change in model structure to have a single User class has been done: [#345](https://github.com/bounswe/bounswe2022group5/pull/345)
-* Floating action button for post/article creation has been implemented: [#347](https://github.com/bounswe/bounswe2022group5/pull/347)
-* Necessary page connections in the home page have been implemented: [#380](https://github.com/bounswe/bounswe2022group5/pull/380)
-* Drawer has been updated. getUserInfo API function has been redesigned: [#389](https://github.com/bounswe/bounswe2022group5/pull/389)
-* Getting posts and articles from the backend in the home page has been implemented: [#400](https://github.com/bounswe/bounswe2022group5/pull/400)
-* Showing a single post/article by fetching them from backend has been done: [#408](https://github.com/bounswe/bounswe2022group5/pull/408)
-* Necessary fixes in the comment dropdown have been implemented: [#410](https://github.com/bounswe/bounswe2022group5/pull/410)
-* Showing HTML has been implemented: [#418](https://github.com/bounswe/bounswe2022group5/pull/418)
-* Updating post page after new comment has been done: [#420](https://github.com/bounswe/bounswe2022group5/pull/420)
-* Images has been made reachable in post/comment/article pages: [#420](https://github.com/bounswe/bounswe2022group5/pull/420)
-
-### Additional Information
-* Attended general meetings: Meeting [18.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-18.1), [19.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-19.1), [20.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-20.1), [21.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-21.1)
-* Attended and took notes during mobile meetings: Mobile Meeting [4](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-), [5](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-5)
-* Revised or contributed issues: [#294](https://github.com/bounswe/bounswe2022group5/issues/294), [#330](https://github.com/bounswe/bounswe2022group5/issues/330), [#352](https://github.com/bounswe/bounswe2022group5/issues/352), [#358](https://github.com/bounswe/bounswe2022group5/issues/358), [#387](https://github.com/bounswe/bounswe2022group5/issues/387)
-* Reviewed PRs: [#296](https://github.com/bounswe/bounswe2022group5/pull/296), [#354](https://github.com/bounswe/bounswe2022group5/pull/354), [#394](https://github.com/bounswe/bounswe2022group5/pull/394), [#415](https://github.com/bounswe/bounswe2022group5/pull/415), [#419](https://github.com/bounswe/bounswe2022group5/pull/419), [#422](https://github.com/bounswe/bounswe2022group5/pull/422)
-
-     
-     </details>
 
 
