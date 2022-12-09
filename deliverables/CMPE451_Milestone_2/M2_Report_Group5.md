@@ -425,6 +425,9 @@ Overall description of the responsibilities that are assigned to me _**since Mil
 * [Pull Request #379](https://github.com/bounswe/bounswe2022group5/pull/379).
 * [Pull Request #381](https://github.com/bounswe/bounswe2022group5/pull/381).
 * [Pull Request #403](https://github.com/bounswe/bounswe2022group5/pull/403).
+	
+### Unit Tests:  
+- [UserProfileTestCase](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py)
 
  </details>
 
