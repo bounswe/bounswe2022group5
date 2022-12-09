@@ -38,6 +38,9 @@ As we are coming to the end of the development of our project, we are planning t
  * ### Status of the deliverables of Milestone 1
  * ### Progress according to requirements
  * ### API endpoints
+    * [API Documentation](https://github.com/bounswe/bounswe2022group5/wiki/API-Documentation-V2)
+    * You can join to our Postman environment and test the API via [API Link](https://app.getpostman.com/join-team?invite_code=7991ed0e63cb8b3b7e11194b04db29c6&target_code=2dcbf93ffb33824ab01de50e656b4a79)
+    * See the all calls and responses via Postman documentation and collection above.
  * ### User Interface / User Experience
      #### Mobile Application:
      
