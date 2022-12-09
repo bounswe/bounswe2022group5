@@ -317,8 +317,6 @@ As we are coming to the end of the development of our project, we are planning t
 
 
  * ### Progress according to requirements
- 
-	 #### Mobile Application:
 
 	In the first milestone, we had completed the requirements for [Sign-up](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1111-sign-up), [Sign-in & Sign-out](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1112-sign-in--sign-out), and started to the implementation of [Profile Pages](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages), [Article](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1123-articles) and [Forum](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages) pages.
 
@@ -539,9 +537,11 @@ As we are coming to the end of the development of our project, we are planning t
     - We haven't implemented anything yet. 
     - We prepared mockups to show in the Demo Presentation. 
     - The plan is: Make a mode for users to use annotations. It will open a section on the right of the website. People will see their annotations, and doctors' annotations there.
+    - See the [Mockup](https://github.com/bounswe/bounswe2022group5/wiki/Annotation-Mockup)
 
  * ### Standards
     - We researched ontologies: what they are, examples, how to use them, how to implement them.
+    - Ontology of [National Library of Medicine](https://www.nlm.nih.gov/) is selected to use for linking the labels.
     - We added labels section in creating posts and articles. These labels are connected to the ontology [MeSH](https://www.nlm.nih.gov/mesh/meshhome.html). We will improve it, it's only an initial design.
 
 ## Individual Reports
