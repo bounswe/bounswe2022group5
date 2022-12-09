@@ -240,6 +240,39 @@ As we are coming to the end of the development of our project, we are planning t
 
 ## Individual Reports
 
+<details><summary>Baver Bengin Beştaş</summary>
+
+## **Member:** [Baver Bengin Beştaş](https://github.com/bounswe/bounswe2022group5/wiki/Baver-Bengin-Be%C5%9Fta%C5%9F), Group 5 - Mobile.
+
+###  **Responsibilities:** 
+- As a member of the Mobile Team, my responsibility was creating pages for mobile users that are designed good and were easy to use for the users. Like everyone in mobile team, I was assigned with tasks for mobile development, and tried my best to give it a great design.
+
+- Participating to the customer meetings.
+	
+- Participating to the mobile meetings, that are meetings for mobile development branch.
+
+- Helping the team as much as I can.
+
+
+###  **Main contributions:** 
+
+- For Milestone 2, I have improved my knowledge about flutter widgets and implemented them in design of some mobile pages. I have created 2 new screens and implemented them, Viewing Post of a user page -with comments-, and Viewing an article from a doctor page. I checked, tried and approved/merged pull requests that were my responsibility. I have tried to give ideas to my mobile team.
+
+
+#### Code related significant issues:
+- [Issue #310](https://github.com/bounswe/bounswe2022group5/issues/310) is for implementing initial designs of ViewPost and ViewArticle pages.
+- [Issue #386](https://github.com/bounswe/bounswe2022group5/issues/386) is for fixing some bugs about ViewPost and ViewArticle pages.
+- [Issue #387](https://github.com/bounswe/bounswe2022group5/issues/387) is for dropdowns that are dynamic to registered user for Posts and Comments.
+- [Issue #388](https://github.com/bounswe/bounswe2022group5/issues/387) is for dropdowns that are dynamic to registered user/doctor for Articles.
+
+
+### Pull Requests:
+- [Pull Request #326](https://github.com/bounswe/bounswe2022group5/pull/326) is for implementing initial designs of ViewPost and ViewArticle pages..
+- [Pull Request #390](https://github.com/bounswe/bounswe2022group5/pull/390) is for fixing bugs in ViewPost screen.
+- [Pull Request #394](https://github.com/bounswe/bounswe2022group5/pull/394) is for dynamic dropdowns in Posts and Comments.
+- [Pull Request #396](https://github.com/bounswe/bounswe2022group5/pull/396) is for dynamic dropdowns in Articles.
+
+ </details>
 
 <details><summary>Burak Mert</summary>
      
@@ -508,36 +541,4 @@ Other than the mentioned responsibility, I worked collaboratively with backend a
 - [#377](https://github.com/bounswe/bounswe2022group5/pull/377) Post Creation Page, opened instead of the closed one.
  </details>
 
-<details><summary>Baver Bengin Beştaş</summary>
 
-## **Member:** [Baver Bengin Beştaş](https://github.com/bounswe/bounswe2022group5/wiki/Baver-Bengin-Be%C5%9Fta%C5%9F), Group 5 - Mobile.
-
-###  **Responsibilities:** 
-- As a member of the Mobile Team, my responsibility was creating pages for mobile users that are designed good and were easy to use for the users. Like everyone in mobile team, I was assigned with tasks for mobile development, and tried my best to give it a great design.
-
-- Participating to the customer meetings.
-	
-- Participating to the mobile meetings, that are meetings for mobile development branch.
-
-- Helping the team as much as I can.
-
-
-###  **Main contributions:** 
-
-- For Milestone 2, I have improved my knowledge about flutter widgets and implemented them in design of some mobile pages. I have created 2 new screens and implemented them, Viewing Post of a user page -with comments-, and Viewing an article from a doctor page. I checked, tried and approved/merged pull requests that were my responsibility. I have tried to give ideas to my mobile team.
-
-
-#### Code related significant issues:
-- [Issue #310](https://github.com/bounswe/bounswe2022group5/issues/310) is for implementing initial designs of ViewPost and ViewArticle pages.
-- [Issue #386](https://github.com/bounswe/bounswe2022group5/issues/386) is for fixing some bugs about ViewPost and ViewArticle pages.
-- [Issue #387](https://github.com/bounswe/bounswe2022group5/issues/387) is for dropdowns that are dynamic to registered user for Posts and Comments.
-- [Issue #388](https://github.com/bounswe/bounswe2022group5/issues/387) is for dropdowns that are dynamic to registered user/doctor for Articles.
-
-
-### Pull Requests:
-- [Pull Request #326](https://github.com/bounswe/bounswe2022group5/pull/326) is for implementing initial designs of ViewPost and ViewArticle pages..
-- [Pull Request #390](https://github.com/bounswe/bounswe2022group5/pull/390) is for fixing bugs in ViewPost screen.
-- [Pull Request #394](https://github.com/bounswe/bounswe2022group5/pull/394) is for dynamic dropdowns in Posts and Comments.
-- [Pull Request #396](https://github.com/bounswe/bounswe2022group5/pull/396) is for dynamic dropdowns in Articles.
-
- </details>
