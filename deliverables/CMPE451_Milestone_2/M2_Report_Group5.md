@@ -453,11 +453,20 @@ Other than the mentioned responsibility, I worked collaboratively with backend a
 
 - Taking notes on the milestone presentation was also a responsibility of mine.
 
+- Reviewing the codes of the Frontend Team.
+
+- Helping my teammates to resolve bugs and continue the process.
+
+- Finding React components that can be useful to be used in the Frontend
+
+- Improvement on the existing pages' designs that I have implemented in the previous milestone.
+
 
 ###  **Main contributions:** 
 
 - For this milestone, I have created 2 seperate pages and also made necessary alignments and changes in the existing ones. Created Article Creation and Post Creation pages on my own and edited HomePage and Navigation Bar with the newly added features on to the system. Adding logo, implementing button functionalities in the homepage are some of them. In order to improve the frontend, I have also do a lot of research about the components that we can use with React.
 - Also, for the process of the project, I have taken a role of taking and collecting notes in the milestone presentation. Documented them on GitHub.
+- Found text edit/input components that can be easily used and implemented its usage code into our codebase.
 
 
 #### Code related significant issues:
