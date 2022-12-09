@@ -356,72 +356,79 @@ to Articles and Upvote-Downvote system.
 
   </details>
 
-<details><summary>Alper Canberk Balcı</summary>  
 
+ <details><summary>Alper Canberk Balcı</summary>  
+	
 ### Member: [Alper Canberk Balcı - Group 5](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balcı)  
-
+	
 ### Responsibilities:
-- Overall description of the responsibilities that are assigned to me _**since Milestone 1, and until Milestone 2**_.
-- Attending weekly general meetings, and taking meeting notes.
+Overall description of the responsibilities that are assigned to me _**since Milestone 1, and until Milestone 2**_.
+- Attending weekly general meetings, and taking meeting notes, reviewing the notes that I didn't take.
 - Attending backend team meetings and contributing in the design, implementation, and documentation.
+- Implementing `get_personal_info`,`update_personal_info`, `get_doctor_info` APIs. See [Issue #316](https://github.com/bounswe/bounswe2022group5/issues/316).
+- _**Designing**_ the APIs  `get_upvoted_articles`, `get_upvoted_posts`, `get_posts_of_user`, `get_articles_of_doctor` and their algorithm/mechanism, in the weekly meetings with other members İrfan and Oğuzhan considering new features. At the end, of course **reviewing** the implementations.
+- Researching Ontologies, Semantic Search, Annotations Standards.
+- Reviewing _**all backend related**_ code, commits, _Pull Requests_, _Issues_, documentation.
 - Revising and editing [Meeting Notes Template](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-Notes-Template), see [Issue #319](https://github.com/bounswe/bounswe2022group5/issues/319).
 - Revising and editing [Communication Plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page), see [Issue #320](https://github.com/bounswe/bounswe2022group5/issues/320).
-- Keeping Sidebar tidy.
-- Documentation of [Login API](https://github.com/bounswe/bounswe2022group5/wiki/Login-API-Documentation).
-- Creating [Backend Code Conventions](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Code-Conventions).
-- Writing the [README.md](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/README.md) file.
-- Reviewing all backend related code.
-- Creating [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1).
-- Helping team to document deliverables for Milestone 1.
+- Keeping Sidebar and Wiki Home Page tidy and readable.
+- Creating [Scenario 1 for CMPE451:Milestone 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-2),
+[Scenario 2 for CMPE451:Milestone 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-2),
+[Scenario 3 for CMPE451:Milestone 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-3-for-Milestone-2) for the demo presentation. See [Issue #361](https://github.com/bounswe/bounswe2022group5/issues/361).
+- Presenting the _**introduction**_ and [Scenario 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-2) parts of the demo.
+- Helping team to document deliverables for Milestone 2.
 
 
 ### Main Contributions:  
-- Overall my contributions became alive mostly in areas: management, documentation, and review. 
-- I was not familiar with deployment, and had little experience in implementation of endpoints, so I didn't write much code. 
-- Contributed in designing the database schema, and reviewed and read all backend related code, caught some bugs; helped in the strategy, and connected database to the app. 
-- Contributed greatly in the documentation and management: Meeting notes, issue labels, Communication Plan, Sidebar, Project Plan and RAM, Login API documentation, Backend Code Conventions, README file, and Scenario 2, and careful review and management.
+- Overall my contributions became alive mostly in areas: management, documentation, review, writing some unit tests, and also API **implementation and design**. 
+-  I diligently reviewed _**all backend related**_ code, commits, _Pull Requests_, and found bugs, errors.
+- Contributed in the documentation and management: Writing and reviewing Meeting notes, Meeting Notes Template, Communication Plan, Sidebar, Scenario 1,2,3 for Milestone 2 presentation.
 
 #### Code related significant issues:
-* [Connecting DB Engine to Django app](https://github.com/bounswe/bounswe2022group5/issues/197)
-* [Creating API documentation for Login](https://github.com/bounswe/bounswe2022group5/issues/201)
-* [Editing the README file of the Backend part of the Project](https://github.com/bounswe/bounswe2022group5/issues/237)
+* [[Backend] Revising Database Schema with respect to new features](https://github.com/bounswe/bounswe2022group5/issues/292)
+* [[Backend] Developing Personal Info API](https://github.com/bounswe/bounswe2022group5/issues/316)
+
+- **Reviewed ones:**
+* [[Backend] Get a doctor's all articles](https://github.com/bounswe/bounswe2022group5/issues/353#issuecomment-1334144130)
+* [[Backend] Revising Auth APIs](https://github.com/bounswe/bounswe2022group5/issues/309)
+* [[Backend] Swagger documentation for team](https://github.com/bounswe/bounswe2022group5/issues/305)
 
 
 #### Management related significant issues:
 
-* [Revising the Meeting Notes Template](https://github.com/bounswe/bounswe2022group5/issues/168)
-* [Updating the Project Plan and RAM according to the Meeting 14.1](https://github.com/bounswe/bounswe2022group5/issues/177)
-* [Adding New Labels to Distinguish Issues for Different Groups' Tasks](https://github.com/bounswe/bounswe2022group5/issues/186)
-* [Deciding on Meeting Time and Platform for Backend Team](https://github.com/bounswe/bounswe2022group5/issues/200)
-* [Documenting Backend code conventions](https://github.com/bounswe/bounswe2022group5/issues/262)
-* [Creating Scenario 2 for Milestone 1](https://github.com/bounswe/bounswe2022group5/issues/266)
+* [Milestone 1 Presentation Note Taking](https://github.com/bounswe/bounswe2022group5/issues/283)
+* [Improve meeting notes](https://github.com/bounswe/bounswe2022group5/issues/319)
+* [Communication person in Communication Plan](https://github.com/bounswe/bounswe2022group5/issues/320)
+* [[Milestone Presentation] Preparing scenarios for the Milestone 2](https://github.com/bounswe/bounswe2022group5/issues/361)
+
 
 ### Pull Requests:
 
-* [Django App Connection to the DB](https://github.com/bounswe/bounswe2022group5/pull/198)
+* [[Backend] Get, Update Personal Info Implementation](https://github.com/bounswe/bounswe2022group5/pull/357)
 
-### Additional Information
-Other efforts including reviews and work until Milestone 1.
-
-|#|Task|
-|---|---|
-|1|Took the notes in [Meeting 13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1)|
-|2|Took the notes in [Meeting 14.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-14.1)|
-|3|Reviewed the ideas and added comments on the listing questions about Requirements. [Issue #173](https://github.com/bounswe/bounswe2022group5/issues/173) |
-|4|Reviewed the Communication Plan. [Issue #174](https://github.com/bounswe/bounswe2022group5/issues/174)|
-|5|Reviewed the changes done in Sidebar. [Issue #172](https://github.com/bounswe/bounswe2022group5/issues/172) and [Issue #176](https://github.com/bounswe/bounswe2022group5/issues/176)|
-|6|Took the notes in [Meeting 15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1)|
-|7|Reviewed the [Customer Meeting 5](https://github.com/bounswe/bounswe2022group5/wiki/Customer-Meeting-5) meeting notes|
-|8|In the [Backend Meeting 1.2](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.2), helped design of the Database Schema. Reviewed and contributed to the notes.|
-|9|Reviewed [Issue #195](https://github.com/bounswe/bounswe2022group5/issues/195) commented under it the problem and the solution|
-|10|Reviewed the [Pull Request #196](https://github.com/bounswe/bounswe2022group5/pull/196). Merged it and tried the change. Detected a problem and presented the solution under [Issue #195](https://github.com/bounswe/bounswe2022group5/issues/195)|
-|11|Reviewed the [Issue #199](https://github.com/bounswe/bounswe2022group5/issues/199). Reviewed the [Pull Request #196](https://github.com/bounswe/bounswe2022group5/pull/203). It required some changes. After the changes, I merged it.|
-|12|Reviewed the notes in [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)|
-|13|Reviewed the Tech Stack page, commented under. [Issue #210](https://github.com/bounswe/bounswe2022group5/issues/210)|
-|14|Reviewed all of the Pull Requests concerning Backend|
-
+- **Reviewed ones:**
+* [Pull Request #291](https://github.com/bounswe/bounswe2022group5/pull/291)
+* [Pull Request #298](https://github.com/bounswe/bounswe2022group5/pull/298).
+* [Pull Request #300](https://github.com/bounswe/bounswe2022group5/pull/300).
+* [Pull Request #304](https://github.com/bounswe/bounswe2022group5/pull/304)
+* [Pull Request #311](https://github.com/bounswe/bounswe2022group5/pull/311)
+* [Pull Request #321](https://github.com/bounswe/bounswe2022group5/pull/321)
+* [Pull Request #328](https://github.com/bounswe/bounswe2022group5/pull/328)
+* [Pull Request #331](https://github.com/bounswe/bounswe2022group5/pull/331)
+* [Pull Request #333](https://github.com/bounswe/bounswe2022group5/pull/333)
+* [Pull Request #335](https://github.com/bounswe/bounswe2022group5/pull/335)
+* [Pull Request #337](https://github.com/bounswe/bounswe2022group5/pull/337)
+* [Pull Request #348](https://github.com/bounswe/bounswe2022group5/pull/348)
+* [Pull Request #355](https://github.com/bounswe/bounswe2022group5/pull/355#pullrequestreview-1201443894)
+* [Pull Request #344](https://github.com/bounswe/bounswe2022group5/pull/344)
+* [Pull Request #378](https://github.com/bounswe/bounswe2022group5/pull/378#pullrequestreview-1203569087).
+* [Pull Request #379](https://github.com/bounswe/bounswe2022group5/pull/379).
+* [Pull Request #381](https://github.com/bounswe/bounswe2022group5/pull/381).
+* [Pull Request #403](https://github.com/bounswe/bounswe2022group5/pull/403).
 
  </details>
+
+
 
 <details><summary>Baver Bengin Beştaş</summary>
 
