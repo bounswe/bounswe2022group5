@@ -429,6 +429,67 @@ Other efforts including reviews and work until Milestone 1.
      
      </details>
 
+
+<details><summary>Engin Oğuzhan Şenol</summary>
+
+  
+
+###  Member: [Engin Oğuzhan Şenol](https://github.com/bounswe/bounswe2022group5/wiki/Engin-Oğuzhan-Şenol)
+
+  
+
+###  Responsibilities:
+
+  
+
+- Attending all the meetings.
+
+- As a member of the mobile team, contributing to the implementation and debugging of the mobile application and the main decisions about the development and design.
+
+- Opening issues and creating pull requests from branches that related to these issues.
+
+- Reviewing some issues and pull requests of the mobile team.
+
+- Implementing the activity histories and edit profile page of the mobile application.
+
+- Connecting the related API connections related to my responsibilities
+
+###  Main Contributions:
+
+- Development of [articles page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/articles.dart) of the activity history of the mobile application.
+- Development of [posts page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/posts.dart) of the activity history of the mobile application.
+- Development of [comments page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/comments.dart) of the activity history of the mobile application.
+- Development of [article upvotes page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/upvotedArticles.dart) of the activity history of the mobile application.
+- Development of [post upvotes page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/postUpvotes.dart) of the activity history of the mobile application.
+- Development of [edit profile page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/editprofile.dart) of the mobile application.
+- Development of the [API connections](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/API_service.dart) for related pages.
+
+
+  
+
+* *Code related significant issues:*
+
+* Updating Profile Page: [#318](https://github.com/bounswe/bounswe2022group5/issues/318)
+
+* Implementing Activity History Pages: [#399](https://github.com/bounswe/bounswe2022group5/issues/399)
+
+* Implementing Comments Activity History Page: [#426](https://github.com/bounswe/bounswe2022group5/issues/426)
+
+  
+
+###  Pull Requests:
+
+* Creating initial pages of activity history and edit profile: [#346](https://github.com/bounswe/bounswe2022group5/pull/346)
+
+* Edit Profile Page: [#398](https://github.com/bounswe/bounswe2022group5/pull/398)
+
+* Activity history is added: [#422](https://github.com/bounswe/bounswe2022group5/pull/422)
+
+* Comments Activity History: [#427](https://github.com/bounswe/bounswe2022group5/pull/427) 
+  
+
+</details>
+
 <details><summary>Yavuz Samet Topcuoglu</summary>
 
   
