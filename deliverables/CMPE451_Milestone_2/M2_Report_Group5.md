@@ -699,6 +699,57 @@ Apart from that, helped all of my team members to maintain our develop process.
      
 </details>
 
+
+
+<details><summary>Irfan Bozkurt</summary>
+    
+## **Member:** [Irfan Bozkurt](https://github.com/bounswe/bounswe2022group5/wiki/Irfan-Bozkurt)
+
+### **Responsibilities:**
+
+- Attending weekly general meetings, and taking meeting notes
+- Attending backend team meetings
+- Contributing in the code design, implementation, and testing
+- Providing support to active developments by performing deployments
+- Reviewing all backend related code
+- Documenting new functionalities that I introduced
+
+
+### **Main contributions:**
+
+- Code refactoring & bug fixing
+- Infrastructural contributions
+- Code reviewing
+- Code writing & peer coding
+- Documenting new endpoints
+
+
+  **Code / Infrastructure related significant issues:**
+
+* [Revising Database Schema with respect to new features](https://github.com/bounswe/bounswe2022group5/issues/292)
+* [Refactor the code](https://github.com/bounswe/bounswe2022group5/issues/297)
+* [Posts bugfix](https://github.com/bounswe/bounswe2022group5/issues/299)
+* [Integrate S3 bucket interaction](https://github.com/bounswe/bounswe2022group5/issues/306)
+* [Profile module & profile picture capability](https://github.com/bounswe/bounswe2022group5/issues/308)
+* [Getting all posts of a user](https://github.com/bounswe/bounswe2022group5/issues/332)
+* [Getting upvoted posts of a user](https://github.com/bounswe/bounswe2022group5/issues/334)
+* [Getting upvotes (articles) of a user](https://github.com/bounswe/bounswe2022group5/issues/336)
+
+
+### **Pull requests:**
+
+- [Pull Request #298](https://github.com/bounswe/bounswe2022group5/pull/298)
+- [Pull Request #300](https://github.com/bounswe/bounswe2022group5/pull/300)
+- [Pull Request #307](https://github.com/bounswe/bounswe2022group5/pull/307)
+- [Pull Request #315](https://github.com/bounswe/bounswe2022group5/pull/315)
+- [Pull Request #333](https://github.com/bounswe/bounswe2022group5/pull/333)
+- [Pull Request #335](https://github.com/bounswe/bounswe2022group5/pull/335)
+- [Pull Request #337](https://github.com/bounswe/bounswe2022group5/pull/337)
+
+</details>
+
+
+
 <details><summary>Ozan Kılıç</summary>
 	
 ## **Member:** [Ozan Kılıç](https://github.com/bounswe/bounswe2022group5/wiki/Ozan-K%C4%B1l%C4%B1%C3%A7), Group 5 - Frontend.
