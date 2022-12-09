@@ -36,6 +36,25 @@ As we are coming to the end of the development of our project, we are planning t
 ## Progress Based on Teamwork
  * ### A Summary of work performed by each team member 
  * ### Status of the deliverables of Milestone 1
+
+   - There are some requirements that may be not implemented until the Final Milestone, but we will try to implement them until the deadline. If they won't have been impemented, they will be changed, or specified as not done.
+   - New Scenarios are created for Milestone 2 Presentation. See [Issue #361](https://github.com/bounswe/bounswe2022group5/issues/361). [Scenario 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-2), [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-2), [Scenario 3](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-3-for-Milestone-2)
+   - Obviously, there are changes occured in the Software.
+   - Other than these, there are no changes in the Deliverables since Milestone 1.
+
+|**Deliverable**|**Status**|**Last Update Date**|
+|---|---|---|
+[Software Requirements Specification](https://github.com/bounswe/bounswe2022group5/wiki/Requirements)|No change|31.10.2022|
+[Class Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Class-Diagram)|No change|17.10.2022|
+[Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram)|No change|17.10.2022|
+[Sequence Diagrams](https://github.com/bounswe/bounswe2022group5/wiki/Sequence-Diagrams)|No change|15.04.2022|
+[Scenario & Mockup 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1)|New ones were created|31.10.2022|
+[Scenario & Mockup 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1)|New ones were created|31.10.2022|
+[Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan)|No change|31.10.2022|
+[RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM)|No change|31.10.2022|
+[Software](https://github.com/bounswe/bounswe2022group5/tree/master/app)|Changes occured|06.12.2022|
+
+
  * ### Progress according to requirements
  
 	 #### Mobile Application:
