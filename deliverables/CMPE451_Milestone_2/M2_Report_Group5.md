@@ -442,4 +442,37 @@ Other than the mentioned responsibility, I worked collaboratively with backend a
 - [Pull Request #369](https://github.com/bounswe/bounswe2022group5/pull/369): Homepage pagination
 </details>
 
+<details><summary>Sinan Kerem Gündüz</summary>
 
+## **Member:** [Sinan Kerem Gündüz](https://github.com/bounswe/bounswe2022group5/wiki/Sinan-Kerem-Gündüz), Group 5 - Frontend.
+
+###  **Responsibilities:** 
+- As a member of Frontend Team, my main responsibility was creating the pages that we will be use in the UI. One of them was the post creation page which will be used by the registered users, i.e. both doctors and members of the website, and the other one was the article creation page that will be used by only doctors. Addition to that, I have also made improvements on the Homepage and the Navigation bar that I have constructed before the Milestone 1, maintaining the landing page was my responsibility.
+
+- Participating the customer meetings and team meetings was also one of my responsibilities.
+
+- Taking notes on the milestone presentation was also a responsibility of mine.
+
+
+###  **Main contributions:** 
+
+- For this milestone, I have created 2 seperate pages and also made necessary alignments and changes in the existing ones. Created Article Creation and Post Creation pages on my own and edited HomePage and Navigation Bar with the newly added features on to the system. Adding logo, implementing button functionalities in the homepage are some of them. In order to improve the frontend, I have also do a lot of research about the components that we can use with React.
+- Also, for the process of the project, I have taken a role of taking and collecting notes in the milestone presentation. Documented them on GitHub.
+
+
+#### Code related significant issues:
+- [#362](https://github.com/bounswe/bounswe2022group5/issues/362) This one is for creating the post creation page for the website.
+- [#363](https://github.com/bounswe/bounswe2022group5/issues/363) This one is for improving the Homepage and Navigation Bar by adding necessary buttons.
+- [#365](https://github.com/bounswe/bounswe2022group5/issues/365) This one is for creating the article creation page for the website.
+
+#### Management related significant issues:
+
+- [#283](https://github.com/bounswe/bounswe2022group5/issues/283) Customer Milestone Meeting Notes.
+
+
+### Pull Requests:
+- [#371](https://github.com/bounswe/bounswe2022group5/pull/371) Post Creation Page, closed by me without merging.
+- [#372](https://github.com/bounswe/bounswe2022group5/pull/372) Adding buttons to the Homepage and the Navbar..
+- [#373](https://github.com/bounswe/bounswe2022group5/pull/373) Article Creation Page.
+- [#377](https://github.com/bounswe/bounswe2022group5/pull/377) Post Creation Page, opened instead of the closed one.
+ </details>
