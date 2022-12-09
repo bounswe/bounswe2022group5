@@ -534,10 +534,15 @@ As we are coming to the end of the development of our project, we are planning t
 
 
 
-
-
  * ### Annotations
+    - We researched Annotations: what they are, standards, implementation, helping libraries to use with React.
+    - We haven't implemented anything yet. 
+    - We prepared mockups to show in the Demo Presentation. 
+    - The plan is: Make a mode for users to use annotations. It will open a section on the right of the website. People will see their annotations, and doctors' annotations there.
+
  * ### Standards
+    - We researched ontologies: what they are, examples, how to use them, how to implement them.
+    - We added labels section in creating posts and articles. These labels are connected to the ontology [MeSH](https://www.nlm.nih.gov/mesh/meshhome.html). We will improve it, it's only an initial design.
 
 ## Individual Reports
 <details><summary>Mehmet Emre Akbulut</summary>  
