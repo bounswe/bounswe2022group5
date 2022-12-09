@@ -35,6 +35,267 @@ As we are coming to the end of the development of our project, we are planning t
 
 ## Progress Based on Teamwork
  * ### A Summary of work performed by each team member 
+
+
+
+#### Mehmet Emre Akbulut
+|Issue Title|Link|
+  |-----|:--------:|
+  |Implementing Create, Update, Read and Delete operations related with Post.|[Issue #290](https://github.com/bounswe/bounswe2022group5/issues/290)|
+  |Implementing Create, Update, Read and Delete operations related with Articles.|[Issue #303](https://github.com/bounswe/bounswe2022group5/issues/303)|
+  |Search about what is the best practice of Documentation. Created Postman Doc.|[Issue #305](https://github.com/bounswe/bounswe2022group5/issues/305)|
+  |Revising Auth APIs for guest users.|[Issue #309](https://github.com/bounswe/bounswe2022group5/issues/309)|
+  |Extending upvote-downvote system for comments.|[Issue #324](https://github.com/bounswe/bounswe2022group5/issues/324)|
+  |Fixing bugs and communication problems with app (mainly related to Posts and Articles).|[Issue #338](https://github.com/bounswe/bounswe2022group5/issues/338)|
+  |Response formatting for Profile, Posts and Articles.|[Issue #366](https://github.com/bounswe/bounswe2022group5/issues/366)|
+  |Implementing Catalogs and Labels.|[Issue #383](https://github.com/bounswe/bounswe2022group5/issues/383)|
+  |Creating scenarios with team members and preparing for demos.|[Issue #401](https://github.com/bounswe/bounswe2022group5/issues/401)|
+
+ 
+ |Pull Request Title|Link|
+  |-----|:--------:|
+  |Implementing Create, Update, Read and Delete operations related with Post.|[#196](https://github.com/bounswe/bounswe2022group5/pull/196)|
+  |Implementing Create, Update, Read and Delete operations related with Articles.|[#208](https://github.com/bounswe/bounswe2022group5/pull/208)|
+  |Revising Auth APIs for guest users.|[#211](https://github.com/bounswe/bounswe2022group5/pull/211)|
+  |Extending upvote-downvote system for comments.|[#219](https://github.com/bounswe/bounswe2022group5/pull/219)|
+  |Fixing bugs and communication problems with app (mainly related to Posts and Articles).|[#239](https://github.com/bounswe/bounswe2022group5/pull/239)|
+  |Adding voting info to post and comments.|[#242](https://github.com/bounswe/bounswe2022group5/pull/242)|
+   |Response formatting for Profile, Posts and Articles.|[#242](https://github.com/bounswe/bounswe2022group5/pull/242)|
+   |Fixing responses and implementing Search.|[#242](https://github.com/bounswe/bounswe2022group5/pull/242)|
+   |Implementing Catalogs and Labels.|[#242](https://github.com/bounswe/bounswe2022group5/pull/242)|
+
+
+
+
+#### Alper Canberk Balcı
+
+|Issue Title|Link|
+  |-----|:--------:|
+  |[Backend] Revising Database Schema with respect to new features|[#292](https://github.com/bounswe/bounswe2022group5/issues/292)|
+  |[Backend] Developing Personal Info API|[#316](https://github.com/bounswe/bounswe2022group5/issues/316)|
+  |**Reviewed** -   [Backend] Get a doctor's all articles|[#353](https://github.com/bounswe/bounswe2022group5/issues/353#issuecomment-1334144130)|
+  |**Reviewed** -   [Backend] Revising Auth APIs|[#309](https://github.com/bounswe/bounswe2022group5/issues/309)|
+  |**Reviewed** -   [Backend] Swagger documentation for team|[#305](https://github.com/bounswe/bounswe2022group5/issues/305)|
+  |Milestone 1 Presentation Note Taking|[#283](https://github.com/bounswe/bounswe2022group5/issues/283)|
+  |Improve meeting notes|[#319](https://github.com/bounswe/bounswe2022group5/issues/319)|
+  |Communication person in Communication Plan|[#320](https://github.com/bounswe/bounswe2022group5/issues/320)|
+  |[Milestone Presentation] Preparing scenarios for the Milestone 2|[#361](https://github.com/bounswe/bounswe2022group5/issues/361)|
+  
+|Pull Request Title|Link|
+  |-----|:--------:|
+  |[Backend] Get, Update Personal Info Implementation|[#357](https://github.com/bounswe/bounswe2022group5/pull/357)|
+  |**Reviewed ones:** [Pull Request #291](https://github.com/bounswe/bounswe2022group5/pull/291),[Pull Request #298](https://github.com/bounswe/bounswe2022group5/pull/298),[Pull Request #300](https://github.com/bounswe/bounswe2022group5/pull/300),[Pull Request #304](https://github.com/bounswe/bounswe2022group5/pull/304),[Pull Request #311](https://github.com/bounswe/bounswe2022group5/pull/311),[Pull Request #321](https://github.com/bounswe/bounswe2022group5/pull/321),[Pull Request #328](https://github.com/bounswe/bounswe2022group5/pull/328),[Pull Request #331](https://github.com/bounswe/bounswe2022group5/pull/331),[Pull Request #333](https://github.com/bounswe/bounswe2022group5/pull/333),[Pull Request #335](https://github.com/bounswe/bounswe2022group5/pull/335),[Pull Request #337](https://github.com/bounswe/bounswe2022group5/pull/337),[Pull Request #348](https://github.com/bounswe/bounswe2022group5/pull/348),[Pull Request #355](https://github.com/bounswe/bounswe2022group5/pull/355#pullrequestreview-1201443894),[Pull Request #344](https://github.com/bounswe/bounswe2022group5/pull/344),[Pull Request #378](https://github.com/bounswe/bounswe2022group5/pull/378#pullrequestreview-1203569087),[Pull Request #379](https://github.com/bounswe/bounswe2022group5/pull/379),[Pull Request #381](https://github.com/bounswe/bounswe2022group5/pull/381),[Pull Request #403](https://github.com/bounswe/bounswe2022group5/pull/403).|Added as links|
+
+
+
+#### Baver Bengin Beştaş
+ |Issue Title|Link|
+  |-----|:--------:|
+  |[Mobile] Implementing mobile post reading and article reading pages|[#310](https://github.com/bounswe/bounswe2022group5/issues/310)|
+  |[Mobile] 'ViewPost' page Bug Fixes|[#386](https://github.com/bounswe/bounswe2022group5/issues/386)|
+  |[Mobile] Adding dropdown for 'ViewPost' page|[#387](https://github.com/bounswe/bounswe2022group5/issues/387)|
+  |[Mobile] Adding dropdown for 'ViewArticle' page|[#388](https://github.com/bounswe/bounswe2022group5/issues/388)|
+  |[Milestone Presentation] Adding mobile screens to Scenarios|[#429](https://github.com/bounswe/bounswe2022group5/issues/429)|
+ 
+  
+|Pull Request Title|Link|
+  |-----|:--------:|
+  |[Mobile] Post viewing page and article viewing page have been implemented|[#326](https://github.com/bounswe/bounswe2022group5/pull/326)|
+  |[Mobile] ViewPostPage bug fixes|[#390](https://github.com/bounswe/bounswe2022group5/pull/390)|
+  |[Mobile] ViewPostPage dropdowns have been added|[#394](https://github.com/bounswe/bounswe2022group5/pull/394)|
+   |[Mobile] ViewArticlePage dropdown has been added|[#396](https://github.com/bounswe/bounswe2022group5/pull/396)|
+
+#### İrfan Bozkurt
+
+ |Issue Title|Link|
+  |-----|:--------:|
+  |Revising Database Schema with respect to new features|[#292](https://github.com/bounswe/bounswe2022group5/issues/292)|
+  |Refactor the code|[#297](https://github.com/bounswe/bounswe2022group5/issues/297)|
+  |Posts bugfix|[#299](https://github.com/bounswe/bounswe2022group5/issues/299)|
+  |Integrate S3 bucket interaction|[#306](https://github.com/bounswe/bounswe2022group5/issues/306)|
+  |Profile module & profile picture capability|[#308](https://github.com/bounswe/bounswe2022group5/issues/308)|
+  |Getting all posts of a user|[#332](https://github.com/bounswe/bounswe2022group5/issues/332)|
+   |Getting upvoted posts of a user|[#334](https://github.com/bounswe/bounswe2022group5/issues/334)|
+   |Getting upvotes (articles) of a user|[#336](https://github.com/bounswe/bounswe2022group5/issues/336)|
+ 
+ |Pull Request Title|Link|
+  |-----|:--------:|
+  |# [Backend] Code Refactor|  [Pull Request #298](https://github.com/bounswe/bounswe2022group5/pull/298)|
+  |# [Backend] Create post without image urls #299| [Pull Request #300](https://github.com/bounswe/bounswe2022group5/pull/300)|
+  |# [Backend] S3 Integration|[Pull Request #307](https://github.com/bounswe/bounswe2022group5/pull/307)|
+|# [Backend] Profile pictures on S3 for doctors|[Pull Request #315](https://github.com/bounswe/bounswe2022group5/pull/315)|
+|# [Backend] Getting all posts of a user|[Pull Request #333](https://github.com/bounswe/bounswe2022group5/pull/333)|
+|# [Backend] Getting upvotes (post) of a user| [Pull Request #335](https://github.com/bounswe/bounswe2022group5/pull/335)|
+|# [Backend] Getting upvotes (articles) of a user| [Pull Request #337](https://github.com/bounswe/bounswe2022group5/pull/337)|
+
+#### Kardelen Demiral
+
+
+ |Issue Title|Link|
+  |-----|:--------:|
+  |Finalizing the sign-up page | [#293](https://github.com/bounswe/bounswe2022group5/issues/293)|
+  |   Implementing mobile post and article creation pages  |[#294](https://github.com/bounswe/bounswe2022group5/issues/294)|
+  |   API connections of create post and create article pages|[#330](https://github.com/bounswe/bounswe2022group5/issues/330)|
+  |   Finalizing signup API calls  |[#352](https://github.com/bounswe/bounswe2022group5/issues/352)|
+  |   Implementing comment create page | [#358](https://github.com/bounswe/bounswe2022group5/issues/358)|
+  |   Implementing article/post/comment upvote/downvote functionalities  |[#359](https://github.com/bounswe/bounswe2022group5/issues/359)|
+  |   Implementing article/post/comment deletion functionalities |[#360](https://github.com/bounswe/bounswe2022group5/issues/360)|
+  |   Adding categories and tags fields to the post/article API calls |[#393](https://github.com/bounswe/bounswe2022group5/issues/393)|
+  |Creating a wiki page including Milestone 2 Presentation notes | [#428](https://github.com/bounswe/bounswe2022group5/issues/428)| 
+ 
+  
+|Pull Request Title|Link|
+  |-----|:--------:|
+  |Initial implementations of create post and create article pages|[#296](https://github.com/bounswe/bounswe2022group5/pull/296)|
+  |Create post/article api calls added|[#350](https://github.com/bounswe/bounswe2022group5/pull/350)|
+  |KVKK and Document Upload for Signup added:|[#351](https://github.com/bounswe/bounswe2022group5/pull/351)|
+  |Signup is finalized|[#354](https://github.com/bounswe/bounswe2022group5/pull/354)|
+  |Comment create functionality added|[#368](https://github.com/bounswe/bounswe2022group5/pull/368)|
+  |Create post and create article are revised|[#395](https://github.com/bounswe/bounswe2022group5/pull/395)|
+  |Upvote/downvote implemented|[#415](https://github.com/bounswe/bounswe2022group5/pull/415)|
+  |Post/article delete implemented|[#419](https://github.com/bounswe/bounswe2022group5/pull/419)|
+
+  
+
+#### Oğuzhan Demirel
+
+|Issue Title|Link|
+  |-----|:--------:|
+  | [Backend] Upvote and Downvote enpoints for Posts|[Issue #313](https://github.com/bounswe/bounswe2022group5/issues/313)|
+  |Implemented voting system for Articles.|[Issue #312](https://github.com/bounswe/bounswe2022group5/issues/312)|
+  |Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed.|[Issue #329](https://github.com/bounswe/bounswe2022group5/issues/329)|
+  |Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.|[Issue #355](https://github.com/bounswe/bounswe2022group5/pull/355)|
+   
+|Pull Request Title|Link|
+  |-----|:--------:|
+  |[Backend] Vote endpoints for Posts|[#321](https://github.com/bounswe/bounswe2022group5/pull/321)|
+  | Backend/feature/vote endpoints for article #312|[#314](https://github.com/bounswe/bounswe2022group5/pull/314)|
+  | [Backend] Voting feature improvements|[#331](https://github.com/bounswe/bounswe2022group5/pull/331)|
+  | [Backend] Get a doctor's all articles|[#355](https://github.com/bounswe/bounswe2022group5/pull/355)|
+
+#### Sinan Kerem Gündüz
+
+|Issue Title|Link|
+  |-----|:--------:|
+  | [Frontend] Implementing Create Post Page.|[#362](https://github.com/bounswe/bounswe2022group5/issues/362)|
+  | [Frontend] Adding buttons in the Homepage and Navbar|[#363](https://github.com/bounswe/bounswe2022group5/issues/363)|
+  | [Frontend] Implementing Create Article Page.|[#365](https://github.com/bounswe/bounswe2022group5/issues/365)|
+  | Milestone 1 Presentation Note Taking|[#283](https://github.com/bounswe/bounswe2022group5/issues/283)|
+
+
+ |Pull Request Title|Link|
+  |-----|:--------:|
+  | [Frontend] Creating "Post Creation" Page.|[#371](https://github.com/bounswe/bounswe2022group5/pull/371)|
+  | [Frontend] Adding buttons in the Homepage and Navbar|[#372](https://github.com/bounswe/bounswe2022group5/pull/372)|
+  | [Frontend] Creating "Article Creation" Page.|[#373](https://github.com/bounswe/bounswe2022group5/pull/373)|
+  | [Frontend] Creating "Post Creation" Page.|[#377](https://github.com/bounswe/bounswe2022group5/pull/377)|
+
+#### Ozan Kılıç
+|Issue Title|Link|
+  |-----|:--------:|
+  | [Frontend] Pagination for Posts and Articles at Home page|[Issue #367](https://github.com/bounswe/bounswe2022group5/issues/367)|
+  | [Frontend] Making improvements on the forum|[Issue #302](https://github.com/bounswe/bounswe2022group5/issues/302)|
+  | [Frontend] Adding categories to the sidebar|[#301](https://github.com/bounswe/bounswe2022group5/issues/301)|
+  | Communication Plan for Frontend|[Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274):|
+
+
+ |Pull Request Title|Link|
+  |-----|:--------:|
+  |[Frontend]Making categories bar homepage responsive|[#397](https://github.com/bounswe/bounswe2022group5/pull/397)|
+ |# Frontend/feature/forum improvements #302|[#385](https://github.com/bounswe/bounswe2022group5/pull/385)|
+  |# Frontend/feature/homepage pagination #367|[#369](https://github.com/bounswe/bounswe2022group5/pull/369)|
+
+#### Burak Mert
+|Issue Title|Link|
+  |-----|:--------:|
+  |Finalizing the login and sign-up page|[#289](https://github.com/bounswe/bounswe2022group5/issues/289)|
+  |Implementing discussion thread page|[#323](https://github.com/bounswe/bounswe2022group5/issues/323)|
+  |Adding geolocation feature for discussion thread page|[#364](https://github.com/bounswe/bounswe2022group5/issues/364)|
+  |Implementing Article Display Page|[#374](https://github.com/bounswe/bounswe2022group5/issues/374)|
+
+|Pull Request Title|Link|
+  |-----|:--------:|
+  | [Frontend] Discussion Thread Page is Implemented|[#349](https://github.com/bounswe/bounswe2022group5/pull/349)|
+ | [Frontend] Adding Geolocation Functionality for Discussion Thread Page|[#375](https://github.com/bounswe/bounswe2022group5/pull/375)|
+  | [Frontend] Implementing Article Display Page|[#392](https://github.com/bounswe/bounswe2022group5/pull/392)|
+
+#### Halil Burak Pala
+
+|Issue Title|Link|
+  |-----|:--------:|
+  |Updating models and creating new ones|[#190](https://github.com/bounswe/bounswe2022group5/issues/190)|
+  |   Creating articles home page|  [#322](https://github.com/bounswe/bounswe2022group5/issues/322)|
+  |   Updating the app theme|  [#327](https://github.com/bounswe/bounswe2022group5/issues/327)|
+  |   Changing model structure to have a single User class|  [#340](https://github.com/bounswe/bounswe2022group5/issues/340)|
+  |   Adding article creation floating button| [#341](https://github.com/bounswe/bounswe2022group5/issues/341)|
+  |   Connecting post and article reading/creation pages to the home page|  [#342](https://github.com/bounswe/bounswe2022group5/issues/342)|
+  |   Implementing Home Page API connections|  [#343](https://github.com/bounswe/bounswe2022group5/issues/343)|
+  |   Updating the drawer|  [#382](https://github.com/bounswe/bounswe2022group5/issues/382)|
+  |   Getting posts and articles from backend| [#391](https://github.com/bounswe/bounswe2022group5/issues/391)|
+  |   Getting a specific post and article from backend and displaying them|  [#402](https://github.com/bounswe/bounswe2022group5/issues/402)|
+  |   Fixing bugs in the comment dropdown menu|  [#409](https://github.com/bounswe/bounswe2022group5/issues/409)|
+  |   Updating pages after comment/article/post creations|  [#411](https://github.com/bounswe/bounswe2022group5/issues/411)|
+  |   Showing HTML body of a post/article:|  [#412](https://github.com/bounswe/bounswe2022group5/issues/412)|
+  |   Showing images of Post/Article/Comment| [#421](https://github.com/bounswe/bounswe2022group5/issues/421)|
+  
+|Pull Request Title|Link|
+  |-----|:--------:|
+  |   Model updates and mock data creation has been done|[#317](https://github.com/bounswe/bounswe2022group5/pull/317)|
+  |   Articles home page has been created |[#325](https://github.com/bounswe/bounswe2022group5/pull/325)|
+  |   App theme has been updated|[#339](https://github.com/bounswe/bounswe2022group5/pull/339)|
+  |   Change in model structure to have a single User class has been done|[#345](https://github.com/bounswe/bounswe2022group5/pull/345)|
+  |   Floating action button for post/article creation has been implemented|  [#347](https://github.com/bounswe/bounswe2022group5/pull/347)|
+  |   Necessary page connections in the home page have been implemented|[#380](https://github.com/bounswe/bounswe2022group5/pull/380)|
+  |   Drawer has been updated. getUserInfo API function has been redesigned|[#389](https://github.com/bounswe/bounswe2022group5/pull/389)|
+  |   Getting posts and articles from the backend in the home page has been implemented| [#400](https://github.com/bounswe/bounswe2022group5/pull/400)|
+  |   Showing a single post/article by fetching them from backend has been done|  [#408](https://github.com/bounswe/bounswe2022group5/pull/408)|
+  |   Necessary fixes in the comment dropdown have been implemented|[#410](https://github.com/bounswe/bounswe2022group5/pull/410)|
+  |   Showing HTML has been implemented| [#418](https://github.com/bounswe/bounswe2022group5/pull/418)|
+  |   Updating post page after new comment has been done| [#420](https://github.com/bounswe/bounswe2022group5/pull/420)|
+  |   Images has been made reachable in post/comment/article pages|  [#420](https://github.com/bounswe/bounswe2022group5/pull/420)|
+
+  
+  
+
+#### Engin Oğuzhan Şenol
+
+|Issue Title|Link|
+  |-----|:--------:|
+  |Updating Profile Page|[#318](https://github.com/bounswe/bounswe2022group5/issues/318)|
+  |Implementing Activity History Pages|[#399](https://github.com/bounswe/bounswe2022group5/issues/399)|
+  |Implementing Comments Activity History Page|[#426](https://github.com/bounswe/bounswe2022group5/issues/426)|
+
+|Pull Request Title|Link|
+  |-----|:--------:|
+  |Creating initial pages of activity history and edit profile|[#346](https://github.com/bounswe/bounswe2022group5/pull/346)|
+  |Edit Profile Page|[#398](https://github.com/bounswe/bounswe2022group5/pull/398)|
+  |Activity history is added|[#422](https://github.com/bounswe/bounswe2022group5/pull/422)|
+  |Comments Activity History|[#427](https://github.com/bounswe/bounswe2022group5/pull/427)|
+
+#### Yavuz Samet Topçuoğlu
+
+|Issue Title|Link|
+  |-----|:--------:|
+  |Initialization of the profile page for registered users.|[#288](https://github.com/bounswe/bounswe2022group5/issues/288)|
+  |Implementing functionalities to the profile page, such as editing buttons for both members and doctors.|[#370](https://github.com/bounswe/bounswe2022group5/issues/370)|
+  |Navigation handling of some buttons in the navbar and homepage.|[#404](https://github.com/bounswe/bounswe2022group5/issues/404)|
+  |Adding category addition section to the post creation page.|[#406](https://github.com/bounswe/bounswe2022group5/issues/406)|
+  |Bug Fix: Disabling voting mechanism for guest users.|[#413](https://github.com/bounswe/bounswe2022group5/issues/413)|
+  |Adding label functionality to the post creation page.|[#416](https://github.com/bounswe/bounswe2022group5/issues/416)|
+  |Informing other team members with logo and text photo usage in frontend.|[#401](https://github.com/bounswe/bounswe2022group5/issues/401)|
+
+|Pull Request Title|Link|
+  |-----|:--------:|
+  |Profile page creation.|[#356](https://github.com/bounswe/bounswe2022group5/pull/356)|
+  |Implementing functionalities to the profile page.|[#384](https://github.com/bounswe/bounswe2022group5/pull/384)|
+  |Bug Fix: Notification messages, API calls are fixed.|[#405](https://github.com/bounswe/bounswe2022group5/pull/405)|
+  |Category functionality added to the post creation page and Post and Article Card navigation handled.|[#407](https://github.com/bounswe/bounswe2022group5/pull/407)|
+  |Bug Fix: Voting mechanism for guest users is disabled.|[#414](https://github.com/bounswe/bounswe2022group5/pull/414)|
+  |Implementing label functionality to the post creation page.|[#417](https://github.com/bounswe/bounswe2022group5/pull/417)|
+  |Enhancements on the profile page, medical history for members are added.|[#424](https://github.com/bounswe/bounswe2022group5/pull/424)|
+
+  
+
  * ### Status of the deliverables of Milestone 1
 
    - There are some requirements that may be not implemented until the Final Milestone, but we will try to implement them until the deadline. If they won't have been impemented, they will be changed, or specified as not done.
