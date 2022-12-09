@@ -37,6 +37,24 @@ As we are coming to the end of the development of our project, we are planning t
  * ### A Summary of work performed by each team member 
  * ### Status of the deliverables of Milestone 1
  * ### Progress according to requirements
+ 
+	 #### Mobile Application:
+
+	In the first milestone, we had completed the requirements for [Sign-up](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1111-sign-up), [Sign-in & Sign-out](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1112-sign-in--sign-out), and started to the implementation of [Profile Pages](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages), [Article](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1123-articles) and [Forum](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages) pages.
+
+	In the second milestone, we increased the speed and countinue of the implementation what is missed on Milestone 1. 
+
+	In the [Profile Pages](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages), all the requirements are implemented and it is completed. Users can now see their full activity history on their profile page. Doctors can also share the hospital that they are worked in their profile.
+
+	In the [Forum](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages), most of the necessary requirements are implemented. All users can now see all the shared posts and scroll over them. They are also able to create and view, make upvote/downvote single post. They can add related tags and categories to their posts while creating. Also, commenting system for a post is also implemented to our application. Users can make upvote/downvote to a post. Users only cannot delete posts or comments that they are created.
+
+	In the [Article](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1123-articles) requirements, most of the necessary requirements are implemented. All users can now see all the posts shared articles and scroll over them. They are also able to view, and make upvote/downvote single post. Only doctors can create articles. They can add related tags and categories to their articles while creating. Doctors cannot delete articles that they created.
+
+	We also implemented some requirements of the [Setting](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1114-settings). Members can change their username, and the doctors can change their hospital name while editing personal information. Yet, users cannot change avatars/photos, passwords, or cannot delete their accounts.
+
+	The other requirements in the [requirements page](https://github.com/bounswe/bounswe2022group5/wiki/Requirements) are not implemented yet. We are eager to upgrade our application in the final milestone by adding them.
+
+ 
  * ### API endpoints
     * [API Documentation](https://github.com/bounswe/bounswe2022group5/wiki/API-Documentation-V2)
     * You can join to our Postman environment and test the API via [API Link](https://app.getpostman.com/join-team?invite_code=7991ed0e63cb8b3b7e11194b04db29c6&target_code=2dcbf93ffb33824ab01de50e656b4a79)
