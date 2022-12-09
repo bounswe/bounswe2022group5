@@ -1087,12 +1087,11 @@ Other than the mentioned responsibility, I worked collaboratively with backend a
 * Necessary fixes in the comment dropdown have been implemented: [#410](https://github.com/bounswe/bounswe2022group5/pull/410)
 * Showing HTML has been implemented: [#418](https://github.com/bounswe/bounswe2022group5/pull/418)
 * Updating post page after new comment has been done: [#420](https://github.com/bounswe/bounswe2022group5/pull/420)
-* Images has been made reachable in post/comment/article pages: [#420](https://github.com/bounswe/bounswe2022group5/pull/420)
+* Images has been made reachable in post/comment/article pages: [#425](https://github.com/bounswe/bounswe2022group5/pull/425)
 
 ### Additional Information
 * Attended general meetings: Meeting [18.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-18.1), [19.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-19.1), [20.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-20.1), [21.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-21.1)
 * Attended and took notes during mobile meetings: Mobile Meeting [4](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-), [5](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-5)
-* Revised or contributed issues: [#294](https://github.com/bounswe/bounswe2022group5/issues/294), [#330](https://github.com/bounswe/bounswe2022group5/issues/330), [#352](https://github.com/bounswe/bounswe2022group5/issues/352), [#358](https://github.com/bounswe/bounswe2022group5/issues/358), [#387](https://github.com/bounswe/bounswe2022group5/issues/387)
 * Reviewed PRs: [#296](https://github.com/bounswe/bounswe2022group5/pull/296), [#354](https://github.com/bounswe/bounswe2022group5/pull/354), [#394](https://github.com/bounswe/bounswe2022group5/pull/394), [#415](https://github.com/bounswe/bounswe2022group5/pull/415), [#419](https://github.com/bounswe/bounswe2022group5/pull/419), [#422](https://github.com/bounswe/bounswe2022group5/pull/422)
 
      
