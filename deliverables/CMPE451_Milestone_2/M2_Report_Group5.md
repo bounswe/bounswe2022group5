@@ -406,4 +406,40 @@ Apart from that, helped all of my team members to maintain our develop process.
      
 </details>
 
+<details><summary>Ozan Kılıç</summary>
+	
+## **Member:** [Ozan Kılıç](https://github.com/bounswe/bounswe2022group5/wiki/Ozan-K%C4%B1l%C4%B1%C3%A7), Group 5 - Frontend.
+
+### **Responsibilities:**
+
+Implementing functionalities and responsive design of posts and articles in homepage.
+
+Other than the mentioned responsibility, I worked collaboratively with backend and helped to develop required endpoints. Also, I checked and gave feedbacks to my teammates' pull requests.
+
+
+### **Main contributions:**
+
+- Implemented [articles part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Article) of the homepage
+- Implemented [posts part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Forum) of the homepage
+- Implemented [category part](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/HomePage) of the homepage and helper of category part [here](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/redux/categorySlice.js)
+- Documenting [frontend code conventions](https://github.com/bounswe/bounswe2022group5/wiki/Frontend-Code-Conventions)
+- Arranging frontend [communication plan](https://github.com/bounswe/bounswe2022group5/wiki/Communication-Plan-Page)
+	
+  **Code related significant issues:**
+
+* [Issue #367](https://github.com/bounswe/bounswe2022group5/issues/367): Implementing agination for Posts and Articles at Home page
+* [Issue #302](https://github.com/bounswe/bounswe2022group5/issues/302): Implementing improvement on the forum part
+* [Issue #301](https://github.com/bounswe/bounswe2022group5/issues/301): Implementing categories at the sidebar
+
+  **Management related significant issues:**
+
+* [Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274): Communication plan for frontend
+
+### **Pull requests:**
+
+- [Pull Request #397](https://github.com/bounswe/bounswe2022group5/pull/397): Making categories bar at homepage responsive
+- [Pull Request #385](https://github.com/bounswe/bounswe2022group5/pull/385): Making improvements on forumage
+- [Pull Request #369](https://github.com/bounswe/bounswe2022group5/pull/369): Homepage pagination
+</details>
+
 
