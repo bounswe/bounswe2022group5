@@ -427,6 +427,9 @@ Other efforts including reviews and work until Milestone 1.
 - [Issue #387](https://github.com/bounswe/bounswe2022group5/issues/387) is for dropdowns that are dynamic to registered user for Posts and Comments.
 - [Issue #388](https://github.com/bounswe/bounswe2022group5/issues/387) is for dropdowns that are dynamic to registered user/doctor for Articles.
 
+#### Management related significant issues:
+
+- [Issue #429](https://github.com/bounswe/bounswe2022group5/issues/429) is for adding screenshots to Scenarios for mobile screens.
 
 ### Pull Requests:
 - [Pull Request #326](https://github.com/bounswe/bounswe2022group5/pull/326) is for implementing initial designs of ViewPost and ViewArticle pages..
