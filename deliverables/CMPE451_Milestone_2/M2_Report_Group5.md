@@ -2,11 +2,42 @@
 
 
 ## Executive Summary
+### Summary of The Project Status
+
+The project is in still alpha state. We are continuing adding new functionalities to it. Currently, the following functionalities are available in the project:
+- Signup / Login / Logout
+- Post create, read, update, delete, upvote, downvote operations in the _Forum_ section
+- Comment create, read, delete, upvote, downvote operations in the _Forum_ section
+- Article create, read, delete, upvote, downvote operations in the _Articles_ section
+- Adding images and location info to posts, comments, articles
+- Showing upvoted articles, posts, comments of a user
+- Editing user profile
+
+The project is maintained by a REST API developed by our backend team and presented as a web application by our frontend team and as a mobile Android application by our mobile team.
+
+### Changes and Improvements Since Milestone 1
+In the milestone 1, there were just signup, login and logout functionalities. Users were able to see their profile page with limited info and some static post and article data in the web and mobile applications of the project. Since then,
+- Login and signup functionalities have been finalized.
+- Post create, read, update, delete, upvote, downvote operations have been implemented in the _Forum_ section.
+- Article create, read, delete, upvote, downvote operations have been implemented in the _Articles_ section.
+- Adding images and location info to posts, comments, articles has been implemented.
+- Showing upvoted articles, posts, comments of a user has been implemented.
+- Editing user profile has been implemented.
+
+### Planned Improvements for the Remainder of the Project
+As we are coming to the end of the development of our project, we are planning to implement the following functionalities:
+- Adding text and image annotations
+- Semantic searching among posts/comments/articles 
+- Following categories
+- Interacting with a chatbot to navigate among our app
+
+
 
 ## Progress Based on Teamwork
  * ### A Summary of work performed by each team member 
  * ### Status of the deliverables of Milestone 1
- * ### Status of the deliverables of Milestone 1
+ * ### Progress according to requirements
+ * ### API endpoints
  * ### User Interface / User Experience
      #### Mobile Application:
      
