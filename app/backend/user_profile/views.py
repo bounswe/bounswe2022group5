@@ -19,6 +19,7 @@ from articles.models import Article
 from backend.models import Doctor
 from rest_framework.pagination import PageNumberPagination
 import math
+from datetime import datetime
 
 PROFILE_PICTURE_FILE_NAME = "pp/{user_id}.jpg"
 
@@ -216,7 +217,13 @@ def get_personal_info(request):
     personal_info['email'] = email
     date_of_birth = self_info.date_of_birth
     personal_info['date_of_birth'] = date_of_birth
-        
+    
+    now = datetime.now()
+
+    year_now = int(now.strftime("%Y"))
+    birth_year = int(date_of_birth.strftime("%Y"))
+    age = year_now - birth_year
+
     register_date = request.user.date_joined.strftime("%y/%m/%d")
     personal_info['register_date'] = register_date
 
@@ -275,7 +282,7 @@ def get_personal_info(request):
         address = member_info.address
         weight = member_info.weight
         height = member_info.height
-        age = member_info.age
+        age = age  # we calculated it above.
         avatar =f"https://api.multiavatar.com/{member_info.avatar}.svg?apikey={os.getenv('AVATAR')}"
         past_illnesses = member_info.past_illnesses
         allergies = member_info.allergies
@@ -321,11 +328,17 @@ def update_personal_info(request):
 
     if 'date_of_birth' in data:
         date_of_birth = data['date_of_birth']
+
+        now = datetime.now()
+        year_now = int(now.strftime("%Y"))
+        birth_year = int(date_of_birth.strftime("%Y"))
+        age = year_now - birth_year
+
     else:
         date_of_birth = self_info.date_of_birth
 
     self_info.date_of_birth = date_of_birth
-
+    
     personal_info['email'] = email
     personal_info['date_of_birth'] = date_of_birth
     
@@ -445,9 +458,9 @@ def update_personal_info(request):
 
         member_info.height = height
 
-        if 'age' in data:
-            age = data['age']
-        else:
+        if 'date_of_birth' in data:
+            member_info.age = age
+        else:  # if birtday is not changed
             age = member_info.age
         member_info.age = age
 
