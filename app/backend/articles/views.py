@@ -41,7 +41,7 @@ def get_all_articles(request):
     count = 0
     if category:
         category_object = Category.objects.get(name=category)
-        article_objects = Article.objects.filter(category=category_object)[(page-1):(page_size*page)]
+        article_objects = Article.objects.filter(category=category_object)[((page-1)*page_size):(page_size*page)]
         count = Article.objects.filter(category=category_object).count()
     if search_query:
         queryset_list1 = Q()
@@ -52,13 +52,13 @@ def get_all_articles(request):
                     Q(body__icontains=keyword)
             )
             if category:
-                article_objects = Article.objects.filter(category=category_object).filter(queryset_list1)[(page-1):(page_size*page)]
+                article_objects = Article.objects.filter(category=category_object).filter(queryset_list1)[((page-1)*page_size):(page_size*page)]
                 count = Article.objects.filter(category=category_object).filter(queryset_list1).count()
             else:
-                article_objects = Article.objects.filter(queryset_list1).distinct().order_by('-date')[(page-1):(page_size*page)]
+                article_objects = Article.objects.filter(queryset_list1).distinct().order_by('-date')[((page-1)*page_size):(page_size*page)]
                 count = Article.objects.filter(queryset_list1).distinct().count()
     if (not category) and (not search_query):
-        article_objects = Article.objects.all().order_by('-date')[(page-1):(page_size*page)]
+        article_objects = Article.objects.all().order_by('-date')[((page-1)*page_size):(page_size*page)]
         count = Article.objects.count()
 
     for article in article_objects:
@@ -99,10 +99,14 @@ def get_all_articles(request):
                 author_data = None
         serializer_article_data["author"] = author_data
         articles.append(serializer_article_data)
-    result_page = paginator.paginate_queryset(articles, request)
-    response = paginator.get_paginated_response(result_page)
-    response.data["count"] = count
-    return response
+    #result_page = paginator.paginate_queryset(articles, request)
+    #response = paginator.get_paginated_response(result_page)
+    response = {}
+    response["count"] = count
+    response['next'] = None
+    response['previous'] = None
+    response['results'] = articles
+    return Response(response, status=200)
 
 @api_view(['GET',])
 @permission_classes([AllowAny])
@@ -253,25 +257,32 @@ def create_article(request):
                 image_urls.append(photo_url)
         serialized_data = ArticleSerializer(data).data
         if 'category' in request.data:
-            category = request.data["category"]
+            try:
+                category = request.data["category"]
 
-            category = Category.objects.get(name=category)
-            article.category = category
-            article.save()
-            category_serialized = CategorySerializer(category).data
+                category = Category.objects.get(name=category)
+                article.category = category
+                article.save()
+                category_serialized = CategorySerializer(category).data
 
-            serialized_data['category'] = category_serialized
+                serialized_data['category'] = category_serialized
+            except:
+                pass
 
         if 'labels' in request.data:
-            labels = request.data["labels"].split(",")
-            l = []
-            for label in labels:
-                label, valid = Label.objects.get_or_create(name=label)
-                article.labels.add(label)
-                article.save()
-                label_serialized = LabelSerializer(label).data
-                l.append(label_serialized)
-            serialized_data['labels'] = l
+            try:
+                labels = request.data["labels"].split(",")
+                l = []
+                for label in labels:
+                    label, valid = Label.objects.get_or_create(name=label)
+                    article.labels.add(label)
+                    article.save()
+                    label_serialized = LabelSerializer(label).data
+                    l.append(label_serialized)
+                serialized_data['labels'] = l
+            except:
+                pass
+
         return Response({'article': serialized_data, 'image_urls': image_urls})
     else:
         data = validate_article.errors
