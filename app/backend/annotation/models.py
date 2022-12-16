@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from backend.models import CustomUser
@@ -18,3 +19,4 @@ class TextAnnotation(models.Model):
     date = models.DateTimeField()
     start = models.IntegerField(null=False, default=0)
     end = models.IntegerField(null=False, default=0)
+    links = ArrayField(models.CharField(null=True), default=list)
