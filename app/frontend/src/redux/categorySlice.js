@@ -12,3 +12,7 @@ export const fetchFollowedCategories = async () => {
     return data;
 }
 
+export const fetchFollowUnfollowCategory = async (id) => {
+    const {data} = await axios.post(`${url}/profile/follow_category/${id}`);
+    return data;
+}

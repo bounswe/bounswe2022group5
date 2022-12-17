@@ -11,7 +11,7 @@ import "./HomePage.css";
 import { Button, Input, Pagination} from "antd";
 import { fetchAllPosts } from "../../redux/postSlice";
 import {fetchAllArticles} from "../../redux/articleSlice";
-import { fetchCategories, fetchFollowedCategories } from "../../redux/categorySlice";
+import { fetchCategories, fetchFollowedCategories, fetchFollowUnfollowCategory } from "../../redux/categorySlice";
 
 const buttonStyleClicked = {
     width: "40%",
@@ -98,7 +98,35 @@ const RenderCategories = (searchKey) => {
 
     }, []);
 
-    
+    //reference to https://love2dev.com/blog/javascript-remove-from-array/
+    function arrayRemove(arr, value) {
+        return arr.filter(function(ele){
+            return ele != value;
+        });
+    }
+
+    const handleFollowUnfollow = (follows, item) => {
+
+        if(follows){
+            setFollowedCategories(arrayRemove(followedCategories, item.id));
+        }else{
+            setFollowedCategories([...followedCategories, item.id]);
+        }
+
+        fetchFollowUnfollowCategory(item.id).then(res => {
+            notification["success"]({
+                message: res.response,
+                placement: "top"
+            });
+        })
+        .catch(() => {
+            notification["error"]({
+                message: res.error,
+                placement: "top"
+            });
+        })
+
+    };
 
     return (
         categories.filter((obj) => {
@@ -109,10 +137,11 @@ const RenderCategories = (searchKey) => {
           }).map((item) => (
             <div className="follow-category">
             <Button style={categoryButtonsStyle} onClick={() => navigate('/' + item.name )}>
-                {console.log(item)}
                 {item.name}
             </Button>
-            <Button style={followedCategories.includes(item.id) ? categoryUnfollowStyle : categoryFollowStyle} >{followedCategories.includes(item.id) ? 'Unfollow' : 'Follow'}</Button>
+            <Button style={followedCategories.includes(item.id) ? categoryUnfollowStyle : categoryFollowStyle} onClick={() => {
+                handleFollowUnfollow(followedCategories.includes(item.id), item)
+            }}>{followedCategories.includes(item.id) ? 'Unfollow' : 'Follow'}</Button>
             </div>
         ))
     )
