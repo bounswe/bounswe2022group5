@@ -9,7 +9,7 @@ from articles.serializers import ArticleSerializer
 from common.views import upload_to_s3, delete_from_s3
 
 from backend.constants import UserType
-from backend.models import CustomUser
+from backend.models import CustomUser, Category
 from backend.models import MemberInfo
 from backend.models import Member
 
@@ -529,9 +529,8 @@ def get_doctor_profile(request, id):
         return Response({'error': 'Doctor not found'}, status=400)
 
     personal_info = {}
-
     full_name = doctor.full_name
-    specialization = doctor.specialization
+    specialization = doctor.specialization.name
     hospital_name = doctor.hospital_name
     profile_picture = doctor.profile_picture
 
@@ -541,3 +540,21 @@ def get_doctor_profile(request, id):
     personal_info['profile_picture'] = profile_picture
     # to get posts and articles of a doctor, one should use get_posts_of_user and get_articles_of_doctor endpoints.
     return Response(personal_info, status=200)
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def follow_category(request, id):
+        try:
+            category = Category.objects.get(id=id)
+            user_info = request.user
+        except:
+            return Response({'error': 'Category not found'}, status=400)
+
+        if id in user_info.followed_categories :
+            user_info.followed_categories.remove(id)
+            user_info.save()
+            return Response({'response':'Category unfollowed successfully'}, status=200)
+        else:
+            user_info.followed_categories.append(id)
+            user_info.save()
+            return Response({'response':'Category followed successfully'}, status=200)
