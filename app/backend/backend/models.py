@@ -42,13 +42,13 @@ class CustomUser(AbstractUser):
     email = models.CharField(max_length=100, null=False, unique=True) 
     type = models.IntegerField(null=False)
     date_of_birth = models.DateField(null=True)
-    upvoted_posts = ArrayField(models.IntegerField(null=True), default=list)
-    downvoted_posts = ArrayField(models.IntegerField(null=True), default=list)
-    upvoted_comments = ArrayField(models.IntegerField(null=True), default=list)
-    downvoted_comments = ArrayField(models.IntegerField(null=True), default=list)
-    upvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
-    downvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
-    followed_categories = ArrayField(models.IntegerField(null=True), default=list)
+    upvoted_posts = ArrayField(models.IntegerField(null=True), null=True, default=list)
+    downvoted_posts = ArrayField(models.IntegerField(null=True), null=True, default=list)
+    upvoted_comments = ArrayField(models.IntegerField(null=True), null=True, default=list)
+    downvoted_comments = ArrayField(models.IntegerField(null=True), null=True, default=list)
+    upvoted_articles = ArrayField(models.IntegerField(null=True), null=True, default=list)
+    downvoted_articles = ArrayField(models.IntegerField(null=True), null=True, default=list)
+    followed_categories = ArrayField(models.IntegerField(null=True), null=True, default=list)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
