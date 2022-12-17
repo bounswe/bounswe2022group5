@@ -1741,6 +1741,15 @@
     timeago-react "^3.0.2"
     uuid "^8.3.2"
 
+"@recogito/recogito-js@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@recogito/recogito-js/-/recogito-js-1.8.2.tgz#3860386a3783575c188185a4981d3d6d39982ac1"
+  integrity sha512-uzc8ebQqcpwd6vVAMFNC7D5vZesj/Qn9tJAaALeQ+/MisVT5Sqk6QuVXWnc7RbF3d8oqq818iK7HfDvKBnVoow==
+  dependencies:
+    "@recogito/recogito-client-core" "1.7.7"
+    preact "^10.5.13"
+    tiny-emitter "^2.1.0"
+
 "@reduxjs/toolkit@^1.8.6":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.9.0.tgz#76b264fcea677d256b18f86cc77e00743a9e02b0"

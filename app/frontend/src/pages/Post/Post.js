@@ -15,6 +15,9 @@ import logo from "../../layouts/NavBar/logo.png";
 import { Annotorious } from '@recogito/annotorious';
 import '@recogito/annotorious/dist/annotorious.min.css';
 
+import { Recogito } from '@recogito/recogito-js';
+import '@recogito/recogito-js/dist/recogito.min.css';
+
 import "./Post.css";
 
 import { fetchPostById } from "../../redux/postSlice";
@@ -25,7 +28,10 @@ const Post = () => {
     const { user } = useSelector((state) => state.user);
 
     const imgsRef = useRef([]);
+    const textRef = useRef();
+
     const [refState, setRefState] = useState([]);
+    const [textRefState, setTextRefState] = useState(false);
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
@@ -86,11 +92,39 @@ const Post = () => {
                 annotorious.setAuthInfo({
                     id: `http://3.91.54.225:3000/profile/${user?.id}`,
                     displayName: user?.username
-                  });
+                });
             }
         }
 
     }, [user, refState]);
+
+    useEffect(() => {
+        console.log(textRef)
+        if(textRef.current) {
+            const recogitto = new Recogito({
+                content: textRef.current
+            });
+    
+            // Attach event handlers here
+            recogitto.on('createAnnotation', annotation => {
+                console.log('created', JSON.stringify(annotation, null, 2));
+            });
+    
+            recogitto.on('updateAnnotation', (annotation, previous) => {
+                console.log('updated', annotation, previous);
+            });
+    
+            recogitto.on('deleteAnnotation', annotation => {
+                console.log('deleted', annotation);
+            });
+    
+            recogitto.setAuthInfo({
+                id: `http://3.91.54.225:3000/profile/${user?.id}`,
+                displayName: user?.username
+            });
+        }
+
+    }, [user, textRefState]);
 
     return(<>
         <div className="discussion-logo" onClick={() => navigate("/")}>
@@ -114,7 +148,10 @@ const Post = () => {
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
                         <div className="discussion-body-votes">
-                            <div dangerouslySetInnerHTML={{ __html: post?.body }} />
+                            <div dangerouslySetInnerHTML={{ __html: post?.body }} ref={el => {
+                                textRef.current = el;
+                                if(!textRefState) setTextRefState(true);
+                            }}/>
                             <Vote item={post} type={"post"} setItem={setPost}/>
                         </div>
                         { post?.commented_by_doctor ? <div className="discussion-doctor">
