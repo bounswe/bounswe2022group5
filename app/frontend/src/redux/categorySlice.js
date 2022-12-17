@@ -7,3 +7,8 @@ export const fetchCategories = async () => {
     return data;
 }
 
+export const fetchFollowedCategories = async () => {
+    const {data} = await axios.get(`${url}/profile/followed_categories`);
+    return data;
+}
+

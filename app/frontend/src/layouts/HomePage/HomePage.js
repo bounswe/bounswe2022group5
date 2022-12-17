@@ -11,7 +11,7 @@ import "./HomePage.css";
 import { Button, Input, Pagination} from "antd";
 import { fetchAllPosts } from "../../redux/postSlice";
 import {fetchAllArticles} from "../../redux/articleSlice";
-import { fetchCategories } from "../../redux/categorySlice";
+import { fetchCategories, fetchFollowedCategories } from "../../redux/categorySlice";
 
 const buttonStyleClicked = {
     width: "40%",
@@ -85,12 +85,20 @@ const RenderCategories = (searchKey) => {
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
+    const [followedCategories, setFollowedCategories] = useState([]);
     
     useEffect(() => {
         fetchCategories().then(res => {
             setCategories(res);
         });
+
+        fetchFollowedCategories().then(res => {
+            setFollowedCategories(res)
+        });
+
     }, []);
+
+    
 
     return (
         categories.filter((obj) => {
@@ -101,9 +109,10 @@ const RenderCategories = (searchKey) => {
           }).map((item) => (
             <div className="follow-category">
             <Button style={categoryButtonsStyle} onClick={() => navigate('/' + item.name )}>
+                {console.log(item)}
                 {item.name}
             </Button>
-            <Button style={true ? categoryUnfollowStyle : categoryFollowStyle} >{true ? 'Unfollow' : 'Follow'}</Button>
+            <Button style={followedCategories.includes(item.id) ? categoryUnfollowStyle : categoryFollowStyle} >{followedCategories.includes(item.id) ? 'Unfollow' : 'Follow'}</Button>
             </div>
         ))
     )
