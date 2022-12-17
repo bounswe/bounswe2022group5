@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector} from 'react-redux';
 import { Image } from 'antd';
 import moment from "moment";
 
 import Vote from "../../components/Vote/Vote";
 
 import "./Article.css";
-import logo from "../../layouts/NavBar/logo.png"
+import logo from "../../layouts/NavBar/logo.png";
+
+import { Annotorious } from '@recogito/annotorious';
+import '@recogito/annotorious/dist/annotorious.min.css';
 
 import { fetchArticleById } from "../../redux/articleSlice";
 
 const Article = () => {
     const id = useParams()?.id;
     const navigate = useNavigate();
+    const { user } = useSelector((state) => state.user);
+
+    const imgsRef = useRef([]);
+    const [refState, setRefState] = useState([]);
 
     const [article, setArticle] = useState();
     const [images, setImages] = useState([]);
@@ -20,11 +28,42 @@ const Article = () => {
     useEffect(() => {
         fetchArticleById(id)
             .then(res => {
-                console.log(res)
                 setArticle(res.article);
                 setImages(res.image_urls);
             })
     }, [id]);
+
+    useEffect(() => {
+        let annotorious = null;
+
+        for (const image of imgsRef.current) {
+            if (image) {
+                // Init
+                annotorious = new Annotorious({
+                    image,
+                });
+        
+                // Attach event handlers here
+                annotorious.on('createAnnotation', annotation => {
+                    console.log('created', annotation);
+                });
+        
+                annotorious.on('updateAnnotation', (annotation, previous) => {
+                    console.log('updated', annotation, previous);
+                });
+        
+                annotorious.on('deleteAnnotation', annotation => {
+                    console.log('deleted', annotation);
+                });
+
+                annotorious.setAuthInfo({
+                    id: `http://3.91.54.225:3000/profile/${user?.id}`,
+                    displayName: user?.username
+                  });
+            }
+        }
+
+    }, [user, refState]);
 
     return(<>
         <div className="article-display-logo" onClick={() => navigate("/")}>
@@ -54,15 +93,16 @@ const Article = () => {
 
 				{images?.length ? 
 				<div className="article-display-images">
-					<Image.PreviewGroup>
 						{
-							images?.map(image => (
+							images?.map((image, index) => (
 								<span className="article-display-image">
-									<Image width={100} height={100} src={image} />
+									<img alt="article" width={300} height={300} src={image} ref={el => {
+                                        imgsRef.current[index] = el;
+                                        if(!refState.includes(index))setRefState(refState => [...refState, index])
+                                    }}/>
 								</span>
 							))
 						}
-					</Image.PreviewGroup>
 				</div> : null}
 
             </div>
