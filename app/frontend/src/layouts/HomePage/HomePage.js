@@ -8,7 +8,7 @@ import { useSelector} from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 import "./HomePage.css";
-import { Button, Input, Pagination} from "antd";
+import { Button, Input, Pagination, notification} from "antd";
 import { fetchAllPosts } from "../../redux/postSlice";
 import {fetchAllArticles} from "../../redux/articleSlice";
 import { fetchCategories, fetchFollowedCategories, fetchFollowUnfollowCategory } from "../../redux/categorySlice";
@@ -81,6 +81,8 @@ const renderArticles = (articles, setArticles) => {
 
 const RenderCategories = (searchKey) => {
 
+    const { status: userStatus, user } = useSelector((state) => state.user);
+
     // There should be categories and related links
     const navigate = useNavigate();
 
@@ -92,9 +94,12 @@ const RenderCategories = (searchKey) => {
             setCategories(res);
         });
 
-        fetchFollowedCategories().then(res => {
-            setFollowedCategories(res)
-        });
+        if(userStatus === "fulfilled"){
+            fetchFollowedCategories().then(res => {
+                setFollowedCategories(res)
+            });
+        }
+        
 
     }, []);
 
@@ -105,21 +110,21 @@ const RenderCategories = (searchKey) => {
         });
     }
 
-    const handleFollowUnfollow = (follows, item) => {
+    const handleFollowUnfollow = (follows, id) => {
 
         if(follows){
-            setFollowedCategories(arrayRemove(followedCategories, item.id));
+            setFollowedCategories(arrayRemove(followedCategories, id));
         }else{
-            setFollowedCategories([...followedCategories, item.id]);
+            setFollowedCategories([...followedCategories, id]);
         }
 
-        fetchFollowUnfollowCategory(item.id).then(res => {
+        fetchFollowUnfollowCategory(id).then(res => {
             notification["success"]({
                 message: res.response,
                 placement: "top"
             });
         })
-        .catch(() => {
+        .catch((res) => {
             notification["error"]({
                 message: res.error,
                 placement: "top"
@@ -139,9 +144,14 @@ const RenderCategories = (searchKey) => {
             <Button style={categoryButtonsStyle} onClick={() => navigate('/' + item.name )}>
                 {item.name}
             </Button>
-            <Button style={followedCategories.includes(item.id) ? categoryUnfollowStyle : categoryFollowStyle} onClick={() => {
-                handleFollowUnfollow(followedCategories.includes(item.id), item)
-            }}>{followedCategories.includes(item.id) ? 'Unfollow' : 'Follow'}</Button>
+            {
+                userStatus==="fulfilled" ?
+                <Button style={followedCategories.includes(item.id) ? categoryUnfollowStyle : categoryFollowStyle} onClick={() => {
+                    handleFollowUnfollow(followedCategories.includes(item.id), item.id)
+                }}>{followedCategories.includes(item.id) ? 'Unfollow' : 'Follow'}</Button>
+                : <></>
+            }
+            
             </div>
         ))
     )
