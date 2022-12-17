@@ -48,6 +48,7 @@ class CustomUser(AbstractUser):
     downvoted_comments = ArrayField(models.IntegerField(null=True), default=list)
     upvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
     downvoted_articles = ArrayField(models.IntegerField(null=True), default=list)
+    followed_categories = ArrayField(models.IntegerField(null=True), default=list)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
