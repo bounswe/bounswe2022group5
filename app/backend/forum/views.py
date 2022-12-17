@@ -1,67 +1,95 @@
-import json
 import os
-from typing import Optional
 
 from backend.models import CustomUser, Doctor, Member, Label, Category
 from django.db.models import Q
 from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
-from rest_framework import status
 from forum.serializers import PostSerializer, CommentSerializer, UpdatePostSerializer, CreateCommentSerializer, LabelSerializer, CategorySerializer
-from backend.pagination import ForumPagination
 from forum.models import Post, Comment
 from common.views import upload_to_s3, delete_from_s3
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
-import math
+from django.db import connection
 # Create your views here.
 
 @api_view(['GET',])
 @permission_classes([AllowAny])
 def get_all_posts(request):
-    search_query = request.GET.get('q', None)
-    search_query = search_query if search_query is None else search_query.split(" ")
+    # Begin building up the query
+    query= """SELECT {} FROM forum_post """
+
+    where_statements = []
 
     category = request.GET.get("c", None)
-
-    paginator = PageNumberPagination()
-    page_size = int(request.GET.get('page_size', 10))
-    paginator.page_size = request.GET.get('page_size', 10)
-    page = int(request.GET.get('page', 1))
-    paginator.page = request.GET.get('page', 1)
-
-    count = 0
-
-    ## Begin Filtering
-    post_objects = Post.objects.all()
-
     if category:
         category_object = Category.objects.get(name=category)
-        post_objects = post_objects.filter(category=category_object)
+        where_statements.append("category_id = " + str(category_object.id))
 
+    search_query = request.GET.get('q', None)
     if search_query:
-        queryset_list1 = Q()
+        keyword_search_list = []
+        print("e")
+        for keyword in search_query.split(" "):
+            keyword_search_list.append("title ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("body ilike'%%" + keyword + "%%'")
 
-        for keyword in search_query:
-            queryset_list1 |= (
-                Q(title__icontains=keyword) |
-                Q(body__icontains=keyword)
-            )
-        post_objects = post_objects.filter(queryset_list1)
+        where_statements.append(
+            "(" + " or ".join(keyword_search_list) + ")"
+        )
 
-    # Fetch count before pagination
-    count = post_objects.count()
-    post_objects = post_objects.distinct().order_by('-date')[((page-1)*page_size):(page_size*page)]
+    distance = request.GET.get('dist', None)
+    if distance:
+        longitude = request.GET.get('longitude', None)
+        latitude = request.GET.get('latitude', None)
 
-    posts = []
+        param_dict = {
+            'longitude': longitude,
+            'latitude': latitude,
+            'distance': distance
+        }
+
+        where_statements.append(
+            """(
+                longitude is not null and 
+                latitude is not null and
+                3959 * acos(
+                    cos( radians({latitude}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({longitude}) )
+                    + 
+                    sin( radians({latitude}) ) * sin( radians( latitude ) ) 
+                ) * 1.61 <= {distance}
+            )""".format(**param_dict)
+        )
+
+    if len(where_statements) > 0:
+        query += "WHERE " + " and ".join(where_statements) + " "
+    
+    # first get the count
+    count = 0
+    with connection.cursor() as cursor:
+        cursor.execute(query.format("count(*)"))
+        count = cursor.fetchone()[0]
+
+    # Sort
+    query += """ORDER BY "date" desc """
+
+    # Paginate
+    page_size = int(request.GET.get('page_size', 10))
+    page = int(request.GET.get('page', 1))
+    if page <= 0:
+        page = 1
+    query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
+
+    post_objects = Post.objects.raw(query.format("distinct *"))
+
     try:
         user = CustomUser.objects.get(email = request.user.email)
     except:
         user = None
-
+    
+    posts = []
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
         if user:
@@ -100,9 +128,6 @@ def get_all_posts(request):
         serializer_post_data["author"] = author_data
         posts.append(serializer_post_data)
 
-    #result_page = paginator.paginate_queryset(posts, request)
-
-    #response = paginator.get_paginated_response(result_page)
     response = {}
     response["count"] = count
     response['next'] = None
