@@ -206,6 +206,12 @@ const Profile = () => {
     const [email, setEmail] = useState();
     const [specialization, setSpecialization] = useState();
 
+    const [newIllness, setNewIllness] = useState("");
+    const [newDrug, setNewDrug] = useState("");
+    const [newAllergy, setNewAllergy] = useState("");
+    const [newChronicDisease, setNewChronicDisease] = useState("");
+    const [newUndergoneOperation, setNewUndergoneOperation] = useState("");
+
 
     useEffect(() => {
         fetchPersonalInfo().then(res => {
@@ -260,11 +266,17 @@ const Profile = () => {
     };
 
     const onFinishMedHistory = (values) => {
-        const body = {...values, past_illnesses:pastIllnesses, allergies:allergies, chronic_diseases:chronicDiseases, undergone_operations:undergoneOperations}
+        const body = {...values, 
+                        past_illnesses:[...pastIllnesses, newIllness], 
+                        allergies:[...allergies, newAllergy], 
+                        chronic_diseases:[...chronicDiseases, newChronicDisease], 
+                        undergone_operations:[...undergoneOperations, newUndergoneOperation],
+                        used_drugs:[...usedDrugs, newDrug]
+                    }
 
         fetchUpdatePersonalInfo(body).then(res => {
             notification["success"]({
-                message: 'Editing medical history is successful',
+                message: 'Editing medical history is successful. Please refresh the page to see the changes.',
                 placement: "top"
             });
     
@@ -748,7 +760,7 @@ const Profile = () => {
                                 >
                                     <Input 
                                         placeholder="Add a new illness."
-                                        onChange={(e) => setPastIlnesses(e.target.value)}
+                                        onChange={(e) => setNewIllness(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -756,7 +768,7 @@ const Profile = () => {
                                 >
                                     <Input 
                                         placeholder="Add a new drug."
-                                        onChange={(e) => setUsedDrugs(e.target.value)}
+                                        onChange={(e) => setNewDrug(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -764,7 +776,7 @@ const Profile = () => {
                                 >
                                     <Input 
                                         placeholder="Add a new operation."
-                                        onChange={(e) => setUndergoneOperations(e.target.value)}
+                                        onChange={(e) => setNewUndergoneOperation(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -772,7 +784,7 @@ const Profile = () => {
                                 >
                                     <Input 
                                         placeholder="Add a new allergy."
-                                        onChange={(e) => setAllergies(e.target.value)}
+                                        onChange={(e) => setNewAllergy(e.target.value)}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -780,7 +792,7 @@ const Profile = () => {
                                 >
                                     <Input 
                                         placeholder="Add a new chronic disease."
-                                        onChange={(e) => setChronicDiseases(e.target.value)}
+                                        onChange={(e) => setNewChronicDisease(e.target.value)}
                                     />
                                 </Form.Item>
 
