@@ -34,28 +34,27 @@ def get_all_posts(request):
     paginator.page = request.GET.get('page', 1)
 
     count = 0
+
+    ## Begin Filtering
+    post_objects = Post.objects.all()
+
     if category:
         category_object = Category.objects.get(name=category)
-        post_objects = Post.objects.filter(category=category_object)[((page-1)*page_size):(page_size*page)]
-        count = Post.objects.filter(category=category_object).count()
+        post_objects = post_objects.filter(category=category_object)
+
     if search_query:
         queryset_list1 = Q()
 
         for keyword in search_query:
             queryset_list1 |= (
-                    Q(title__icontains=keyword) |
-                    Q(body__icontains=keyword)
+                Q(title__icontains=keyword) |
+                Q(body__icontains=keyword)
             )
-            if category:
-                post_objects = Post.objects.filter(category=category_object).filter(queryset_list1)[((page-1)*page_size):(page_size*page)]
-                count = Post.objects.filter(category=category_object).filter(queryset_list1).count()
-            else:
-                post_objects = Post.objects.filter(queryset_list1).distinct().order_by('-date')[((page-1)*page_size):(page_size*page)]
-                count = Post.objects.filter(queryset_list1).distinct().count()
-    if (not category) and (not search_query) :
-        post_objects = Post.objects.all().order_by('-date')[((page-1)*page_size):(page_size*page)]
-        count = Post.objects.count()
+        post_objects = post_objects.filter(queryset_list1)
 
+    # Fetch count before pagination
+    count = post_objects.count()
+    post_objects = post_objects.distinct().order_by('-date')[((page-1)*page_size):(page_size*page)]
 
     posts = []
     try:
