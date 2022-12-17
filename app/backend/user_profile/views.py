@@ -558,3 +558,15 @@ def follow_category(request, id):
             user_info.followed_categories.append(id)
             user_info.save()
             return Response({'response':'Category followed successfully'}, status=200)
+
+@api_view(['GET',])
+@permission_classes([IsAuthenticated, ])
+def get_followed_categories(request):
+        response = []
+        try:
+            user_info = request.user
+        except:
+            return Response({'error': 'User not found'}, status=400)
+        for id in user_info.followed_categories :
+            response.append(id)
+        return Response(response, status=200)
