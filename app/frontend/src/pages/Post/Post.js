@@ -99,7 +99,6 @@ const Post = () => {
     }, [user, refState]);
 
     useEffect(() => {
-        console.log(textRef)
         if(textRef.current) {
             const recogitto = new Recogito({
                 content: textRef.current
