@@ -3,10 +3,20 @@ from rest_framework.decorators import permission_classes, api_view
 from rest_framework.permissions import IsAuthenticated
 import datetime
 
-from models import TextAnnotation
+from annotation.models import TextAnnotation
 from urlextract import URLExtract
 
 # Create your views here.
+
+def _build_json_ld_text_annotation(objects):
+    pass
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated,])
+def get_text_annotations(request):
+    author = request.user
+    source_id = request.data['source_id']
+    text_annotations = TextAnnotation.objects.filter(source_id=source_id).filter(author = author or author.type == 1)
 
 @api_view(['POST',])
 @permission_classes([IsAuthenticated,])
@@ -34,3 +44,4 @@ def create_text_annotation(request):
         urls = urls
     )
     text_annotation.save()
+
