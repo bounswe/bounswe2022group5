@@ -12,4 +12,5 @@ urlpatterns = [
     path('update_personal_info', views.update_personal_info, name='update_personal_info'),
     path('get_doctor_profile/<int:id>', views.get_doctor_profile, name='get_doctor_profile'),
     path('follow_category/<int:id>', views.follow_category, name='follow_category'),
+    path('followed_categories', views.get_followed_categories, name='get_followed_categories'),
 ]

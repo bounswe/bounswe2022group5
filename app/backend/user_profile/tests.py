@@ -55,3 +55,15 @@ class UserProfileTestCase(TestCase):
         response = client.post(f'/profile/follow_category/99999', content_type="application/json",
                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response.status_code, 400)
+    def test_get_followed_categories(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2, date_of_birth=datetime.now())
+        token = Token.objects.create(user=user)
+        category = backendModels.Category.objects.create(name="Category 1",
+                                                         definition="Definition 1")
+        response1 = client.post(f'/profile/follow_category/99999', content_type="application/json",
+                              **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        response2 = client.get(f'/profile/followed_categories', content_type="application/json",
+                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response2.status_code, 200)
