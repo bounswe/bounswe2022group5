@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import NavBar from "../../layouts/NavBar/NavBar";
-import { Button, Input, notification, Upload, Modal, Form, Select, Drawer} from 'antd';
+import { Button, Input, notification, Upload, Modal, Form, Select, Drawer, Tag} from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
@@ -59,6 +59,7 @@ const CreatePost = () => {
     const [category, setCategory] = useState();
 
     const [labels, setLabels] = useState([]);
+    const [labelsArray, setLabelsArray] = useState([]);
 
     useEffect(() => {
         fetchAllCategories()
@@ -163,8 +164,8 @@ const CreatePost = () => {
 
     const onFinishLabels = (values) => {
 
-        let labelText = values.labels.toString();
-        setLabels(labelText);        
+        var set = Array.from(new Set(labelsArray.concat(values.labels)));
+        setLabelsArray(set);       
 
         notification["success"]({
             message: 'Adding labels is successful',
@@ -172,9 +173,27 @@ const CreatePost = () => {
         });
 
     };
+
+    function arrayRemove(arr, value) { 
+        return arr.filter(function(ele){ 
+            return ele != value; 
+        });
+    }
+
+    const removeLabel = (item) => {
+        setLabelsArray(arrayRemove(labelsArray, item));
+
+        notification["success"]({
+            message: 'Removing label is successful',
+            placement: "top"
+        });
+    }
         
 
     const onCreatePost = async () => {
+        let labelText = labelsArray.toString();
+        setLabels(labelText); 
+
         let postData = new FormData();
         postData.append("title", postTitle)
         postData.append("body", postText);
@@ -205,6 +224,7 @@ const CreatePost = () => {
             })
     }
 
+    const colours = ["magenta","red","volcano","orange","gold","lime","green","cyan","blue","geekblue","purple"];
     return (
         <div className="layout">
             <div className="header">
@@ -223,6 +243,26 @@ const CreatePost = () => {
                                 onChange={(e) => setPostTitle(e.target.value)}
                             />
                         </div>
+                        {
+                            labelsArray.length > 0 ?
+                                <div className="labels-header">
+                                    Labels
+                                    <div className="labels">
+                                    {
+                                        labelsArray.map((item, index) => (
+                                            <Tag closable onClose={() => removeLabel(item)} color={colours[index%colours.length]}>{item}</Tag>
+                                        ))
+                                    }
+                                    </div>
+                                </div>
+                            :
+                            <></>
+                            
+                        }
+                        
+                        
+                        
+
                         <div className="create-post-input">
                         <ReactQuill theme="snow" value={postText} onChange={setPostText} className="create-post-react-quill-area"/>
                         </div>
