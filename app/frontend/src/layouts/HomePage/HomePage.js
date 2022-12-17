@@ -30,9 +30,29 @@ const buttonStyleUnclicked = {
 }
 
 const categoryButtonsStyle = {
-    width: "90%",
+    width: "75%",
     borderRadius: "4px",
     backgroundColor: 'rgb(173,216,230)',
+    marginTop: "2%",
+    whiteSpace: "normal",
+    height:'auto',
+}
+
+const categoryFollowStyle = {
+    width: "20%",
+    borderRadius: "4px",
+    backgroundColor: '#1890ff',
+    color: 'rgb(255,255,255)',
+    marginTop: "2%",
+    whiteSpace: "normal",
+    height:'auto',
+}
+
+const categoryUnfollowStyle = {
+    width: "20%",
+    borderRadius: "4px",
+    backgroundColor: 'rgb(255,255,255)',
+    color: '#1890ff',
     marginTop: "2%",
     whiteSpace: "normal",
     height:'auto',
@@ -71,7 +91,6 @@ const RenderCategories = (searchKey) => {
             setCategories(res);
         });
     }, []);
-     
 
     return (
         categories.filter((obj) => {
@@ -80,9 +99,12 @@ const RenderCategories = (searchKey) => {
             }
             return null;
           }).map((item) => (
+            <div className="follow-category">
             <Button style={categoryButtonsStyle} onClick={() => navigate('/' + item.name )}>
                 {item.name}
             </Button>
+            <Button style={true ? categoryUnfollowStyle : categoryFollowStyle} >{true ? 'Unfollow' : 'Follow'}</Button>
+            </div>
         ))
     )
 }

@@ -70,3 +70,8 @@
     width: 2,5vw;
     margin-bottom: 10px;
 }
+
+
+.follow-category{
+    display: flex;
+}
