@@ -32,3 +32,8 @@ export const fetchUpdateProfilePicture = async (img) => {
     return data;
 }
 
+export const fetchDoctorProfile = async (id) => {
+    const {data} = await axios.get(`${url}/profile/get_doctor_profile/${id}`);
+    return data;
+}
+
