@@ -279,12 +279,14 @@ const Profile = () => {
                 }  
             })
         }else{
+            console.log(doctorId);
             fetchDoctorProfile(doctorId).then(res => {
                 setUsername(res.full_name);
                 setSpecialization(res.specialization);
                 setHospitalName(res.hospital_name);
-                setUserPhoto(res.profile_image);
+                setUserPhoto(res.profile_picture);
             })
+            
         }
         
     }, [])
@@ -930,7 +932,7 @@ const Profile = () => {
             : null}
 
             <div className="profile-activity">
-                {renderActivityHistory(pageType, posts, articles, comments, upvotedPosts, upvotedArticles)}
+                {renderActivityHistory()}
             </div>
             
             <div className="profile-pagination">
