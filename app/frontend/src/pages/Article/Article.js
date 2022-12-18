@@ -34,13 +34,17 @@ const Article = () => {
             <div className="article-display-post">
                 <div className="article-display-avatar-body">
                     <div>
-                        <img className="article-display-avatar" alt="avatar" src={article?.author?.profile_photo}/>
+                        <img className="article-display-avatar" alt="avatar" src={article?.author?.profile_photo} onClick={
+                                    () => navigate(`/profile/${article?.author?.id}`)
+                                }/>
                     </div>
                     <div style={{ width: "100%" }}>
                         <div className="article-display-upper">
                             <div className="article-display-title">
                                 <span className="article-display-title-text" style={{fontSize: "28px"}}>{article?.title}</span>
-                                <span className="article-display-title-author" style={{fontSize: "12px"}}>by {article?.author?.username}</span>
+                                <span className="article-display-title-author" style={{fontSize: "12px"}} onClick={
+                                    () => navigate(`/profile/${article?.author?.id}`)
+                                }>by {article?.author?.username}</span>
                             </div>
                             <div className="article-display-date">{moment(article?.date).format("DD.MM.YYYY")}</div>
                         </div>
