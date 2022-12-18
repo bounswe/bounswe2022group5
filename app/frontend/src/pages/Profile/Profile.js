@@ -110,6 +110,7 @@ const Profile = () => {
 
     const [picturePopup, setPicturePopup] = useState(false);
     const [infoPopup, setInfoPopup] = useState(false);
+    const [medHistoryPopup, setMedHistoryPopup] = useState(false);
 
     const onChange = (page) => {
         setPageNo(page);
@@ -205,6 +206,12 @@ const Profile = () => {
     const [email, setEmail] = useState();
     const [specialization, setSpecialization] = useState();
 
+    const [newIllness, setNewIllness] = useState("");
+    const [newDrug, setNewDrug] = useState("");
+    const [newAllergy, setNewAllergy] = useState("");
+    const [newChronicDisease, setNewChronicDisease] = useState("");
+    const [newUndergoneOperation, setNewUndergoneOperation] = useState("");
+
 
     useEffect(() => {
         fetchPersonalInfo().then(res => {
@@ -246,8 +253,7 @@ const Profile = () => {
                 message: 'Editing info is successful',
                 placement: "top"
             });
-            
-            console.log("zartzurt");
+    
         }).catch((err) => {
             notification["error"]({
                 message: "Editing info is not successful",
@@ -258,6 +264,30 @@ const Profile = () => {
         })
 
     };
+
+    const onFinishMedHistory = (values) => {
+        const body = {...values, 
+                        past_illnesses:[...pastIllnesses, newIllness], 
+                        allergies:[...allergies, newAllergy], 
+                        chronic_diseases:[...chronicDiseases, newChronicDisease], 
+                        undergone_operations:[...undergoneOperations, newUndergoneOperation],
+                        used_drugs:[...usedDrugs, newDrug]
+                    }
+
+        fetchUpdatePersonalInfo(body).then(res => {
+            notification["success"]({
+                message: 'Editing medical history is successful. Please refresh the page to see the changes.',
+                placement: "top"
+            });
+    
+        }).catch((err) => {
+            notification["error"]({
+                message: "Editing medical history is not successful",
+                description: err?.message,
+                placement: "top"
+            });
+        })
+    }
 
     const onFinishInfoDoctor = (values) => {
         const body = {...values, hospital_name:hospitalName}
@@ -701,6 +731,108 @@ const Profile = () => {
 
                     </div> : null
                 }
+
+
+
+
+
+                
+                {
+                    !picturePopup && userStatus==="fulfilled" ? 
+                    <div className="profile-edit-pp">
+                        <Button style={editButton} onClick={() => setMedHistoryPopup(true)}>
+                            {
+                                "Edit Medical History"
+                            }
+                        </Button>
+                        
+                        <Popup trigger={medHistoryPopup} setTrigger={setMedHistoryPopup}>
+                            {user.type===2 ? 
+                                <Form 
+                                form={form} 
+                                layout="inline" 
+                                onFinish={onFinishMedHistory} 
+                                className="form"
+                                initialValues={{ remember: true }}
+                                >
+                                <Form.Item
+                                    name="past_illnesses"
+                                >
+                                    <Input 
+                                        placeholder="Add a new illness."
+                                        onChange={(e) => setNewIllness(e.target.value)}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="used_drugs"
+                                >
+                                    <Input 
+                                        placeholder="Add a new drug."
+                                        onChange={(e) => setNewDrug(e.target.value)}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="undergone_operation"
+                                >
+                                    <Input 
+                                        placeholder="Add a new operation."
+                                        onChange={(e) => setNewUndergoneOperation(e.target.value)}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="allergies"
+                                >
+                                    <Input 
+                                        placeholder="Add a new allergy."
+                                        onChange={(e) => setNewAllergy(e.target.value)}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="chronic_diseases"
+                                >
+                                    <Input 
+                                        placeholder="Add a new chronic disease."
+                                        onChange={(e) => setNewChronicDisease(e.target.value)}
+                                    />
+                                </Form.Item>
+
+                                <Form.Item >
+                                    <Button type="primary" htmlType="submit" className="input-box">
+                                        Submit
+                                    </Button>
+                                </Form.Item>
+                                </Form>
+
+                                :
+                                
+                                <></>
+
+                            }
+                            
+
+                        </Popup>
+
+                    </div> : null
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
             
             {!picturePopup && !infoPopup ? 
