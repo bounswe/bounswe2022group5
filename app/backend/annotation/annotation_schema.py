@@ -2,7 +2,7 @@ from annotation.models import TextAnnotation
 
 
 def annotation_mapper(text_annotation: TextAnnotation)->dict:
-    annotation_model =  {
+    return {
         "@context" : "http://www.w3.org/ns/anno.jsonld",
         "id" : text_annotation.id,
         "type" : "Annotation",
@@ -31,8 +31,3 @@ def annotation_mapper(text_annotation: TextAnnotation)->dict:
             }
         }
     }
-
-    for url in text_annotation.urls:
-        annotation_model['body'].append(url)
-
-    return  annotation_model
