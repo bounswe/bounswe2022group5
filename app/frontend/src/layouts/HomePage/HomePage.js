@@ -8,10 +8,10 @@ import { useSelector} from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 import "./HomePage.css";
-import { Button, Input, Pagination} from "antd";
+import { Button, Input, Pagination, notification} from "antd";
 import { fetchAllPosts } from "../../redux/postSlice";
 import {fetchAllArticles} from "../../redux/articleSlice";
-import { fetchCategories } from "../../redux/categorySlice";
+import { fetchCategories, fetchFollowedCategories, fetchFollowUnfollowCategory } from "../../redux/categorySlice";
 
 const buttonStyleClicked = {
     width: "40%",
@@ -30,9 +30,29 @@ const buttonStyleUnclicked = {
 }
 
 const categoryButtonsStyle = {
-    width: "90%",
+    width: "75%",
     borderRadius: "4px",
     backgroundColor: 'rgb(173,216,230)',
+    marginTop: "2%",
+    whiteSpace: "normal",
+    height:'auto',
+}
+
+const categoryFollowStyle = {
+    width: "20%",
+    borderRadius: "4px",
+    backgroundColor: '#1890ff',
+    color: 'rgb(255,255,255)',
+    marginTop: "2%",
+    whiteSpace: "normal",
+    height:'auto',
+}
+
+const categoryUnfollowStyle = {
+    width: "20%",
+    borderRadius: "4px",
+    backgroundColor: 'rgb(255,255,255)',
+    color: '#1890ff',
     marginTop: "2%",
     whiteSpace: "normal",
     height:'auto',
@@ -61,17 +81,57 @@ const renderArticles = (articles, setArticles) => {
 
 const RenderCategories = (searchKey) => {
 
+    const { status: userStatus, user } = useSelector((state) => state.user);
+
     // There should be categories and related links
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
+    const [followedCategories, setFollowedCategories] = useState([]);
     
     useEffect(() => {
         fetchCategories().then(res => {
             setCategories(res);
         });
+
+        if(userStatus === "fulfilled"){
+            fetchFollowedCategories().then(res => {
+                setFollowedCategories(res)
+            });
+        }
+        
+
     }, []);
-     
+
+    //reference to https://love2dev.com/blog/javascript-remove-from-array/
+    function arrayRemove(arr, value) {
+        return arr.filter(function(ele){
+            return ele != value;
+        });
+    }
+
+    const handleFollowUnfollow = (follows, id) => {
+
+        if(follows){
+            setFollowedCategories(arrayRemove(followedCategories, id));
+        }else{
+            setFollowedCategories([...followedCategories, id]);
+        }
+
+        fetchFollowUnfollowCategory(id).then(res => {
+            notification["success"]({
+                message: res.response,
+                placement: "top"
+            });
+        })
+        .catch((res) => {
+            notification["error"]({
+                message: res.error,
+                placement: "top"
+            });
+        })
+
+    };
 
     return (
         categories.filter((obj) => {
@@ -80,9 +140,19 @@ const RenderCategories = (searchKey) => {
             }
             return null;
           }).map((item) => (
+            <div className="follow-category">
             <Button style={categoryButtonsStyle} onClick={() => navigate('/' + item.name )}>
                 {item.name}
             </Button>
+            {
+                userStatus==="fulfilled" ?
+                <Button style={followedCategories.includes(item.id) ? categoryUnfollowStyle : categoryFollowStyle} onClick={() => {
+                    handleFollowUnfollow(followedCategories.includes(item.id), item.id)
+                }}>{followedCategories.includes(item.id) ? 'Unfollow' : 'Follow'}</Button>
+                : <></>
+            }
+            
+            </div>
         ))
     )
 }
