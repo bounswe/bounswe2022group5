@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector} from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Image } from 'antd';
+import { Image, notification } from 'antd';
 import moment from "moment";
 import {
     CheckCircleOutlined
@@ -62,13 +62,29 @@ const Post = () => {
             { post ? <div className="discussion-post">
                 <div className="discussion-avatar-body">
                     <div>
-                        <img className="discussion-avatar" alt="avatar" src={post?.author?.profile_photo}/>
+                        <img className="discussion-avatar" alt="avatar" src={post?.author?.profile_photo} onClick={
+                                    () => {post?.author?.is_doctor ? 
+                                        navigate(`/profile/${post?.author?.id}`) 
+                                        : 
+                                        notification["error"]({
+                                        message: 'User is not a doctor',
+                                        placement: "top"
+                                    });}
+                                }/>
                     </div>
                     <div style={{ width: "100%" }}>
                         <div className="discussion-upper">
                             <div className="discussion-title">
                                 <span className="discussion-title-text" style={{fontSize: "28px"}}>{post?.title}</span>
-                                <span className="discussion-title-author" style={{fontSize: "12px"}}>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
+                                <span className="discussion-title-author" style={{fontSize: "12px"}} onClick={
+                                    () => {post?.author?.is_doctor ? 
+                                        navigate(`/profile/${post?.author?.id}`) 
+                                        : 
+                                        notification["error"]({
+                                        message: 'User is not a doctor',
+                                        placement: "top"
+                                    });}
+                                }>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
                                 { post?.longitude && post?.latitude ? <span style={{ marginLeft: "3px" }}>
                                     in <a href={`https://maps.google.com/?q=${post?.latitude},${post?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'16px'}}></i></a>
                                 </span> : null}
@@ -108,10 +124,26 @@ const Post = () => {
                     {
 						comments?.map(item => (
 							<div className="discussion-comment">
-                                <img className="discussion-comment-avatar" alt="avatar" src={item?.comment?.author?.profile_photo}/>
+                                <img className="discussion-comment-avatar" alt="avatar" src={item?.comment?.author?.profile_photo} onClick={
+                                    () => {item?.comment?.author?.is_doctor ? 
+                                        navigate(`/profile/${item?.comment?.author?.id}`) 
+                                        : 
+                                        notification["error"]({
+                                        message: 'User is not a doctor',
+                                        placement: "top"
+                                    });}
+                                }/>
                                 <div className="discussion-comment-container">
                                     <div className="discussion-comment-title">
-                                        <span className="discussion-commment-author">{item?.comment?.author?.username}</span>
+                                        <span className="discussion-commment-author" onClick={
+                                    () => {item?.comment?.author?.is_doctor ? 
+                                        navigate(`/profile/${item?.comment?.author?.id}`) 
+                                        : 
+                                        notification["error"]({
+                                        message: 'User is not a doctor',
+                                        placement: "top"
+                                    });}
+                                }>{item?.comment?.author?.username}</span>
                                         <span> at </span>
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
                                         { item?.comment?.longitude && item?.comment?.latitude ? <span style={{ marginLeft: "6px" }}>
