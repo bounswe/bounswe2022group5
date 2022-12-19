@@ -21,6 +21,7 @@ import '@recogito/recogito-js/dist/recogito.min.css';
 import "./Post.css";
 
 import { fetchPostById } from "../../redux/postSlice";
+import { fetchAnnotationById } from "../../redux/annotationSlice";
 
 const Post = () => {
     const id = useParams()?.id;
@@ -37,12 +38,25 @@ const Post = () => {
     const [comments, setComments] = useState();
     const [images, setImages] = useState([]);
 
+    const [imageAnnotations, setImageAnnotations] = useState([]);
+    const [textAnnotations, setTextAnnotations] = useState([]);
+
     useEffect(() => {
         fetchPostById(id)
             .then(res => {
                 setPost(res.post);
                 setComments(res.comments);
                 setImages(res.image_urls);
+            })
+            .catch(err => console.log(err))
+    }, [id])
+
+    useEffect(() => {
+        fetchAnnotationById(id, "POST")
+            .then(res => {
+                console.log(res)
+                setImageAnnotations(res?.image_annotations);
+                setTextAnnotations(res?.text_annotations);
             })
             .catch(err => console.log(err))
     }, [id])
@@ -93,10 +107,13 @@ const Post = () => {
                     id: `http://3.91.54.225:3000/profile/${user?.id}`,
                     displayName: user?.username
                 });
+
+                const savedAnnotations = imageAnnotations.filter(annot => annot?.target?.source);
+                annotorious.setAnnotations(savedAnnotations);
             }
         }
 
-    }, [user, refState]);
+    }, [user, refState, imageAnnotations]);
 
     useEffect(() => {
         if(textRef.current) {
@@ -121,9 +138,11 @@ const Post = () => {
                 id: `http://3.91.54.225:3000/profile/${user?.id}`,
                 displayName: user?.username
             });
+
+            recogitto.setAnnotations(textAnnotations);
         }
 
-    }, [user, textRefState]);
+    }, [user, textRefState, textAnnotations]);
 
     return(<>
         <div className="discussion-logo" onClick={() => navigate("/")}>
