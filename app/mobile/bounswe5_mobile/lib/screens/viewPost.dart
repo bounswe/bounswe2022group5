@@ -461,6 +461,10 @@ class _CommentItemState extends State<CommentItem> {
     return result;
   }
 
+  Future<int> commentDelete(int commentID, String token) async {
+    final result = await ApiService().commentDelete(commentID, token);
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -538,12 +542,27 @@ class _CommentItemState extends State<CommentItem> {
                         if (activeUser.id == comment.author.id) {
                           return PopupMenuButton<Menu>(
                             onSelected: (Menu item) {
-                              setState(() {
+                              setState(() async {
                                 if(item == Menu.itemOne) {
                                   print("Edit comment");
                                 }
                                 else if(item == Menu.itemTwo){
                                   print("Delete comment");
+                                  int deleted = await commentDelete(widget.post.id, widget.activeUser.token);
+                                  if(deleted == 200){
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage(
+                                            token: widget.activeUser.token,
+                                            index: 0,
+                                          )),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("Could not delete ${deleted}")),
+                                    );
+                                  }
                                 }
                               });
                             },
