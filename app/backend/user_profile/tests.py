@@ -67,3 +67,15 @@ class UserProfileTestCase(TestCase):
         response2 = client.get(f'/profile/followed_categories', content_type="application/json",
                                 **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
+    def test_get_bookmarked_posts(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2, date_of_birth=datetime.now())
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+
+        response1 = client.post(f'/forum/post/{post.id}/bookmark', content_type="application/json",
+                              **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        response2 = client.get(f'/profile/bookmarked_posts', content_type="application/json",
+                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response2.status_code, 200)
