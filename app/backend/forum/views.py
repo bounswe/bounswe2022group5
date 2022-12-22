@@ -696,3 +696,22 @@ def get_all_categories(request):
     queryset = Category.objects.all()
     serializer = CategorySerializer(queryset, many=True)
     return Response(serializer.data)
+
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def bookmark_post(request, id):
+        try:
+            post = Post.objects.get(id=id)
+            user_info = request.user
+        except:
+            return Response({'error': 'Post not found'}, status=400)
+
+        if id in user_info.bookmarked_posts :
+            user_info.bookmarked_posts.remove(id)
+            user_info.save()
+            return Response({'response': 'Bookmark removed successfully'}, status=200)
+        else:
+            user_info.bookmarked_posts.append(id)
+            user_info.save()
+            return Response({'response': 'Bookmark added successfully'}, status=200)
