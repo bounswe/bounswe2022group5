@@ -99,8 +99,15 @@ def get_all_posts(request):
                 serializer_post_data['vote'] = 'downvote'
             else:
                 serializer_post_data['vote'] = None
+
+            if post.id in user.bookmarked_posts:
+                serializer_post_data['bookmark'] = True
+            else:
+                serializer_post_data['bookmark'] = False
         else:
             serializer_post_data['vote'] = None
+            serializer_post_data['bookmark'] = None
+
         author = post.author
         if author.type == 1:
             try:
@@ -168,6 +175,12 @@ def get_posts_of_user(request, user_id):
             post_dict['vote'] = 'downvote'
         else:
             post_dict['vote'] = None
+
+        if post.id in request.user.bookmarked_posts:
+            post_dict['bookmark'] = True
+        else:
+            post_dict['bookmark'] = False
+
         response_dict.append(post_dict)
 
     result_page = paginator.paginate_queryset(response_dict, request)
@@ -314,8 +327,13 @@ def get_post(request,id):
                 response_dict['vote'] = 'downvote'
             else:
                 response_dict['vote'] = None
+            if post.id in request.user.bookmarked_posts:
+                response_dict['bookmark'] = True
+            else:
+                response_dict['bookmark'] = False
         else:
             response_dict['vote'] = None
+            response_dict['bookmark'] = None
 
 
 
