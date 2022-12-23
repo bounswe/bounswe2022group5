@@ -17,7 +17,7 @@ import { fetchArticleByUserId } from "../../redux/articleSlice";
 import { fetchCommentByUserId } from "../../redux/commentSlice";
 import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture, fetchDoctorProfile } from "../../redux/profileSlice";
 import { setUser } from "../../redux/userSlice";
-import { isCompositeComponent } from "react-dom/test-utils";
+
 
 const {Meta} = Card;
 const {Panel} = Collapse;
@@ -141,7 +141,7 @@ const Profile = () => {
                 setPosts(res.results);
             })
         }
-    }, [pageNo, user, pageType]);
+    }, [pageNo, user, pageType, isMyProfile]);
 
     const [articleCount, setArticleCount] = useState();
     const [articles, setArticles] = useState();
@@ -162,7 +162,7 @@ const Profile = () => {
         }
         
         
-    }, [pageNo, user, pageType]);
+    }, [pageNo, user, pageType, isMyProfile]);
 
     const [commentCount, setCommentCount] = useState();
     const [comments, setComments] = useState();
@@ -182,7 +182,7 @@ const Profile = () => {
                 setComments(res.results);
             })
         }
-    }, [pageNo, user, pageType]);
+    }, [pageNo, user, pageType, isMyProfile]);
 
     const [upvotedPostCount, setUpvotedPostCount] = useState();
     const [upvotedPosts, setUpvotedPosts] = useState();
@@ -194,13 +194,15 @@ const Profile = () => {
                 setUpvotedPosts(res.results)
             })
         }else{
+            console.log(doctorId)
             fetchPostUpvotesByUserId(doctorId, pageNo).then(res => {
+                console.log(res)
                 setUpvotedPostCount(res.count);
                 setUpvotedPosts(res.results);
             })
         }
         
-    }, [pageNo, pageType])
+    }, [pageNo, pageType, isMyProfile])
 
     const [upvotedArticleCount, setUpvotedArticleCount] = useState();
     const [upvotedArticles, setUpvotedArticles] = useState();
@@ -218,7 +220,7 @@ const Profile = () => {
             })
         }
         
-    }, [pageNo, pageType])
+    }, [pageNo, pageType, isMyProfile])
     
 
     const whichState = (pageType) => {
@@ -289,7 +291,7 @@ const Profile = () => {
             
         }
         
-    }, [])
+    }, [isMyProfile])
     
     
     const [form] = Form.useForm();
@@ -315,13 +317,16 @@ const Profile = () => {
     };
 
     const onFinishMedHistory = (values) => {
+        console.log()
         const body = {...values, 
-                        past_illnesses:[...pastIllnesses, newIllness], 
-                        allergies:[...allergies, newAllergy], 
-                        chronic_diseases:[...chronicDiseases, newChronicDisease], 
-                        undergone_operations:[...undergoneOperations, newUndergoneOperation],
-                        used_drugs:[...usedDrugs, newDrug]
+                        past_illnesses:[...(pastIllnesses||[]), newIllness], 
+                        allergies:[...(allergies||[]), newAllergy], 
+                        chronic_diseases:[...(chronicDiseases||[]), newChronicDisease], 
+                        undergone_operations:[...(undergoneOperations||[]), newUndergoneOperation],
+                        used_drugs:[...(usedDrugs||[]), newDrug]
                     }
+
+        console.log(body)
 
         fetchUpdatePersonalInfo(body).then(res => {
             notification["success"]({
