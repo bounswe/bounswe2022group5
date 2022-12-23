@@ -143,12 +143,51 @@ def get_articles_of_doctor(request, user_id):
             else:
                 serializer_article_data['vote'] = None
             serializer_article_data['id'] = article.id
+
+            if author.type == 1:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+
+            elif author.type == 2:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            serializer_article_data['author'] = author_data
             response.append(serializer_article_data)
     else:
         for article in articles:
             serializer_article_data = ArticleSerializer(article).data
             serializer_article_data['vote'] = None
             serializer_article_data['id'] = article.id
+
+            if author.type == 1:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+
+            elif author.type == 2:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            serializer_article_data['author'] = author_data
+
             response.append(serializer_article_data)
 
     result_page = paginator.paginate_queryset(response, request)
