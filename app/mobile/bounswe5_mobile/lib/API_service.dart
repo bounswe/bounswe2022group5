@@ -1658,12 +1658,18 @@ class ApiService {
 
     final response = await http.get(uri, headers: header);
 
+
+    print("RESPONSE: ${response.statusCode}");
+    print("CAT $category");
+
     int count = 0;
     List<dynamic> results;
     List<Article> articles = List.empty(growable: true);
 
     if (response.statusCode == 200){
       var body = jsonDecode(response.body);
+
+      print("BODY $body");
 
       count = body["count"];
       results = body["results"];

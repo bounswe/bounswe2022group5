@@ -6,7 +6,8 @@ https://blog.logrocket.com/implement-infinite-scroll-pagination-flutter/
 import 'package:flutter/material.dart';
 
 import 'package:bounswe5_mobile/models/post.dart';
-import 'package:bounswe5_mobile/widgets/ForumPostItem.dart';
+import 'package:bounswe5_mobile/models/article.dart';
+import 'package:bounswe5_mobile/widgets/ArticleItem.dart';
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
@@ -27,7 +28,7 @@ class _ArticleSearchOverviewState extends State<ArticleSearchOverview> {
   late bool _error;
   late bool _loading;
   final int _numberOfPostsPerRequest = 15;
-  late List<Post> _posts;
+  late List<Article> _articles;
   final int _nextPageTrigger = 2;
 
   ApiService apiService = ApiService();
@@ -36,7 +37,7 @@ class _ArticleSearchOverviewState extends State<ArticleSearchOverview> {
   void initState() {
     super.initState();
     _pageNumber = 1;
-    _posts = [];
+    _articles = [];
     _isLastPage = false;
     _loading = true;
     _error = false;
@@ -45,26 +46,26 @@ class _ArticleSearchOverviewState extends State<ArticleSearchOverview> {
 
   Future<void> fetchData() async {
     try{
-      List<dynamic> postInfo = [];
+      List<dynamic> articleInfo = [];
       if(widget.searchType == 0) { //category search
-        postInfo = await ApiService().articleSearchCategory(
+        articleInfo = await ApiService().articleSearchCategory(
             widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest,
             widget.category!);
       } else if(widget.searchType == 1) { //keyword search
-        postInfo = await ApiService().articleSearchKeyword(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest, widget.keyword!);
+        articleInfo = await ApiService().articleSearchKeyword(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest, widget.keyword!);
       } else if(widget.searchType == 2) { //name
         //postInfo = await ApiService().searchPostCategory(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest, widget.category!);
       }
-      int totalNofPosts = postInfo[0];
+      int totalNofArticles = articleInfo[0];
       //print("/forum/posts?page=$_pageNumber&page_size=$_numberOfPostsPerRequest");
       //print("total posts: $totalNofPosts");
-      List<Post> postList = postInfo[1];
+      List<Article> articleList = articleInfo[1];
       setState(() {
 
         _loading = false;
         _pageNumber = _pageNumber + 1;
-        _posts.addAll(postList);
-        _isLastPage = postList.isEmpty;
+        _articles.addAll(articleList);
+        _isLastPage = articleList.isEmpty;
         //_isLastPage = _posts.length == totalNofPosts; // Actual code
 
       });
@@ -115,7 +116,7 @@ class _ArticleSearchOverviewState extends State<ArticleSearchOverview> {
   }
 
   Widget buildPostsView() {
-    if (_posts.isEmpty) {
+    if (_articles.isEmpty) {
       if (_loading) {
         return const Center(
             child: Padding(
@@ -129,13 +130,13 @@ class _ArticleSearchOverviewState extends State<ArticleSearchOverview> {
       }
     }
     return ListView.builder(
-        itemCount: _posts.length + (_isLastPage ? 0 : 1),
+        itemCount: _articles.length + (_isLastPage ? 0 : 1),
         itemBuilder: (context, index) {
 
-          if (index == _posts.length - _nextPageTrigger) {
+          if (index == _articles.length - _nextPageTrigger) {
             fetchData();
           }
-          if (index == _posts.length) {
+          if (index == _articles.length) {
             if (_error) {
               return Center(
                   child: errorDialog(size: 15)
@@ -148,10 +149,10 @@ class _ArticleSearchOverviewState extends State<ArticleSearchOverview> {
                   ));
             }
           }
-          final Post post = _posts[index];
+          final Article article = _articles[index];
           return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ForumPostItem(activeUser: widget.activeUser,post: post,)
+              child: ArticleItem(activeUser: widget.activeUser,article: article,)
           );
         });
   }

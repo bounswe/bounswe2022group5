@@ -23,10 +23,9 @@ class ArticleSearchByCategoryPage extends StatefulWidget {
 
 class _ArticleSearchByCategoryPageState extends State<ArticleSearchByCategoryPage> {
 
-
+  String categoryValue = categories.first;
   @override
   Widget build(BuildContext context) {
-    String categoryValue = categories.first;
     return Scaffold(
         appBar: myAppBar,
         body: SingleChildScrollView(

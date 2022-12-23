@@ -30,10 +30,10 @@ class PostSearchByCategoryPage extends StatefulWidget {
 
 class _PostSearchByCategoryPageState extends State<PostSearchByCategoryPage> {
 
+  String categoryValue = categories.first;
 
   @override
   Widget build(BuildContext context) {
-    String categoryValue = categories.first;
     return Scaffold(
         appBar: myAppBar,
         body: SingleChildScrollView(
@@ -55,6 +55,7 @@ class _PostSearchByCategoryPageState extends State<PostSearchByCategoryPage> {
                             onChanged: (String? value) {
                               setState(() {
                                 categoryValue = value!;
+                                print("VALUE $value");
                               });
                             },
                             items: categories.map<DropdownMenuItem<String>> ((String value) {

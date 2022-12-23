@@ -38,7 +38,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   final GlobalKey<TagsState> _tagKey = GlobalKey<TagsState>();
   File? image;
   Position? _currentPosition;
-
+  String categoryValue = categories.first;
 
 
   Future<int> post(String token, String title, String body, String longitude, String latitude, String image_uri, String category, String tags) async {
@@ -103,8 +103,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    String categoryValue = categories.first;
     ApiService apiServer = ApiService();
     return  FutureBuilder<User?>(
         future: apiServer.getUserInfo(widget.activeUser.token),
