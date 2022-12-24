@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useSelector} from 'react-redux';
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector} from 'react-redux';
 import { Image } from 'antd';
 import moment from "moment";
 import {
@@ -10,27 +10,60 @@ import {
 import CommentEditor from "./CommentEditor";
 import Vote from "../../components/Vote/Vote";
 
-import logo from "../../layouts/NavBar/logo.png"
+import logo from "../../layouts/NavBar/logo.png";
+
+import { Annotorious } from '@recogito/annotorious';
+import '@recogito/annotorious/dist/annotorious.min.css';
+
+import { Recogito } from '@recogito/recogito-js';
+import '@recogito/recogito-js/dist/recogito.min.css';
 
 import "./Post.css";
 
 import { fetchPostById } from "../../redux/postSlice";
+import { 
+    fetchAnnotationById,
+    createTextAnnotation,
+    createImageAnnotation,
+    updateTextAnnotation,
+    deleteTextAnnotation,
+    deleteImageAnnotation
+} from "../../redux/annotationSlice";
 
 const Post = () => {
     const id = useParams()?.id;
     const navigate = useNavigate();
+    const { user } = useSelector((state) => state.user);
+
+    const imgsRef = useRef([]);
+    const textRef = useRef();
+
+    const [refState, setRefState] = useState([]);
+    const [textRefState, setTextRefState] = useState(false);
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
     const [images, setImages] = useState([]);
 
+    const [imageAnnotations, setImageAnnotations] = useState([]);
+    const [textAnnotations, setTextAnnotations] = useState([]);
+
     useEffect(() => {
         fetchPostById(id)
             .then(res => {
-                console.log(res)
                 setPost(res.post);
                 setComments(res.comments);
                 setImages(res.image_urls);
+            })
+            .catch(err => console.log(err))
+    }, [id])
+
+    useEffect(() => {
+        fetchAnnotationById(id, "POST")
+            .then(res => {
+                console.log(res)
+                setImageAnnotations(res?.image_annotations);
+                setTextAnnotations(res?.text_annotations);
             })
             .catch(err => console.log(err))
     }, [id])
@@ -52,7 +85,82 @@ const Post = () => {
                 ...comments?.slice(commentIndex + 1),
             ])
         }
-    }
+    };
+
+    useEffect(() => {
+        if(!user?.id) return;
+        if(refState?.filter((v, i, a) => a.indexOf(v) === i)?.length !== refState?.length) return;
+        
+        for (const image of imgsRef.current.filter((v, i, a) => a.indexOf(v) === i)) {
+            if (image) {
+                let annotorious = null;
+                // Init
+                annotorious = new Annotorious({
+                    image,
+                });
+        
+                // Attach event handlers here
+                annotorious.on('createAnnotation', async annotation => {
+                    console.log('created', annotation);
+                    await createImageAnnotation(id, "POST", annotation);
+                });
+        
+                annotorious.on('updateAnnotation', (annotation, previous) => {
+                    console.log('updated', annotation, previous);
+                });
+        
+                annotorious.on('deleteAnnotation', async annotation => {
+                    console.log('deleted', annotation);
+                    await deleteImageAnnotation(annotation?.id, "POST");
+                });
+
+                annotorious.setAuthInfo({
+                    id: `http://3.91.54.225:3000/profile/${user?.id}`,
+                    displayName: user?.username
+                });
+
+                const savedAnnotations = imageAnnotations.filter(annot => annot?.target?.source);
+                annotorious.clearAnnotations();
+                annotorious.setAnnotations(savedAnnotations);
+            }
+        }
+
+    }, [id, user, refState, imageAnnotations]);
+
+    useEffect(() => {
+        if(!user?.id) return;
+        
+        if(textRef.current) {
+            const recogitto = new Recogito({
+                content: textRef.current
+            });
+    
+            // Attach event handlers here
+            recogitto.on('createAnnotation', async annotation => {
+                console.log('created', annotation);
+                await createTextAnnotation(id, "POST", annotation);
+            });
+    
+            recogitto.on('updateAnnotation', async (annotation, previous) => {
+                console.log('updated', annotation, previous);
+                await updateTextAnnotation(id, "POST", annotation);
+            });
+    
+            recogitto.on('deleteAnnotation', async annotation => {
+                console.log('deleted', annotation);
+                await deleteTextAnnotation(annotation?.id, "POST");
+            });
+    
+            recogitto.setAuthInfo({
+                id: `http://3.91.54.225:3000/profile/${user?.id}`,
+                displayName: user?.username
+            });
+
+            recogitto.clearAnnotations();
+            recogitto.setAnnotations(textAnnotations);
+        }
+
+    }, [id, user, textRefState, textAnnotations]);
 
     return(<>
         <div className="discussion-logo" onClick={() => navigate("/")}>
@@ -69,14 +177,14 @@ const Post = () => {
                             <div className="discussion-title">
                                 <span className="discussion-title-text" style={{fontSize: "28px"}}>{post?.title}</span>
                                 <span className="discussion-title-author" style={{fontSize: "12px"}}>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
-                                { post?.longitude && post?.latitude ? <span style={{ marginLeft: "3px" }}>
-                                    in <a href={`https://maps.google.com/?q=${post?.latitude},${post?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'16px'}}></i></a>
-                                </span> : null}
                             </div>
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
                         <div className="discussion-body-votes">
-                            <div dangerouslySetInnerHTML={{ __html: post?.body }} />
+                            <div dangerouslySetInnerHTML={{ __html: post?.body }} ref={el => {
+                                textRef.current = el;
+                                if(!textRefState) setTextRefState(true);
+                            }}/>
                             <Vote item={post} type={"post"} setItem={setPost}/>
                         </div>
                         { post?.commented_by_doctor ? <div className="discussion-doctor">
@@ -88,15 +196,16 @@ const Post = () => {
 
 				{Object.values(images).length ? 
 				<div className="discussion-images">
-					<Image.PreviewGroup>
-						{
-							images?.map(image => (
-								<span className="discussion-image">
-									<Image width={100} height={100} src={image} />
-								</span>
-							))
-						}
-					</Image.PreviewGroup>
+                    {
+                        images?.map((image, index) => (
+                            <span className="discussion-image">
+                                <img alt="discussion" width={300} height={300} src={image} ref={el => {
+                                    imgsRef.current[index] = el;
+                                    if(!refState.includes(index))setRefState(refState => [...refState, index])
+                                }}/>
+                            </span>
+                        ))
+                    }
 				</div> : null}
 
                 <div className="discussion-comment-editor">
@@ -114,9 +223,6 @@ const Post = () => {
                                         <span className="discussion-commment-author">{item?.comment?.author?.username}</span>
                                         <span> at </span>
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
-                                        { item?.comment?.longitude && item?.comment?.latitude ? <span style={{ marginLeft: "6px" }}>
-                                            in <a href={`https://maps.google.com/?q=${item?.comment?.latitude},${item?.comment?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'14px'}}></i></a>
-                                        </span> : null}
                                     </div>
                                     <div className="discussion-comment-body">
                                     

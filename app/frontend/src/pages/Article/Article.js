@@ -1,30 +1,139 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector} from 'react-redux';
 import { Image } from 'antd';
 import moment from "moment";
 
 import Vote from "../../components/Vote/Vote";
 
 import "./Article.css";
-import logo from "../../layouts/NavBar/logo.png"
+import logo from "../../layouts/NavBar/logo.png";
+
+import { Annotorious } from '@recogito/annotorious';
+import '@recogito/annotorious/dist/annotorious.min.css';
+
+import { Recogito } from '@recogito/recogito-js';
+import '@recogito/recogito-js/dist/recogito.min.css';
 
 import { fetchArticleById } from "../../redux/articleSlice";
+import { 
+    fetchAnnotationById,
+    createTextAnnotation,
+    createImageAnnotation,
+    updateTextAnnotation,
+    deleteTextAnnotation,
+    deleteImageAnnotation
+} from "../../redux/annotationSlice";
 
 const Article = () => {
     const id = useParams()?.id;
     const navigate = useNavigate();
+    const { user } = useSelector((state) => state.user);
+
+    const imgsRef = useRef([]);
+    const textRef = useRef();
+
+    const [refState, setRefState] = useState([]);
+    const [textRefState, setTextRefState] = useState(false);
 
     const [article, setArticle] = useState();
     const [images, setImages] = useState([]);
 
+    const [imageAnnotations, setImageAnnotations] = useState([]);
+    const [textAnnotations, setTextAnnotations] = useState([]);
+
     useEffect(() => {
         fetchArticleById(id)
             .then(res => {
-                console.log(res)
                 setArticle(res.article);
                 setImages(res.image_urls);
             })
     }, [id]);
+
+    useEffect(() => {
+        fetchAnnotationById(id, "ARTICLE")
+            .then(res => {
+                console.log(res)
+                setImageAnnotations(res?.image_annotations);
+                setTextAnnotations(res?.text_annotations);
+            })
+            .catch(err => console.log(err))
+    }, [id])
+
+    useEffect(() => {
+        if(!user?.id) return;
+        if(refState?.filter((v, i, a) => a.indexOf(v) === i)?.length !== refState?.length) return;
+
+        for (const image of imgsRef.current) {
+            if (image) {
+                let annotorious = null;
+                // Init
+                annotorious = new Annotorious({
+                    image,
+                });
+        
+                // Attach event handlers here
+                annotorious.on('createAnnotation', async annotation => {
+                    console.log('created', annotation);
+                    await createImageAnnotation(id, "ARTICLE", annotation);
+                });
+        
+                annotorious.on('updateAnnotation', (annotation, previous) => {
+                    console.log('updated', annotation, previous);
+                });
+        
+                annotorious.on('deleteAnnotation', async annotation => {
+                    console.log('deleted', annotation);
+                    await deleteImageAnnotation(annotation?.id, "ARTICLE");
+                });
+
+                annotorious.setAuthInfo({
+                    id: `http://3.91.54.225:3000/profile/${user?.id}`,
+                    displayName: user?.username
+                });
+
+                const savedAnnotations = imageAnnotations.filter(annot => annot?.target?.source);
+                annotorious.clearAnnotations();
+                annotorious.setAnnotations(savedAnnotations);
+            }
+        }
+
+    }, [id, user, refState, imageAnnotations]);
+
+    useEffect(() => {
+        if(!user?.id) return;
+
+        if(textRef.current) {
+            const recogitto = new Recogito({
+                content: textRef.current
+            });
+    
+            // Attach event handlers here
+            recogitto.on('createAnnotation', async annotation => {
+                console.log('created', annotation);
+                await createTextAnnotation(id, "ARTICLE", annotation);
+            });
+    
+            recogitto.on('updateAnnotation', async (annotation, previous) => {
+                console.log('updated', annotation, previous);
+                await updateTextAnnotation(id, "ARTICLE", annotation);
+            });
+    
+            recogitto.on('deleteAnnotation', async annotation => {
+                console.log('deleted', annotation);
+                await deleteTextAnnotation(annotation?.id, "ARTICLE");
+            });
+    
+            recogitto.setAuthInfo({
+                id: `http://3.91.54.225:3000/profile/${user?.id}`,
+                displayName: user?.username
+            });
+
+            recogitto.clearAnnotations();
+            recogitto.setAnnotations(textAnnotations);
+        }
+
+    }, [id, user, textRefState, textAnnotations]);
 
     return(<>
         <div className="article-display-logo" onClick={() => navigate("/")}>
@@ -45,7 +154,10 @@ const Article = () => {
                             <div className="article-display-date">{moment(article?.date).format("DD.MM.YYYY")}</div>
                         </div>
                         <div className="article-display-body-votes">
-                            <div dangerouslySetInnerHTML={{ __html: article?.body }} />
+                            <div dangerouslySetInnerHTML={{ __html: article?.body }} ref={el => {
+                                textRef.current = el;
+                                if(!textRefState) setTextRefState(true);
+                            }}/>
                             <Vote item={article} setItem={setArticle} itemType="article"/>
                             
                         </div>
@@ -54,15 +166,16 @@ const Article = () => {
 
 				{images?.length ? 
 				<div className="article-display-images">
-					<Image.PreviewGroup>
 						{
-							images?.map(image => (
+							images?.map((image, index) => (
 								<span className="article-display-image">
-									<Image width={100} height={100} src={image} />
+									<img alt="article" width={300} height={300} src={image} ref={el => {
+                                        imgsRef.current[index] = el;
+                                        if(!refState.includes(index))setRefState(refState => [...refState, index])
+                                    }}/>
 								</span>
 							))
 						}
-					</Image.PreviewGroup>
 				</div> : null}
 
             </div>
