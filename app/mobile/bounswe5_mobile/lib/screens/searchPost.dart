@@ -92,21 +92,6 @@ class _SearchPostPageState extends State<SearchPostPage> {
                       style: ElevatedButton.styleFrom(fixedSize: const Size(250, 50)),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB( 10.0, 0, 10.0, 10.0),
-                    child:  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PostSearchByNamePage(token: widget.token)),
-                        );
-
-                      }, child: const Text("Search By User/Doctor Name"),
-                      style: ElevatedButton.styleFrom(fixedSize: const Size(250, 50)),
-                    ),
-                  ),
                 ],
               ),
             )

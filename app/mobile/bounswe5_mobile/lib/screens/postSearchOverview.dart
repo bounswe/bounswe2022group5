@@ -63,8 +63,6 @@ class _PostsSearchOverviewState extends State<PostsSearchOverview> {
             widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest,
             widget.dist!, widget.longitude!, widget.latitude!);
         print(postInfo);
-      } else if(widget.searchType == 3) { //name
-        //postInfo = await ApiService().searchPostCategory(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest, widget.category!);
       }
       int totalNofPosts = postInfo[0];
       //print("/forum/posts?page=$_pageNumber&page_size=$_numberOfPostsPerRequest");
