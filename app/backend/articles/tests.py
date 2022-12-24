@@ -152,4 +152,24 @@ class ArticleTestCase(TestCase):
         response2 = client.post(f'/articles/article/{article.id}/downvote', content_type="application/json",
                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
-    
+
+    def test_bookmark_article(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        article = models.Article.objects.create(title='test article title', body='test article body', author=user, date=datetime.now())
+        response = client.post(f'/articles/article/{article.id}/bookmark', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_bookmark_remove_post(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        article = models.Article.objects.create(title='test article title', body='test article body', author=user, date=datetime.now())
+        response1 = client.post(f'/articles/article/{article.id}/bookmark', content_type="application/json", **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        response2 = client.post(f'/articles/article/{article.id}/bookmark', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response2.status_code, 200)
