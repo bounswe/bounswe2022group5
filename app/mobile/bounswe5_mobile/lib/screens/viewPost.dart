@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/post.dart';
@@ -14,7 +15,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/screens/imagesGrid.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 
-enum Menu { itemOne, itemTwo }
+enum Menu { itemOne, itemTwo, itemThree }
 
 class ViewPostPage extends StatefulWidget {
   const ViewPostPage(
@@ -171,6 +172,14 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                         );
                                       }
                                     }
+                                    else if(item == Menu.itemThree){
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
+                                        )
+                                      );
+                                    }
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -183,13 +192,27 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                     value: Menu.itemTwo,
                                     child: Text('Delete'),
                                   ),
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemThree,
+                                    child: Text('See Text Annotations'),
+                                  ),
                                 ],
                               );
                             } else {
                               return PopupMenuButton<Menu>(
                                 onSelected: (Menu item) {
                                   setState(() {
-                                    print("Report Post");
+                                    if(item == Menu.itemOne) {
+                                      print("Report Post");
+                                    }
+                                    else if(item == Menu.itemTwo){
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
+                                          )
+                                      );
+                                    }
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -197,6 +220,10 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                   const PopupMenuItem<Menu>(
                                     value: Menu.itemOne,
                                     child: Text('Report'),
+                                  ),
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemTwo,
+                                    child: Text('See Text Annotations'),
                                   ),
                                 ],
                               );
