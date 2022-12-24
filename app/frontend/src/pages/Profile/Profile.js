@@ -15,7 +15,7 @@ import { useLocation } from "react-router";
 import { fetchPostByUserId } from "../../redux/postSlice";
 import { fetchArticleByUserId } from "../../redux/articleSlice";
 import { fetchCommentByUserId } from "../../redux/commentSlice";
-import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture, fetchDoctorProfile } from "../../redux/profileSlice";
+import { fetchPostUpvotesByDoctorId, fetchArticleUpvotesByDoctorId, fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture, fetchDoctorProfile } from "../../redux/profileSlice";
 import { setUser } from "../../redux/userSlice";
 
 
@@ -195,7 +195,7 @@ const Profile = () => {
             })
         }else{
             console.log(doctorId)
-            fetchPostUpvotesByUserId(doctorId, pageNo).then(res => {
+            fetchPostUpvotesByDoctorId(doctorId, pageNo).then(res => {
                 console.log(res)
                 setUpvotedPostCount(res.count);
                 setUpvotedPosts(res.results);
@@ -214,7 +214,7 @@ const Profile = () => {
                 setUpvotedArticles(res.results)
             })
         }else{
-            fetchArticleUpvotesByUserId(doctorId, pageNo).then(res => {
+            fetchArticleUpvotesByDoctorId(doctorId, pageNo).then(res => {
                 setUpvotedArticleCount(res.count);
                 setUpvotedArticles(res.results);
             })

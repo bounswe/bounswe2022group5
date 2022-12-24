@@ -7,8 +7,18 @@ export const fetchPostUpvotesByUserId = async (id, pageNo) => {
     return data;
 }
 
+export const fetchPostUpvotesByDoctorId = async (id, pageNo) => {
+    const { data } = await axios.get(`${url}/profile/upvoted_posts?page=${pageNo}&page_size=10&sort=desc&user_id=${id}`);
+    return data;
+}
+
 export const fetchArticleUpvotesByUserId = async (id, pageNo) => {
     const { data } = await axios.get(`${url}/profile/upvoted_articles?page=${pageNo}&page_size=10&sort=desc`);
+    return data;
+}
+
+export const fetchArticleUpvotesByDoctorId = async (id, pageNo) => {
+    const { data } = await axios.get(`${url}/profile/upvoted_articles?page=${pageNo}&page_size=10&sort=desc&user_id=${id}`);
     return data;
 }
 
