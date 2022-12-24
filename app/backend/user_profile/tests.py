@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from rest_framework.authtoken.models import Token
 from forum import models
+from articles import models as amodels
 from backend import models as backendModels
 from tests.constants import *
 from datetime import datetime
@@ -98,10 +99,23 @@ class UserProfileTestCase(TestCase):
         user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
                                                             type=2, date_of_birth=datetime.now())
         token = Token.objects.create(user=user)
-        article = models.Article.objects.create(title='test post title', body='test post body', author=user,
+        article = amodels.Article.objects.create(title='test post title', body='test post body', author=user,
                                           date=datetime.now())
         response1 = client.post(f'/articles/articles/{article.id}/upvote', content_type="application/json",
                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         response2 = client.get(f'/profile/upvoted_articles?page=1&page_size=10&sort=desc&user_id={user.id}', content_type="application/json",
                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response2.status_code, 200)
+
+    def test_get_bookmarked_articles(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2, date_of_birth=datetime.now())
+        token = Token.objects.create(user=user)
+        article = amodels.Article.objects.create(title='test article title', body='test article body', author=user, date=datetime.now())
+
+        response1 = client.post(f'/articles/article/{article.id}/bookmark', content_type="application/json",
+                              **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        response2 = client.get(f'/profile/bookmarked_articles', content_type="application/json",
+                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
