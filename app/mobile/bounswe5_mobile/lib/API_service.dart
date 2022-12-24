@@ -14,6 +14,7 @@ import 'package:bounswe5_mobile/models/memberInfo.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/article.dart';
 import 'package:bounswe5_mobile/models/comment.dart';
+import 'package:bounswe5_mobile/models/textAnnotation.dart';
 import 'package:intl/intl.dart';
 
 
@@ -21,6 +22,7 @@ import 'package:intl/intl.dart';
 class ApiService {
   /// Base URL of backend
   var baseURL = "http://ec2-3-87-119-148.compute-1.amazonaws.com:8000";
+  var frontURL = "http://3.91.54.225:3000";
 
   Future<int> postUpvote(int postID, String token) async {
     var uri = Uri.parse("$baseURL/forum/post/${postID.toString()}/upvote");
@@ -1451,6 +1453,58 @@ class ApiService {
       result.add(comments);
       result.add(posts);
       return result;
+    }
+
+    /// This function gets all text annotations of a post or an article.
+    Future<dynamic> getTextAnnotations(String token, String type, int id) async {
+      // type is either "POST" or "ARTICLE"
+      var uri = Uri.parse("$baseURL/annotation/$id?type=$type");
+
+      var header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+
+      final response = await http.get(uri, headers: header);
+
+      List<dynamic> rawAnnos = List.empty(growable: true);
+
+      List<TextAnnotation> annos = List.empty(growable: true);
+
+      if (response.statusCode == 200){
+        var body = jsonDecode(response.body);
+
+        rawAnnos = body["text_annotations"];
+
+        for(int i = 0 ; i < rawAnnos.length ; i++){
+
+          var annotation = rawAnnos[i];
+          var annoBody = annotation["body"][0];
+          String dateCreatedRaw = annoBody["created"];
+
+          DateTime created = DateTime.parse(dateCreatedRaw);
+
+          String creatorLink = annoBody["creator"]["id"];
+          String profileUrl = "$frontURL/profile/";
+          String creatorIdStr = creatorLink.substring(profileUrl.length);
+          int creatorId = int.parse(creatorIdStr);
+
+          String creatorName = annoBody["creator"]["name"];
+
+          String annotationBody = annoBody["value"];
+
+          String annotationId = annotation["id"];
+
+          String selectedText = annotation["target"]["selector"][0]["exact"];
+          int start = annotation["target"]["selector"][1]["start"];
+          int end = annotation["target"]["selector"][1]["end"];
+
+          TextAnnotation anno = TextAnnotation(created, creatorId, creatorName, annotationBody, annotationId, selectedText, start, end);
+          annos.add(anno);
+        }
+      }
+
+      return annos;
     }
 
 }
