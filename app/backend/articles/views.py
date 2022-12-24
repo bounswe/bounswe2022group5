@@ -61,6 +61,67 @@ def get_all_articles(request):
         article_objects = Article.objects.all().order_by('-date')[((page-1)*page_size):(page_size*page)]
         count = Article.objects.count()
 
+    authors = []
+    if request.GET.get('q', None):
+        search_query = request.GET.get('q', None)
+        try:
+
+            doctors = Doctor.objects.filter(full_name__icontains=search_query)
+
+            for doctor in doctors:
+                author = doctor.user
+                authors.append(author)
+        except:
+            pass
+        try:
+            members = Member.objects.filter(member_username__icontains=search_query)
+
+            for member in members:
+
+                author = member.user
+                authors.append(author)
+        except:
+            pass
+    articles_by_user = Article.objects.filter(author__in=authors)
+
+    for article in articles_by_user:
+        serializer_article_data = ArticleSerializer(article).data
+        if user:
+            if article.id in user.upvoted_articles:
+                serializer_article_data['vote'] = 'upvote'
+            elif article.id in user.downvoted_articles:
+                serializer_article_data['vote'] = 'downvote'
+            else:
+                serializer_article_data['vote'] = None
+        else:
+            serializer_article_data['vote'] = None
+        serializer_article_data['id'] = article.id
+        author = article.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_article_data["author"] = author_data
+        articles.append(serializer_article_data)
     for article in article_objects:
         serializer_article_data = ArticleSerializer(article).data
         if user:

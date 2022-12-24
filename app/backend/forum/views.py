@@ -31,10 +31,11 @@ def get_all_posts(request):
     search_query = request.GET.get('q', None)
     if search_query:
         keyword_search_list = []
-        print("e")
+
         for keyword in search_query.split(" "):
             keyword_search_list.append("title ilike'%%" + keyword + "%%'")
             keyword_search_list.append("body ilike'%%" + keyword + "%%'")
+
 
         where_statements.append(
             "(" + " or ".join(keyword_search_list) + ")"
@@ -81,8 +82,31 @@ def get_all_posts(request):
     if page <= 0:
         page = 1
     query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
+    authors = []
 
+    if search_query:
+
+        try:
+            doctors = Doctor.objects.filter(full_name__icontains=search_query)
+            for doctor in doctors:
+                author = doctor.user
+                authors.append(author)
+        except:
+            pass
+        try:
+            members = Member.objects.filter(member_username__icontains=search_query)
+            print(members)
+            for member in members:
+                print(member.member_username)
+                author = member.user
+                authors.append(author)
+        except:
+            pass
+
+    posts_by_user = Post.objects.filter(author__in=authors)
     post_objects = Post.objects.raw(query.format("distinct *"))
+
+
 
     try:
         user = CustomUser.objects.get(email = request.user.email)
@@ -90,6 +114,51 @@ def get_all_posts(request):
         user = None
     
     posts = []
+    for post in posts_by_user:
+        serializer_post_data = PostSerializer(post).data
+        if user:
+            if post.id in user.upvoted_posts:
+                serializer_post_data['vote'] = 'upvote'
+            elif post.id in user.downvoted_posts:
+                serializer_post_data['vote'] = 'downvote'
+            else:
+                serializer_post_data['vote'] = None
+
+            if post.id in user.bookmarked_posts:
+                serializer_post_data['bookmark'] = True
+            else:
+                serializer_post_data['bookmark'] = False
+        else:
+            serializer_post_data['vote'] = None
+            serializer_post_data['bookmark'] = None
+
+        author = post.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_post_data["author"] = author_data
+        posts.append(serializer_post_data)
+
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
         if user:
