@@ -11,7 +11,7 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/user.dart';
 
 class PostsSearchOverview extends StatefulWidget {
-  PostsSearchOverview({required this.activeUser, required this.searchType, this.longitude, this.latitude, this.category, this.keyword, this.name});
+  PostsSearchOverview({required this.activeUser, required this.searchType, this.longitude, this.latitude, this.category, this.keyword, this.name, this.dist});
   final User activeUser;
   final int searchType;
   final String? longitude;
@@ -19,6 +19,7 @@ class PostsSearchOverview extends StatefulWidget {
   final String? category;
   final String? keyword;
   final String? name;
+  final String? dist;
 
   @override
   _PostsSearchOverviewState createState() => _PostsSearchOverviewState();
@@ -55,7 +56,13 @@ class _PostsSearchOverviewState extends State<PostsSearchOverview> {
       } else if(widget.searchType == 1) { //keyword search
         postInfo = await ApiService().searchPostKeyword(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest, widget.keyword!);
       } else if(widget.searchType == 2) { //geolocation
-        //postInfo = await ApiService().searchPostCategory(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest, widget.category!);
+        print("DIST ${widget.dist}");
+        print("LONGITUDE ${widget.longitude}");
+        print("LATITUDE ${widget.latitude}");
+        postInfo = await ApiService().searchPostGeolocation(
+            widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest,
+            widget.dist!, widget.longitude!, widget.latitude!);
+        print(postInfo);
       } else if(widget.searchType == 3) { //name
         //postInfo = await ApiService().searchPostCategory(widget.activeUser.token, _pageNumber, _numberOfPostsPerRequest, widget.category!);
       }

@@ -3,6 +3,7 @@ import 'package:bounswe5_mobile/screens/login.dart';
 import 'package:bounswe5_mobile/screens/searchPost.dart';
 import 'package:bounswe5_mobile/screens/searchArticle.dart';
 import 'package:bounswe5_mobile/screens/home.dart';
+import 'package:bounswe5_mobile/screens/postSearchResults.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -23,8 +24,10 @@ class PostSearchByGeolocationPage extends StatefulWidget {
   State<PostSearchByGeolocationPage> createState() => _PostSearchByGeolocationPageState();
 }
 
-const List<String> distances = <String>["5 km", "10 km", "15 km", "20 km", "25 km" , "30 km", "50 km", "150 km", "300 km"];
+const List<String> distances = <String>["1 km","5 km", "10 km", "15 km", "20 km", "25 km" , "30 km", "50 km", "150 km", "300 km"];
 class _PostSearchByGeolocationPageState extends State<PostSearchByGeolocationPage> {
+
+  String distanceValue = distances.first;
 
   final TextEditingController _keyword = TextEditingController();
   Position? _currentPosition;
@@ -88,60 +91,74 @@ class _PostSearchByGeolocationPageState extends State<PostSearchByGeolocationPag
 
   @override
   Widget build(BuildContext context) {
-    String distanceValue = distances.first;
-    return Scaffold(
+    if(_currentPosition == null) {
+      _getCurrentPosition();
+      return Scaffold(
         appBar: myAppBar,
-        body: SingleChildScrollView(
-            child: Form(
-                child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB( 10.0, 20.0, 10.0, 0),
-                          child:  DropdownButtonFormField<String>(
-                            isExpanded: true,
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(),
-                              labelText: 'distance',
+        body: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: CircularProgressIndicator(),
+          )
+        )
+      );
+    } else {
+      return Scaffold(
+          appBar: myAppBar,
+          body: SingleChildScrollView(
+              child: Form(
+                  child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB( 10.0, 20.0, 10.0, 0),
+                            child:  DropdownButtonFormField<String>(
+                              isExpanded: true,
+                              decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(),
+                                labelText: 'distance',
+                              ),
+                              value: distanceValue,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  distanceValue = value!;
+                                });
+                              },
+                              items: distances.map<DropdownMenuItem<String>> ((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                             ),
-                            value: distanceValue,
-                            onChanged: (String? value) {
-                              setState(() {
-                                distanceValue = value!;
-                              });
-                            },
-                            items: distances.map<DropdownMenuItem<String>> ((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
                           ),
-                        ),
-                       // (this._currentPosition == null) ? const SizedBox.shrink() :
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB( 10.0, 10.0, 10.0, 10.0),
-                          child:  ElevatedButton(
-                            onPressed: () async {
-                                while(_currentPosition == null);
+                          // (this._currentPosition == null) ? const SizedBox.shrink() :
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB( 10.0, 10.0, 10.0, 10.0),
+                            child:  ElevatedButton(
+                              onPressed: () async {
+                                //while(_currentPosition == null);
+                                String dist = distanceValue.replaceAll(new RegExp(r'[^0-9]'),'');
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                         HomePage(token: widget.token, index: 0)),
+                                          PostSearchResultsPage(token: widget.token, searchType: 2,dist: dist,longitude: _currentPosition!.longitude.toString(),latitude: _currentPosition!.latitude.toString(),)),
                                 );
 
-                            }, child: const Text("Search"),
+                              }, child: const Text("Search"),
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                )
-            )
-        )
-    );
+                        ],
+                      )
+                  )
+              )
+          )
+      );
+    }
+
   }
 
 }
