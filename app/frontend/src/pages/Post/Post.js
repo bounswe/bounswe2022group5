@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { Image, notification } from 'antd';
+import { Image, notification, Tag } from 'antd';
 import { useSelector} from 'react-redux';
 import moment from "moment";
 import {
@@ -203,7 +203,8 @@ const Post = () => {
         }
         
     }
-
+    
+    const colours = ["magenta","red","volcano","orange","gold","lime","green","cyan","blue","geekblue","purple"];
     return(<>
         <div className="discussion-logo" onClick={() => navigate("/")}>
             <Image src={logo} preview={false}/>
@@ -226,6 +227,46 @@ const Post = () => {
                             </div>
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
+
+                         
+                        <div>
+                            <div>
+                            {'Labels:   '}  
+                            
+                            {
+                                // labelsArray.map((item, index) => (
+                                colours.map((item, index) => (
+                                    <Tag onClick={() => navigate(`/search/${item}`)} color={colours[index%colours.length]}>{item}</Tag>
+                                ))
+                            }
+                            </div>   
+                            
+                            <div>
+                            {'Our Suggestions:   '}  
+                            
+                            {
+                                // labelsArray.map((item, index) => (
+                                colours.map((item, index) => (
+                                    <Tag onClick={() => navigate(`/search/${item}`)} color={colours[index%colours.length]}>{item}</Tag>
+                                ))
+                            }
+                            </div>
+                            <br></br> 
+                            
+                        </div>
+
+                        {/* <div>
+                            {'Our Suggestions:   '}  
+                            
+                            {
+                                // labelsArray.map((item, index) => (
+                                colours.map((item, index) => (
+                                    <Tag color={colours[index%colours.length]}>{item}</Tag>
+                                ))
+                            }
+                        </div> */}
+                            
+
                         <div className="discussion-body-votes">
                             <div dangerouslySetInnerHTML={{ __html: post?.body }} ref={el => {
                                 textRef.current = el;
