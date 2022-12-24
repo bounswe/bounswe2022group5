@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -86,7 +87,11 @@ def get_upvoted_articles(request):
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
 
-    upvoter = request.user
+    user_id = request.GET.get('user_id', None)
+    if user_id:
+        upvoter = CustomUser.objects.get(id = user_id)
+    else:
+        upvoter = request.user
 
     upvoted_articles = upvoter.upvoted_articles
     articles = Article.objects.filter(id__in=upvoted_articles)
@@ -146,7 +151,13 @@ def get_upvoted_posts(request):
     paginator.max_page_size = 10
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
-    upvoter = request.user
+
+    user_id = request.GET.get('user_id', None)
+    if user_id:
+        upvoter = CustomUser.objects.get(id = user_id)
+    else:
+        upvoter = request.user
+
     upvoted_posts = upvoter.upvoted_posts
 
     posts = Post.objects.filter(id__in=upvoted_posts)
@@ -570,3 +581,123 @@ def get_followed_categories(request):
         for id in user_info.followed_categories :
             response.append(id)
         return Response(response, status=200)
+
+@api_view(['GET',])
+@permission_classes([IsAuthenticated,])
+def get_bookmarked_posts(request):
+    paginator = PageNumberPagination()
+    paginator.max_page_size = 10
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page', 1)
+    user = request.user
+    bookmarked_posts = user.bookmarked_posts
+
+    posts = Post.objects.filter(id__in=bookmarked_posts)
+
+
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
+
+    if sort == 'asc':
+        posts = posts.order_by('date')
+    elif sort == 'desc':
+        posts = posts.order_by('-date')
+
+    post_response = []
+    for post in posts:
+        serializer_data = PostSerializer(post).data
+        serializer_data['bookmark'] = True
+        author = post.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_data["author"] = author_data
+        post_response.append(serializer_data)
+
+    result_page = paginator.paginate_queryset(post_response, request)
+
+    return paginator.get_paginated_response(result_page)
+
+@api_view(['GET',])
+@permission_classes([IsAuthenticated,])
+def get_bookmarked_articles(request):
+    paginator = PageNumberPagination()
+    paginator.max_page_size = 10
+    paginator.page_size = request.GET.get('page_size', 10)
+    paginator.page = request.GET.get('page', 1)
+    user = request.user
+    bookmarked_articles = user.bookmarked_articles
+
+    articles = Article.objects.filter(id__in=bookmarked_articles)
+
+
+
+    temp = request.GET.get('sort', 'desc')
+    if temp == 'desc' or temp == 'asc':
+        sort = temp
+    else:
+        sort = 'desc'
+
+    if sort == 'asc':
+        articles = articles.order_by('date')
+    elif sort == 'desc':
+        articles = articles.order_by('-date')
+
+    article_response = []
+    for article in articles:
+        serializer_data = PostSerializer(article).data
+        serializer_data['bookmark'] = True
+        author = article.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_data["author"] = author_data
+        article_response.append(serializer_data)
+
+    result_page = paginator.paginate_queryset(article_response, request)
+
+    return paginator.get_paginated_response(result_page)

@@ -50,6 +50,14 @@
     color: darkslateblue;
 }
 
+.labels-header {
+    height: 10%;
+    font-size:large ;
+    font-style:normal;
+    font-weight: bold;
+    color: darkslateblue;
+}
+
 .create-post-title {
     height: 10%;
     margin-bottom: 2vh;

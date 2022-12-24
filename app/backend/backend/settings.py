@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'annotation',
     'corsheaders',
     'rest_framework.authtoken',
     'rest_framework',

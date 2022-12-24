@@ -1,68 +1,121 @@
-import json
 import os
-from typing import Optional
 
 from backend.models import CustomUser, Doctor, Member, Label, Category
 from django.db.models import Q
 from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
-from rest_framework import status
 from forum.serializers import PostSerializer, CommentSerializer, UpdatePostSerializer, CreateCommentSerializer, LabelSerializer, CategorySerializer
-from backend.pagination import ForumPagination
 from forum.models import Post, Comment
 from common.views import upload_to_s3, delete_from_s3
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
-import math
+from django.db import connection
 # Create your views here.
 
 @api_view(['GET',])
 @permission_classes([AllowAny])
 def get_all_posts(request):
-    search_query = request.GET.get('q', None)
-    search_query = search_query if search_query is None else search_query.split(" ")
+    # Begin building up the query
+    query= """SELECT {} FROM forum_post """
+
+    where_statements = []
 
     category = request.GET.get("c", None)
-
-    paginator = PageNumberPagination()
-    page_size = int(request.GET.get('page_size', 10))
-    paginator.page_size = request.GET.get('page_size', 10)
-    page = int(request.GET.get('page', 1))
-    paginator.page = request.GET.get('page', 1)
-
-    count = 0
-
-    ## Begin Filtering
-    post_objects = Post.objects.all()
-
     if category:
         category_object = Category.objects.get(name=category)
-        post_objects = post_objects.filter(category=category_object)
+        where_statements.append("category_id = " + str(category_object.id))
+
+    search_query = request.GET.get('q', None)
+    if search_query:
+
+        keyword_search_list = []
+
+        for keyword in search_query.split(" "):
+            keyword_search_list.append("title ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("body ilike'%%" + keyword + "%%'")
+
+
+        where_statements.append(
+            "(" + " or ".join(keyword_search_list) + ")"
+        )
+
+    distance = request.GET.get('dist', None)
+    if distance:
+        longitude = request.GET.get('longitude', None)
+        latitude = request.GET.get('latitude', None)
+
+        param_dict = {
+            'longitude': longitude,
+            'latitude': latitude,
+            'distance': distance
+        }
+
+        where_statements.append(
+            """(
+                longitude is not null and 
+                latitude is not null and
+                3959 * acos(
+                    cos( radians({latitude}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({longitude}) )
+                    + 
+                    sin( radians({latitude}) ) * sin( radians( latitude ) ) 
+                ) * 1.61 <= {distance}
+            )""".format(**param_dict)
+        )
+
+    if len(where_statements) > 0:
+        query += "WHERE " + " and ".join(where_statements) + " "
+    
+    # first get the count
+    count = 0
+    with connection.cursor() as cursor:
+        cursor.execute(query.format("count(*)"))
+        count = cursor.fetchone()[0]
+
+    # Sort
+    query += """ORDER BY "date" desc """
+
+    # Paginate
+    page_size = int(request.GET.get('page_size', 10))
+    page = int(request.GET.get('page', 1))
+    if page <= 0:
+        page = 1
+    query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
+    authors = []
 
     if search_query:
-        queryset_list1 = Q()
 
-        for keyword in search_query:
-            queryset_list1 |= (
-                Q(title__icontains=keyword) |
-                Q(body__icontains=keyword)
-            )
-        post_objects = post_objects.filter(queryset_list1)
+        try:
+            doctors = Doctor.objects.filter(full_name__icontains=search_query)
+            for doctor in doctors:
+                author = doctor.user
+                authors.append(author)
+        except:
+            pass
+        try:
+            members = Member.objects.filter(member_username__icontains=search_query)
+            print(members)
+            for member in members:
+                print(member.member_username)
+                author = member.user
+                authors.append(author)
+        except:
+            pass
 
-    # Fetch count before pagination
-    count = post_objects.count()
-    post_objects = post_objects.distinct().order_by('-date')[((page-1)*page_size):(page_size*page)]
+    posts_by_user = Post.objects.filter(author__in=authors)
+    post_objects = Post.objects.raw(query.format("distinct *"))
 
-    posts = []
+
+
     try:
         user = CustomUser.objects.get(email = request.user.email)
     except:
         user = None
-
-    for post in post_objects:
+    
+    posts = []
+    for post in posts_by_user:
         serializer_post_data = PostSerializer(post).data
         if user:
             if post.id in user.upvoted_posts:
@@ -71,8 +124,15 @@ def get_all_posts(request):
                 serializer_post_data['vote'] = 'downvote'
             else:
                 serializer_post_data['vote'] = None
+
+            if post.id in user.bookmarked_posts:
+                serializer_post_data['bookmark'] = True
+            else:
+                serializer_post_data['bookmark'] = False
         else:
             serializer_post_data['vote'] = None
+            serializer_post_data['bookmark'] = None
+
         author = post.author
         if author.type == 1:
             try:
@@ -100,9 +160,51 @@ def get_all_posts(request):
         serializer_post_data["author"] = author_data
         posts.append(serializer_post_data)
 
-    #result_page = paginator.paginate_queryset(posts, request)
+    for post in post_objects:
+        serializer_post_data = PostSerializer(post).data
+        if user:
+            if post.id in user.upvoted_posts:
+                serializer_post_data['vote'] = 'upvote'
+            elif post.id in user.downvoted_posts:
+                serializer_post_data['vote'] = 'downvote'
+            else:
+                serializer_post_data['vote'] = None
 
-    #response = paginator.get_paginated_response(result_page)
+            if post.id in user.bookmarked_posts:
+                serializer_post_data['bookmark'] = True
+            else:
+                serializer_post_data['bookmark'] = False
+        else:
+            serializer_post_data['vote'] = None
+            serializer_post_data['bookmark'] = None
+
+        author = post.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_post_data["author"] = author_data
+        posts.append(serializer_post_data)
+
     response = {}
     response["count"] = count
     response['next'] = None
@@ -143,6 +245,30 @@ def get_posts_of_user(request, user_id):
             post_dict['vote'] = 'downvote'
         else:
             post_dict['vote'] = None
+
+        if post.id in request.user.bookmarked_posts:
+            post_dict['bookmark'] = True
+        else:
+            post_dict['bookmark'] = False
+
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                'is_doctor': False
+            }
+        post_dict['author'] = author_data
         response_dict.append(post_dict)
 
     result_page = paginator.paginate_queryset(response_dict, request)
@@ -232,6 +358,26 @@ def get_comments_of_user(request, user_id):
             comment_dict['vote'] = 'downvote'
         else:
             comment_dict['vote'] = None
+
+
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                'is_doctor': False
+            }
+        comment_dict['author'] = author_data
         response_dict.append(comment_dict)
 
     result_page = paginator.paginate_queryset(response_dict, request)
@@ -289,8 +435,13 @@ def get_post(request,id):
                 response_dict['vote'] = 'downvote'
             else:
                 response_dict['vote'] = None
+            if post.id in request.user.bookmarked_posts:
+                response_dict['bookmark'] = True
+            else:
+                response_dict['bookmark'] = False
         else:
             response_dict['vote'] = None
+            response_dict['bookmark'] = None
 
 
 
@@ -671,3 +822,22 @@ def get_all_categories(request):
     queryset = Category.objects.all()
     serializer = CategorySerializer(queryset, many=True)
     return Response(serializer.data)
+
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def bookmark_post(request, id):
+        try:
+            post = Post.objects.get(id=id)
+            user_info = request.user
+        except:
+            return Response({'error': 'Post not found'}, status=400)
+
+        if id in user_info.bookmarked_posts :
+            user_info.bookmarked_posts.remove(id)
+            user_info.save()
+            return Response({'response': 'Bookmark removed successfully'}, status=200)
+        else:
+            user_info.bookmarked_posts.append(id)
+            user_info.save()
+            return Response({'response': 'Bookmark added successfully'}, status=200)

@@ -13,4 +13,6 @@ urlpatterns = [
     path('get_doctor_profile/<int:id>', views.get_doctor_profile, name='get_doctor_profile'),
     path('follow_category/<int:id>', views.follow_category, name='follow_category'),
     path('followed_categories', views.get_followed_categories, name='get_followed_categories'),
+    path('bookmarked_posts', views.get_bookmarked_posts, name='get_bookmarked_posts'),
+    path('bookmarked_articles', views.get_bookmarked_articles, name='get_bookmarked_articles'),
 ]

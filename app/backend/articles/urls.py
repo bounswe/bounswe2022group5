@@ -9,4 +9,5 @@ urlpatterns = [
     path('article/user/<int:user_id>', views.get_articles_of_doctor, name='get articles of doctor'),
     path('article/<int:id>/upvote', views.upvote_article, name='upvote an article'),
     path('article/<int:id>/downvote', views.downvote_article, name='downvote an article'),
+    path('article/<int:id>/bookmark', views.bookmark_article, name='bookmark an article'),
 ]

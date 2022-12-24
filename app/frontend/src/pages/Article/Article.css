@@ -103,6 +103,7 @@
 .article-display-image {
     margin-right: 20px;
     display: inline-block;
+    cursor: crosshair;
 }
 
 .article-display-vote {

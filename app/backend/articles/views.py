@@ -61,7 +61,31 @@ def get_all_articles(request):
         article_objects = Article.objects.all().order_by('-date')[((page-1)*page_size):(page_size*page)]
         count = Article.objects.count()
 
-    for article in article_objects:
+    authors = []
+    if request.GET.get('q', None):
+
+        search_query = request.GET.get('q', None)
+        try:
+
+            doctors = Doctor.objects.filter(full_name__icontains=search_query)
+
+            for doctor in doctors:
+                author = doctor.user
+                authors.append(author)
+        except:
+            pass
+        try:
+            members = Member.objects.filter(member_username__icontains=search_query)
+
+            for member in members:
+
+                author = member.user
+                authors.append(author)
+        except:
+            pass
+    articles_by_user = Article.objects.filter(author__in=authors)
+
+    for article in articles_by_user:
         serializer_article_data = ArticleSerializer(article).data
         if user:
             if article.id in user.upvoted_articles:
@@ -72,6 +96,51 @@ def get_all_articles(request):
                 serializer_article_data['vote'] = None
         else:
             serializer_article_data['vote'] = None
+        serializer_article_data['id'] = article.id
+        author = article.author
+        if author.type == 1:
+            try:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+            except:
+                author_data = None
+
+        elif author.type == 2:
+            try:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            except:
+                author_data = None
+        serializer_article_data["author"] = author_data
+        articles.append(serializer_article_data)
+    for article in article_objects:
+        serializer_article_data = ArticleSerializer(article).data
+        if user:
+            if article.id in user.upvoted_articles:
+                serializer_article_data['vote'] = 'upvote'
+            elif article.id in user.downvoted_articles:
+                serializer_article_data['vote'] = 'downvote'
+            else:
+                serializer_article_data['vote'] = None
+
+            if article.id in user.bookmarked_articles:
+                serializer_article_data['bookmark'] = True
+            else:
+                serializer_article_data['bookmark'] = False
+        else:
+            serializer_article_data['vote'] = None
+            serializer_article_data['bookmark'] = None
+
         serializer_article_data['id'] = article.id
         author = article.author
         if author.type == 1:
@@ -142,16 +211,62 @@ def get_articles_of_doctor(request, user_id):
                 serializer_article_data['vote'] = 'downvote'
             else:
                 serializer_article_data['vote'] = None
+
+            if article.id in request.user.bookmarked_articles:
+                serializer_article_data['bookmark'] = True
+            else:
+                serializer_article_data['bookmark'] = False
+
             serializer_article_data['id'] = article.id
+
+            if author.type == 1:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+
+            elif author.type == 2:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            serializer_article_data['author'] = author_data
             response.append(serializer_article_data)
     else:
         for article in articles:
             serializer_article_data = ArticleSerializer(article).data
             serializer_article_data['vote'] = None
             serializer_article_data['id'] = article.id
+
+            if author.type == 1:
+                doctor_data = Doctor.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': doctor_data.full_name,
+                    'profile_photo': doctor_data.profile_picture,
+                    'is_doctor': True
+                }
+
+            elif author.type == 2:
+                member_data = Member.objects.get(user=author)
+                author_data = {
+                    'id': author.id,
+                    'username': member_data.member_username,
+                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                    'is_doctor': False
+                }
+            serializer_article_data['author'] = author_data
+
             response.append(serializer_article_data)
 
     result_page = paginator.paginate_queryset(response, request)
+
     return paginator.get_paginated_response(result_page)
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -189,8 +304,15 @@ def article(request,id):
                 response_dict['vote'] = 'downvote'
             else:
                 response_dict['vote'] = None
+
+            if article.id in request.user.bookmarked_articles:
+                response_dict['bookmark'] = True
+            else:
+                response_dict['bookmark'] = False
         else:
             response_dict['vote'] = None
+            response_dict['bookmark'] = None
+
         response = {
             'article': response_dict,
             'image_urls': image_urls,
@@ -349,3 +471,20 @@ def downvote_article(request, id):
         article_serializer = ArticleSerializer(article)
         return Response({'article': article_serializer.data}, status=200)
 
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def bookmark_article(request, id):
+        try:
+            article = Article.objects.get(id=id)
+            user_info = request.user
+        except:
+            return Response({'error': 'Article not found'}, status=400)
+
+        if id in user_info.bookmarked_articles :
+            user_info.bookmarked_articles.remove(id)
+            user_info.save()
+            return Response({'response': 'Bookmark removed successfully'}, status=200)
+        else:
+            user_info.bookmarked_articles.append(id)
+            user_info.save()
+            return Response({'response': 'Bookmark added successfully'}, status=200)
