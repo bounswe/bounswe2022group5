@@ -389,3 +389,20 @@ def downvote_article(request, id):
         article_serializer = ArticleSerializer(article)
         return Response({'article': article_serializer.data}, status=200)
 
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def bookmark_article(request, id):
+        try:
+            article = Article.objects.get(id=id)
+            user_info = request.user
+        except:
+            return Response({'error': 'Article not found'}, status=400)
+
+        if id in user_info.bookmarked_articles :
+            user_info.bookmarked_articles.remove(id)
+            user_info.save()
+            return Response({'response': 'Bookmark removed successfully'}, status=200)
+        else:
+            user_info.bookmarked_articles.append(id)
+            user_info.save()
+            return Response({'response': 'Bookmark added successfully'}, status=200)
