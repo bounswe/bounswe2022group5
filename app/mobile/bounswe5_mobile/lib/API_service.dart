@@ -1456,7 +1456,7 @@ class ApiService {
     }
 
     /// This function gets all text annotations of a post or an article.
-    Future<dynamic> getTextAnnotations(String token, String type, int id) async {
+    Future<List<TextAnnotation>> getTextAnnotations(String token, String type, int id) async {
       // type is either "POST" or "ARTICLE"
       var uri = Uri.parse("$baseURL/annotation/$id?type=$type");
 
