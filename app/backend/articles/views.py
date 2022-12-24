@@ -63,6 +63,7 @@ def get_all_articles(request):
 
     authors = []
     if request.GET.get('q', None):
+
         search_query = request.GET.get('q', None)
         try:
 

@@ -30,6 +30,7 @@ def get_all_posts(request):
 
     search_query = request.GET.get('q', None)
     if search_query:
+
         keyword_search_list = []
 
         for keyword in search_query.split(" "):
