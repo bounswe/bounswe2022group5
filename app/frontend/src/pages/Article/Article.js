@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useSelector} from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Image } from 'antd';
+import { Image, notification } from 'antd';
 import moment from "moment";
 
 import Vote from "../../components/Vote/Vote";
@@ -17,6 +18,8 @@ const Article = () => {
     const [article, setArticle] = useState();
     const [images, setImages] = useState([]);
 
+    const { status: userStatus } = useSelector((state) => state.user);
+
     useEffect(() => {
         fetchArticleById(id)
             .then(res => {
@@ -25,6 +28,19 @@ const Article = () => {
                 setImages(res.image_urls);
             })
     }, [id]);
+
+    const articleClickHandle = () => {
+
+        if(userStatus==="fulfilled"){
+            navigate(`/profile/${article?.author?.id}`)
+        }else{
+            notification["error"]({
+            message: 'You need to login to see doctor profiles',
+            placement: "top"
+            });
+        }
+        
+    }
 
     return(<>
         <div className="article-display-logo" onClick={() => navigate("/")}>
@@ -35,7 +51,7 @@ const Article = () => {
                 <div className="article-display-avatar-body">
                     <div>
                         <img className="article-display-avatar" alt="avatar" src={article?.author?.profile_photo} onClick={
-                                    () => navigate(`/profile/${article?.author?.id}`)
+                                    () => { articleClickHandle() }
                                 }/>
                     </div>
                     <div style={{ width: "100%" }}>
@@ -43,7 +59,7 @@ const Article = () => {
                             <div className="article-display-title">
                                 <span className="article-display-title-text" style={{fontSize: "28px"}}>{article?.title}</span>
                                 <span className="article-display-title-author" style={{fontSize: "12px"}} onClick={
-                                    () => navigate(`/profile/${article?.author?.id}`)
+                                    () => { articleClickHandle() }
                                 }>by {article?.author?.username}</span>
                             </div>
                             <div className="article-display-date">{moment(article?.date).format("DD.MM.YYYY")}</div>

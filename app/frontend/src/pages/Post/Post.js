@@ -24,6 +24,8 @@ const Post = () => {
     const [comments, setComments] = useState();
     const [images, setImages] = useState([]);
 
+    const { status: userStatus } = useSelector((state) => state.user);
+
     useEffect(() => {
         fetchPostById(id)
             .then(res => {
@@ -54,6 +56,46 @@ const Post = () => {
         }
     }
 
+    const postClickHandle = () => {
+        if(post?.author?.is_doctor){
+            if(userStatus==="fulfilled"){
+                console.log(userStatus)
+                navigate(`/profile/${post?.author?.id}`) 
+            }else{
+                notification["error"]({
+                message: 'You need to login to see doctor profiles',
+                placement: "top"
+                });
+            }
+        }else{
+            notification["error"]({
+            message: 'User is not a doctor',
+            placement: "top"
+            });
+        }
+        
+    }
+
+    const commentClickHandle = (item) => {
+
+        if(item?.comment?.author?.is_doctor){
+            if(userStatus==="fulfilled"){
+                navigate(`/profile/${item?.comment?.author?.id}`)
+            }else{
+                notification["error"]({
+                message: 'You need to login to see doctor profiles',
+                placement: "top"
+                });
+            }
+        }else{
+            notification["error"]({
+            message: 'User is not a doctor',
+            placement: "top"
+            });
+        }
+        
+    }
+
     return(<>
         <div className="discussion-logo" onClick={() => navigate("/")}>
             <Image src={logo} preview={false}/>
@@ -63,13 +105,7 @@ const Post = () => {
                 <div className="discussion-avatar-body">
                     <div>
                         <img className="discussion-avatar" alt="avatar" src={post?.author?.profile_photo} onClick={
-                                    () => {post?.author?.is_doctor ? 
-                                        navigate(`/profile/${post?.author?.id}`) 
-                                        : 
-                                        notification["error"]({
-                                        message: 'User is not a doctor',
-                                        placement: "top"
-                                    });}
+                                    () => { postClickHandle() }
                                 }/>
                     </div>
                     <div style={{ width: "100%" }}>
@@ -77,13 +113,7 @@ const Post = () => {
                             <div className="discussion-title">
                                 <span className="discussion-title-text" style={{fontSize: "28px"}}>{post?.title}</span>
                                 <span className="discussion-title-author" style={{fontSize: "12px"}} onClick={
-                                    () => {post?.author?.is_doctor ? 
-                                        navigate(`/profile/${post?.author?.id}`) 
-                                        : 
-                                        notification["error"]({
-                                        message: 'User is not a doctor',
-                                        placement: "top"
-                                    });}
+                                    () => { postClickHandle() }
                                 }>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
                                 { post?.longitude && post?.latitude ? <span style={{ marginLeft: "3px" }}>
                                     in <a href={`https://maps.google.com/?q=${post?.latitude},${post?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'16px'}}></i></a>
@@ -125,24 +155,12 @@ const Post = () => {
 						comments?.map(item => (
 							<div className="discussion-comment">
                                 <img className="discussion-comment-avatar" alt="avatar" src={item?.comment?.author?.profile_photo} onClick={
-                                    () => {item?.comment?.author?.is_doctor ? 
-                                        navigate(`/profile/${item?.comment?.author?.id}`) 
-                                        : 
-                                        notification["error"]({
-                                        message: 'User is not a doctor',
-                                        placement: "top"
-                                    });}
+                                    () => { commentClickHandle(item) }
                                 }/>
                                 <div className="discussion-comment-container">
                                     <div className="discussion-comment-title">
                                         <span className="discussion-commment-author" onClick={
-                                    () => {item?.comment?.author?.is_doctor ? 
-                                        navigate(`/profile/${item?.comment?.author?.id}`) 
-                                        : 
-                                        notification["error"]({
-                                        message: 'User is not a doctor',
-                                        placement: "top"
-                                    });}
+                                    () => { commentClickHandle(item) }
                                 }>{item?.comment?.author?.username}</span>
                                         <span> at </span>
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
