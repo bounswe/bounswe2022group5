@@ -95,6 +95,13 @@ class _ViewPostPageState extends State<ViewPostPage> {
             pp = SvgPicture.network(post.author.profileImageUrl!);
           }
 
+          Widget categoryWidget = SizedBox.shrink();
+          if(post.category != null){
+            if(post.category!.name != ""){
+              categoryWidget = CategoryViewer(name: post.category!.name);
+            }
+          }
+
           return Scaffold(
             appBar: myAppBar,
             body: ListView(children: [
@@ -209,6 +216,13 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(5.0),
                       constraints: BoxConstraints(maxHeight: double.infinity),
                       width: double.infinity,
+                      child:
+                        categoryWidget,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5.0),
+                      constraints: BoxConstraints(maxHeight: double.infinity),
+                      width: double.infinity,
                       child: Text(
                         post.header,
                         textAlign: TextAlign.center,
@@ -294,7 +308,8 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                       style: TextStyle(
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20))
+                                          fontSize: 20)),
+
                                 ],
                               ),
                               SizedBox(
@@ -619,6 +634,7 @@ class _CommentItemState extends State<CommentItem> {
                 ),
 
                 SizedBox(height: 18),
+
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Row(
@@ -718,6 +734,39 @@ class _CommentItemState extends State<CommentItem> {
   }
 }
 
+class CategoryViewer extends StatelessWidget {
+  CategoryViewer({required this.name});
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          margin: EdgeInsets.all(15),
+          child: Row(
+            children: [
+              SizedBox(width: 15.0),
+              Icon(
+                Icons.category,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              SizedBox(width: 10.0),
+              Text(name,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary)),
+              SizedBox(width: 10.0),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 
 
