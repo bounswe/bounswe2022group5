@@ -101,7 +101,7 @@ const RenderCategories = (searchKey) => {
         }
         
 
-    }, []);
+    }, [userStatus]);
 
     //reference to https://love2dev.com/blog/javascript-remove-from-array/
     function arrayRemove(arr, value) {

@@ -1,7 +1,8 @@
+
+import { Image, notification } from 'antd';
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector} from 'react-redux';
-import { Image } from 'antd';
 import moment from "moment";
 
 import Vote from "../../components/Vote/Vote";
@@ -39,8 +40,12 @@ const Article = () => {
     const [article, setArticle] = useState();
     const [images, setImages] = useState([]);
 
+
+    const { status: userStatus } = useSelector((state) => state.user);
+
     const [imageAnnotations, setImageAnnotations] = useState([]);
     const [textAnnotations, setTextAnnotations] = useState([]);
+
 
     useEffect(() => {
         fetchArticleById(id)
@@ -49,6 +54,20 @@ const Article = () => {
                 setImages(res.image_urls);
             })
     }, [id]);
+
+
+    const articleClickHandle = () => {
+
+        if(userStatus==="fulfilled"){
+            navigate(`/profile/${article?.author?.id}`)
+        }else{
+            notification["error"]({
+            message: 'You need to login to see doctor profiles',
+            placement: "top"
+            });
+        }
+        
+    }
 
     useEffect(() => {
         fetchAnnotationById(id, "ARTICLE")
@@ -135,6 +154,7 @@ const Article = () => {
 
     }, [id, user, textRefState, textAnnotations]);
 
+
     return(<>
         <div className="article-display-logo" onClick={() => navigate("/")}>
             <Image src={logo} preview={false}/>
@@ -143,13 +163,17 @@ const Article = () => {
             <div className="article-display-post">
                 <div className="article-display-avatar-body">
                     <div>
-                        <img className="article-display-avatar" alt="avatar" src={article?.author?.profile_photo}/>
+                        <img className="article-display-avatar" alt="avatar" src={article?.author?.profile_photo} onClick={
+                                    () => { articleClickHandle() }
+                                }/>
                     </div>
                     <div style={{ width: "100%" }}>
                         <div className="article-display-upper">
                             <div className="article-display-title">
                                 <span className="article-display-title-text" style={{fontSize: "28px"}}>{article?.title}</span>
-                                <span className="article-display-title-author" style={{fontSize: "12px"}}>by {article?.author?.username}</span>
+                                <span className="article-display-title-author" style={{fontSize: "12px"}} onClick={
+                                    () => { articleClickHandle() }
+                                }>by {article?.author?.username}</span>
                             </div>
                             <div className="article-display-date">{moment(article?.date).format("DD.MM.YYYY")}</div>
                         </div>

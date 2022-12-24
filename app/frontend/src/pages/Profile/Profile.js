@@ -10,13 +10,14 @@ import Articles from "../../layouts/Article/Article";
 import Forum from "../../layouts/Forum/Forum";
 
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useLocation } from "react-router";
 
 import { fetchPostByUserId } from "../../redux/postSlice";
 import { fetchArticleByUserId } from "../../redux/articleSlice";
 import { fetchCommentByUserId } from "../../redux/commentSlice";
-import { fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture } from "../../redux/profileSlice";
+import { fetchPostUpvotesByDoctorId, fetchArticleUpvotesByDoctorId, fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture, fetchDoctorProfile } from "../../redux/profileSlice";
 import { setUser } from "../../redux/userSlice";
+
 
 const {Meta} = Card;
 const {Panel} = Collapse;
@@ -66,6 +67,7 @@ const renderArticles = (results, setArticles) => {
 }
 
 const renderComments = (results, setPosts) => {
+    console.log('zarg')
     console.log(results)
     return (
         <div>
@@ -101,6 +103,10 @@ const getBase64 = (file) => {
 
 const Profile = () => {
 
+    const path = useLocation();
+    const isMyProfile = path.pathname === "/profile" ? true : false;
+    const doctorId = isMyProfile ? null : path.pathname.split("/")[2];
+
     const { status: userStatus, user } = useSelector((state) => state.user);
     const userID = user.id; //user.id
 
@@ -117,69 +123,105 @@ const Profile = () => {
     }
 
     const userPhotoURL = user?.profile_image; //user.profile_image
-
-    //const userName = user.username;
-
     const [userPhoto, setUserPhoto] = useState(userPhotoURL);
 
     const [postCount, setPostCount] = useState();
     const [posts, setPosts] = useState();
     
     useEffect(() => {
-        if(user.id){
-            fetchPostByUserId(userID, pageNo).then(res => {
+        if(isMyProfile){
+            if(user.id){
+                fetchPostByUserId(userID, pageNo).then(res => {
+                    setPostCount(res.count);
+                    setPosts(res.results)
+                });
+            }
+        }else{
+            fetchPostByUserId(doctorId, pageNo).then(res => {
                 setPostCount(res.count);
-                setPosts(res.results)
-            });
+                setPosts(res.results);
+            })
         }
-        
-    }, [pageNo, user, pageType]);
+    }, [pageNo, user, pageType, isMyProfile]);
 
     const [articleCount, setArticleCount] = useState();
     const [articles, setArticles] = useState();
     
     useEffect(() => {
-        if(user.id){
-            fetchArticleByUserId(userID, pageNo).then(res => {
+        if(isMyProfile){
+            if(user.id){
+                fetchArticleByUserId(userID, pageNo).then(res => {
+                    setArticleCount(res.count);
+                    setArticles(res.results)
+                });
+            }
+        }else{
+            fetchArticleByUserId(doctorId, pageNo).then(res => {
                 setArticleCount(res.count);
                 setArticles(res.results)
-            });
+            })
         }
         
-    }, [pageNo, user, pageType]);
+        
+    }, [pageNo, user, pageType, isMyProfile]);
 
     const [commentCount, setCommentCount] = useState();
     const [comments, setComments] = useState();
     
     useEffect(() => {
-        if(user.id){
-            fetchCommentByUserId(userID, pageNo).then(res => {
-                setCommentCount(res.count);
-                setComments(res.results)
-            });
+        if(isMyProfile){
+            if(user.id){
+                fetchCommentByUserId(userID, pageNo).then(res => {
+                    setCommentCount(res.count);
+                    setComments(res.results)
+                });
+            }
         }
-        
-    }, [pageNo, user, pageType]);
+        else{
+            fetchCommentByUserId(doctorId, pageNo).then(res => {
+                setCommentCount(res.count);
+                setComments(res.results);
+            })
+        }
+    }, [pageNo, user, pageType, isMyProfile]);
 
     const [upvotedPostCount, setUpvotedPostCount] = useState();
     const [upvotedPosts, setUpvotedPosts] = useState();
 
     useEffect(() => {
-        fetchPostUpvotesByUserId(userID, pageNo).then(res => {
-            setUpvotedPostCount(res.count);
-            setUpvotedPosts(res.results)
-        })
-    }, [pageNo, pageType])
+        if(isMyProfile){
+            fetchPostUpvotesByUserId(userID, pageNo).then(res => {
+                setUpvotedPostCount(res.count);
+                setUpvotedPosts(res.results)
+            })
+        }else{
+            console.log(doctorId)
+            fetchPostUpvotesByDoctorId(doctorId, pageNo).then(res => {
+                console.log(res)
+                setUpvotedPostCount(res.count);
+                setUpvotedPosts(res.results);
+            })
+        }
+        
+    }, [pageNo, pageType, isMyProfile])
 
     const [upvotedArticleCount, setUpvotedArticleCount] = useState();
     const [upvotedArticles, setUpvotedArticles] = useState();
 
     useEffect(() => {
-        fetchArticleUpvotesByUserId(userID, pageNo).then(res => {
-            setUpvotedArticleCount(res.count);
-            setUpvotedArticles(res.results)
-        })
-    }, [pageNo, pageType])
+        if(isMyProfile){
+            fetchArticleUpvotesByUserId(userID, pageNo).then(res => {
+                setUpvotedArticleCount(res.count);
+                setUpvotedArticles(res.results)
+            })
+        }else{
+            fetchArticleUpvotesByDoctorId(doctorId, pageNo).then(res => {
+                setUpvotedArticleCount(res.count);
+                setUpvotedArticles(res.results);
+            })
+        }
+        
+    }, [pageNo, pageType, isMyProfile])
     
 
     const whichState = (pageType) => {
@@ -205,43 +247,53 @@ const Profile = () => {
     const [dateOfBirth, setDateOfBirth] = useState();
     const [email, setEmail] = useState();
     const [specialization, setSpecialization] = useState();
-
     const [newIllness, setNewIllness] = useState("");
     const [newDrug, setNewDrug] = useState("");
     const [newAllergy, setNewAllergy] = useState("");
     const [newChronicDisease, setNewChronicDisease] = useState("");
     const [newUndergoneOperation, setNewUndergoneOperation] = useState("");
 
-
+    
     useEffect(() => {
-        fetchPersonalInfo().then(res => {
-            setRegisterDate(res.register_date);
-            setDateOfBirth(res.date_of_birth);
-            setEmail(res.email);
-            setUserPhoto(res.profile_image);
 
-            if(user.type===1){
+        if(isMyProfile){
+            fetchPersonalInfo().then(res => {
+                setRegisterDate(res.register_date);
+                setDateOfBirth(res.date_of_birth);
+                setEmail(res.email);
+                setUserPhoto(res.profile_image);
+    
+                if(user.type===1){
+                    setUsername(res.full_name);
+                    setHospitalName(res.hospital_name);
+                    setSpecialization(res.specialization);
+                }
+                else{
+                    setUsername(res.member_username);
+                    setWeight(res.weight);
+                    setHeight(res.height);
+                    setPastIlnesses(res.past_illnesses);
+                    setUndergoneOperations(res.undergone_operations);
+                    setUsedDrugs(res.used_drugs);
+                    setAllergies(res.allergies);
+                    setChronicDiseases(res.chronic_diseases);
+                    setAge(res.age);
+                    setAddress(res.address);
+                }  
+            })
+        }else{
+            console.log(doctorId);
+            fetchDoctorProfile(doctorId).then(res => {
                 setUsername(res.full_name);
-                setHospitalName(res.hospital_name);
                 setSpecialization(res.specialization);
-            }
-            else{
-                setUsername(res.member_username);
-                setWeight(res.weight);
-                setHeight(res.height);
-                setPastIlnesses(res.past_illnesses);
-                setUndergoneOperations(res.undergone_operations);
-                setUsedDrugs(res.used_drugs);
-                setAllergies(res.allergies);
-                setChronicDiseases(res.chronic_diseases);
-                setAge(res.age);
-                setAddress(res.address);
-            }
+                setHospitalName(res.hospital_name);
+                setUserPhoto(res.profile_picture);
+            })
             
-            
-            
-        })
-    }, [])
+        }
+        
+    }, [isMyProfile])
+    
     
     const [form] = Form.useForm();
 
@@ -266,13 +318,16 @@ const Profile = () => {
     };
 
     const onFinishMedHistory = (values) => {
+        console.log()
         const body = {...values, 
-                        past_illnesses:[...pastIllnesses, newIllness], 
-                        allergies:[...allergies, newAllergy], 
-                        chronic_diseases:[...chronicDiseases, newChronicDisease], 
-                        undergone_operations:[...undergoneOperations, newUndergoneOperation],
-                        used_drugs:[...usedDrugs, newDrug]
+                        past_illnesses:[...(pastIllnesses||[]), newIllness], 
+                        allergies:[...(allergies||[]), newAllergy], 
+                        chronic_diseases:[...(chronicDiseases||[]), newChronicDisease], 
+                        undergone_operations:[...(undergoneOperations||[]), newUndergoneOperation],
+                        used_drugs:[...(usedDrugs||[]), newDrug]
                     }
+
+        console.log(body)
 
         fetchUpdatePersonalInfo(body).then(res => {
             notification["success"]({
@@ -400,7 +455,7 @@ const Profile = () => {
                 </div>
 
                 {
-                    userStatus==="fulfilled" ? 
+                    userStatus==="fulfilled" && isMyProfile ? 
                     <div className="profile-edit-pp">
                         <Button style={editButton} onClick={() => setPicturePopup(true)}>
                             {
@@ -537,12 +592,12 @@ const Profile = () => {
                     </div> : null
                 }
                 
-                {user.type===1 ? 
+                {user.type===1 || !isMyProfile ? 
                 <div className="profile-info">
                     <Space direction="vertical">
                         <Collapse>
                         <Panel header="Doctor Info" >
-                            Email: {user.email}
+                            {isMyProfile ? `Email: ${user.email}` : <></>}
                             <br></br>
                             {username ? `Full Name: ${username}` : <></>}
                             <br></br>
@@ -649,7 +704,7 @@ const Profile = () => {
                 
 
                 {
-                    !picturePopup && userStatus==="fulfilled" ? 
+                    !picturePopup && userStatus==="fulfilled" && isMyProfile ? 
                     <div className="profile-edit-pp">
                         <Button style={editButton} onClick={() => setInfoPopup(true)}>
                             {
@@ -738,7 +793,7 @@ const Profile = () => {
 
                 
                 {
-                    !picturePopup && userStatus==="fulfilled" ? 
+                    !picturePopup && userStatus==="fulfilled" && isMyProfile ? 
                     <div className="profile-edit-pp">
                         <Button style={editButton} onClick={() => setMedHistoryPopup(true)}>
                             {
@@ -883,7 +938,7 @@ const Profile = () => {
             : null}
 
             <div className="profile-activity">
-                {renderActivityHistory(pageType, posts, articles, comments, upvotedPosts, upvotedArticles)}
+                {renderActivityHistory()}
             </div>
             
             <div className="profile-pagination">

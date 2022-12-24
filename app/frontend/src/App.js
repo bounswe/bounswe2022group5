@@ -40,6 +40,8 @@ function App() {
 
         <Route path='profile' element={ <Profile /> }/>
 
+        <Route path='profile/:id' element={<Profile />}/>
+
         <Route path='/create-post' element={ <CreatePost /> }/>
 
         <Route path='/create-article' element={ <CreateArticle /> }/>

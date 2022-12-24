@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { Image, notification } from 'antd';
 import { useSelector} from 'react-redux';
-import { Image } from 'antd';
 import moment from "moment";
 import {
     CheckCircleOutlined
@@ -44,6 +44,8 @@ const Post = () => {
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
     const [images, setImages] = useState([]);
+
+    const { status: userStatus } = useSelector((state) => state.user);
 
     const [imageAnnotations, setImageAnnotations] = useState([]);
     const [textAnnotations, setTextAnnotations] = useState([]);
@@ -162,6 +164,46 @@ const Post = () => {
 
     }, [id, user, textRefState, textAnnotations]);
 
+    const postClickHandle = () => {
+        if(post?.author?.is_doctor){
+            if(userStatus==="fulfilled"){
+                console.log(userStatus)
+                navigate(`/profile/${post?.author?.id}`) 
+            }else{
+                notification["error"]({
+                message: 'You need to login to see doctor profiles',
+                placement: "top"
+                });
+            }
+        }else{
+            notification["error"]({
+            message: 'User is not a doctor',
+            placement: "top"
+            });
+        }
+        
+    }
+
+    const commentClickHandle = (item) => {
+
+        if(item?.comment?.author?.is_doctor){
+            if(userStatus==="fulfilled"){
+                navigate(`/profile/${item?.comment?.author?.id}`)
+            }else{
+                notification["error"]({
+                message: 'You need to login to see doctor profiles',
+                placement: "top"
+                });
+            }
+        }else{
+            notification["error"]({
+            message: 'User is not a doctor',
+            placement: "top"
+            });
+        }
+        
+    }
+
     return(<>
         <div className="discussion-logo" onClick={() => navigate("/")}>
             <Image src={logo} preview={false}/>
@@ -170,13 +212,17 @@ const Post = () => {
             { post ? <div className="discussion-post">
                 <div className="discussion-avatar-body">
                     <div>
-                        <img className="discussion-avatar" alt="avatar" src={post?.author?.profile_photo}/>
+                        <img className="discussion-avatar" alt="avatar" src={post?.author?.profile_photo} onClick={
+                                    () => { postClickHandle() }
+                                }/>
                     </div>
                     <div style={{ width: "100%" }}>
                         <div className="discussion-upper">
                             <div className="discussion-title">
                                 <span className="discussion-title-text" style={{fontSize: "28px"}}>{post?.title}</span>
-                                <span className="discussion-title-author" style={{fontSize: "12px"}}>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
+                                <span className="discussion-title-author" style={{fontSize: "12px"}} onClick={
+                                    () => { postClickHandle() }
+                                }>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
                             </div>
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
@@ -217,10 +263,14 @@ const Post = () => {
                     {
 						comments?.map(item => (
 							<div className="discussion-comment">
-                                <img className="discussion-comment-avatar" alt="avatar" src={item?.comment?.author?.profile_photo}/>
+                                <img className="discussion-comment-avatar" alt="avatar" src={item?.comment?.author?.profile_photo} onClick={
+                                    () => { commentClickHandle(item) }
+                                }/>
                                 <div className="discussion-comment-container">
                                     <div className="discussion-comment-title">
-                                        <span className="discussion-commment-author">{item?.comment?.author?.username}</span>
+                                        <span className="discussion-commment-author" onClick={
+                                    () => { commentClickHandle(item) }
+                                }>{item?.comment?.author?.username}</span>
                                         <span> at </span>
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
                                     </div>
