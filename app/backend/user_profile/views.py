@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -86,7 +87,11 @@ def get_upvoted_articles(request):
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
 
-    upvoter = request.user
+    user_id = request.GET.get('user_id', None)
+    if user_id:
+        upvoter = CustomUser.objects.get(id = user_id)
+    else:
+        upvoter = request.user
 
     upvoted_articles = upvoter.upvoted_articles
     articles = Article.objects.filter(id__in=upvoted_articles)
@@ -146,7 +151,13 @@ def get_upvoted_posts(request):
     paginator.max_page_size = 10
     paginator.page_size = request.GET.get('page_size', 10)
     paginator.page = request.GET.get('page', 1)
-    upvoter = request.user
+
+    user_id = request.GET.get('user_id', None)
+    if user_id:
+        upvoter = CustomUser.objects.get(id = user_id)
+    else:
+        upvoter = request.user
+
     upvoted_posts = upvoter.upvoted_posts
 
     posts = Post.objects.filter(id__in=upvoted_posts)

@@ -181,6 +181,24 @@ def get_posts_of_user(request, user_id):
         else:
             post_dict['bookmark'] = False
 
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                'is_doctor': False
+            }
+        post_dict['author'] = author_data
         response_dict.append(post_dict)
 
     result_page = paginator.paginate_queryset(response_dict, request)
@@ -270,6 +288,26 @@ def get_comments_of_user(request, user_id):
             comment_dict['vote'] = 'downvote'
         else:
             comment_dict['vote'] = None
+
+
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                'is_doctor': False
+            }
+        comment_dict['author'] = author_data
         response_dict.append(comment_dict)
 
     result_page = paginator.paginate_queryset(response_dict, request)
