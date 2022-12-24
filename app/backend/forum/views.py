@@ -31,7 +31,7 @@ def get_all_posts(request):
     search_query = request.GET.get('q', None)
     if search_query:
         keyword_search_list = []
-        print("e")
+
         for keyword in search_query.split(" "):
             keyword_search_list.append("title ilike'%%" + keyword + "%%'")
             keyword_search_list.append("body ilike'%%" + keyword + "%%'")
@@ -83,16 +83,18 @@ def get_all_posts(request):
         page = 1
     query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
     authors = []
-    if query:
+
+    if search_query:
+
         try:
-            doctors = Doctor.objects.filter(full_name__icontains=keyword)
+            doctors = Doctor.objects.filter(full_name__icontains=search_query)
             for doctor in doctors:
                 author = doctor.user
                 authors.append(author)
         except:
             pass
         try:
-            members = Member.objects.filter(member_username__icontains=keyword)
+            members = Member.objects.filter(member_username__icontains=search_query)
             print(members)
             for member in members:
                 print(member.member_username)
