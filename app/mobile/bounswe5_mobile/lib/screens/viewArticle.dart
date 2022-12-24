@@ -202,7 +202,13 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 8),
+                      Container(
+                        padding: EdgeInsets.all(5.0),
+                        constraints: BoxConstraints(maxHeight: double.infinity),
+                        width: double.infinity,
+                        child:
+                        categoryWidget,
+                      ),
                       Container(
                         padding: EdgeInsets.all(5.0),
                         constraints: BoxConstraints(maxHeight: double.infinity),
@@ -332,7 +338,6 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                     ],
                   ),
                 ),
-                categoryWidget,
               ]),
 
             );
