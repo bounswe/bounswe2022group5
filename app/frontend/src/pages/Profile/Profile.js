@@ -67,6 +67,7 @@ const renderArticles = (results, setArticles) => {
 }
 
 const renderComments = (results, setPosts) => {
+    console.log('zarg')
     console.log(results)
     return (
         <div>
