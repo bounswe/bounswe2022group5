@@ -16,6 +16,14 @@ import { Recogito } from '@recogito/recogito-js';
 import '@recogito/recogito-js/dist/recogito.min.css';
 
 import { fetchArticleById } from "../../redux/articleSlice";
+import { 
+    fetchAnnotationById,
+    createTextAnnotation,
+    createImageAnnotation,
+    updateTextAnnotation,
+    deleteTextAnnotation,
+    deleteImageAnnotation
+} from "../../redux/annotationSlice";
 
 const Article = () => {
     const id = useParams()?.id;
@@ -31,6 +39,9 @@ const Article = () => {
     const [article, setArticle] = useState();
     const [images, setImages] = useState([]);
 
+    const [imageAnnotations, setImageAnnotations] = useState([]);
+    const [textAnnotations, setTextAnnotations] = useState([]);
+
     useEffect(() => {
         fetchArticleById(id)
             .then(res => {
@@ -40,63 +51,89 @@ const Article = () => {
     }, [id]);
 
     useEffect(() => {
-        let annotorious = null;
+        fetchAnnotationById(id, "ARTICLE")
+            .then(res => {
+                console.log(res)
+                setImageAnnotations(res?.image_annotations);
+                setTextAnnotations(res?.text_annotations);
+            })
+            .catch(err => console.log(err))
+    }, [id])
+
+    useEffect(() => {
+        if(!user?.id) return;
+        if(refState?.filter((v, i, a) => a.indexOf(v) === i)?.length !== refState?.length) return;
 
         for (const image of imgsRef.current) {
             if (image) {
+                let annotorious = null;
                 // Init
                 annotorious = new Annotorious({
                     image,
                 });
         
                 // Attach event handlers here
-                annotorious.on('createAnnotation', annotation => {
+                annotorious.on('createAnnotation', async annotation => {
                     console.log('created', annotation);
+                    await createImageAnnotation(id, "ARTICLE", annotation);
                 });
         
                 annotorious.on('updateAnnotation', (annotation, previous) => {
                     console.log('updated', annotation, previous);
                 });
         
-                annotorious.on('deleteAnnotation', annotation => {
+                annotorious.on('deleteAnnotation', async annotation => {
                     console.log('deleted', annotation);
+                    await deleteImageAnnotation(annotation?.id, "ARTICLE");
                 });
 
                 annotorious.setAuthInfo({
                     id: `http://3.91.54.225:3000/profile/${user?.id}`,
                     displayName: user?.username
                 });
+
+                const savedAnnotations = imageAnnotations.filter(annot => annot?.target?.source);
+                annotorious.clearAnnotations();
+                annotorious.setAnnotations(savedAnnotations);
             }
         }
 
-    }, [user, refState]);
+    }, [id, user, refState, imageAnnotations]);
 
     useEffect(() => {
+        if(!user?.id) return;
+
         if(textRef.current) {
             const recogitto = new Recogito({
                 content: textRef.current
             });
     
             // Attach event handlers here
-            recogitto.on('createAnnotation', annotation => {
-                console.log('created', JSON.stringify(annotation, null, 2));
+            recogitto.on('createAnnotation', async annotation => {
+                console.log('created', annotation);
+                await createTextAnnotation(id, "ARTICLE", annotation);
             });
     
-            recogitto.on('updateAnnotation', (annotation, previous) => {
+            recogitto.on('updateAnnotation', async (annotation, previous) => {
                 console.log('updated', annotation, previous);
+                await updateTextAnnotation(id, "ARTICLE", annotation);
             });
     
-            recogitto.on('deleteAnnotation', annotation => {
+            recogitto.on('deleteAnnotation', async annotation => {
                 console.log('deleted', annotation);
+                await deleteTextAnnotation(annotation?.id, "ARTICLE");
             });
     
             recogitto.setAuthInfo({
                 id: `http://3.91.54.225:3000/profile/${user?.id}`,
                 displayName: user?.username
             });
+
+            recogitto.clearAnnotations();
+            recogitto.setAnnotations(textAnnotations);
         }
 
-    }, [user, textRefState]);
+    }, [id, user, textRefState, textAnnotations]);
 
     return(<>
         <div className="article-display-logo" onClick={() => navigate("/")}>
