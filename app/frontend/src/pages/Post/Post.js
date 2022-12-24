@@ -177,9 +177,6 @@ const Post = () => {
                             <div className="discussion-title">
                                 <span className="discussion-title-text" style={{fontSize: "28px"}}>{post?.title}</span>
                                 <span className="discussion-title-author" style={{fontSize: "12px"}}>by <span style={{fontSize: "14px", fontWeight: "550"}}>{post?.author?.username}</span></span>
-                                { post?.longitude && post?.latitude ? <span style={{ marginLeft: "3px" }}>
-                                    in <a href={`https://maps.google.com/?q=${post?.latitude},${post?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'16px'}}></i></a>
-                                </span> : null}
                             </div>
                             <div className="discussion-date">{moment(post?.date).format("DD.MM.YYYY")}</div>
                         </div>
@@ -226,9 +223,6 @@ const Post = () => {
                                         <span className="discussion-commment-author">{item?.comment?.author?.username}</span>
                                         <span> at </span>
                                         <span className="discussion-date">{moment(item?.comment?.date).format("DD.MM.YYYY")}</span>
-                                        { item?.comment?.longitude && item?.comment?.latitude ? <span style={{ marginLeft: "6px" }}>
-                                            in <a href={`https://maps.google.com/?q=${item?.comment?.latitude},${item?.comment?.longitude}`} target="_blank" rel="noopener noreferrer" ><i class='fas fa-map-marker-alt' style={{ fontSize:'14px'}}></i></a>
-                                        </span> : null}
                                     </div>
                                     <div className="discussion-comment-body">
                                     
