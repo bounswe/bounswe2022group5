@@ -23,12 +23,12 @@ export const updateTextAnnotation = async (id, type, annotation) => {
 }
 
 export const deleteTextAnnotation = async (annotationId, type) => {
-    const { data } = await axios.delete(`${url}/annotation/text/delete?type=${type}`, { id: annotationId });
+    const { data } = await axios.delete(`${url}/annotation/text/delete?type=${type}`, {data: { id: annotationId }});
     return data;
 }
 
 export const deleteImageAnnotation = async (annotationId, type) => {
-    const { data } = await axios.delete(`${url}/annotation/image/delete?type=${type}`, { id: annotationId });
+    const { data } = await axios.delete(`${url}/annotation/image/delete?type=${type}`, {data: { id: annotationId }});
     return data;
 }
 

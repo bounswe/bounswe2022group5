@@ -21,7 +21,14 @@ import '@recogito/recogito-js/dist/recogito.min.css';
 import "./Post.css";
 
 import { fetchPostById } from "../../redux/postSlice";
-import { fetchAnnotationById } from "../../redux/annotationSlice";
+import { 
+    fetchAnnotationById,
+    createTextAnnotation,
+    createImageAnnotation,
+    updateTextAnnotation,
+    deleteTextAnnotation,
+    deleteImageAnnotation
+} from "../../redux/annotationSlice";
 
 const Post = () => {
     const id = useParams()?.id;
@@ -81,26 +88,30 @@ const Post = () => {
     };
 
     useEffect(() => {
-        let annotorious = null;
-
-        for (const image of imgsRef.current) {
+        if(!user?.id) return;
+        if(refState?.filter((v, i, a) => a.indexOf(v) === i)?.length !== refState?.length) return;
+        
+        for (const image of imgsRef.current.filter((v, i, a) => a.indexOf(v) === i)) {
             if (image) {
+                let annotorious = null;
                 // Init
                 annotorious = new Annotorious({
                     image,
                 });
         
                 // Attach event handlers here
-                annotorious.on('createAnnotation', annotation => {
+                annotorious.on('createAnnotation', async annotation => {
                     console.log('created', annotation);
+                    await createImageAnnotation(id, "POST", annotation);
                 });
         
                 annotorious.on('updateAnnotation', (annotation, previous) => {
                     console.log('updated', annotation, previous);
                 });
         
-                annotorious.on('deleteAnnotation', annotation => {
+                annotorious.on('deleteAnnotation', async annotation => {
                     console.log('deleted', annotation);
+                    await deleteImageAnnotation(annotation?.id, "POST");
                 });
 
                 annotorious.setAuthInfo({
@@ -109,29 +120,35 @@ const Post = () => {
                 });
 
                 const savedAnnotations = imageAnnotations.filter(annot => annot?.target?.source);
+                annotorious.clearAnnotations();
                 annotorious.setAnnotations(savedAnnotations);
             }
         }
 
-    }, [user, refState, imageAnnotations]);
+    }, [id, user, refState, imageAnnotations]);
 
     useEffect(() => {
+        if(!user?.id) return;
+        
         if(textRef.current) {
             const recogitto = new Recogito({
                 content: textRef.current
             });
     
             // Attach event handlers here
-            recogitto.on('createAnnotation', annotation => {
-                console.log('created', JSON.stringify(annotation, null, 2));
+            recogitto.on('createAnnotation', async annotation => {
+                console.log('created', annotation);
+                await createTextAnnotation(id, "POST", annotation);
             });
     
-            recogitto.on('updateAnnotation', (annotation, previous) => {
+            recogitto.on('updateAnnotation', async (annotation, previous) => {
                 console.log('updated', annotation, previous);
+                await updateTextAnnotation(id, "POST", annotation);
             });
     
-            recogitto.on('deleteAnnotation', annotation => {
+            recogitto.on('deleteAnnotation', async annotation => {
                 console.log('deleted', annotation);
+                await deleteTextAnnotation(annotation?.id, "POST");
             });
     
             recogitto.setAuthInfo({
@@ -139,10 +156,11 @@ const Post = () => {
                 displayName: user?.username
             });
 
+            recogitto.clearAnnotations();
             recogitto.setAnnotations(textAnnotations);
         }
 
-    }, [user, textRefState, textAnnotations]);
+    }, [id, user, textRefState, textAnnotations]);
 
     return(<>
         <div className="discussion-logo" onClick={() => navigate("/")}>
