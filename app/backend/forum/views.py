@@ -13,6 +13,10 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.db import connection
+
+from semantic_search import SemanticSearchEngine
+
+
 # Create your views here.
 
 @api_view(['GET',])
@@ -445,6 +449,8 @@ def get_post(request,id):
 
 
 
+        response_dict['related_labels'] = post.related_labels
+
         response = {
             'post' :  response_dict,
             'image_urls': image_urls,
@@ -552,18 +558,31 @@ def create_post(request):
             pass
 
     if 'labels' in request.data:
+        semantic_engine = SemanticSearchEngine()
+
         try:
             labels = request.data["labels"].split(",")
             l = []
-            for label in labels:
+            related_labels = []
+            for label_str in labels:
+                if label_str=='':
+                    continue
 
-                label, valid = Label.objects.get_or_create(name=label)
+                label, valid = Label.objects.get_or_create(name=label_str)
+
+                related_labels2 = semantic_engine.get_labels(label_str)
+
+                for i in related_labels2:
+                    related_labels.append(i)
+                    post.related_labels.append(i)
+
                 post.labels.add(label)
                 post.save()
                 label_serialized = LabelSerializer(label).data
                 l.append(label_serialized)
 
             response_object['post']['labels'] = l
+            response_object['post']['related_labels'] = related_labels
         except:
             pass
 
