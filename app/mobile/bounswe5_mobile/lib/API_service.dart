@@ -1,6 +1,7 @@
 
 
 import 'dart:io';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -1499,7 +1500,7 @@ class ApiService {
           int start = annotation["target"]["selector"][1]["start"];
           int end = annotation["target"]["selector"][1]["end"];
 
-          TextAnnotation anno = TextAnnotation(created, creatorId, creatorName, annotationBody, annotationId, selectedText, start, end);
+          TextAnnotation anno = TextAnnotation(created, creatorId, creatorName, annotationBody, selectedText, start, end);
           annos.add(anno);
         }
       }
@@ -1507,4 +1508,83 @@ class ApiService {
       return annos;
     }
 
+    Future<int> createTextAnnotation(String token, String type, int id, TextAnnotation anno) async {
+
+      // type is either "POST" or "ARTICLE"
+
+      var uri = Uri.parse("$baseURL/annotation/text/$id?type=$type");
+
+      var header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+
+
+      final DateFormat formatter = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSSSS');
+
+      var reqbody = {
+        "@context" : "http://www.w3.org/ns/anno.jsonld",
+
+        "body": [
+          {
+            "created" : formatter.format(anno.created),
+            "creator" : {
+              "id" : "http://3.91.54.225:3000/profile/" + anno.creatorId.toString(),
+              "name": anno.creatorName
+            },
+            "modified" : formatter.format(anno.created),
+            "purpose": "commenting",
+            "type" : "TextualBody",
+            "value" : anno.annotationBody,
+          }
+        ],
+      
+        "id" : generateAnnotationId(),
+        "target" : {
+          "selector": [
+            {
+              "exact" : anno.selectedText,
+              "type" : "TextQuoteSelector"
+
+            },
+            {
+              "start": anno.start,
+              "end": anno.end,
+              "type": "TextPositionSelector"
+            }
+          ]
+        },
+        "type": "Annotation"
+
+
+      };
+
+      final response = await http.post(
+          uri,
+          headers: header,
+          body: jsonEncode(reqbody),
+      );
+
+      print(response.body);
+
+      print(response.statusCode);
+      return response.statusCode;
+
+    }
+
+}
+
+const _chars = 'abcdef1234567890';
+Random _rnd = Random();
+
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+String generateAnnotationId(){
+  String part1 = getRandomString(8);
+  String part2 = getRandomString(4);
+  String part3 = getRandomString(4);
+  String part4 = getRandomString(4);
+  String part5 = getRandomString(12);
+  return "#$part1-$part2-$part3-$part4-$part5";
 }

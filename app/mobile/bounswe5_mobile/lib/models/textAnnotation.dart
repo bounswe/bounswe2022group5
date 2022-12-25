@@ -3,7 +3,6 @@ class TextAnnotation{
   final int creatorId;
   final String creatorName;
   final String annotationBody;
-  final String annotationId;
   final String selectedText;
   final int start;
   final int end;
@@ -13,7 +12,6 @@ class TextAnnotation{
       this.creatorId,
       this.creatorName,
       this.annotationBody,
-      this.annotationId,
       this.selectedText,
       this.start,
       this.end,
