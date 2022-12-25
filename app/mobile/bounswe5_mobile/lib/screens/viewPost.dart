@@ -117,6 +117,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(12.0),
                       child: Row(
                         children: [
+                          post.author.isDoctor ?
                           InkWell(
                             onTap: () async {
                               final result = await ApiService().getDoctorInfo(post.author.id);
@@ -131,6 +132,12 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                   child: pp,
                                 )
                             ),
+                          ):
+                          CircleAvatar(
+                              radius: 20,
+                              child: ClipOval(
+                                child: pp,
+                              )
                           ),
                           SizedBox(
                             width: 8.0,
@@ -531,11 +538,27 @@ class _CommentItemState extends State<CommentItem> {
           Column(
             children: [
               SizedBox(height: 20),
+              post.author.isDoctor ?
+              InkWell(
+                onTap: () async {
+                  final result = await ApiService().getDoctorInfo(post.author.id);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                  );
+                },
+                child: CircleAvatar(
+                    radius: 20,
+                    child: ClipOval(
+                      child: pp,
+                    )
+                ),
+              ):
               CircleAvatar(
-                radius: 20,
-                child: ClipOval(
-                  child: pp,
-                )
+                  radius: 20,
+                  child: ClipOval(
+                    child: pp,
+                  )
               ),
             ],
           ),
