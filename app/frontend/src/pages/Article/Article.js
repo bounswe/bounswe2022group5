@@ -9,6 +9,7 @@ import Vote from "../../components/Vote/Vote";
 
 import "./Article.css";
 import logo from "../../layouts/NavBar/logo.png";
+import Delete from '../../components/Delete/Delete';
 
 import { Annotorious } from '@recogito/annotorious';
 import '@recogito/annotorious/dist/annotorious.min.css';
@@ -177,6 +178,15 @@ const Article = () => {
                             </div>
                             <div className="article-display-date">{moment(article?.date).format("DD.MM.YYYY")}</div>
                         </div>
+
+                        {console.log(article)}
+                        <div className="article-display-delete">
+                            <br></br>
+                            <div>
+                                <Delete item={article} type={"article"}/>
+                            </div>
+                        </div>
+
                         <div className="article-display-body-votes">
                             <div dangerouslySetInnerHTML={{ __html: article?.body }} ref={el => {
                                 textRef.current = el;

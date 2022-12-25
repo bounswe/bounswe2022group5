@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 
 import { 
+    fetchDeleteArticle,
     fetchDeletePost
 } from '../../redux/deleteSlice';
 
@@ -37,12 +38,42 @@ const Delete = ({ item, type, className }) => {
         })
     }
 
+    const handleDeleteArticle = async () => {
+        await fetchDeleteArticle(item?.id).then(res => {
+            notification["success"]({
+                message: 'Article is deleted',
+                placement: "top"
+            });
+            navigate(`/`)
+        })
+        .catch((err) => {
+            console.log(err.response.data)
+            notification["error"]({
+                message: 'Article is not deleted',
+                placement: "top"
+        });
+        })
+    }
+
     const renderDeletePostButton = () => {
         return (
             <div>
                 <div
                     className="delete-icon"
                     onClick={handleDeletePost}
+                    >
+                    <Button shape="circle" icon={<DeleteOutlined style={{ fontSize: '24px', color: '#FF5C5C' }}/>}/>
+                    </div>
+            </div>
+        )
+    }
+
+    const renderDeleteArticleButton = () => {
+        return (
+            <div>
+                <div
+                    className="delete-icon"
+                    onClick={handleDeleteArticle}
                     >
                     <Button shape="circle" icon={<DeleteOutlined style={{ fontSize: '24px', color: '#FF5C5C' }}/>}/>
                     </div>
@@ -58,9 +89,17 @@ const Delete = ({ item, type, className }) => {
         )
     }
 
+    const renderDeleteArticle = () => {
+        return (
+            <div>
+                {user.id === item?.author?.id ? renderDeleteArticleButton(): null}
+            </div>
+        )
+    }
+
     return(
         <div>
-            {type === "post" ? renderDeletePost(): null}
+            {type === "post" ? renderDeletePost(): renderDeleteArticle()}
         </div>
     );
 };

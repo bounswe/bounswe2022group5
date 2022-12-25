@@ -109,3 +109,8 @@
 .article-display-vote {
     margin-top: -40px;
 }
+
+.article-display-delete {
+    display: flex;
+    justify-content: space-between;
+}
