@@ -1510,6 +1510,20 @@ class ApiService {
 
     Future<int> createTextAnnotation(String token, String type, int id, TextAnnotation anno) async {
 
+      const _chars = 'abcdef1234567890';
+      Random _rnd = Random();
+
+      String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+          length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+      String generateAnnotationId(){
+        String part1 = getRandomString(8);
+        String part2 = getRandomString(4);
+        String part3 = getRandomString(4);
+        String part4 = getRandomString(4);
+        String part5 = getRandomString(12);
+        return "#$part1-$part2-$part3-$part4-$part5";
+      }
       // type is either "POST" or "ARTICLE"
 
       var uri = Uri.parse("$baseURL/annotation/text/$id?type=$type");
@@ -1565,26 +1579,8 @@ class ApiService {
           body: jsonEncode(reqbody),
       );
 
-      print(response.body);
-
-      print(response.statusCode);
       return response.statusCode;
 
     }
 
-}
-
-const _chars = 'abcdef1234567890';
-Random _rnd = Random();
-
-String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-
-String generateAnnotationId(){
-  String part1 = getRandomString(8);
-  String part2 = getRandomString(4);
-  String part3 = getRandomString(4);
-  String part4 = getRandomString(4);
-  String part5 = getRandomString(12);
-  return "#$part1-$part2-$part3-$part4-$part5";
 }
