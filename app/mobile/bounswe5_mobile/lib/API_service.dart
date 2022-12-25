@@ -1,5 +1,6 @@
 
 
+import 'dart:ffi';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -1915,5 +1916,26 @@ class ApiService {
     return result;
   }
 
+  Future<List?> getDoctorInfo(int doctorId) async {
+    var uri = Uri.parse("$baseURL/profile/get_doctor_profile/$doctorId");
+
+
+    final header = {
+      'content-type': "application/json",
+    };
+    final response = await http.get(uri, headers: header);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+      String fullName = body["full_name"];
+      String specialization = body["specialization"];
+      String hospitalName = body["hospital_name"];
+      String profilePicture = body["profile_picture"];
+      List doctorInfo = [fullName, specialization, hospitalName, profilePicture];
+
+      return doctorInfo;
+
+    }
+  }
 
 }
