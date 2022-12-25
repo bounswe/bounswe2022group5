@@ -195,7 +195,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                     ),
                                   ],
                                 );
-                              } else {
+                              } else if(isSessionActive) {
                                 return PopupMenuButton<Menu>(
                                   onSelected: (Menu item) {
                                     setState(() {
@@ -221,6 +221,24 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                     const PopupMenuItem<Menu>(
                                       value: Menu.itemTwo,
                                       child: Text('See Text Annotations'),
+                                    ),
+                                  ],
+                                );
+                              }
+                              else{
+                                return PopupMenuButton<Menu>(
+                                  onSelected: (Menu item) {
+                                    setState(() {
+                                      if(item == Menu.itemOne) {
+                                        print("Report article");
+                                      }
+                                    });
+                                  },
+                                  itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<Menu>>[
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemOne,
+                                      child: Text('Report'),
                                     ),
                                   ],
                                 );

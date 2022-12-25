@@ -195,10 +195,10 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                   const PopupMenuItem<Menu>(
                                     value: Menu.itemThree,
                                     child: Text('See Text Annotations'),
-                                  ),
+                                  )
                                 ],
                               );
-                            } else {
+                            } else if(isSessionActive){
                               return PopupMenuButton<Menu>(
                                 onSelected: (Menu item) {
                                   setState(() {
@@ -224,6 +224,24 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                   const PopupMenuItem<Menu>(
                                     value: Menu.itemTwo,
                                     child: Text('See Text Annotations'),
+                                  ),
+                                ],
+                              );
+                            }
+                            else{
+                              return PopupMenuButton<Menu>(
+                                onSelected: (Menu item) {
+                                  setState(() {
+                                    if(item == Menu.itemOne) {
+                                      print("Report Post");
+                                    }
+                                  });
+                                },
+                                itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<Menu>>[
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemOne,
+                                    child: Text('Report'),
                                   ),
                                 ],
                               );
