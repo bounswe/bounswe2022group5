@@ -47,3 +47,8 @@ export const fetchDoctorProfile = async (id) => {
     return data;
 }
 
+export const fetchDeleteAccount = async () => {
+    const {data} = await axios.delete(`${url}/profile/delete_account`);
+    return data;
+}
+
