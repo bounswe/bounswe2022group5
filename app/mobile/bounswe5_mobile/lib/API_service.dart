@@ -1453,4 +1453,467 @@ class ApiService {
       return result;
     }
 
+
+  Future<dynamic> searchPostCategory(String token, int page, int pageSize, String category) async {
+    var uri = Uri.parse("$baseURL/forum/posts?page=$page&page_size=$pageSize&c=$category");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    int count = 0;
+    List<dynamic> results;
+    List<Post> posts = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      results = body["results"];
+      count = body["count"];
+
+      int i;
+      for(i = 0 ; i < results.length ; i++){
+        int id = results[i]["id"];
+
+        String date = results[i]["date"];
+        String title = results[i]["title"];
+        String postBody = results[i]["body"];
+        int upvotes = results[i]["upvote"];
+        int downvotes = results[i]["downvote"];
+        double? longitude = results[i]["longitude"];
+        double? latitude = results[i]["latitude"];
+        bool commentedByDoctor = results[i]["commented_by_doctor"];
+
+        var categoryraw = results[i]["category"];
+        Category category = Category(-1,"","");
+        if(categoryraw != null){
+          category = Category(categoryraw["id"], categoryraw["name"], "");
+        }
+
+        List<dynamic> labelsraw = results[i]["labels"];
+        List<Label> labels = List.empty(growable: true);
+
+        for(int j = 0 ; j < labels.length; j++){
+          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+          labels.add(label);
+        }
+
+        int authorId = results[i]["author"]["id"];
+        String authorUsername = results[i]["author"]["username"];
+        String profileImage = results[i]["author"]["profile_photo"];
+        bool isAuthorDoctor = results[i]["author"]["is_doctor"];
+        String? voteOfActiveUser = results[i]["vote"];
+
+        PostAuthor postAuthor = PostAuthor(authorId, authorUsername, isAuthorDoctor);
+        postAuthor.profileImageUrl = profileImage;
+
+        var dateTime = DateTime.parse(date);
+
+        Post p = Post(id,
+          postAuthor,
+          dateTime,
+          title,
+          postBody,
+          upvotes: upvotes,
+          downvotes: downvotes,
+          isDoctorReplied: commentedByDoctor,
+        );
+
+        p.category = category;
+        p.labels = labels;
+        p.voteOfActiveUser = voteOfActiveUser;
+
+        posts.add(p);
+      }
+
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(count);
+    result.add(posts);
+
+    return result;
+  }
+
+  Future<dynamic> searchPostKeyword(String token, int page, int pageSize, String keyword) async {
+    var uri = Uri.parse("$baseURL/forum/posts?page=$page&page_size=$pageSize&q=$keyword");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    int count = 0;
+    List<dynamic> results;
+    List<Post> posts = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      results = body["results"];
+      count = body["count"];
+
+      int i;
+      for(i = 0 ; i < results.length ; i++){
+        int id = results[i]["id"];
+
+        String date = results[i]["date"];
+        String title = results[i]["title"];
+        String postBody = results[i]["body"];
+        int upvotes = results[i]["upvote"];
+        int downvotes = results[i]["downvote"];
+        double? longitude = results[i]["longitude"];
+        double? latitude = results[i]["latitude"];
+        bool commentedByDoctor = results[i]["commented_by_doctor"];
+
+        var categoryraw = results[i]["category"];
+        Category category = Category(-1,"","");
+        if(categoryraw != null){
+          category = Category(categoryraw["id"], categoryraw["name"], "");
+        }
+
+        List<dynamic> labelsraw = results[i]["labels"];
+        List<Label> labels = List.empty(growable: true);
+
+        for(int j = 0 ; j < labels.length; j++){
+          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+          labels.add(label);
+        }
+
+        int authorId = results[i]["author"]["id"];
+        String authorUsername = results[i]["author"]["username"];
+        String profileImage = results[i]["author"]["profile_photo"];
+        bool isAuthorDoctor = results[i]["author"]["is_doctor"];
+        String? voteOfActiveUser = results[i]["vote"];
+
+        PostAuthor postAuthor = PostAuthor(authorId, authorUsername, isAuthorDoctor);
+        postAuthor.profileImageUrl = profileImage;
+
+        var dateTime = DateTime.parse(date);
+
+        Post p = Post(id,
+          postAuthor,
+          dateTime,
+          title,
+          postBody,
+          upvotes: upvotes,
+          downvotes: downvotes,
+          isDoctorReplied: commentedByDoctor,
+        );
+
+        p.category = category;
+        p.labels = labels;
+        p.voteOfActiveUser = voteOfActiveUser;
+
+        posts.add(p);
+      }
+
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(count);
+    result.add(posts);
+
+    return result;
+  }
+
+
+  Future<dynamic> searchPostGeolocation(String token, int page, int pageSize, String dist, String longitude, String latitude) async {
+    var uri = Uri.parse("$baseURL/forum/posts?page=$page&page_size=$pageSize&dist=$dist&longitude=$longitude&latitude=$latitude");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    int count = 0;
+    List<dynamic> results;
+    List<Post> posts = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      results = body["results"];
+      count = body["count"];
+
+      int i;
+      for(i = 0 ; i < results.length ; i++){
+        int id = results[i]["id"];
+
+        String date = results[i]["date"];
+        String title = results[i]["title"];
+        String postBody = results[i]["body"];
+        int upvotes = results[i]["upvote"];
+        int downvotes = results[i]["downvote"];
+        double? longitude = results[i]["longitude"];
+        double? latitude = results[i]["latitude"];
+        bool commentedByDoctor = results[i]["commented_by_doctor"];
+
+        var categoryraw = results[i]["category"];
+        Category category = Category(-1,"","");
+        if(categoryraw != null){
+          category = Category(categoryraw["id"], categoryraw["name"], "");
+        }
+
+        List<dynamic> labelsraw = results[i]["labels"];
+        List<Label> labels = List.empty(growable: true);
+
+        for(int j = 0 ; j < labels.length; j++){
+          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+          labels.add(label);
+        }
+
+        int authorId = results[i]["author"]["id"];
+        String authorUsername = results[i]["author"]["username"];
+        String profileImage = results[i]["author"]["profile_photo"];
+        bool isAuthorDoctor = results[i]["author"]["is_doctor"];
+        String? voteOfActiveUser = results[i]["vote"];
+
+        PostAuthor postAuthor = PostAuthor(authorId, authorUsername, isAuthorDoctor);
+        postAuthor.profileImageUrl = profileImage;
+
+        var dateTime = DateTime.parse(date);
+
+        Post p = Post(id,
+          postAuthor,
+          dateTime,
+          title,
+          postBody,
+          upvotes: upvotes,
+          downvotes: downvotes,
+          isDoctorReplied: commentedByDoctor,
+        );
+
+        p.category = category;
+        p.labels = labels;
+        p.voteOfActiveUser = voteOfActiveUser;
+
+        posts.add(p);
+      }
+
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(count);
+    result.add(posts);
+
+    return result;
+  }
+
+  Future<dynamic> articleSearchCategory(String token, int page, int pageSize, String category) async {
+    var uri = Uri.parse("$baseURL/articles/all?page=$page&page_size=$pageSize&c=$category");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+
+    print("RESPONSE: ${response.statusCode}");
+    print("CAT $category");
+
+    int count = 0;
+    List<dynamic> results;
+    List<Article> articles = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      print("BODY $body");
+
+      count = body["count"];
+      results = body["results"];
+
+
+      int i;
+      for(i = 0 ; i < results.length ; i++){
+
+        int id = results[i]["id"];
+        String date = results[i]["date"];
+
+        List<dynamic> labelsraw = results[i]["labels"];
+        List<Label> labels = List.empty(growable: true);
+
+        for(int j = 0 ; j < labels.length; j++){
+          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+          labels.add(label);
+        }
+
+        var categoryraw = results[i]["category"];
+        Category category = Category(-1,"","");
+        if(categoryraw != null){
+          category = Category(categoryraw["id"], categoryraw["name"], "");
+        }
+
+        String title = results[i]["title"];
+        String articleBody = results[i]["body"];
+        int upvotes = results[i]["upvote"];
+        int downvotes = results[i]["downvote"];
+
+        int authorId = results[i]["author"]["id"];
+        String authorUsername = results[i]["author"]["username"];
+        String profileImage = results[i]["author"]["profile_photo"];
+
+        String? voteOfActiveUser = results[i]["vote"];
+
+        ArticleAuthor articleAuthor = ArticleAuthor(authorId, authorUsername);
+        articleAuthor.setProfileImageUrl(profileImage);
+
+        var dateTime = DateTime.parse(date);
+
+        Article a = Article(
+          id,
+          dateTime,
+          title,
+          articleBody,
+          articleAuthor,
+          upvotes: upvotes,
+          downvotes: downvotes,
+        );
+        articles.add(a);
+      }
+
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(count);
+    result.add(articles);
+
+    return result;
+  }
+
+
+  Future<dynamic> articleSearchKeyword(String token, int page, int pageSize, String keyword) async {
+    var uri = Uri.parse("$baseURL/articles/all?page=$page&page_size=$pageSize&q=$keyword");
+
+    var header;
+    if(token != "-1"){
+      header = {
+        'Authorization': "token $token",
+        'content-type': "application/json",
+      };
+    }
+    else{
+      header = {
+        'content-type': "application/json",
+      };
+    }
+
+    final response = await http.get(uri, headers: header);
+
+    int count = 0;
+    List<dynamic> results;
+    List<Article> articles = List.empty(growable: true);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+
+      count = body["count"];
+      results = body["results"];
+
+
+      int i;
+      for(i = 0 ; i < results.length ; i++){
+
+        int id = results[i]["id"];
+        String date = results[i]["date"];
+
+        List<dynamic> labelsraw = results[i]["labels"];
+        List<Label> labels = List.empty(growable: true);
+
+        for(int j = 0 ; j < labels.length; j++){
+          Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
+          labels.add(label);
+        }
+
+        var categoryraw = results[i]["category"];
+        Category category = Category(-1,"","");
+        if(categoryraw != null){
+          category = Category(categoryraw["id"], categoryraw["name"], "");
+        }
+
+        String title = results[i]["title"];
+        String articleBody = results[i]["body"];
+        int upvotes = results[i]["upvote"];
+        int downvotes = results[i]["downvote"];
+
+        int authorId = results[i]["author"]["id"];
+        String authorUsername = results[i]["author"]["username"];
+        String profileImage = results[i]["author"]["profile_photo"];
+
+        String? voteOfActiveUser = results[i]["vote"];
+
+        ArticleAuthor articleAuthor = ArticleAuthor(authorId, authorUsername);
+        articleAuthor.setProfileImageUrl(profileImage);
+
+        var dateTime = DateTime.parse(date);
+
+        Article a = Article(
+          id,
+          dateTime,
+          title,
+          articleBody,
+          articleAuthor,
+          upvotes: upvotes,
+          downvotes: downvotes,
+        );
+        articles.add(a);
+      }
+
+    }
+
+    List<dynamic> result = List.empty(growable: true);
+
+    result.add(count);
+    result.add(articles);
+
+    return result;
+  }
+
+
 }
