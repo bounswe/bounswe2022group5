@@ -38,13 +38,18 @@ class _TextAnnotationsListState extends State<TextAnnotationsList> {
                           "Text Annotations",
                           style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 2.0),
                         ),
-                        Text(
-                          "To create an annotation, please use our web application.",
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        )
+                        annos.isEmpty ?
+                            const Text(
+                              "No annotations yet.",
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ):
+                            const SizedBox.shrink(),
                       ],
                     );
                   }
+
                   final annotation = annos[index-1];
 
                   return TextAnnotationItem(annotation: annotation);
