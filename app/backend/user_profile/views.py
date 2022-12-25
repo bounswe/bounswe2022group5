@@ -701,3 +701,13 @@ def get_bookmarked_articles(request):
     result_page = paginator.paginate_queryset(article_response, request)
 
     return paginator.get_paginated_response(result_page)
+
+@api_view(['DELETE',])
+@permission_classes([IsAuthenticated,])
+def delete_account(request):
+    try:
+        request.user.delete()
+    except:
+        return Response({'error': 'Error occurred while deleting account'}, status=400)
+
+    return Response({'response': 'Account deleted successfully'}, status=200)
