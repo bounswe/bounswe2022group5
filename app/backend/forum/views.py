@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 
 from backend.models import CustomUser, Doctor, Member, Label, Category
 from django.db.models import Q
@@ -35,25 +36,6 @@ def get_all_posts(request):
     search_query = request.GET.get('q', None)
 
 
-    authors = []
-    if search_query:
-
-        try:
-            doctors = Doctor.objects.filter(full_name__icontains=search_query)
-            for doctor in doctors:
-                author = doctor.user
-                authors.append(author)
-        except:
-            pass
-        try:
-            members = Member.objects.filter(member_username__icontains=search_query)
-            print(members)
-            for member in members:
-                print(member.member_username)
-                author = member.user
-                authors.append(author)
-        except:
-            pass
 
     if search_query:
 
@@ -65,6 +47,7 @@ def get_all_posts(request):
             keyword_search_list.append("T3.full_name ilike'%%" + keyword + "%%'")
             keyword_search_list.append("T5.name ilike'%%" + keyword + "%%'")
             keyword_search_list.append("'"+keyword+"'" + "=ANY(related_labels)")
+            keyword_search_list.append("T3.full_name ilike'%%" + keyword + "%%'")
             #keyword_search_list.append("relatelabels @> ['foo']::varchar(100)[]")
 
 
@@ -106,7 +89,7 @@ def get_all_posts(request):
 
     # Sort
     query += """ORDER BY "date" desc """
-    print(query)
+
     # Paginate
     page_size = int(request.GET.get('page_size', 10))
     page = int(request.GET.get('page', 1))
@@ -114,18 +97,30 @@ def get_all_posts(request):
         page = 1
     query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
 
-
-
-
-
-    post_objects = Post.objects.raw(query.format("distinct forum_post.id, date"))
-    print(len(post_objects))
-
-
     try:
         user = CustomUser.objects.get(email = request.user.email)
+        followed = user.followed_categories
+        followed_categories = set()
+        for i in followed:
+            followed_categories.add(i)
+
     except:
         user = None
+        followed_categories = set()
+
+    followed_categories = tuple(followed_categories)
+
+
+
+
+    query = query.format(f"distinct forum_post.id, date, (CASE WHEN(category_id IN {followed_categories}) THEN 1 ELSE 0 END) as c1")
+    new_query = f"SELECT * FROM ({query}) AS A1 ORDER BY A1.c1 desc"
+
+    post_objects = Post.objects.raw(new_query)
+
+
+
+
 
     posts = []
 
