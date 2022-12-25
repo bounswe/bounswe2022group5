@@ -38,7 +38,13 @@ class DoctorProfileWidget extends StatelessWidget{
       pp = Image.asset(tempImagePath);
     }
     else{
-      pp = Image.network(profilePicture!);
+      pp = Image.network(
+        profilePicture, // this image doesn't exist
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Image.asset(tempImagePath);
+        },
+      );
     }
     return CircleAvatar(
         radius: 100.0,

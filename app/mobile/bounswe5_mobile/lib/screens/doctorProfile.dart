@@ -43,15 +43,21 @@ class _DoctorProfilePageState extends State<DoctorProfilePage> {
           const SizedBox(height: 16),
         Column(
             children: [
-              Text("Doctor"),
+              widget.hospitalName == null?
+              SizedBox.shrink():
               Text(
                   widget.hospitalName,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)
+              ),
+              SizedBox.shrink(),
+              widget.fullName == null?
+              SizedBox.shrink():
+              Text(
+                  widget.fullName,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)
               ),
-              Text(
-                widget.fullName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)
-              ),
+              widget.specialization == null?
+              SizedBox.shrink():
               Text(
                   widget.specialization,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)
