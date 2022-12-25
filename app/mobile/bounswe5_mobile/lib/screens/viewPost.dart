@@ -14,6 +14,8 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/screens/imagesGrid.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
+import 'package:bounswe5_mobile/CustomSelectionControls.dart';
+import 'package:html/parser.dart';
 
 enum Menu { itemOne, itemTwo, itemThree }
 
@@ -269,11 +271,19 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(15.0),
                       constraints: BoxConstraints(maxHeight: double.infinity),
                       width: double.infinity,
-                      child: Html(
-                        data:post.body,
-                        defaultTextStyle: TextStyle(
-                            fontSize: 15
-                        ),
+                      child: containsListTags(post.body) ?
+                      // due to a bug in SelectableHtml class, html texts containing
+                      // list tags such as <ol>,<ul> cannot be displayed. So, annotation
+                      // function does not work for these texts.
+                      Html(data:post.body):
+                      SelectableHtml(
+                        data: post.body,
+                        selectionControls: CustomTextSelectionControls(customButton: (start, end) {
+                          print(
+                            removeHtmlTags(post.body).substring(start, end),
+                          );
+                        }),
+
                       ),
                     ),
                     post.imageUrls.isEmpty ?
@@ -763,13 +773,12 @@ class _CommentItemState extends State<CommentItem> {
   }
 }
 
+bool containsListTags(String htmlString){
+  return htmlString.contains(RegExp(r'</?[uo]l>')) || htmlString.contains(RegExp(r'</?li>'));
+}
 
-
-
-/*
-CommentItem can be a class by itself
-
-Instead of separate User and Doctor models, it will be better
-to have a single User model since some entities can be created
-by both doctors and members.
- */
+String removeHtmlTags(String htmlString){
+  String cleaned = htmlString.replaceAll(r"</p>", ' ');
+  RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
+  return cleaned.replaceAll(exp, '');
+}

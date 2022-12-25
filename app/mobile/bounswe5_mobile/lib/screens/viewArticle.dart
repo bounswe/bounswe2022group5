@@ -11,6 +11,7 @@ import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
+import 'package:bounswe5_mobile/CustomSelectionControls.dart';
 
 enum Menu { itemOne, itemTwo, itemThree }
 
@@ -269,12 +270,21 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         padding: EdgeInsets.all(15.0),
                         constraints: BoxConstraints(maxHeight: double.infinity),
                         width: double.infinity,
-                        child: Html(
+                        child: containsListTags(article.body) ?
+                        // due to a bug in SelectableHtml class, html texts containing
+                        // list tags such as <ol>,<ul> cannot be displayed. So, annotation
+                        // function does not work for these texts.
+                        Html(data:article.body):
+                        SelectableHtml(
                           data: article.body,
-                          defaultTextStyle: TextStyle(
-                              fontSize: 15
-                          ),
-                        )
+                          selectionControls: CustomTextSelectionControls(customButton: (start, end) {
+                            print(
+                              //article.body.substring(start,end),
+                              removeHtmlTags(article.body).substring(start, end),
+                            );
+                          }),
+
+                        ),
                       ),
                       SizedBox(height: 18),
                       article.imageUrls.isEmpty ?
@@ -424,4 +434,15 @@ class CategoryViewer extends StatelessWidget {
       ],
     );
   }
+}
+
+bool containsListTags(String htmlString){
+  return htmlString.contains(RegExp(r'</?[uo]l>')) || htmlString.contains(RegExp(r'</?li>'));
+}
+
+String removeHtmlTags(String htmlString){
+  String cleaned = htmlString.replaceAll(RegExp(r"</p>"), ' ');
+  cleaned = cleaned.replaceAll(RegExp(r"\n+"), '\n');
+  RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
+  return cleaned.replaceAll(exp, '');
 }
