@@ -10,8 +10,11 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
+import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
+import 'package:bounswe5_mobile/CustomSelectionControls.dart';
+import 'package:bounswe5_mobile/screens/createTextAnnotation.dart';
 
-enum Menu { itemOne, itemTwo }
+enum Menu { itemOne, itemTwo, itemThree }
 
 class ViewArticlePage extends StatefulWidget {
   const ViewArticlePage(
@@ -168,6 +171,14 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                         }
 
                                       }
+                                      else if(item == Menu.itemThree){
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => TextAnnotationsList(token: token, type: "ARTICLE", id: articleid)
+                                            )
+                                        );
+                                      }
                                     });
                                   },
                                   itemBuilder: (BuildContext context) =>
@@ -180,13 +191,49 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                       value: Menu.itemTwo,
                                       child: Text('Delete'),
                                     ),
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemThree,
+                                      child: Text('See Text Annotations'),
+                                    ),
                                   ],
                                 );
-                              } else {
+                              } else if(isSessionActive) {
                                 return PopupMenuButton<Menu>(
                                   onSelected: (Menu item) {
                                     setState(() {
-                                      print("Report article");
+                                      if(item == Menu.itemOne) {
+                                        print("Report article");
+                                      }
+                                      else if(item == Menu.itemTwo){
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => TextAnnotationsList(token: token, type: "ARTICLE", id: articleid)
+                                            )
+                                        );
+                                      }
+                                    });
+                                  },
+                                  itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<Menu>>[
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemOne,
+                                      child: Text('Report'),
+                                    ),
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemTwo,
+                                      child: Text('See Text Annotations'),
+                                    ),
+                                  ],
+                                );
+                              }
+                              else{
+                                return PopupMenuButton<Menu>(
+                                  onSelected: (Menu item) {
+                                    setState(() {
+                                      if(item == Menu.itemOne) {
+                                        print("Report article");
+                                      }
                                     });
                                   },
                                   itemBuilder: (BuildContext context) =>
@@ -230,12 +277,28 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         padding: EdgeInsets.all(15.0),
                         constraints: BoxConstraints(maxHeight: double.infinity),
                         width: double.infinity,
-                        child: Html(
+                        child: containsListTags(article.body) ?
+                        // due to a bug in SelectableHtml class, html texts containing
+                        // list tags such as <ol>,<ul> cannot be displayed. So, annotation
+                        // function does not work for these texts.
+                        Html(data:article.body):
+                        SelectableHtml(
                           data: article.body,
-                          defaultTextStyle: TextStyle(
-                              fontSize: 15
-                          ),
-                        )
+                          selectionControls: isSessionActive ? CustomTextSelectionControls(customButton: (start, end) {
+
+                            var selectedText = removeHtmlTags(article.body).substring(start, end);
+
+                            Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CreateTextAnnotationPage(type: "ARTICLE", id: widget.article.id, start: start, end: end, activeUser: activeUser, selectedText: selectedText)
+                              ),
+                            );
+
+
+                          }): MaterialTextSelectionControls(),
+
+                        ),
                       ),
                       SizedBox(height: 18),
                       article.imageUrls.isEmpty ?
@@ -384,4 +447,15 @@ class CategoryViewer extends StatelessWidget {
       ],
     );
   }
+}
+
+bool containsListTags(String htmlString){
+  return htmlString.contains(RegExp(r'</?[uo]l>')) || htmlString.contains(RegExp(r'</?li>'));
+}
+
+String removeHtmlTags(String htmlString){
+  String cleaned = htmlString.replaceAll(RegExp(r"</p>"), ' ');
+  cleaned = cleaned.replaceAll(RegExp(r"\n+"), '\n');
+  RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
+  return cleaned.replaceAll(exp, '');
 }

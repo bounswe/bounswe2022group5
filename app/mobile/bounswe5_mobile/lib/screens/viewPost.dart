@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bounswe5_mobile/screens/createTextAnnotation.dart';
+import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/post.dart';
@@ -13,8 +15,10 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/screens/imagesGrid.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
+import 'package:bounswe5_mobile/CustomSelectionControls.dart';
+import 'package:html/parser.dart';
 
-enum Menu { itemOne, itemTwo }
+enum Menu { itemOne, itemTwo, itemThree }
 
 class ViewPostPage extends StatefulWidget {
   const ViewPostPage(
@@ -178,6 +182,14 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                         );
                                       }
                                     }
+                                    else if(item == Menu.itemThree){
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
+                                        )
+                                      );
+                                    }
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -190,13 +202,49 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                     value: Menu.itemTwo,
                                     child: Text('Delete'),
                                   ),
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemThree,
+                                    child: Text('See Text Annotations'),
+                                  )
                                 ],
                               );
-                            } else {
+                            } else if(isSessionActive){
                               return PopupMenuButton<Menu>(
                                 onSelected: (Menu item) {
                                   setState(() {
-                                    print("Report Post");
+                                    if(item == Menu.itemOne) {
+                                      print("Report Post");
+                                    }
+                                    else if(item == Menu.itemTwo){
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
+                                          )
+                                      );
+                                    }
+                                  });
+                                },
+                                itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<Menu>>[
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemOne,
+                                    child: Text('Report'),
+                                  ),
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemTwo,
+                                    child: Text('See Text Annotations'),
+                                  ),
+                                ],
+                              );
+                            }
+                            else{
+                              return PopupMenuButton<Menu>(
+                                onSelected: (Menu item) {
+                                  setState(() {
+                                    if(item == Menu.itemOne) {
+                                      print("Report Post");
+                                    }
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -238,11 +286,32 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(15.0),
                       constraints: BoxConstraints(maxHeight: double.infinity),
                       width: double.infinity,
-                      child: Html(
-                        data:post.body,
-                        defaultTextStyle: TextStyle(
-                            fontSize: 15
-                        ),
+                      child: containsListTags(post.body) ?
+                      // due to a bug in SelectableHtml class, html texts containing
+                      // list tags such as <ol>,<ul> cannot be displayed. So, annotation
+                      // function does not work for these texts.
+                      Html(data:post.body):
+                      SelectableHtml(
+                        data: post.body,
+                        style: {
+                          "*": Style(
+                            fontSize: FontSize(18),
+                          )
+                        },
+                        selectionControls: isSessionActive ? CustomTextSelectionControls(customButton: (start, end) {
+
+                          var selectedText = removeHtmlTags(post.body).substring(start, end);
+
+                          Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CreateTextAnnotationPage(type: "POST", id: widget.post.id, start: start, end: end, activeUser: activeUser, selectedText: selectedText)
+                            ),
+                          );
+
+
+                        }): MaterialTextSelectionControls(),
+
                       ),
                     ),
                     post.imageUrls.isEmpty ?
@@ -768,12 +837,12 @@ class CategoryViewer extends StatelessWidget {
   }
 }
 
+bool containsListTags(String htmlString){
+  return htmlString.contains(RegExp(r'</?[uo]l>')) || htmlString.contains(RegExp(r'</?li>'));
+}
 
-
-/*
-CommentItem can be a class by itself
-
-Instead of separate User and Doctor models, it will be better
-to have a single User model since some entities can be created
-by both doctors and members.
- */
+String removeHtmlTags(String htmlString){
+  String cleaned = htmlString.replaceAll(r"</p>", ' ');
+  RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
+  return cleaned.replaceAll(exp, '');
+}
