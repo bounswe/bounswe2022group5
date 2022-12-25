@@ -100,26 +100,21 @@ def get_all_posts(request):
     try:
         user = CustomUser.objects.get(email = request.user.email)
         followed = user.followed_categories
-        followed_categories = set()
+        followed_categories = tuple()
         for i in followed:
             followed_categories.add(i)
 
     except:
         user = None
-        followed_categories = set()
+        followed_categories = tuple()
 
-    followed_categories = tuple(followed_categories)
-
-
-
-
-    query = query.format(f"distinct forum_post.id, date, (CASE WHEN(category_id IN {followed_categories}) THEN 1 ELSE 0 END) as c1")
-    new_query = f"SELECT * FROM ({query}) AS A1 ORDER BY A1.c1 desc"
+    if len(followed_categories)==0:
+        new_query = query.format(f"distinct forum_post.id, date")
+    else:
+        query = query.format(f"distinct forum_post.id, date, (CASE WHEN(category_id IN {followed_categories}) THEN 1 ELSE 0 END) as c1")
+        new_query = f"SELECT * FROM ({query}) AS A1 ORDER BY A1.c1 desc"
 
     post_objects = Post.objects.raw(new_query)
-
-
-
 
 
     posts = []
