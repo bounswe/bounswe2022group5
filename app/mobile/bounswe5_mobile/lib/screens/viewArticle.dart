@@ -10,8 +10,9 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
+import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
 
-enum Menu { itemOne, itemTwo }
+enum Menu { itemOne, itemTwo, itemThree }
 
 class ViewArticlePage extends StatefulWidget {
   const ViewArticlePage(
@@ -168,6 +169,14 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                         }
 
                                       }
+                                      else if(item == Menu.itemThree){
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => TextAnnotationsList(token: token, type: "ARTICLE", id: articleid)
+                                            )
+                                        );
+                                      }
                                     });
                                   },
                                   itemBuilder: (BuildContext context) =>
@@ -180,13 +189,27 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                       value: Menu.itemTwo,
                                       child: Text('Delete'),
                                     ),
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemThree,
+                                      child: Text('See Text Annotations'),
+                                    ),
                                   ],
                                 );
                               } else {
                                 return PopupMenuButton<Menu>(
                                   onSelected: (Menu item) {
                                     setState(() {
-                                      print("Report article");
+                                      if(item == Menu.itemOne) {
+                                        print("Report article");
+                                      }
+                                      else if(item == Menu.itemTwo){
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => TextAnnotationsList(token: token, type: "ARTICLE", id: articleid)
+                                            )
+                                        );
+                                      }
                                     });
                                   },
                                   itemBuilder: (BuildContext context) =>
@@ -194,6 +217,10 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                     const PopupMenuItem<Menu>(
                                       value: Menu.itemOne,
                                       child: Text('Report'),
+                                    ),
+                                    const PopupMenuItem<Menu>(
+                                      value: Menu.itemTwo,
+                                      child: Text('See Text Annotations'),
                                     ),
                                   ],
                                 );
