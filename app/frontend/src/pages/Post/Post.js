@@ -232,7 +232,9 @@ const Post = () => {
                          
                         <div className="discussion-upper-label-delete">
                             <div>
-                                {post?.labels ?'Labels:   ':<></>}  
+                                {console.log(post)}
+                                {console.log(post?.labels)}
+                                {post?.labels?.length > 0 ?'Labels:   ':<></>}  
                                 
                                 {
                                     // labelsArray.map((item, index) => (
@@ -249,7 +251,7 @@ const Post = () => {
                             </div>
                         </div>
                         <div>
-                                {true ?'Our Suggestions:   ':<></>}
+                                {post?.related_labels?.length > 0 ?'Our Suggestions:   ':<></>}
                              
                             
                                 {
