@@ -231,25 +231,28 @@ const Post = () => {
                          
                         <div>
                             <div>
-                            {'Labels:   '}  
-                            
-                            {
-                                // labelsArray.map((item, index) => (
-                                colours.map((item, index) => (
-                                    <Tag onClick={() => navigate(`/search/${item}`)} color={colours[index%colours.length]}>{item}</Tag>
-                                ))
-                            }
+                                {post?.labels ?'Labels:   ':<></>}  
+                                
+                                {
+                                    // labelsArray.map((item, index) => (
+                                    post?.labels?.map((item, index) => (
+                                        // <Tag onClick={() => navigate(`/search/${item.name}`)} color={colours[index%colours.length]}>{item.name}</Tag>
+                                        <Tag onClick={() =>  window.location.href=`https://en.wikipedia.org/wiki/${item.name}`} color={colours[index%colours.length]}>{item.name}</Tag>
+                                    ))
+                                }
                             </div>   
                             
                             <div>
-                            {'Our Suggestions:   '}  
+                                {post?.related_labels ?'Our Suggestions:   ':<></>}
+                             
                             
-                            {
-                                // labelsArray.map((item, index) => (
-                                colours.map((item, index) => (
-                                    <Tag onClick={() => navigate(`/search/${item}`)} color={colours[index%colours.length]}>{item}</Tag>
-                                ))
-                            }
+                                {
+                                    // labelsArray.map((item, index) => (
+                                    post?.related_labels?.map((item, index) => (
+                                        // <Tag onClick={() => navigate(`/search/${item}`)} color={colours[index%colours.length]}>{item}</Tag>
+                                        <Tag onClick={() =>  window.location.href=`https://en.wikipedia.org/wiki/${item}`} color={colours[index%colours.length]}>{item}</Tag>
+                                    ))
+                                }
                             </div>
                             <br></br> 
                             
