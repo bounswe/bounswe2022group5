@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bounswe5_mobile/screens/doctorProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/post.dart';
@@ -116,11 +117,20 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(12.0),
                       child: Row(
                         children: [
-                          CircleAvatar(
-                            radius: 20,
-                              child: ClipOval(
-                                child: pp,
-                              )
+                          InkWell(
+                            onTap: () async {
+                              final result = await ApiService().getDoctorInfo(post.author.id);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                              );
+                            },
+                            child: CircleAvatar(
+                                radius: 20,
+                                child: ClipOval(
+                                  child: pp,
+                                )
+                            ),
                           ),
                           SizedBox(
                             width: 8.0,
@@ -132,8 +142,17 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                 Row(
                                   children: [
                                     SizedBox(width: 5),
-                                    Text(
-                                      post.author.username,
+                                    InkWell(
+                                      onTap: () async {
+                                        final result = await ApiService().getDoctorInfo(post.author.id);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                                        );
+                                      },
+                                      child: Text(
+                                        post.author.username,
+                                      ),
                                     ),
                                   ],
                                 ),
