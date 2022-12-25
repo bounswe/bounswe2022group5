@@ -58,7 +58,6 @@ const CreatePost = () => {
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState();
 
-    const [labels, setLabels] = useState([]);
     const [labelsArray, setLabelsArray] = useState([]);
 
     useEffect(() => {
@@ -192,7 +191,6 @@ const CreatePost = () => {
 
     const onCreatePost = async () => {
         let labelText = labelsArray.toString();
-        setLabels(labelText); 
 
         let postData = new FormData();
         postData.append("title", postTitle)
@@ -200,7 +198,7 @@ const CreatePost = () => {
         postData.append("longitude", location.longitude);
         postData.append("latitude", location.latitude);
         if(category) postData.append("category", category);
-        postData.append("labels", labels);
+        postData.append("labels", labelText);
 
         for (let i = 0; i<fileList.length; i++) {
             postData.append(`image${i+1}`, fileList[i]?.originFileObj);
