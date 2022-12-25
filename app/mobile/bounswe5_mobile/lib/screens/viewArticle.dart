@@ -11,6 +11,8 @@ import 'package:bounswe5_mobile/screens/home.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 
+import 'doctorProfile.dart';
+
 enum Menu { itemOne, itemTwo }
 
 class ViewArticlePage extends StatefulWidget {
@@ -103,10 +105,19 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         padding: EdgeInsets.all(12.0),
                         child: Row(
                           children: [
-                            CircleAvatar(
-                              radius: 20,
-                              child: ClipOval(
-                                child: pp,
+                            InkWell(
+                              onTap: () async {
+                                final result = await ApiService().getDoctorInfo(article.author.id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                                );
+                              },
+                              child: CircleAvatar(
+                                  radius: 20,
+                                  child: ClipOval(
+                                    child: pp,
+                                  )
                               ),
                             ),
                             SizedBox(
@@ -120,9 +131,17 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                     children: [
                                       Icon(Icons.check),
                                       SizedBox(width: 5),
-                                      Text(
-                                        "Dr. " + article.author.fullName,
-                                        maxLines: 2,
+                                      InkWell(
+                                        onTap: () async {
+                                          final result = await ApiService().getDoctorInfo(article.author.id);
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                                          );
+                                        },
+                                        child: Text(
+                                            "Dr. " + article.author.fullName,
+                                        ),
                                       ),
                                     ],
                                   ),
