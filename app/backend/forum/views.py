@@ -40,6 +40,8 @@ def get_all_posts(request):
         for keyword in search_query.split(" "):
             keyword_search_list.append("title ilike'%%" + keyword + "%%'")
             keyword_search_list.append("body ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("labels.name ilike'%%" + keyword + "%%'")
+            #keyword_search_list.append("relatelabels @> ['foo']::varchar(100)[]")
 
 
         where_statements.append(

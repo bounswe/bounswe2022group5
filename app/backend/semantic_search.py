@@ -9,7 +9,7 @@ class SemanticSearchEngine(object):
 
 
     def get_descriptor(self, label):
-        label_lookup_uri = f"https://id.nlm.nih.gov/mesh/lookup/descriptor?label={label}&match=contains&year=current&limit=1"
+        label_lookup_uri = f"https://id.nlm.nih.gov/mesh/lookup/descriptor?label={label}&match=exact&year=current&limit=1"
         try:
             response = requests.get(label_lookup_uri).json()[0]
         except:
