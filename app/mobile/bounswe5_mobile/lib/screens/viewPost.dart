@@ -149,6 +149,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                 Row(
                                   children: [
                                     SizedBox(width: 5),
+                                    post.author.isDoctor?
                                     InkWell(
                                       onTap: () async {
                                         final result = await ApiService().getDoctorInfo(post.author.id);
@@ -160,6 +161,9 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                       child: Text(
                                         post.author.username,
                                       ),
+                                    ):
+                                    Text(
+                                      post.author.username,
                                     ),
                                   ],
                                 ),
@@ -538,10 +542,10 @@ class _CommentItemState extends State<CommentItem> {
           Column(
             children: [
               SizedBox(height: 20),
-              post.author.isDoctor ?
+              comment.author.isDoctor ?
               InkWell(
                 onTap: () async {
-                  final result = await ApiService().getDoctorInfo(post.author.id);
+                  final result = await ApiService().getDoctorInfo(comment.author.id);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
@@ -582,7 +586,22 @@ class _CommentItemState extends State<CommentItem> {
                           crossAxisAlignment:
                           CrossAxisAlignment.start,
                           children: [
-                            Text(comment.author.username),
+                            comment.author.isDoctor?
+                            InkWell(
+                              onTap: () async {
+                                final result = await ApiService().getDoctorInfo(comment.author.id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                                );
+                              },
+                              child: Text(
+                                comment.author.username,
+                              ),
+                            ):
+                            Text(
+                              comment.author.username,
+                            ),
                             Text(formatter.format(comment.time)),
                           ],
                         ),
