@@ -12,6 +12,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
 import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
 import 'package:bounswe5_mobile/CustomSelectionControls.dart';
+import 'package:bounswe5_mobile/screens/createTextAnnotation.dart';
 
 enum Menu { itemOne, itemTwo, itemThree }
 
@@ -277,12 +278,19 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         Html(data:article.body):
                         SelectableHtml(
                           data: article.body,
-                          selectionControls: CustomTextSelectionControls(customButton: (start, end) {
-                            print(
-                              //article.body.substring(start,end),
-                              removeHtmlTags(article.body).substring(start, end),
+                          selectionControls: isSessionActive ? CustomTextSelectionControls(customButton: (start, end) {
+
+                            var selectedText = removeHtmlTags(article.body).substring(start, end);
+
+                            Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CreateTextAnnotationPage(type: "ARTICLE", id: widget.article.id, start: start, end: end, activeUser: activeUser, selectedText: selectedText)
+                              ),
                             );
-                          }),
+
+
+                          }): MaterialTextSelectionControls(),
 
                         ),
                       ),

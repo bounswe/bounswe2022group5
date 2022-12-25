@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bounswe5_mobile/screens/createTextAnnotation.dart';
 import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
@@ -175,7 +176,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                       }
                                     }
                                     else if(item == Menu.itemThree){
-                                      Navigator.pushReplacement(
+                                      Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
@@ -208,7 +209,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                       print("Report Post");
                                     }
                                     else if(item == Menu.itemTwo){
-                                      Navigator.pushReplacement(
+                                      Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
@@ -278,11 +279,24 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       Html(data:post.body):
                       SelectableHtml(
                         data: post.body,
-                        selectionControls: CustomTextSelectionControls(customButton: (start, end) {
-                          print(
-                            removeHtmlTags(post.body).substring(start, end),
+                        style: {
+                          "*": Style(
+                            fontSize: FontSize(18),
+                          )
+                        },
+                        selectionControls: isSessionActive ? CustomTextSelectionControls(customButton: (start, end) {
+
+                          var selectedText = removeHtmlTags(post.body).substring(start, end);
+
+                          Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CreateTextAnnotationPage(type: "POST", id: widget.post.id, start: start, end: end, activeUser: activeUser, selectedText: selectedText)
+                            ),
                           );
-                        }),
+
+
+                        }): MaterialTextSelectionControls(),
 
                       ),
                     ),
