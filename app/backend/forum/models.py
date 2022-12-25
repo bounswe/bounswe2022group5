@@ -34,3 +34,10 @@ class Comment(models.Model):
 class CommentImages(models.Model):
     image_url = models.CharField(max_length=100)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+class Report(models.Model):
+    content_id = models.IntegerField(null=False, default=0)
+    content_type = models.IntegerField(null=False, default=0)
+        # content_type = 0 : Post
+        # content_type = 1 : Comment
+    reporter = models.ForeignKey(CustomUser, null=False, on_delete=models.CASCADE)

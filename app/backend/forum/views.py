@@ -7,7 +7,7 @@ from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
 from forum.serializers import PostSerializer, CommentSerializer, UpdatePostSerializer, CreateCommentSerializer, LabelSerializer, CategorySerializer
-from forum.models import Post, Comment
+from forum.models import Post, Comment, Report
 from common.views import upload_to_s3, delete_from_s3
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
@@ -815,3 +815,37 @@ def bookmark_post(request, id):
             user_info.bookmarked_posts.append(id)
             user_info.save()
             return Response({'response': 'Bookmark added successfully'}, status=200)
+
+            
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def report_content(request):
+        # content_type = 0 : Post
+        # content_type = 1 : Comment
+        try:
+            
+            content_id = request.data['content_id']
+            content_type = request.data['content_type']
+            
+            try:
+                if content_type == 0:
+                    post = Post.objects.get(id=content_id)
+            
+                elif content_type == 1:
+                    comment = Comment.objects.get(id=content_id)
+                else:
+                    return Response({'error': 'Wrong content_type, please use 0 or 1'}, status=400)
+
+            except:
+                return Response({'error': 'Wrong content_id'}, status=400)
+            
+            
+                
+            reporter = request.user
+            report = Report(content_id=content_id, content_type=content_type, reporter=reporter)
+            report.save()
+            return Response({'response': 'Content is reported successfully'}, status=200)
+            
+        except:
+            
+            return Response({'error': 'Content not found'}, status=400)
