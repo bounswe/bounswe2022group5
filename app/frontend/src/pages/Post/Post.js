@@ -9,6 +9,7 @@ import {
 
 import CommentEditor from "./CommentEditor";
 import Vote from "../../components/Vote/Vote";
+import Delete from "../../components/Delete/Delete";
 
 import logo from "../../layouts/NavBar/logo.png";
 
@@ -229,7 +230,7 @@ const Post = () => {
                         </div>
 
                          
-                        <div>
+                        <div className="discussion-upper-label-delete">
                             <div>
                                 {post?.labels ?'Labels:   ':<></>}  
                                 
@@ -241,9 +242,14 @@ const Post = () => {
                                     ))
                                 }
                             </div>   
-                            
-                            <div>
-                                {post?.related_labels ?'Our Suggestions:   ':<></>}
+                            <div className="discussion-upper-delete-report">
+                                <div>
+                                    <Delete item={post} type={"post"}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                                {true ?'Our Suggestions:   ':<></>}
                              
                             
                                 {
@@ -253,10 +259,8 @@ const Post = () => {
                                         <Tag onClick={() =>  window.location.href=`https://en.wikipedia.org/wiki/${item}`} color={colours[index%colours.length]}>{item}</Tag>
                                     ))
                                 }
-                            </div>
-                            <br></br> 
-                            
                         </div>
+                        <br></br>
 
                         {/* <div>
                             {'Our Suggestions:   '}  

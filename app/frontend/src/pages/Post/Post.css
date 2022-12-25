@@ -44,6 +44,15 @@
     justify-content: space-between;
 }
 
+.discussion-upper-label-delete {
+    display: flex;
+    justify-content: space-between;
+}
+
+.discussion-upper-delete-report {
+    display: flex;
+}
+
 .discussion-date {
     font-weight: 500;
     color: rgb(182, 181, 181);
