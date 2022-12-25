@@ -30,7 +30,7 @@ const buttonStyleUnclicked = {
 }
 
 const categoryButtonsStyle = {
-    width: "75%",
+    width: "70%",
     borderRadius: "4px",
     backgroundColor: 'rgb(173,216,230)',
     marginTop: "2%",
@@ -39,7 +39,7 @@ const categoryButtonsStyle = {
 }
 
 const categoryFollowStyle = {
-    width: "20%",
+    width: "25%",
     borderRadius: "4px",
     backgroundColor: '#1890ff',
     color: 'rgb(255,255,255)',
@@ -49,7 +49,7 @@ const categoryFollowStyle = {
 }
 
 const categoryUnfollowStyle = {
-    width: "20%",
+    width: "25%",
     borderRadius: "4px",
     backgroundColor: 'rgb(255,255,255)',
     color: '#1890ff',
@@ -101,7 +101,7 @@ const RenderCategories = (searchKey) => {
         }
         
 
-    }, []);
+    }, [userStatus]);
 
     //reference to https://love2dev.com/blog/javascript-remove-from-array/
     function arrayRemove(arr, value) {

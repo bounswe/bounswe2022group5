@@ -9,6 +9,7 @@ import 'package:bounswe5_mobile/screens/createPost.dart';
 import 'package:bounswe5_mobile/screens/createArticle.dart';
 import 'package:bounswe5_mobile/screens/postOverviewScreen.dart';
 import 'package:bounswe5_mobile/screens/articleOverviewScreen.dart';
+import 'package:bounswe5_mobile/screens/searchPage.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/article.dart';
 
@@ -126,7 +127,14 @@ class _HomePageState extends State<HomePage> {
               actions: <Widget>[
                 // This will implement search functionality later:
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              SearchPage(token: widget.token)),
+                    );
+                  },
                   icon: const Icon(Icons.search),
                   iconSize: 30.0,
                 )

@@ -9,7 +9,7 @@ def text_annotation_mapper(text_annotation: TextAnnotation)->dict:
                 "created" : text_annotation.date_created,
                 "creator" : {
                     "id" : text_annotation.author_link,
-                    "displayName": text_annotation.display_name
+                    "name": text_annotation.display_name
                 },
                 "modified" : text_annotation.date_modified,
                 "purpose": text_annotation.purpose,
@@ -43,7 +43,7 @@ def image_annotation_mapper(image_annotation: ImageAnnotation)->dict:
                 "created" : image_annotation.date_created,
                 "creator" : {
                     "id" : image_annotation.author_link,
-                    "displayName": image_annotation.display_name
+                    "name": image_annotation.display_name
                 },
                 "modified" : image_annotation.date_modified,
                 "purpose": image_annotation.purpose,
