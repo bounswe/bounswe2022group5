@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 
 from backend.models import CustomUser, Doctor, Member, Label, Category
 from django.db.models import Q
@@ -13,13 +14,17 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.db import connection
+
+from semantic_search import SemanticSearchEngine
+
+
 # Create your views here.
 
 @api_view(['GET',])
 @permission_classes([AllowAny])
 def get_all_posts(request):
     # Begin building up the query
-    query= """SELECT {} FROM forum_post """
+    query= """SELECT {} FROM forum_post INNER JOIN backend_customuser as T2 ON forum_post.author_id = T2.id LEFT JOIN backend_doctor as T3 ON T3.user_id = T2.id LEFT JOIN forum_post_labels as T4 ON forum_post.id = T4.post_id LEFT JOIN backend_label T5 ON T5.id = T4.label_id """
 
     where_statements = []
 
@@ -29,6 +34,9 @@ def get_all_posts(request):
         where_statements.append("category_id = " + str(category_object.id))
 
     search_query = request.GET.get('q', None)
+
+
+
     if search_query:
 
         keyword_search_list = []
@@ -36,6 +44,11 @@ def get_all_posts(request):
         for keyword in search_query.split(" "):
             keyword_search_list.append("title ilike'%%" + keyword + "%%'")
             keyword_search_list.append("body ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("T3.full_name ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("T5.name ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("'"+keyword+"'" + "=ANY(related_labels)")
+            keyword_search_list.append("T3.full_name ilike'%%" + keyword + "%%'")
+            #keyword_search_list.append("relatelabels @> ['foo']::varchar(100)[]")
 
 
         where_statements.append(
@@ -66,7 +79,7 @@ def get_all_posts(request):
         )
 
     if len(where_statements) > 0:
-        query += "WHERE " + " and ".join(where_statements) + " "
+        query += "WHERE " + " or ".join(where_statements) + " "
     
     # first get the count
     count = 0
@@ -83,82 +96,33 @@ def get_all_posts(request):
     if page <= 0:
         page = 1
     query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
-    authors = []
-
-    if search_query:
-
-        try:
-            doctors = Doctor.objects.filter(full_name__icontains=search_query)
-            for doctor in doctors:
-                author = doctor.user
-                authors.append(author)
-        except:
-            pass
-        try:
-            members = Member.objects.filter(member_username__icontains=search_query)
-            print(members)
-            for member in members:
-                print(member.member_username)
-                author = member.user
-                authors.append(author)
-        except:
-            pass
-
-    posts_by_user = Post.objects.filter(author__in=authors)
-    post_objects = Post.objects.raw(query.format("distinct *"))
-
-
 
     try:
         user = CustomUser.objects.get(email = request.user.email)
+        followed = user.followed_categories
+        followed_categories = set()
+        for i in followed:
+            followed_categories.add(i)
+
     except:
         user = None
-    
+        followed_categories = set()
+
+    followed_categories = tuple(followed_categories)
+
+
+
+
+    query = query.format(f"distinct forum_post.id, date, (CASE WHEN(category_id IN {followed_categories}) THEN 1 ELSE 0 END) as c1")
+    new_query = f"SELECT * FROM ({query}) AS A1 ORDER BY A1.c1 desc"
+
+    post_objects = Post.objects.raw(new_query)
+
+
+
+
+
     posts = []
-    for post in posts_by_user:
-        serializer_post_data = PostSerializer(post).data
-        if user:
-            if post.id in user.upvoted_posts:
-                serializer_post_data['vote'] = 'upvote'
-            elif post.id in user.downvoted_posts:
-                serializer_post_data['vote'] = 'downvote'
-            else:
-                serializer_post_data['vote'] = None
-
-            if post.id in user.bookmarked_posts:
-                serializer_post_data['bookmark'] = True
-            else:
-                serializer_post_data['bookmark'] = False
-        else:
-            serializer_post_data['vote'] = None
-            serializer_post_data['bookmark'] = None
-
-        author = post.author
-        if author.type == 1:
-            try:
-                doctor_data = Doctor.objects.get(user=author)
-                author_data = {
-                    'id': author.id,
-                    'username': doctor_data.full_name,
-                    'profile_photo': doctor_data.profile_picture,
-                    'is_doctor': True
-                }
-            except:
-                author_data = None
-
-        elif author.type == 2:
-            try:
-                member_data = Member.objects.get(user=author)
-                author_data = {
-                    'id': author.id,
-                    'username': member_data.member_username,
-                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
-                    'is_doctor': False
-                }
-            except:
-                author_data = None
-        serializer_post_data["author"] = author_data
-        posts.append(serializer_post_data)
 
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
@@ -445,6 +409,8 @@ def get_post(request,id):
 
 
 
+        response_dict['related_labels'] = post.related_labels
+
         response = {
             'post' :  response_dict,
             'image_urls': image_urls,
@@ -552,18 +518,31 @@ def create_post(request):
             pass
 
     if 'labels' in request.data:
+        semantic_engine = SemanticSearchEngine()
+
         try:
             labels = request.data["labels"].split(",")
             l = []
-            for label in labels:
+            related_labels = []
+            for label_str in labels:
+                if label_str=='':
+                    continue
 
-                label, valid = Label.objects.get_or_create(name=label)
+                label, valid = Label.objects.get_or_create(name=label_str)
+
+                related_labels2 = semantic_engine.get_labels(label_str)
+
+                for i in related_labels2:
+                    related_labels.append(i)
+                    post.related_labels.append(i)
+
                 post.labels.add(label)
                 post.save()
                 label_serialized = LabelSerializer(label).data
                 l.append(label_serialized)
 
             response_object['post']['labels'] = l
+            response_object['post']['related_labels'] = related_labels
         except:
             pass
 
