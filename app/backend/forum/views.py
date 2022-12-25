@@ -23,7 +23,7 @@ from semantic_search import SemanticSearchEngine
 @permission_classes([AllowAny])
 def get_all_posts(request):
     # Begin building up the query
-    query= """SELECT {} FROM forum_post """
+    query= """SELECT {} FROM forum_post INNER JOIN backend_customuser as T2 ON forum_post.author_id = T2.id LEFT JOIN backend_doctor as T3 ON T3.user_id = T2.id LEFT JOIN forum_post_labels as T4 ON forum_post.id = T4.post_id LEFT JOIN backend_label T5 ON T5.id = T4.label_id """
 
     where_statements = []
 
@@ -33,6 +33,28 @@ def get_all_posts(request):
         where_statements.append("category_id = " + str(category_object.id))
 
     search_query = request.GET.get('q', None)
+
+
+    authors = []
+    if search_query:
+
+        try:
+            doctors = Doctor.objects.filter(full_name__icontains=search_query)
+            for doctor in doctors:
+                author = doctor.user
+                authors.append(author)
+        except:
+            pass
+        try:
+            members = Member.objects.filter(member_username__icontains=search_query)
+            print(members)
+            for member in members:
+                print(member.member_username)
+                author = member.user
+                authors.append(author)
+        except:
+            pass
+
     if search_query:
 
         keyword_search_list = []
@@ -40,7 +62,9 @@ def get_all_posts(request):
         for keyword in search_query.split(" "):
             keyword_search_list.append("title ilike'%%" + keyword + "%%'")
             keyword_search_list.append("body ilike'%%" + keyword + "%%'")
-            keyword_search_list.append("labels.name ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("T3.full_name ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("T5.name ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("'"+keyword+"'" + "=ANY(related_labels)")
             #keyword_search_list.append("relatelabels @> ['foo']::varchar(100)[]")
 
 
@@ -72,7 +96,7 @@ def get_all_posts(request):
         )
 
     if len(where_statements) > 0:
-        query += "WHERE " + " and ".join(where_statements) + " "
+        query += "WHERE " + " or ".join(where_statements) + " "
     
     # first get the count
     count = 0
@@ -82,89 +106,28 @@ def get_all_posts(request):
 
     # Sort
     query += """ORDER BY "date" desc """
-
+    print(query)
     # Paginate
     page_size = int(request.GET.get('page_size', 10))
     page = int(request.GET.get('page', 1))
     if page <= 0:
         page = 1
     query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
-    authors = []
 
-    if search_query:
 
-        try:
-            doctors = Doctor.objects.filter(full_name__icontains=search_query)
-            for doctor in doctors:
-                author = doctor.user
-                authors.append(author)
-        except:
-            pass
-        try:
-            members = Member.objects.filter(member_username__icontains=search_query)
-            print(members)
-            for member in members:
-                print(member.member_username)
-                author = member.user
-                authors.append(author)
-        except:
-            pass
 
-    posts_by_user = Post.objects.filter(author__in=authors)
-    post_objects = Post.objects.raw(query.format("distinct *"))
 
+
+    post_objects = Post.objects.raw(query.format("distinct forum_post.id, date"))
+    print(len(post_objects))
 
 
     try:
         user = CustomUser.objects.get(email = request.user.email)
     except:
         user = None
-    
+
     posts = []
-    for post in posts_by_user:
-        serializer_post_data = PostSerializer(post).data
-        if user:
-            if post.id in user.upvoted_posts:
-                serializer_post_data['vote'] = 'upvote'
-            elif post.id in user.downvoted_posts:
-                serializer_post_data['vote'] = 'downvote'
-            else:
-                serializer_post_data['vote'] = None
-
-            if post.id in user.bookmarked_posts:
-                serializer_post_data['bookmark'] = True
-            else:
-                serializer_post_data['bookmark'] = False
-        else:
-            serializer_post_data['vote'] = None
-            serializer_post_data['bookmark'] = None
-
-        author = post.author
-        if author.type == 1:
-            try:
-                doctor_data = Doctor.objects.get(user=author)
-                author_data = {
-                    'id': author.id,
-                    'username': doctor_data.full_name,
-                    'profile_photo': doctor_data.profile_picture,
-                    'is_doctor': True
-                }
-            except:
-                author_data = None
-
-        elif author.type == 2:
-            try:
-                member_data = Member.objects.get(user=author)
-                author_data = {
-                    'id': author.id,
-                    'username': member_data.member_username,
-                    'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
-                    'is_doctor': False
-                }
-            except:
-                author_data = None
-        serializer_post_data["author"] = author_data
-        posts.append(serializer_post_data)
 
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
