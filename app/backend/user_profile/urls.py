@@ -15,4 +15,5 @@ urlpatterns = [
     path('followed_categories', views.get_followed_categories, name='get_followed_categories'),
     path('bookmarked_posts', views.get_bookmarked_posts, name='get_bookmarked_posts'),
     path('bookmarked_articles', views.get_bookmarked_articles, name='get_bookmarked_articles'),
+    path('delete_account', views.delete_account, name='delete_account'),
 ]
