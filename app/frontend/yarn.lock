@@ -1659,6 +1659,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@kommunicate/kommunicate-chatbot-plugin@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@kommunicate/kommunicate-chatbot-plugin/-/kommunicate-chatbot-plugin-0.0.5.tgz#c6e28695e369e077dbb8512ce7871ee2ddcb28c5"
+  integrity sha512-MrZPjKRibMl8Z81FzH7LrN+9evniOg7rRxDwg7J6tnqxEnGRvU1WD+mGKRlj9QT2sWS39hvcE4yA51+bwF+GOQ==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
