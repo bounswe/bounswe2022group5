@@ -2123,7 +2123,6 @@ class ApiService {
 
     final response = await http.post(uri, headers: header);
 
-    print(response.body);
     return response.statusCode;
 
   }
