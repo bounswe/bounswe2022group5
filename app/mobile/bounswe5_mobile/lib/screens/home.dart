@@ -114,15 +114,12 @@ class _HomePageState extends State<HomePage> {
           return Scaffold(
             // App bar is the top bar shown in the screen.
             appBar: AppBar(
-              title: const Center(
-                child: Text(
-                    // We do not have a logo yet. When we decided on that, we can add a logo here:
-                    'Hippocrates',
-                    style: TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
+              title: Image.asset(
+              "lib/assets/icon/hippo-yazi.png",
+              fit: BoxFit.contain,
+                width: 250,
+
+            ),
               elevation: 0.0,
               actions: <Widget>[
                 // This will implement search functionality later:
