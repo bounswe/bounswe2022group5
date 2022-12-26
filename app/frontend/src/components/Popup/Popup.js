@@ -12,9 +12,9 @@ const editButton = {
 
 function Popup(props) {
     return (props.trigger) ? (
-        <div className="popup">
+        <div className="popup" data-testid="popup">
             <div className="popup-inner">
-                <Button className="close-btn" style={editButton} onClick={() => props.setTrigger(false)}>
+                <Button className="close-btn" data-testid="close-btn" style={editButton} onClick={() => props.setTrigger(false)}>
                     Close
                 </Button>
                 {props.children}
