@@ -2113,4 +2113,19 @@ class ApiService {
     return categories;
   }
 
+  Future<int> followCategory(String token, int categoryid) async{
+    var uri = Uri.parse("$baseURL/profile/follow_category/$categoryid");
+
+    var header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+
+    final response = await http.post(uri, headers: header);
+
+    print(response.body);
+    return response.statusCode;
+
+  }
+
 }
