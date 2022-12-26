@@ -54,6 +54,7 @@ dependencies:
   flutter_svg: ^0.22.0
   flutter_html: ^2.2.1
   flutter_launcher_icons: ^0.11.0
+  kommunicate_flutter: ^1.5.1
 
 flutter_icons:
   android: "launcher_icon"

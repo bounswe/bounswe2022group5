@@ -10,8 +10,10 @@ import 'package:bounswe5_mobile/screens/createArticle.dart';
 import 'package:bounswe5_mobile/screens/postOverviewScreen.dart';
 import 'package:bounswe5_mobile/screens/articleOverviewScreen.dart';
 import 'package:bounswe5_mobile/screens/searchPage.dart';
+import 'package:bounswe5_mobile/screens/chatbotScreen.dart';
 import 'package:bounswe5_mobile/models/post.dart';
 import 'package:bounswe5_mobile/models/article.dart';
+import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 
 /// This is the implementation of the home page.
 class HomePage extends StatefulWidget {
@@ -61,6 +63,7 @@ class _HomePageState extends State<HomePage> {
           List<Widget> bodies = [
             PostsOverviewScreen(activeUser: activeUser,),
             ArticlesOverviewScreen(activeUser: activeUser,),
+            ChatbotScreen()
           ];
 
           // Session activity means that a registered user is entered
@@ -72,14 +75,11 @@ class _HomePageState extends State<HomePage> {
           if (isSessionActive) {
             if (widget.index == 0) {
               floatingButton = FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              CreatePostPage(activeUser: activeUser)),
-                    );
-                    print("User create post");
+                  onPressed: () async {
+                    dynamic conversationObject = {
+                      'appId': '',// The APP_ID obtained from kommunicate dashboard.
+                    };
+                    KommunicateFlutterPlugin.buildConversation(conversationObject);
                   },
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   child: Icon(
@@ -152,20 +152,18 @@ class _HomePageState extends State<HomePage> {
                   label: 'Forum',
                 ),
                 // For now, no chatbot implementation is available.
-                /*
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.library_books), label: 'Articles'),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.chat_bubble),
                   label: 'Chatbot',
                 ),
-                */
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.library_books), label: 'Articles'),
               ],
             ),
 
             // floating action button will be used for creating a new post or article later.
             floatingActionButton:
-                floatingButton, // If user not signed in, do not show create post button in the forum
+            floatingButton, // If user not signed in, do not show create post button in the forum
 
             body: bodies[widget.index],
           );
@@ -200,3 +198,4 @@ class _HomePageState extends State<HomePage> {
   }
 }
 */
+
