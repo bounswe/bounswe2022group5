@@ -73,7 +73,7 @@ class _UserCommentsOverviewScreenState extends State<UserCommentsOverviewScreen>
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('An error occurred when fetching the articles.',
+          Text('An error occurred when fetching the comments.',
             style: TextStyle(
                 fontSize: size,
                 fontWeight: FontWeight.w500,
