@@ -16,7 +16,7 @@ import Profile from './pages/Profile/Profile';
 
 import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
 
-Kommunicate.init("35f067c7290c8f7f05b2575bf22b44440", {restartConversationByUser:true, isSingleConversation:false});
+Kommunicate.init("35f067c7290c8f7f05b2575bf22b44440", {restartConversationByUser:true, isSingleConversation:false, "botIds":["front-bot-pbkew"]});
 function App() {
   return (
     <Router>
