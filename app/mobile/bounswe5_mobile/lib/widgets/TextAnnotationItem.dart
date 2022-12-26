@@ -1,21 +1,29 @@
+import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/models/textAnnotation.dart';
 import 'package:intl/intl.dart';
+import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
 
+ApiService apiService = ApiService();
 
-const String str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet ex gravida, placerat nunc et, bibendum mi. Fusce finibus sem sit amet lobortis molestie. Nunc posuere pharetra diam non scelerisque. In quis lectus ut orci convallis ullamcorper. In auctor augue nunc, vel placerat felis luctus ac. Quisque porta ac tellus vitae pellentesque. In molestie tortor vitae lectus sagittis dignissim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam egestas ut est sed dapibus. Sed et justo id mauris malesuada scelerisque quis vel erat. Vivamus vitae pharetra nulla, quis tincidunt velit. Pellentesque id odio eget lorem dapibus fringilla ac eget massa. Nullam luctus ut sapien quis iaculis.";
-
-
-class TextAnnotationItem extends StatelessWidget {
-  TextAnnotationItem({Key? key, required this.annotation}) : super(key: key);
+class TextAnnotationItem extends StatefulWidget {
+  const TextAnnotationItem({Key? key, required this.activeUserToken, required this.type, required this.annotation, required this.id}) : super(key: key);
+  final String activeUserToken;
+  final String type;
   final TextAnnotation annotation;
+  final int id;
+  @override
+  State<TextAnnotationItem> createState() => _TextAnnotationItemState();
+}
+
+class _TextAnnotationItemState extends State<TextAnnotationItem> {
   final DateFormat formatter = DateFormat('dd/MM/yyyy hh:mm');
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+        margin: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -27,36 +35,64 @@ class TextAnnotationItem extends StatelessWidget {
               ),
             ]
         ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            "“"+annotation.selectedText+"”",
-            style: TextStyle(
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          const SizedBox(height: 10,),
-          Text(
-            annotation.annotationBody,
-            style: TextStyle(
-                fontSize: 18,
-            ),
-          ),
-          const SizedBox(height: 10,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                formatter.format(annotation.created),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.10,),
+                  Text(
+                    "“"+widget.annotation.selectedText+"”",
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  IconButton(onPressed: () async{
+                    await apiService.deleteTextAnnotation(widget.activeUserToken, widget.type, widget.annotation.annoId).then(
+                      (statusCode) {
+                        if(statusCode == 200){
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TextAnnotationsList(token: widget.activeUserToken, type: widget.type, id: widget.id,)
+                              )
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Successfully deleted annotation."),)
+                          );
+                        }else{
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("An error occurred. Error code: $statusCode"),
+                            )
+                          );
+                        }
+                      }
+                    );
+                  }, icon: Icon(Icons.delete)),
+                ],
               ),
+              const SizedBox(height: 10,),
               Text(
-                  "-"+annotation.creatorName
+                widget.annotation.annotationBody,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    formatter.format(widget.annotation.created),
+                  ),
+                  Text(
+                      "-"+widget.annotation.creatorName
+                  )
+                ],
               )
-            ],
-          )
-        ]
-      )
+            ]
+        )
     );
   }
 }
