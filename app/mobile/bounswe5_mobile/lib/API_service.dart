@@ -306,7 +306,7 @@ class ApiService {
         String hospitalName = body["hospital_name"]; // doctor
         bool verified = body["verified"]; // doctor
         String document = body["document"]; // doctor
-        Category specialization = Category(-1,specializationName,""); // doctor
+        Category specialization = Category(-1,specializationName); // doctor
         user = User(id,token,email,userType,
           fullName: fullName,
           specialization: specialization,
@@ -522,9 +522,9 @@ class ApiService {
         bool commentedByDoctor = results[i]["commented_by_doctor"];
 
         var categoryraw = results[i]["category"];
-        Category category = Category(-1,"","");
+        Category category = Category(-1,"");
         if(categoryraw != null){
-          category = Category(categoryraw["id"], categoryraw["name"], "");
+          category = Category(categoryraw["id"], categoryraw["name"]);
         }
 
         List<dynamic> labelsraw = results[i]["labels"];
@@ -620,9 +620,9 @@ class ApiService {
         }
 
         var categoryraw = results[i]["category"];
-        Category category = Category(-1,"","");
+        Category category = Category(-1,"");
         if(categoryraw != null){
-          category = Category(categoryraw["id"], categoryraw["name"], "");
+          category = Category(categoryraw["id"], categoryraw["name"]);
         }
 
         String title = results[i]["title"];
@@ -793,9 +793,9 @@ class ApiService {
       bool commentedByDoctor = rawpost["commented_by_doctor"];
 
       var categoryraw = rawpost["category"];
-      Category category = Category(-1,"","");
+      Category category = Category(-1,"");
       if(categoryraw != null){
-        category = Category(categoryraw["id"], categoryraw["name"], "");
+        category = Category(categoryraw["id"], categoryraw["name"], );
       }
 
       List<dynamic> labelsraw = rawpost["labels"];
@@ -947,9 +947,9 @@ class ApiService {
       var categoryraw = rawarticle["category"];
 
 
-      Category category = Category(-1,"","");
+      Category category = Category(-1,"");
       if(categoryraw != null){
-        category = Category(categoryraw["id"], categoryraw["name"], "");
+        category = Category(categoryraw["id"], categoryraw["name"]);
       }
 
       String articleTitle = rawarticle["title"];
@@ -1042,9 +1042,9 @@ class ApiService {
         }
 
         var categoryraw = results[i]["category"];
-        Category category = Category(-1,"","");
+        Category category = Category(-1,"");
         if(categoryraw != null){
-          category = Category(categoryraw["id"], categoryraw["name"], "");
+          category = Category(categoryraw["id"], categoryraw["name"]);
         }
 
         String title = results[i]["title"];
@@ -1127,9 +1127,9 @@ class ApiService {
         bool commentedByDoctor = results[i]["commented_by_doctor"];
 
         var categoryraw = results[i]["category"];
-        Category category = Category(-1,"","");
+        Category category = Category(-1,"");
         if(categoryraw != null){
-          category = Category(categoryraw["id"], categoryraw["name"], "");
+          category = Category(categoryraw["id"], categoryraw["name"]);
         }
 
         List<dynamic> labelsraw = results[i]["labels"];
@@ -1228,9 +1228,9 @@ class ApiService {
         bool commentedByDoctor = results[i]["commented_by_doctor"];
 
         var categoryraw = results[i]["category"];
-        Category category = Category(-1,"","");
+        Category category = Category(-1,"");
         if(categoryraw != null){
-          category = Category(categoryraw["id"], categoryraw["name"], "");
+          category = Category(categoryraw["id"], categoryraw["name"]);
         }
 
         List<dynamic> labelsraw = results[i]["labels"];
@@ -1328,9 +1328,9 @@ class ApiService {
         }
 
         var categoryraw = results[i]["category"];
-        Category category = Category(-1,"","");
+        Category category = Category(-1,"");
         if(categoryraw != null){
-          category = Category(categoryraw["id"], categoryraw["name"], "");
+          category = Category(categoryraw["id"], categoryraw["name"]);
         }
 
         String title = results[i]["title"];
@@ -1499,9 +1499,9 @@ class ApiService {
           bool commentedByDoctor = results[i]["commented_by_doctor"];
 
           var categoryraw = results[i]["category"];
-          Category category = Category(-1,"","");
+          Category category = Category(-1,"");
           if(categoryraw != null){
-            category = Category(categoryraw["id"], categoryraw["name"], "");
+            category = Category(categoryraw["id"], categoryraw["name"]);
           }
 
           List<dynamic> labelsraw = results[i]["labels"];
@@ -1592,9 +1592,9 @@ class ApiService {
           bool commentedByDoctor = results[i]["commented_by_doctor"];
 
           var categoryraw = results[i]["category"];
-          Category category = Category(-1,"","");
+          Category category = Category(-1,"");
           if(categoryraw != null){
-            category = Category(categoryraw["id"], categoryraw["name"], "");
+            category = Category(categoryraw["id"], categoryraw["name"]);
           }
 
           List<dynamic> labelsraw = results[i]["labels"];
@@ -1686,9 +1686,9 @@ class ApiService {
           bool commentedByDoctor = results[i]["commented_by_doctor"];
 
           var categoryraw = results[i]["category"];
-          Category category = Category(-1,"","");
+          Category category = Category(-1,"");
           if(categoryraw != null){
-            category = Category(categoryraw["id"], categoryraw["name"], "");
+            category = Category(categoryraw["id"], categoryraw["name"]);
           }
 
           List<dynamic> labelsraw = results[i]["labels"];
@@ -1787,9 +1787,9 @@ class ApiService {
           }
 
           var categoryraw = results[i]["category"];
-          Category category = Category(-1,"","");
+          Category category = Category(-1,"");
           if(categoryraw != null){
-            category = Category(categoryraw["id"], categoryraw["name"], "");
+            category = Category(categoryraw["id"], categoryraw["name"]);
           }
 
           String title = results[i]["title"];
@@ -1875,9 +1875,9 @@ class ApiService {
           }
 
           var categoryraw = results[i]["category"];
-          Category category = Category(-1,"","");
+          Category category = Category(-1,"");
           if(categoryraw != null){
-            category = Category(categoryraw["id"], categoryraw["name"], "");
+            category = Category(categoryraw["id"], categoryraw["name"]);
           }
 
           String title = results[i]["title"];
@@ -2066,4 +2066,51 @@ class ApiService {
 
     }
   }
+
+  Future<List<Category>> getAllCategories(String token) async {
+    var uri1 = Uri.parse("$baseURL/forum/categories");
+
+    var header1 = {
+      'content-type': "application/json",
+    };
+
+    var uri2 = Uri.parse("$baseURL/profile/followed_categories");
+
+    var header2 = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+
+    final allCategoriesResponse = await http.get(uri1, headers: header1);
+    final followedCategoryIdsResponse = await http.get(uri2, headers: header2);
+
+    List<Category> categories = List.empty(growable: true);
+
+    if (allCategoriesResponse.statusCode == 200 && followedCategoryIdsResponse.statusCode == 200){
+
+      var allCategories = jsonDecode(allCategoriesResponse.body);
+      var followedCategoryIds = jsonDecode(followedCategoryIdsResponse.body);
+
+      for(int i = 0 ; i < allCategories.length ; i++){
+        int id = allCategories[i]["id"];
+        String name = allCategories[i]["name"];
+        bool isFollowed = followedCategoryIds.contains(id);
+        Category category = Category(id, name, isFollowed:isFollowed);
+        categories.add(category);
+      }
+    }
+
+    categories.sort((a,b) => a.name.compareTo(b.name));
+
+    /*
+    for(int i = 0 ; i < categories.length ; i++){
+      Category category = categories[i];
+      print(category.id.toString() + "," + category.name + "," + category.isFollowed.toString());
+    }
+
+     */
+
+    return categories;
+  }
+
 }
