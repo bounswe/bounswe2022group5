@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bounswe5_mobile/API_service.dart';
 import 'package:bounswe5_mobile/models/textAnnotation.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +81,7 @@ class _CreateTextAnnotationPageState extends State<CreateTextAnnotationPage> {
 
                       var creatorName = widget.activeUser.usertype == 1 ? widget.activeUser.fullName : widget.activeUser.username;
 
-                      TextAnnotation anno = TextAnnotation(DateTime.now(), widget.activeUser.id, creatorName, _body.text, widget.selectedText, widget.start, widget.end);
+                      TextAnnotation anno = TextAnnotation(generateAnnotationId(),DateTime.now(), widget.activeUser.id, creatorName, _body.text, widget.selectedText, widget.start, widget.end);
 
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
@@ -110,4 +112,19 @@ class _CreateTextAnnotationPageState extends State<CreateTextAnnotationPage> {
       )
     );
   }
+}
+
+const _chars = 'abcdef1234567890';
+Random _rnd = Random();
+
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+String generateAnnotationId(){
+  String part1 = getRandomString(8);
+  String part2 = getRandomString(4);
+  String part3 = getRandomString(4);
+  String part4 = getRandomString(4);
+  String part5 = getRandomString(12);
+  return "#$part1-$part2-$part3-$part4-$part5";
 }

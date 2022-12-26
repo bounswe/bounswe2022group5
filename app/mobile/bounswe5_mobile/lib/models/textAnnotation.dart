@@ -1,4 +1,5 @@
 class TextAnnotation{
+  final String annoId;
   final DateTime created;
   final int creatorId;
   final String creatorName;
@@ -8,6 +9,7 @@ class TextAnnotation{
   final int end;
 
   TextAnnotation(
+      this.annoId,
       this.created,
       this.creatorId,
       this.creatorName,

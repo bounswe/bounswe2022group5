@@ -24,6 +24,7 @@ import 'package:intl/intl.dart';
 class ApiService {
   /// Base URL of backend
   var baseURL = "http://ec2-3-87-119-148.compute-1.amazonaws.com:8000";
+  var annoURL = "http://ec2-18-209-24-202.compute-1.amazonaws.com:8000/";
   var frontURL = "http://3.91.54.225:3000";
 
   Future<int> postUpvote(int postID, String token) async {
@@ -1931,7 +1932,7 @@ class ApiService {
     /// This function gets all text annotations of a post or an article.
     Future<List<TextAnnotation>> getTextAnnotations(String token, String type, int id) async {
       // type is either "POST" or "ARTICLE"
-      var uri = Uri.parse("$baseURL/annotation/$id?type=$type");
+      var uri = Uri.parse("$annoURL/annotation/$id?type=$type");
 
       var header = {
         'Authorization': "token $token",
@@ -1972,7 +1973,7 @@ class ApiService {
           int start = annotation["target"]["selector"][1]["start"];
           int end = annotation["target"]["selector"][1]["end"];
 
-          TextAnnotation anno = TextAnnotation(created, creatorId, creatorName, annotationBody, selectedText, start, end);
+          TextAnnotation anno = TextAnnotation(annotationId, created, creatorId, creatorName, annotationBody, selectedText, start, end);
           annos.add(anno);
         }
       }
@@ -1982,23 +1983,9 @@ class ApiService {
 
   Future<int> createTextAnnotation(String token, String type, int id, TextAnnotation anno) async {
 
-    const _chars = 'abcdef1234567890';
-    Random _rnd = Random();
-
-    String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-
-    String generateAnnotationId(){
-      String part1 = getRandomString(8);
-      String part2 = getRandomString(4);
-      String part3 = getRandomString(4);
-      String part4 = getRandomString(4);
-      String part5 = getRandomString(12);
-      return "#$part1-$part2-$part3-$part4-$part5";
-    }
     // type is either "POST" or "ARTICLE"
 
-    var uri = Uri.parse("$baseURL/annotation/text/$id?type=$type");
+    var uri = Uri.parse("$annoURL/annotation/text/$id?type=$type");
 
     var header = {
       'Authorization': "token $token",
@@ -2025,7 +2012,7 @@ class ApiService {
         }
       ],
 
-      "id" : generateAnnotationId(),
+      "id" : anno.annoId,
       "target" : {
         "selector": [
           {
@@ -2124,6 +2111,24 @@ class ApiService {
     };
 
     final response = await http.post(uri, headers: header);
+
+    return response.statusCode;
+
+  }
+
+  Future<int> deleteTextAnnotation(String token, String type, String annoId) async{
+    var uri = Uri.parse("$annoURL/annotation/text/delete?type=$type");
+
+    var header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+
+    var reqbody = {
+      "id" : annoId
+    };
+
+    final response = await http.delete(uri, headers: header, body: jsonEncode(reqbody));
 
     return response.statusCode;
 
