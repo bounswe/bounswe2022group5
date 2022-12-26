@@ -75,11 +75,15 @@ class _HomePageState extends State<HomePage> {
           if (isSessionActive) {
             if (widget.index == 0) {
               floatingButton = FloatingActionButton(
-                  onPressed: () async {
-                    dynamic conversationObject = {
-                      'appId': '',// The APP_ID obtained from kommunicate dashboard.
-                    };
-                    KommunicateFlutterPlugin.buildConversation(conversationObject);
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+
+                      MaterialPageRoute(builder: (context) =>
+                          CreateArticlePage(activeUser: activeUser)),
+
+                    );
+                    print("User create post");
                   },
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   child: Icon(
