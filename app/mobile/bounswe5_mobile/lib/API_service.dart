@@ -1,5 +1,6 @@
 
 
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart' as http;
@@ -1969,79 +1970,100 @@ class ApiService {
       return annos;
     }
 
-    Future<int> createTextAnnotation(String token, String type, int id, TextAnnotation anno) async {
+  Future<int> createTextAnnotation(String token, String type, int id, TextAnnotation anno) async {
 
-      const _chars = 'abcdef1234567890';
-      Random _rnd = Random();
+    const _chars = 'abcdef1234567890';
+    Random _rnd = Random();
 
-      String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-          length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+    String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
-      String generateAnnotationId(){
-        String part1 = getRandomString(8);
-        String part2 = getRandomString(4);
-        String part3 = getRandomString(4);
-        String part4 = getRandomString(4);
-        String part5 = getRandomString(12);
-        return "#$part1-$part2-$part3-$part4-$part5";
-      }
-      // type is either "POST" or "ARTICLE"
+    String generateAnnotationId(){
+      String part1 = getRandomString(8);
+      String part2 = getRandomString(4);
+      String part3 = getRandomString(4);
+      String part4 = getRandomString(4);
+      String part5 = getRandomString(12);
+      return "#$part1-$part2-$part3-$part4-$part5";
+    }
+    // type is either "POST" or "ARTICLE"
 
-      var uri = Uri.parse("$baseURL/annotation/text/$id?type=$type");
+    var uri = Uri.parse("$baseURL/annotation/text/$id?type=$type");
 
-      var header = {
-        'Authorization': "token $token",
-        'content-type': "application/json",
-      };
+    var header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
 
 
-      final DateFormat formatter = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSSSS');
+    final DateFormat formatter = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSSSS');
 
-      var reqbody = {
-        "@context" : "http://www.w3.org/ns/anno.jsonld",
+    var reqbody = {
+      "@context" : "http://www.w3.org/ns/anno.jsonld",
 
-        "body": [
+      "body": [
+        {
+          "created" : formatter.format(anno.created),
+          "creator" : {
+            "id" : "http://3.91.54.225:3000/profile/" + anno.creatorId.toString(),
+            "name": anno.creatorName
+          },
+          "modified" : formatter.format(anno.created),
+          "purpose": "commenting",
+          "type" : "TextualBody",
+          "value" : anno.annotationBody,
+        }
+      ],
+
+      "id" : generateAnnotationId(),
+      "target" : {
+        "selector": [
           {
-            "created" : formatter.format(anno.created),
-            "creator" : {
-              "id" : "http://3.91.54.225:3000/profile/" + anno.creatorId.toString(),
-              "name": anno.creatorName
-            },
-            "modified" : formatter.format(anno.created),
-            "purpose": "commenting",
-            "type" : "TextualBody",
-            "value" : anno.annotationBody,
+            "exact" : anno.selectedText,
+            "type" : "TextQuoteSelector"
+
+          },
+          {
+            "start": anno.start,
+            "end": anno.end,
+            "type": "TextPositionSelector"
           }
-        ],
-      
-        "id" : generateAnnotationId(),
-        "target" : {
-          "selector": [
-            {
-              "exact" : anno.selectedText,
-              "type" : "TextQuoteSelector"
-
-            },
-            {
-              "start": anno.start,
-              "end": anno.end,
-              "type": "TextPositionSelector"
-            }
-          ]
-        },
-        "type": "Annotation"
+        ]
+      },
+      "type": "Annotation"
 
 
-      };
+    };
 
-      final response = await http.post(
-          uri,
-          headers: header,
-          body: jsonEncode(reqbody),
-      );
+    final response = await http.post(
+      uri,
+      headers: header,
+      body: jsonEncode(reqbody),
+    );
 
-      return response.statusCode;
+    return response.statusCode;
+
+  }
+
+  Future<List?> getDoctorInfo(int doctorId) async {
+    var uri = Uri.parse("$baseURL/profile/get_doctor_profile/$doctorId");
+
+
+    final header = {
+      'content-type': "application/json",
+    };
+    final response = await http.get(uri, headers: header);
+
+    if (response.statusCode == 200){
+      var body = jsonDecode(response.body);
+      String fullName = body["full_name"];
+      String specialization = body["specialization"];
+      String hospitalName = body["hospital_name"];
+      String profilePicture = body["profile_picture"];
+      List doctorInfo = [fullName, specialization, hospitalName, profilePicture];
+
+      return doctorInfo;
 
     }
-
+  }
 }
