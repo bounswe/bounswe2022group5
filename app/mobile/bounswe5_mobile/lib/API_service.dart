@@ -2102,18 +2102,10 @@ class ApiService {
 
     categories.sort((a,b) => a.name.compareTo(b.name));
 
-    /*
-    for(int i = 0 ; i < categories.length ; i++){
-      Category category = categories[i];
-      print(category.id.toString() + "," + category.name + "," + category.isFollowed.toString());
-    }
-
-     */
-
     return categories;
   }
 
-  Future<int> followCategory(String token, int categoryid) async{
+  Future<int> followOrUnfollowCategory(String token, int categoryid) async{
     var uri = Uri.parse("$baseURL/profile/follow_category/$categoryid");
 
     var header = {

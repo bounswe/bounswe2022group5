@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter/material.dart';
-import '../models/user.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
-import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/category.dart';
 
+ApiService apiService = ApiService();
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key, required User this.activeUser})
@@ -15,30 +14,49 @@ class CategoriesPage extends StatefulWidget {
   State<CategoriesPage> createState() => _CategoriesPageState();
 }
 
-
 class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: myAppBar,
-      body: ListView.separated(
-        padding: const EdgeInsets.all(8),
-        itemCount: categories.length,
-        itemBuilder: (BuildContext context, int index){
-          return CategoryItem(category: categories[index],);
-        },
-        separatorBuilder: (BuildContext context, int index) => const Divider(),
-      ),
 
+    return FutureBuilder(
+      future: apiService.getAllCategories(widget.activeUser.token),
+      builder: (context,snapshot) {
+        if(snapshot.hasData){
+
+          List<Category> categories = snapshot.data!;
+          return Scaffold(
+            appBar: myAppBar,
+            body: ListView.separated(
+              padding: const EdgeInsets.all(8),
+              itemCount: categories.length,
+              itemBuilder: (BuildContext context, int index){
+                return CategoryItem(category: categories[index],userToken: widget.activeUser.token,);
+              },
+              separatorBuilder: (BuildContext context, int index) => const Divider(),
+            ),
+
+          );
+        }
+        else{
+          return Scaffold(
+            appBar: myAppBar,
+            body: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+      }
     );
   }
 }
 
 
 class CategoryItem extends StatefulWidget {
-  const CategoryItem({Key? key, required this.category}) : super(key: key);
+  const CategoryItem({Key? key, required this.category, required this.userToken}) : super(key: key);
 
   final Category category;
+  final String userToken;
 
   @override
   State<CategoryItem> createState() => _CategoryItemState();
@@ -61,24 +79,25 @@ class _CategoryItemState extends State<CategoryItem> {
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.background,
           border: Border.all(color: Theme.of(context).colorScheme.outline),
-          borderRadius: BorderRadius.all(Radius.circular(5),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(5),
           )
       ),
       height: 60,
-      margin: EdgeInsets.all(2),
+      margin: const EdgeInsets.all(2),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
             width: MediaQuery.of(context).size.width * 0.65,
             child: Text(
               name,
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.bold,
@@ -88,33 +107,41 @@ class _CategoryItemState extends State<CategoryItem> {
           Spacer(),
           isFollowed! ?
           TextButton(
-              onPressed: (){
-                setState(() {
+            onPressed: () async {
+              int statusCode = await apiService.followOrUnfollowCategory(widget.userToken, widget.category.id);
+              setState((){
+                if(statusCode == 200){
                   isFollowed = !(isFollowed!);
-                });
-              },
-              child: Text("Followed"),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.green,
-                foregroundColor: Colors.white,
-              )
-          ) : TextButton(
-            onPressed: (){
-              setState(() {
-                isFollowed = !(isFollowed!);
+                }else{
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("An error occured. Error code: $statusCode"),
+                    )
+                  );
+                }
               });
             },
-            child: Text("Follow"),
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text("Followed"),
+          ) : TextButton(
+            onPressed: ()async {
+              int statusCode = await apiService.followOrUnfollowCategory(widget.userToken, widget.category.id);
+              setState((){
+                if(statusCode == 200){
+                  isFollowed = !(isFollowed!);
+                }else{
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("An error occured. Error code: $statusCode"),
+                  )
+                  );
+                }
+              });
+            },
+            child: const Text("Follow"),
           ),
-          /*
-          Icon(
-            Icons.check,
-            size: 30,
-            color: Colors.green,
-          ),
-
-           */
-          SizedBox(
+          const SizedBox(
             width: 10,
           )
         ],
