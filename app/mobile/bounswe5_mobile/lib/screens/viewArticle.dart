@@ -456,9 +456,12 @@ class CategoryViewer extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
               SizedBox(width: 10.0),
-              Text(name,
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary)),
+              Container(width: 150,
+                  child: Text(name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary))),
               SizedBox(width: 10.0),
             ],
           ),
