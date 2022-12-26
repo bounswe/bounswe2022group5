@@ -52,7 +52,7 @@ class _TextAnnotationsListState extends State<TextAnnotationsList> {
 
                   final annotation = annos[index-1];
 
-                  return TextAnnotationItem(annotation: annotation);
+                  return TextAnnotationItem(annotation: annotation, activeUserToken: widget.token, type: widget.type, id:widget.id);
                 },
                 separatorBuilder: (BuildContext context, int index) => const Divider(),
               ),
