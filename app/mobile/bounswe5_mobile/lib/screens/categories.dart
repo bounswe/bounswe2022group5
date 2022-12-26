@@ -19,54 +19,68 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return Scaffold(
       appBar: myAppBar,
       body: ListView(children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              border: Border.all(color: Theme.of(context).colorScheme.outline),
-              borderRadius: BorderRadius.all(Radius.circular(5))),
-          margin: EdgeInsets.all(2),
-          height: 45,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 2),
-                  Column(children: [
-                    Text(
-                      'Physical Medicine and Rehabilitation (PM & R)',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ]),
-                  Spacer(),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.check,
-                        size: 30,
-                        color: Colors.green,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: 2,
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
+        CategoryItem(name: "name", isFollowed: false)
       ]),
     );
   }
+}
+
+class CategoryItem extends StatelessWidget{
+
+  CategoryItem({required this.name, required this.isFollowed});
+  final String name;
+  final bool isFollowed;
+
+  @override
+  Widget build(BuildContext context){
+
+    return Container(
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      margin: EdgeInsets.all(2),
+      height: 45,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 8,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 2),
+              Column(children: [
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ]),
+              Spacer(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.check,
+                    size: 30,
+                    color: Colors.green,
+                  )
+                ],
+              ),
+              SizedBox(
+                width: 2,
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
 }
