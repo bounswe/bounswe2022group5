@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 
 PreferredSizeWidget? myAppBar = AppBar(
   centerTitle: true,
-  title: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text('Hippocrates',
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
-          ))
-    ],
+  title: Image.asset(
+    "lib/assets/icon/hippo-yazi.png",
+    fit: BoxFit.contain,
+    width: 250,
+
   ),
   elevation: 0.0,
 );
