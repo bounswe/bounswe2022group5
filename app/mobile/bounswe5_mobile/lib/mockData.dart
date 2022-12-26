@@ -8,16 +8,16 @@ import 'package:flutter/gestures.dart';
 
 
 // Categories:
-Category allergy = Category(1,'Allergy and Immunology', '');
-Category anesthesiology = Category(2,'Anesthesiology', '');
-Category dermatology = Category(3,'Dermatology','');
-Category radiology = Category(4,'Diagnostic Radiology', '');
-Category emergency = Category(5,'Emergency Medicine', '');
-Category family = Category(6,'Family Medicine', '');
-Category internal = Category(7,'Internal Medicine', '');
-Category genetics = Category(8,'Medical Genetics', '');
-Category neurology = Category(9,'Neurology', '');
-Category nuclear = Category(10,'Nuclear Medicine', '');
+Category allergy = Category(1,'Allergy and Immunology', isFollowed: false);
+Category anesthesiology = Category(2,'Anesthesiology', isFollowed: false);
+Category dermatology = Category(3,'Dermatology', isFollowed: false);
+Category radiology = Category(4,'Diagnostic Radiology', isFollowed: false);
+Category emergency = Category(5,'Emergency Medicine',isFollowed: false);
+Category family = Category(6,'Family Medicine', isFollowed: false);
+Category internal = Category(7,'Internal Medicine', isFollowed: false);
+Category genetics = Category(8,'Medical Genetics', isFollowed: false);
+Category neurology = Category(9,'Neurology', isFollowed: false);
+Category nuclear = Category(10,'Nuclear Medicine', isFollowed: false);
 
 List<Category> categories = [
   allergy, anesthesiology, dermatology, radiology, emergency, family, internal,

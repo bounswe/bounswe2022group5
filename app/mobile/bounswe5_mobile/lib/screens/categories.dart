@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:flutter/foundation.dart';
+import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter/material.dart';
-import '../models/user.dart';
+import 'package:bounswe5_mobile/models/user.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
+import 'package:bounswe5_mobile/models/category.dart';
+
+ApiService apiService = ApiService();
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key, required User this.activeUser})
@@ -16,57 +17,137 @@ class CategoriesPage extends StatefulWidget {
 class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: myAppBar,
-      body: ListView(children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              border: Border.all(color: Theme.of(context).colorScheme.outline),
-              borderRadius: BorderRadius.all(Radius.circular(5))),
-          margin: EdgeInsets.all(2),
-          height: 45,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 2),
-                  Column(children: [
-                    Text(
-                      'Physical Medicine and Rehabilitation (PM & R)',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ]),
-                  Spacer(),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.check,
-                        size: 30,
-                        color: Colors.green,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    width: 2,
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ]),
+
+    return FutureBuilder(
+      future: apiService.getAllCategories(widget.activeUser.token),
+      builder: (context,snapshot) {
+        if(snapshot.hasData){
+
+          List<Category> categories = snapshot.data!;
+          return Scaffold(
+            appBar: myAppBar,
+            body: ListView.separated(
+              padding: const EdgeInsets.all(8),
+              itemCount: categories.length,
+              itemBuilder: (BuildContext context, int index){
+                return CategoryItem(category: categories[index],userToken: widget.activeUser.token,);
+              },
+              separatorBuilder: (BuildContext context, int index) => const Divider(),
+            ),
+
+          );
+        }
+        else{
+          return Scaffold(
+            appBar: myAppBar,
+            body: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+      }
     );
   }
 }
+
+
+class CategoryItem extends StatefulWidget {
+  const CategoryItem({Key? key, required this.category, required this.userToken}) : super(key: key);
+
+  final Category category;
+  final String userToken;
+
+  @override
+  State<CategoryItem> createState() => _CategoryItemState();
+}
+
+class _CategoryItemState extends State<CategoryItem> {
+  bool? isFollowed;
+
+  @override
+  void initState() {
+    super.initState();
+    isFollowed = widget.category.isFollowed;
+  }
+
+  @override
+  Widget build(BuildContext context){
+    String name = widget.category.name;
+
+    return Container(
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(5),
+          )
+      ),
+      height: 60,
+      margin: const EdgeInsets.all(2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+            width: MediaQuery.of(context).size.width * 0.65,
+            child: Text(
+              name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 16,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Spacer(),
+          isFollowed! ?
+          TextButton(
+            onPressed: () async {
+              int statusCode = await apiService.followOrUnfollowCategory(widget.userToken, widget.category.id);
+              setState((){
+                if(statusCode == 200){
+                  isFollowed = !(isFollowed!);
+                }else{
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("An error occured. Error code: $statusCode"),
+                    )
+                  );
+                }
+              });
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text("Followed"),
+          ) : TextButton(
+            onPressed: ()async {
+              int statusCode = await apiService.followOrUnfollowCategory(widget.userToken, widget.category.id);
+              setState((){
+                if(statusCode == 200){
+                  isFollowed = !(isFollowed!);
+                }else{
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("An error occured. Error code: $statusCode"),
+                  )
+                  );
+                }
+              });
+            },
+            child: const Text("Follow"),
+          ),
+          const SizedBox(
+            width: 10,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
