@@ -302,7 +302,7 @@ const Profile = () => {
             
         }
         
-    }, [isMyProfile])
+    }, [isMyProfile, picturePopup, infoPopup, medHistoryPopup, user])
     
     
     const [form] = Form.useForm();
@@ -824,7 +824,7 @@ const Profile = () => {
 
                 
                 {
-                    !picturePopup && userStatus==="fulfilled" && isMyProfile ? 
+                    !picturePopup && userStatus==="fulfilled" && isMyProfile && user.type === 2 ? 
                     <div className="profile-edit-pp">
                         <Button style={editButton} onClick={() => setMedHistoryPopup(true)}>
                             {
