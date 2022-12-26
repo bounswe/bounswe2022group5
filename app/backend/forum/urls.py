@@ -16,4 +16,5 @@ urlpatterns = [
     path('post/<int:id>/comment', views.create_comment, name='create comment'),
     path('categories', views.get_all_categories, name='get_all_categories'),
     path('post/<int:id>/bookmark', views.bookmark_post, name='bookmark a post'),
+    path('report_content', views.report_content, name='report content'),
 ]

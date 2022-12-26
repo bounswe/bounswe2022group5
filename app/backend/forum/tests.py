@@ -195,4 +195,15 @@ class CommentTestCase(TestCase):
         response2 = client.post(f'/forum/post/{post.id}/bookmark', content_type="application/json",
                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
+    
+    def test_report_content(self):
+        #tests are not done.
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+        response = client.post(f'/forum/report_content', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
 
