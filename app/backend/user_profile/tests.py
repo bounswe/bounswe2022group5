@@ -119,3 +119,14 @@ class UserProfileTestCase(TestCase):
         response2 = client.get(f'/profile/bookmarked_articles', content_type="application/json",
                                 **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
+
+    def test_delete_an_account(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2, date_of_birth=datetime.now())
+        token = Token.objects.create(user=user)
+
+        response = client.delete(f'/profile/delete_account', content_type="application/json",
+                              **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+
+        self.assertEqual(response.status_code, 200)

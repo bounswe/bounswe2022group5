@@ -10,13 +10,13 @@ import CreatePost from './pages/CreatePost/CreatePost'
 import CreateArticle from './pages/CreateArticle/CreateArticle'
 import Forum from './layouts/Forum/Forum';
 
-
-
-
 import './App.css';
 import 'antd/dist/antd.css'
 import Profile from './pages/Profile/Profile';
 
+import Kommunicate from '@kommunicate/kommunicate-chatbot-plugin';
+
+Kommunicate.init("35f067c7290c8f7f05b2575bf22b44440", {restartConversationByUser:true, isSingleConversation:false});
 function App() {
   return (
     <Router>
@@ -39,8 +39,6 @@ function App() {
         <Route path='/article/:id' element={ <Article /> }/>
 
         <Route path='profile' element={ <Profile /> }/>
-
-        <Route path='profile/:id' element={<Profile />}/>
 
         <Route path='/create-post' element={ <CreatePost /> }/>
 

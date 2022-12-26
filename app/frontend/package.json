@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@kommunicate/kommunicate-chatbot-plugin": "^0.0.5",
     "@recogito/annotorious": "^2.7.9",
     "@recogito/recogito-js": "^1.8.2",
     "@reduxjs/toolkit": "^1.8.6",

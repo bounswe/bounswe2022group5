@@ -8,14 +8,16 @@ import Popup from "../../components/Popup/Popup";
 
 import Articles from "../../layouts/Article/Article";
 import Forum from "../../layouts/Forum/Forum";
+import { logOut } from "../../redux/userSlice"
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 import { fetchPostByUserId } from "../../redux/postSlice";
 import { fetchArticleByUserId } from "../../redux/articleSlice";
 import { fetchCommentByUserId } from "../../redux/commentSlice";
-import { fetchPostUpvotesByDoctorId, fetchArticleUpvotesByDoctorId, fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture, fetchDoctorProfile } from "../../redux/profileSlice";
+import { fetchPostUpvotesByDoctorId, fetchArticleUpvotesByDoctorId, fetchPostUpvotesByUserId, fetchArticleUpvotesByUserId, fetchPersonalInfo, fetchUpdatePersonalInfo, fetchUpdateAvatar, fetchUpdateProfilePicture, fetchDoctorProfile, fetchDeleteAccount } from "../../redux/profileSlice";
 import { setUser } from "../../redux/userSlice";
 
 
@@ -45,6 +47,14 @@ const editButton = {
     borderColor:'rgba(0,0,0,0.5)',
     backgroundColor: 'rgb(255,255,255)',
     color: 'rgb(104,172,252)',
+}
+
+const deleteButton = {
+    width: "10%",
+    borderRadius: 50,
+    borderColor:'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgb(223,71,89)',
+    color: 'rgb(255,255,255)',
 }
 
 const renderPosts = (results, setPosts) => {
@@ -376,6 +386,27 @@ const Profile = () => {
         }).catch((err) => {
             notification["error"]({
                 message: "Editing avatar is not successful",
+                description: err?.message,
+                placement: "top"
+            });
+        })
+    }
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const deleteProfile = () => {
+        fetchDeleteAccount().then(res => {
+            dispatch(logOut());
+            navigate("/");
+            notification["success"]({
+                message: 'Deleting account is successful',
+                placement: "top"
+            });
+
+        }).catch((err) => {
+            notification["error"]({
+                message: "Deleting account is not successful",
                 description: err?.message,
                 placement: "top"
             });
@@ -951,6 +982,16 @@ const Profile = () => {
 
                 </Pagination>
             </div>
+
+            {userStatus==="fulfilled" && isMyProfile ? 
+                <div className="profile-edit-pp">
+                    <Button style={deleteButton} onClick={() => deleteProfile() }>
+                        {
+                            "Delete Account"
+                        }
+                    </Button>
+                </div>
+                : <></>}
         
         </div>
 
