@@ -150,7 +150,7 @@ class MyDrawer extends StatelessWidget {
           // If session is active, categories button will show.
           isSessionActive
               ? ListTile(
-                  leading: const Icon(Icons.follow_the_signs_sharp),
+                  leading: const Icon(Icons.category),
                   title: const Text('Categories'),
                   onTap: () {
                     Navigator.push(
