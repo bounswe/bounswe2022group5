@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-
 class Category{
 
   final int id;
   final String name;
+  bool? isFollowed;
 
-  const Category(
+  Category(
       this.id,
       this.name,
+      {this.isFollowed}
       );
 
 }

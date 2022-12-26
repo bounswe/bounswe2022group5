@@ -27,7 +27,7 @@ class User {
   //Doctor specific fields:
   final int doctorid;
   final String fullName;
-  Category specialization; // Every doctor has 1 and only 1 specialization (?)
+  Category? specialization; // Every doctor has 1 and only 1 specialization (?)
   String hospitalName;
 
   final bool verified;
@@ -42,10 +42,9 @@ class User {
       {
         this.memberid = -1,
         this.username = "",
-
         this.doctorid = -1,
         this.fullName = "",
-        this.specialization = const Category(-1,"",""),
+        this.specialization,
         this.hospitalName = "",
         this.verified = false,
       }
