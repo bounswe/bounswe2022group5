@@ -103,8 +103,14 @@
 .article-display-image {
     margin-right: 20px;
     display: inline-block;
+    cursor: crosshair;
 }
 
 .article-display-vote {
     margin-top: -40px;
+}
+
+.article-display-delete {
+    display: flex;
+    justify-content: space-between;
 }

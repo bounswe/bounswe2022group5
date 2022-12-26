@@ -44,6 +44,15 @@
     justify-content: space-between;
 }
 
+.discussion-upper-label-delete {
+    display: flex;
+    justify-content: space-between;
+}
+
+.discussion-upper-delete-report {
+    display: flex;
+}
+
 .discussion-date {
     font-weight: 500;
     color: rgb(182, 181, 181);
@@ -131,19 +140,22 @@
 
 .discussion-images {
     margin-left: 120px;
-    overflow: auto;
+    overflow-y: visible;
+    overflow-x: auto;
     white-space: nowrap;
+    display: flex;
+    flex-direction: row;
 }
 
 .discussion-comment-images {
     margin-left: 10px;
-    overflow: auto;
     white-space: nowrap;
 }
 
 .discussion-image {
     margin-right: 20px;
     display: inline-block;
+    cursor: crosshair;
 }
 
 .discussion-comments {

@@ -1,5 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+
+import 'package:bounswe5_mobile/screens/doctorProfile.dart';
+import 'package:bounswe5_mobile/screens/createTextAnnotation.dart';
+import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
 import 'package:bounswe5_mobile/models/post.dart';
@@ -13,8 +17,10 @@ import 'package:bounswe5_mobile/API_service.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:bounswe5_mobile/screens/imagesGrid.dart';
 import 'package:bounswe5_mobile/widgets/MyAppBar.dart';
+import 'package:bounswe5_mobile/CustomSelectionControls.dart';
+import 'package:html/parser.dart';
 
-enum Menu { itemOne, itemTwo }
+enum Menu { itemOne, itemTwo, itemThree }
 
 class ViewPostPage extends StatefulWidget {
   const ViewPostPage(
@@ -95,6 +101,13 @@ class _ViewPostPageState extends State<ViewPostPage> {
             pp = SvgPicture.network(post.author.profileImageUrl!);
           }
 
+          Widget categoryWidget = SizedBox.shrink();
+          if(post.category != null){
+            if(post.category!.name != ""){
+              categoryWidget = CategoryViewer(name: post.category!.name);
+            }
+          }
+
           return Scaffold(
             appBar: myAppBar,
             body: ListView(children: [
@@ -109,8 +122,24 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(12.0),
                       child: Row(
                         children: [
+                          post.author.isDoctor ?
+                          InkWell(
+                            onTap: () async {
+                              final result = await ApiService().getDoctorInfo(post.author.id);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                              );
+                            },
+                            child: CircleAvatar(
+                                radius: 20,
+                                child: ClipOval(
+                                  child: pp,
+                                )
+                            ),
+                          ):
                           CircleAvatar(
-                            radius: 20,
+                              radius: 20,
                               child: ClipOval(
                                 child: pp,
                               )
@@ -125,6 +154,19 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                 Row(
                                   children: [
                                     SizedBox(width: 5),
+                                    post.author.isDoctor?
+                                    InkWell(
+                                      onTap: () async {
+                                        final result = await ApiService().getDoctorInfo(post.author.id);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                                        );
+                                      },
+                                      child: Text(
+                                        post.author.username,
+                                      ),
+                                    ):
                                     Text(
                                       post.author.username,
                                     ),
@@ -171,6 +213,14 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                         );
                                       }
                                     }
+                                    else if(item == Menu.itemThree){
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
+                                        )
+                                      );
+                                    }
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -183,13 +233,49 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                     value: Menu.itemTwo,
                                     child: Text('Delete'),
                                   ),
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemThree,
+                                    child: Text('See Text Annotations'),
+                                  )
                                 ],
                               );
-                            } else {
+                            } else if(isSessionActive){
                               return PopupMenuButton<Menu>(
                                 onSelected: (Menu item) {
                                   setState(() {
-                                    print("Report Post");
+                                    if(item == Menu.itemOne) {
+                                      print("Report Post");
+                                    }
+                                    else if(item == Menu.itemTwo){
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => TextAnnotationsList(token: token, type: "POST", id: postid)
+                                          )
+                                      );
+                                    }
+                                  });
+                                },
+                                itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<Menu>>[
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemOne,
+                                    child: Text('Report'),
+                                  ),
+                                  const PopupMenuItem<Menu>(
+                                    value: Menu.itemTwo,
+                                    child: Text('See Text Annotations'),
+                                  ),
+                                ],
+                              );
+                            }
+                            else{
+                              return PopupMenuButton<Menu>(
+                                onSelected: (Menu item) {
+                                  setState(() {
+                                    if(item == Menu.itemOne) {
+                                      print("Report Post");
+                                    }
                                   });
                                 },
                                 itemBuilder: (BuildContext context) =>
@@ -204,6 +290,13 @@ class _ViewPostPageState extends State<ViewPostPage> {
                           })
                         ],
                       ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5.0),
+                      constraints: BoxConstraints(maxHeight: double.infinity),
+                      width: double.infinity,
+                      child:
+                        categoryWidget,
                     ),
                     Container(
                       padding: EdgeInsets.all(5.0),
@@ -224,11 +317,32 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       padding: EdgeInsets.all(15.0),
                       constraints: BoxConstraints(maxHeight: double.infinity),
                       width: double.infinity,
-                      child: Html(
-                        data:post.body,
-                        defaultTextStyle: TextStyle(
-                            fontSize: 15
-                        ),
+                      child: containsListTags(post.body) ?
+                      // due to a bug in SelectableHtml class, html texts containing
+                      // list tags such as <ol>,<ul> cannot be displayed. So, annotation
+                      // function does not work for these texts.
+                      Html(data:post.body):
+                      SelectableHtml(
+                        data: post.body,
+                        style: {
+                          "*": Style(
+                            fontSize: FontSize(18),
+                          )
+                        },
+                        selectionControls: isSessionActive ? CustomTextSelectionControls(customButton: (start, end) {
+
+                          var selectedText = removeHtmlTags(post.body).substring(start, end);
+
+                          Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CreateTextAnnotationPage(type: "POST", id: widget.post.id, start: start, end: end, activeUser: activeUser, selectedText: selectedText)
+                            ),
+                          );
+
+
+                        }): MaterialTextSelectionControls(),
+
                       ),
                     ),
                     post.imageUrls.isEmpty ?
@@ -294,7 +408,8 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                       style: TextStyle(
                                           color: Colors.green,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20))
+                                          fontSize: 20)),
+
                                 ],
                               ),
                               SizedBox(
@@ -497,11 +612,27 @@ class _CommentItemState extends State<CommentItem> {
           Column(
             children: [
               SizedBox(height: 20),
+              comment.author.isDoctor ?
+              InkWell(
+                onTap: () async {
+                  final result = await ApiService().getDoctorInfo(comment.author.id);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                  );
+                },
+                child: CircleAvatar(
+                    radius: 20,
+                    child: ClipOval(
+                      child: pp,
+                    )
+                ),
+              ):
               CircleAvatar(
-                radius: 20,
-                child: ClipOval(
-                  child: pp,
-                )
+                  radius: 20,
+                  child: ClipOval(
+                    child: pp,
+                  )
               ),
             ],
           ),
@@ -525,7 +656,22 @@ class _CommentItemState extends State<CommentItem> {
                           crossAxisAlignment:
                           CrossAxisAlignment.start,
                           children: [
-                            Text(comment.author.username),
+                            comment.author.isDoctor?
+                            InkWell(
+                              onTap: () async {
+                                final result = await ApiService().getDoctorInfo(comment.author.id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => DoctorProfilePage(profilePicture: result![3],fullName: result![0],specialization: result![1],hospitalName: result![2])),
+                                );
+                              },
+                              child: Text(
+                                comment.author.username,
+                              ),
+                            ):
+                            Text(
+                              comment.author.username,
+                            ),
                             Text(formatter.format(comment.time)),
                           ],
                         ),
@@ -619,6 +765,7 @@ class _CommentItemState extends State<CommentItem> {
                 ),
 
                 SizedBox(height: 18),
+
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Row(
@@ -718,13 +865,46 @@ class _CommentItemState extends State<CommentItem> {
   }
 }
 
+class CategoryViewer extends StatelessWidget {
+  CategoryViewer({required this.name});
+  final String name;
 
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.outline,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          margin: EdgeInsets.all(15),
+          child: Row(
+            children: [
+              SizedBox(width: 15.0),
+              Icon(
+                Icons.category,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              SizedBox(width: 10.0),
+              Text(name,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary)),
+              SizedBox(width: 10.0),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
 
+bool containsListTags(String htmlString){
+  return htmlString.contains(RegExp(r'</?[uo]l>')) || htmlString.contains(RegExp(r'</?li>'));
+}
 
-/*
-CommentItem can be a class by itself
-
-Instead of separate User and Doctor models, it will be better
-to have a single User model since some entities can be created
-by both doctors and members.
- */
+String removeHtmlTags(String htmlString){
+  String cleaned = htmlString.replaceAll(r"</p>", ' ');
+  RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
+  return cleaned.replaceAll(exp, '');
+}

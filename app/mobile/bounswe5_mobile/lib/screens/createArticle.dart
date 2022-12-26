@@ -56,11 +56,10 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   final TextEditingController _body = TextEditingController();
   final GlobalKey<TagsState> _tagKey = GlobalKey<TagsState>();
   File? image;
+  String categoryValue = categories.first;
 
   @override
   Widget build(BuildContext context) {
-
-    String categoryValue = categories.first;
     ApiService apiServer = ApiService();
     return  FutureBuilder<User?>(
         future: apiServer.getUserInfo(widget.activeUser.token),

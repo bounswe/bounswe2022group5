@@ -1,4 +1,4 @@
-# Mobile Application
+# Hippocrates Mobile Application
 
 This is the implementation of our project for mobile platforms. 
 Since this is a Flutter project, it can be used both in iOS and Android devices.
@@ -13,5 +13,6 @@ Since this is a Flutter project, it can be used both in iOS and Android devices.
  
   * If you do not connect any device to your computer, you will need an emulator to open the application: 
      * You can download an Android emulator with Android Studio through [this link](https://developer.android.com/studio).  
-     *  Then you can easily run the application on Android Studio following [this guide](https://www.geeksforgeeks.org/how-to-import-existing-flutter-project-in-android-studio/).
+     * Then you can easily run the application on Android Studio following [this guide](https://www.geeksforgeeks.org/how-to-import-existing-flutter-project-in-android-studio/).
+    
  

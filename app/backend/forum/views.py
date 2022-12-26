@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 
 from backend.models import CustomUser, Doctor, Member, Label, Category
 from django.db.models import Q
@@ -6,20 +7,24 @@ from forum.models import PostImages, CommentImages
 from datetime import datetime
 from rest_framework.response import Response
 from forum.serializers import PostSerializer, CommentSerializer, UpdatePostSerializer, CreateCommentSerializer, LabelSerializer, CategorySerializer
-from forum.models import Post, Comment
+from forum.models import Post, Comment, Report
 from common.views import upload_to_s3, delete_from_s3
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.db import connection
+
+from semantic_search import SemanticSearchEngine
+
+
 # Create your views here.
 
 @api_view(['GET',])
 @permission_classes([AllowAny])
 def get_all_posts(request):
     # Begin building up the query
-    query= """SELECT {} FROM forum_post """
+    query= """SELECT {} FROM forum_post INNER JOIN backend_customuser as T2 ON forum_post.author_id = T2.id LEFT JOIN backend_doctor as T3 ON T3.user_id = T2.id LEFT JOIN forum_post_labels as T4 ON forum_post.id = T4.post_id LEFT JOIN backend_label T5 ON T5.id = T4.label_id """
 
     where_statements = []
 
@@ -29,12 +34,22 @@ def get_all_posts(request):
         where_statements.append("category_id = " + str(category_object.id))
 
     search_query = request.GET.get('q', None)
+
+
+
     if search_query:
+
         keyword_search_list = []
-        print("e")
+
         for keyword in search_query.split(" "):
             keyword_search_list.append("title ilike'%%" + keyword + "%%'")
             keyword_search_list.append("body ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("T3.full_name ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("T5.name ilike'%%" + keyword + "%%'")
+            keyword_search_list.append("'"+keyword+"'" + "=ANY(related_labels)")
+            keyword_search_list.append("T3.full_name ilike'%%" + keyword + "%%'")
+            #keyword_search_list.append("relatelabels @> ['foo']::varchar(100)[]")
+
 
         where_statements.append(
             "(" + " or ".join(keyword_search_list) + ")"
@@ -64,7 +79,7 @@ def get_all_posts(request):
         )
 
     if len(where_statements) > 0:
-        query += "WHERE " + " and ".join(where_statements) + " "
+        query += "WHERE " + " or ".join(where_statements) + " "
     
     # first get the count
     count = 0
@@ -82,14 +97,28 @@ def get_all_posts(request):
         page = 1
     query += "offset " + str((page-1)*page_size) + " limit " + str(page_size) + " "
 
-    post_objects = Post.objects.raw(query.format("distinct *"))
-
     try:
         user = CustomUser.objects.get(email = request.user.email)
+        followed = user.followed_categories
+        followed_categories = tuple()
+        for i in followed:
+            followed_categories.add(i)
+
     except:
         user = None
-    
+        followed_categories = tuple()
+
+    if len(followed_categories)==0:
+        new_query = query.format(f"distinct forum_post.id, date")
+    else:
+        query = query.format(f"distinct forum_post.id, date, (CASE WHEN(category_id IN {followed_categories}) THEN 1 ELSE 0 END) as c1")
+        new_query = f"SELECT * FROM ({query}) AS A1 ORDER BY A1.c1 desc"
+
+    post_objects = Post.objects.raw(new_query)
+
+
     posts = []
+
     for post in post_objects:
         serializer_post_data = PostSerializer(post).data
         if user:
@@ -99,8 +128,15 @@ def get_all_posts(request):
                 serializer_post_data['vote'] = 'downvote'
             else:
                 serializer_post_data['vote'] = None
+
+            if post.id in user.bookmarked_posts:
+                serializer_post_data['bookmark'] = True
+            else:
+                serializer_post_data['bookmark'] = False
         else:
             serializer_post_data['vote'] = None
+            serializer_post_data['bookmark'] = None
+
         author = post.author
         if author.type == 1:
             try:
@@ -168,6 +204,30 @@ def get_posts_of_user(request, user_id):
             post_dict['vote'] = 'downvote'
         else:
             post_dict['vote'] = None
+
+        if post.id in request.user.bookmarked_posts:
+            post_dict['bookmark'] = True
+        else:
+            post_dict['bookmark'] = False
+
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                'is_doctor': False
+            }
+        post_dict['author'] = author_data
         response_dict.append(post_dict)
 
     result_page = paginator.paginate_queryset(response_dict, request)
@@ -257,6 +317,26 @@ def get_comments_of_user(request, user_id):
             comment_dict['vote'] = 'downvote'
         else:
             comment_dict['vote'] = None
+
+
+        if author.type == 1:
+            doctor_data = Doctor.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': doctor_data.full_name,
+                'profile_photo': doctor_data.profile_picture,
+                'is_doctor': True
+            }
+
+        elif author.type == 2:
+            member_data = Member.objects.get(user=author)
+            author_data = {
+                'id': author.id,
+                'username': member_data.member_username,
+                'profile_photo': f"https://api.multiavatar.com/{member_data.info.avatar}.svg?apikey={os.getenv('AVATAR')}",
+                'is_doctor': False
+            }
+        comment_dict['author'] = author_data
         response_dict.append(comment_dict)
 
     result_page = paginator.paginate_queryset(response_dict, request)
@@ -314,10 +394,17 @@ def get_post(request,id):
                 response_dict['vote'] = 'downvote'
             else:
                 response_dict['vote'] = None
+            if post.id in request.user.bookmarked_posts:
+                response_dict['bookmark'] = True
+            else:
+                response_dict['bookmark'] = False
         else:
             response_dict['vote'] = None
+            response_dict['bookmark'] = None
 
 
+
+        response_dict['related_labels'] = post.related_labels
 
         response = {
             'post' :  response_dict,
@@ -426,18 +513,31 @@ def create_post(request):
             pass
 
     if 'labels' in request.data:
+        semantic_engine = SemanticSearchEngine()
+
         try:
             labels = request.data["labels"].split(",")
             l = []
-            for label in labels:
+            related_labels = []
+            for label_str in labels:
+                if label_str=='':
+                    continue
 
-                label, valid = Label.objects.get_or_create(name=label)
+                label, valid = Label.objects.get_or_create(name=label_str)
+
+                related_labels2 = semantic_engine.get_labels(label_str)
+
+                for i in related_labels2:
+                    related_labels.append(i)
+                    post.related_labels.append(i)
+
                 post.labels.add(label)
                 post.save()
                 label_serialized = LabelSerializer(label).data
                 l.append(label_serialized)
 
             response_object['post']['labels'] = l
+            response_object['post']['related_labels'] = related_labels
         except:
             pass
 
@@ -696,3 +796,56 @@ def get_all_categories(request):
     queryset = Category.objects.all()
     serializer = CategorySerializer(queryset, many=True)
     return Response(serializer.data)
+
+
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def bookmark_post(request, id):
+        try:
+            post = Post.objects.get(id=id)
+            user_info = request.user
+        except:
+            return Response({'error': 'Post not found'}, status=400)
+
+        if id in user_info.bookmarked_posts :
+            user_info.bookmarked_posts.remove(id)
+            user_info.save()
+            return Response({'response': 'Bookmark removed successfully'}, status=200)
+        else:
+            user_info.bookmarked_posts.append(id)
+            user_info.save()
+            return Response({'response': 'Bookmark added successfully'}, status=200)
+
+            
+@api_view(['POST',])
+@permission_classes([IsAuthenticated, ])
+def report_content(request):
+        # content_type = 0 : Post
+        # content_type = 1 : Comment
+        try:
+            
+            content_id = request.data['content_id']
+            content_type = request.data['content_type']
+            
+            try:
+                if content_type == 0:
+                    post = Post.objects.get(id=content_id)
+            
+                elif content_type == 1:
+                    comment = Comment.objects.get(id=content_id)
+                else:
+                    return Response({'error': 'Wrong content_type, please use 0 or 1'}, status=400)
+
+            except:
+                return Response({'error': 'Wrong content_id'}, status=400)
+            
+            
+                
+            reporter = request.user
+            report = Report(content_id=content_id, content_type=content_type, reporter=reporter)
+            report.save()
+            return Response({'response': 'Content is reported successfully'}, status=200)
+            
+        except:
+            
+            return Response({'error': 'Content not found'}, status=400)

@@ -65,7 +65,7 @@ def create_text_annotation(request ,post_id):
     body = data['body'][0]
     date_created = body['created']
     author_link = body['creator']['id']
-    display_name = body['creator']['displayName']
+    display_name = body['creator']['name']
     date_modified = body['modified']
     purpose = body['purpose']
     value = body['value']
@@ -97,7 +97,7 @@ def create_text_annotation(request ,post_id):
     return Response(text_annotation_mapper(text_annotation))
 
 
-@api_view(['POST',])
+@api_view(['POST', 'PUT'])
 @permission_classes([IsAuthenticated,])
 def create_image_annotation(request ,post_id):
     source_type = request.GET.get('type')
@@ -107,7 +107,7 @@ def create_image_annotation(request ,post_id):
     body = data['body'][0]
     date_created = body['created']
     author_link = body['creator']['id']
-    display_name = body['creator']['displayName']
+    display_name = body['creator']['name']
     date_modified = body['modified']
     purpose = body['purpose']
     value = body['value']

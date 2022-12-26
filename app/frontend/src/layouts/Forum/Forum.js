@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Forum = ({posts, setPosts, isComment, isProfile}) => {
+  console.log('zerg')
   console.log(posts)
   return (
     <div className="forum-page">
@@ -51,12 +52,12 @@ const Post = (props) => {
         <div className="post-header" onClick={() => navigate(`/post/${props.id}`)}>
           <div className="post-header-text">
             <div>
-              <img className="post-avatar" alt="avatar" src={props?.isProfile ? user?.profile_image : props?.author?.profile_photo}/>
+              <img className="post-avatar" alt="avatar" src={props?.author?.profile_photo}/>
             </div>
             <h2>{props.title}</h2>
             <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
             <div className="date-and-author">
-                <span> &nbsp; by <span>{props?.isProfile ? user?.username : props.author?.username}</span></span>&nbsp;
+                <span> &nbsp; by <span>{props.author?.username}</span></span>&nbsp;
                 <span>&nbsp;</span>
                 <span> at {props.date}</span>
               </div>

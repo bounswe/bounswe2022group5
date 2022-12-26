@@ -70,6 +70,38 @@ class PostTestCase(TestCase):
                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
 
+    def test_get_all_posts(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+        response = client.post(f'/forum/posts', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_all_posts_with_search_query(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='I need sleep', body='Body about sleep', author=user, date=datetime.now())
+        response = client.post(f'/forum/posts?q=sleep', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+    def test_get_all_posts_with_user_search(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        member_info = backendModels.MemberInfo.create()
+        member = backendModels.Member.objects.create(user=user, member_username='test', info = member_info )
+
+        post = models.Post.objects.create(title='I need sleep', body='Body about sleep', author=user, date=datetime.now())
+        response = client.post(f'/forum/posts?q=test', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+
 class CommentTestCase(TestCase):
     def setUp(self) -> None:
         return super().setUp()
@@ -141,3 +173,37 @@ class CommentTestCase(TestCase):
         response2 = client.post(f'/forum/post/comment/{comment.id}/downvote', content_type="application/json",
                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
+
+    def test_bookmark_post(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user,
+                                          date=datetime.now())
+        response = client.post(f'/forum/post/{post.id}/bookmark', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_bookmark_remove_post(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+        response1 = client.post(f'/forum/post/{post.id}/bookmark', content_type="application/json", **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        response2 = client.post(f'/forum/post/{post.id}/bookmark', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response2.status_code, 200)
+    
+    def test_report_content(self):
+        #tests are not done.
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+        response = client.post(f'/forum/report_content', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
+        self.assertEqual(response.status_code, 200)
+

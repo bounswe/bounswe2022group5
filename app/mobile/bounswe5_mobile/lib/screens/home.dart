@@ -115,11 +115,11 @@ class _HomePageState extends State<HomePage> {
             // App bar is the top bar shown in the screen.
             appBar: AppBar(
               title: Image.asset(
-                "lib/assets/icon/hippo-yazi.png",
-                fit: BoxFit.contain,
+              "lib/assets/icon/hippo-yazi.png",
+              fit: BoxFit.contain,
                 width: 250,
 
-              ),
+            ),
               elevation: 0.0,
               actions: <Widget>[
                 // This will implement search functionality later:

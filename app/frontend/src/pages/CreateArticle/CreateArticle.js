@@ -71,7 +71,7 @@ const CreateArticle = () => {
                     message: 'Article is created',
                     placement: "top"
                 });
-                navigate(`/articles/article/${res.article.id}`)
+                navigate(`/article/${res.article.id}`)
             })
             .catch(() => {
                 notification["error"]({
