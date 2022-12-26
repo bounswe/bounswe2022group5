@@ -104,6 +104,16 @@ class ApiService {
     return response.statusCode;
   }
 
+  Future<int> commentDelete(int commentID, String token) async {
+    var uri = Uri.parse("$baseURL/forum/post/comment/${commentID.toString()}");
+    final header = {
+      'Authorization': "token $token",
+      'content-type': "application/json",
+    };
+    final response = await http.delete(uri, headers: header);
+    return response.statusCode;
+  }
+
   Future<int> postUpdate(String token, int postID, String title, String body, String longitude, String latitude) async {
     var uri = Uri.parse("$baseURL/forum/post/${postID.toString()}");
     final header = {
