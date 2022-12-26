@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       context,
 
                       MaterialPageRoute(builder: (context) =>
-                          CreateArticlePage(activeUser: activeUser)),
+                          CreatePostPage(activeUser: activeUser)),
 
                     );
                     print("User create post");
