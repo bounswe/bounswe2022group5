@@ -191,7 +191,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
 
                                       }
                                       else if(item == Menu.itemThree){
-                                        Navigator.pushReplacement(
+                                        Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) => TextAnnotationsList(token: token, type: "ARTICLE", id: articleid)
@@ -224,7 +224,7 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                                         print("Report article");
                                       }
                                       else if(item == Menu.itemTwo){
-                                        Navigator.pushReplacement(
+                                        Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) => TextAnnotationsList(token: token, type: "ARTICLE", id: articleid)
