@@ -195,15 +195,62 @@ class CommentTestCase(TestCase):
         response2 = client.post(f'/forum/post/{post.id}/bookmark', content_type="application/json",
                                **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
         self.assertEqual(response2.status_code, 200)
-    
-    def test_report_content(self):
-        #tests are not done.
+
+    def test_report_post(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)        
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+        response = client.post(f'/forum/report_content', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}", 'content_id': post.id, 'content_type': 0})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {'response': 'Content is reported successfully'})
+        self.assertEqual(models.Report.objects.count(), 1)
+        report = models.Report.objects.first()
+        self.assertEqual(report.content_id, post.id)
+        self.assertEqual(report.content_type, 0)
+        self.assertEqual(report.reporter, user)
+        
+    def test_report_comment(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+        comment = models.Comment.objects.create(body='test post body', author=user, date=datetime.now(), post_id=post.id)
+        response = client.post(f'/forum/report_content', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}", 'content_id': comment.id, 'content_type': 1})
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {'response': 'Content is reported successfully'})
+        self.assertEqual(models.Report.objects.count(), 1)
+        report = models.Report.objects.first()
+        self.assertEqual(report.content_id, comment.id)
+        self.assertEqual(report.content_type, 1)
+        self.assertEqual(report.reporter, user)
+
+    def test_report_invalid_content_type(self):
         client = Client()
         user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
                                                             type=2)
         token = Token.objects.create(user=user)
         post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
         response = client.post(f'/forum/report_content', content_type="application/json",
-                               **{"HTTP_AUTHORIZATION": f"Token {token.key}"})
-        self.assertEqual(response.status_code, 200)
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}", 'content_id': post.id, 'content_type': 2})
+        
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data, {'error': 'Wrong content_type, please use 0 or 1'})
+        self.assertEqual(models.Report.objects.count(), 0)
 
+    def test_report_invalid_content_id(self):
+        client = Client()
+        user = backendModels.CustomUser.objects.create_user(email="joedoetest@gmail.com", password="testpassword",
+                                                            type=2)
+        token = Token.objects.create(user=user)
+        post = models.Post.objects.create(title='test post title', body='test post body', author=user, date=datetime.now())
+        response = client.post(f'/forum/report_content', content_type="application/json",
+                               **{"HTTP_AUTHORIZATION": f"Token {token.key}", 'content_id': 999, 'content_type': 0})
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data, {'error': 'Wrong content_id'})
+        self.assertEqual(models.Report.objects.count(), 0)
