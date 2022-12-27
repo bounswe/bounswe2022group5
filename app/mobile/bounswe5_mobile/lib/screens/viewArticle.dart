@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:math';
+
 import 'package:bounswe5_mobile/screens/imagesGrid.dart';
 import 'package:flutter/material.dart';
 import 'package:bounswe5_mobile/mockData.dart';
@@ -303,6 +305,11 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
                         Html(data:article.body):
                         SelectableHtml(
                           data: article.body,
+                          style: {
+                            "*": Style(
+                              fontSize: FontSize(18),
+                            )
+                          },
                           selectionControls: isSessionActive ? CustomTextSelectionControls(customButton: (start, end) {
 
                             var selectedText = removeHtmlTags(article.body).substring(start, end);
@@ -319,6 +326,27 @@ class _ViewArticlePageState extends State<ViewArticlePage> {
 
                         ),
                       ),
+                      SizedBox(height: 10,),
+
+                      article.labels!.isEmpty || (article.labels!.length == 1 && article.labels![0].name == "")?
+                      SizedBox.shrink():
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Labels:  ",
+                            style: TextStyle(color: Colors.black),
+                            children: [for(var label in article.labels!) TextSpan(
+                              text:"#" + label.name + "  ",
+                              style: TextStyle(
+                                color: randomColor(),
+                                fontStyle: FontStyle.italic,
+                              ),
+                            )],
+                          ),
+                        ),
+                      ),
+
                       SizedBox(height: 18),
                       article.imageUrls.isEmpty ?
                       SizedBox.shrink():
@@ -480,4 +508,11 @@ String removeHtmlTags(String htmlString){
   cleaned = cleaned.replaceAll(RegExp(r"\n+"), '\n');
   RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
   return cleaned.replaceAll(exp, '');
+}
+
+
+Color randomColor(){
+
+  List<dynamic> lst = [0xA50D0D, 0X0DA256, 0x1D0DA5, 0xa50d57, 0x7ba50d, 0x1a174d, 0x05695e, 0x311a80, 0x711111, 0x1a1a97, 0x1616c8, 0x000ae6];
+  return Color(lst[Random().nextInt(lst.length)].toInt()).withOpacity(1.0);
 }

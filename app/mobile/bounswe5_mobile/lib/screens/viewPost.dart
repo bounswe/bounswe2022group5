@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 
+import 'dart:math';
+
 import 'package:bounswe5_mobile/screens/doctorProfile.dart';
 import 'package:bounswe5_mobile/screens/createTextAnnotation.dart';
 import 'package:bounswe5_mobile/screens/viewTextAnnotations.dart';
@@ -365,6 +367,30 @@ class _ViewPostPageState extends State<ViewPostPage> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 10),
+
+
+                    post.labels.isEmpty || (post.labels.length == 1 && post.labels[0].name == "")?
+                    SizedBox.shrink():
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                      child: RichText(
+                        text: TextSpan(
+                          text: "Labels:  ",
+                          style: TextStyle(color: Colors.black),
+                          children: [for(var label in post.labels) TextSpan(
+                            text:"#" + label.name + "  ",
+                            style: TextStyle(
+                              color: randomColor(),
+                              fontStyle: FontStyle.italic,
+                            ),
+                          )],
+                        ),
+                      ),
+                    ),
+
+
+
                     SizedBox(height: 18),
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -929,4 +955,10 @@ String removeHtmlTags(String htmlString){
   String cleaned = htmlString.replaceAll(r"</p>", ' ');
   RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
   return cleaned.replaceAll(exp, '');
+}
+
+Color randomColor(){
+
+  List<dynamic> lst = [0xA50D0D, 0X0DA256, 0x1D0DA5, 0xa50d57, 0x7ba50d, 0x1a174d, 0x05695e, 0x311a80, 0x711111, 0x1a1a97, 0x1616c8, 0x000ae6];
+  return Color(lst[Random().nextInt(lst.length)].toInt()).withOpacity(1.0);
 }
