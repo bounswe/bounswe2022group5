@@ -39,12 +39,12 @@ def delete_all_text_annotations(request, obj_id):
 def get_annotations(request, source_id):
     author = request.user
     source_type = request.GET.get('type')
-    text_annotations = TextAnnotation.objects.filter(source_type=source_type).filter(source_id=source_id).filter(author = author or author.type == 1)
+    text_annotations = TextAnnotation.objects.filter(source_type=source_type).filter(source_id=source_id)
     text_annotations_response = []
     for text_annotation in text_annotations:
         text_annotations_response.append(text_annotation_mapper(text_annotation))
 
-    image_annotations = ImageAnnotation.objects.filter(source_type=source_type).filter(source_id=source_id).filter(author=author or author.type == 1)
+    image_annotations = ImageAnnotation.objects.filter(source_type=source_type).filter(source_id=source_id)
     image_annotations_response = []
     for image_annotation in image_annotations:
         image_annotations_response.append(image_annotation_mapper(image_annotation))
