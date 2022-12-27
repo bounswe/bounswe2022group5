@@ -20,7 +20,7 @@ class ChatbotScreen extends StatelessWidget {
           onPressed: () async {
             try {
               dynamic conversationObject = {
-                'appId': '35f067c7290c8f7f05b2575bf22b44440',
+                'appId': '36bebeb26be6f2b3c682780b23162e51c',
                 'isSingleConversation' : false
               };
               dynamic result = await KommunicateFlutterPlugin.buildConversation(conversationObject);
