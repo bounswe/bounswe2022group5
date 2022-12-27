@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = process.env.REACT_APP_BACKEND_URL_WITH_ANNOTATION;
+const url = process.env.REACT_APP_BACKEND_URL;
 
 export const fetchAnnotationById = async (id, type) => {
     const { data } = await axios.get(`${url}/annotation/${id}?type=${type}`);
