@@ -24,7 +24,7 @@ class _UserPostsOverviewScreenState extends State<UserPostsOverviewScreen> {
   late bool _loading;
   final int _numberOfPostsPerRequest = 15;
   late List<Post> _posts;
-  final int _nextPageTrigger = 2;
+  final int _nextPageTrigger = 3;
 
   ApiService apiService = ApiService();
 
@@ -51,7 +51,7 @@ class _UserPostsOverviewScreenState extends State<UserPostsOverviewScreen> {
         _loading = false;
         _pageNumber = _pageNumber + 1;
         _posts.addAll(postList);
-        _isLastPage = postList.isEmpty;
+        _isLastPage = postList.length < _numberOfPostsPerRequest;
         //_isLastPage = _posts.length == totalNofPosts; // Actual code
 
       });
@@ -134,7 +134,8 @@ class _UserPostsOverviewScreenState extends State<UserPostsOverviewScreen> {
                   child: Padding(
                     padding: EdgeInsets.all(8),
                     child: CircularProgressIndicator(),
-                  ));
+                  )
+              );
             }
           }
           final Post post = _posts[index];

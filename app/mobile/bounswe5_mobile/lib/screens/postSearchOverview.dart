@@ -73,7 +73,7 @@ class _PostsSearchOverviewState extends State<PostsSearchOverview> {
         _loading = false;
         _pageNumber = _pageNumber + 1;
         _posts.addAll(postList);
-        _isLastPage = postList.isEmpty;
+        _isLastPage = postList.length < _numberOfPostsPerRequest;
         //_isLastPage = _posts.length == totalNofPosts; // Actual code
 
       });
