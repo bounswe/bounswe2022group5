@@ -65,7 +65,7 @@ class _ArticleSearchOverviewState extends State<ArticleSearchOverview> {
         _loading = false;
         _pageNumber = _pageNumber + 1;
         _articles.addAll(articleList);
-        _isLastPage = articleList.isEmpty;
+        _isLastPage = articleList.length < _numberOfPostsPerRequest;
         //_isLastPage = _posts.length == totalNofPosts; // Actual code
 
       });

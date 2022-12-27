@@ -59,7 +59,7 @@ class ArticleItem extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "Dr. " + article.author.fullName,
+                        article.author.fullName,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
