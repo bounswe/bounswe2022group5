@@ -541,7 +541,7 @@ class ApiService {
         List<dynamic> labelsraw = results[i]["labels"];
         List<Label> labels = List.empty(growable: true);
 
-        for(int j = 0 ; j < labels.length; j++){
+        for(int j = 0 ; j < labelsraw.length; j++){
           Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
           labels.add(label);
         }
@@ -625,7 +625,7 @@ class ApiService {
         List<dynamic> labelsraw = results[i]["labels"];
         List<Label> labels = List.empty(growable: true);
 
-        for(int j = 0 ; j < labels.length; j++){
+        for(int j = 0 ; j < labelsraw.length; j++){
           Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
           labels.add(label);
         }
@@ -812,7 +812,7 @@ class ApiService {
       List<dynamic> labelsraw = rawpost["labels"];
       List<Label> labels = List.empty(growable: true);
 
-      for(int j = 0 ; j < labels.length; j++){
+      for(int j = 0 ; j < labelsraw.length; j++){
         Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
         labels.add(label);
       }
@@ -950,7 +950,7 @@ class ApiService {
       List<dynamic> labelsraw = rawarticle["labels"];
       List<Label> labels = List.empty(growable: true);
 
-      for(int j = 0 ; j < labels.length; j++){
+      for(int j = 0 ; j < labelsraw.length; j++){
         Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
         labels.add(label);
       }
@@ -1047,7 +1047,7 @@ class ApiService {
         List<dynamic> labelsraw = results[i]["labels"];
         List<Label> labels = List.empty(growable: true);
 
-        for(int j = 0 ; j < labels.length; j++){
+        for(int j = 0 ; j < labelsraw.length; j++){
           Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
           labels.add(label);
         }
@@ -1095,10 +1095,10 @@ class ApiService {
     return result;
   }
 
-  Future<dynamic> getUserPosts(User user, int page, int pageSize) async {
+  Future<dynamic> getUserPosts(User user, int page, int page_size) async {
     var token = user.token;
     var userid = user.id;
-    var uri = Uri.parse("$baseURL/forum/post/user/$userid?page=$page&page_size=$pageSize");
+    var uri = Uri.parse("$baseURL/forum/post/user/$userid?page=$page&page_size=$page_size");
     var header;
     if(token != "-1"){
       header = {
@@ -1113,6 +1113,7 @@ class ApiService {
     }
 
     final response = await http.get(uri, headers: header);
+
 
     int count = 0;
     List<dynamic> results;
@@ -1142,19 +1143,19 @@ class ApiService {
         if(categoryraw != null){
           category = Category(categoryraw["id"], categoryraw["name"]);
         }
+        print("laaaan");
 
         List<dynamic> labelsraw = results[i]["labels"];
         List<Label> labels = List.empty(growable: true);
-
-        for(int j = 0 ; j < labels.length; j++){
+        print("laaaan2");
+        for(int j = 0 ; j < labelsraw.length; j++){
           Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
           labels.add(label);
         }
 
-        int authorId = results[i]["author"];
+        int authorId = results[i]["author"]["id"];
         String voteOfActiveUser = results[i]["vote"];
-
-
+        print("laaaan4");
         bool isAuthorDoctor = false;
         String name = user.username;
         if(user.usertype == 1){
@@ -1189,6 +1190,7 @@ class ApiService {
 
     result.add(count);
     result.add(posts);
+
 
     return result;
   }
@@ -1247,7 +1249,7 @@ class ApiService {
         List<dynamic> labelsraw = results[i]["labels"];
         List<Label> labels = List.empty(growable: true);
 
-        for(int j = 0 ; j < labels.length; j++){
+        for(int j = 0 ; j < labelsraw.length; j++){
           Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
           labels.add(label);
         }
@@ -1333,7 +1335,7 @@ class ApiService {
         List<dynamic> labelsraw = results[i]["labels"];
         List<Label> labels = List.empty(growable: true);
 
-        for(int j = 0 ; j < labels.length; j++){
+        for(int j = 0 ; j < labelsraw.length; j++){
           Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
           labels.add(label);
         }
@@ -1421,7 +1423,7 @@ class ApiService {
           int downvotes = results[i]["downvote"];
           double longitude = results[i]["longitude"];
           double latitude = results[i]["latitude"];
-          int authorId = results[i]["author"];
+          int authorId = results[i]["author"]["id"];
           int postId = results[i]["post"];
           String voteOfActiveUser = results[i]["vote"];
 
@@ -1518,7 +1520,7 @@ class ApiService {
           List<dynamic> labelsraw = results[i]["labels"];
           List<Label> labels = List.empty(growable: true);
 
-          for(int j = 0 ; j < labels.length; j++){
+          for(int j = 0 ; j < labelsraw.length; j++){
             Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
             labels.add(label);
           }
@@ -1611,7 +1613,7 @@ class ApiService {
           List<dynamic> labelsraw = results[i]["labels"];
           List<Label> labels = List.empty(growable: true);
 
-          for(int j = 0 ; j < labels.length; j++){
+          for(int j = 0 ; j < labelsraw.length; j++){
             Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
             labels.add(label);
           }
@@ -1705,7 +1707,7 @@ class ApiService {
           List<dynamic> labelsraw = results[i]["labels"];
           List<Label> labels = List.empty(growable: true);
 
-          for(int j = 0 ; j < labels.length; j++){
+          for(int j = 0 ; j < labelsraw.length; j++){
             Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
             labels.add(label);
           }
@@ -1792,7 +1794,7 @@ class ApiService {
           List<dynamic> labelsraw = results[i]["labels"];
           List<Label> labels = List.empty(growable: true);
 
-          for(int j = 0 ; j < labels.length; j++){
+          for(int j = 0 ; j < labelsraw.length; j++){
             Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
             labels.add(label);
           }
@@ -1880,7 +1882,7 @@ class ApiService {
           List<dynamic> labelsraw = results[i]["labels"];
           List<Label> labels = List.empty(growable: true);
 
-          for(int j = 0 ; j < labels.length; j++){
+          for(int j = 0 ; j < labelsraw.length; j++){
             Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
             labels.add(label);
           }
