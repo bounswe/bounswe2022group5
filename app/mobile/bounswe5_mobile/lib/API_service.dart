@@ -950,7 +950,7 @@ class ApiService {
       List<dynamic> labelsraw = rawarticle["labels"];
       List<Label> labels = List.empty(growable: true);
 
-      for(int j = 0 ; j < labels.length; j++){
+      for(int j = 0 ; j < labelsraw.length; j++){
         Label label = Label(labelsraw[j]["id"],labelsraw[j]["name"]);
         labels.add(label);
       }
