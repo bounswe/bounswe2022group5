@@ -359,11 +359,43 @@
     - UI: 
      <img width="1800" alt="Screenshot 2022-12-06 at 23 16 45" src="https://user-images.githubusercontent.com/73655554/206018238-9c33366f-25d2-484a-b889-edee63e347c6.png">
 
+
+    ***Image Annotation***:
+    - Code: [Image Annotation](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js)
+    - UI: 
+     <img width="1800" alt="Screenshot 2022-12-31 at 13 48 55" src="https://user-images.githubusercontent.com/73655554/210134284-0acc7b18-bff1-4738-b1de-bd67d6645400.png">
      
+     ***Text Annotation***:
+    - Code: [Text Annotation](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js)
+    - UI: 
+     <img width="1800" alt="Screenshot 2022-12-31 at 13 49 37" src="https://user-images.githubusercontent.com/73655554/210134292-4b97ab97-53c2-4856-92ff-6663ec2f7f15.png">
      
-
-
-
+     ***Delete Post***:
+    - Code: [Delete Post or Article](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/components/Delete/Delete.js)
+    - UI: 
+      <img width="1800" alt="Screenshot 2022-12-31 at 13 51 15" src="https://user-images.githubusercontent.com/73655554/210134356-9ee737b0-5b25-4572-af3d-ac53e792d99e.png">
+      
+      ***Delete Account***:
+    - Code: [Delete Account](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js)
+    - UI: 
+      ![Screenshot 2022-12-31 at 13 46 25](https://user-images.githubusercontent.com/73655554/210134392-6bbd97c6-73fd-4632-94de-0082d2157e3a.png)
+      
+      
+      ***Chatbot***:
+    - Code: [Chatbot](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/App.js)
+    - UI: 
+      ![Screenshot 2022-12-31 at 13 46 08](https://user-images.githubusercontent.com/73655554/210134435-41216cb1-1acb-4fff-b5b3-75b46b2d0da1.png)
+      
+      
+      ***Doctor Profiles***:
+    - Code: [Doctor Profile](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js)
+    - UI: 
+      <img width="1800" alt="Screenshot 2022-12-31 at 13 47 29" src="https://user-images.githubusercontent.com/73655554/210134461-f14c0e03-f9b8-4960-be3a-c029e36b3d76.png">
+      
+      ***Category Follow-Unfollow***:
+    - Code: [Follow-Unfollow](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/layouts/HomePage/HomePage.js)
+    - UI: 
+      <img width="1800" alt="Screenshot 2022-12-31 at 13 47 51" src="https://user-images.githubusercontent.com/73655554/210134478-1122c4c0-0dfb-41bc-8af8-cac0a0baa319.png">
 
 
  * ### Annotations
