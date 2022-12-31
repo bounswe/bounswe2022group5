@@ -5,12 +5,6 @@
 
 ### **Responsibilities:**
 
-Prior to implementation responsibilities, I attended all meetings as a Group 5 team member. 
-I expressed my ideas in the discussion topics, came up with new ideas and helped the team in determining the action items. 
-Additionally, I was part of the backend team. Here, I fulfilled my responsibilities in the development, improvement and necessary bug fixes of Forum, Articles, Post, Comments and Profile pages, as well as the authentiocation implementation in the first milestone. 
-I also played more of a role in Deploy processes in addition to previous milestones.
-In addition to all these, I also helped my friends in the frontend and mobile teams, especially when they had problems with getting data from the backend.
-  
 
 ### **Main contributions:**
 
