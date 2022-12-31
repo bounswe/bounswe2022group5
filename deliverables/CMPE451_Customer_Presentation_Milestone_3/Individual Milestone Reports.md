@@ -307,14 +307,31 @@
 ## **Member:** [Yavuz Samet Topcuoglu](https://github.com/bounswe/bounswe2022group5/wiki/Yavuz-Samet-Topcuoglu), Group 5 - Frontend.
 
 ### **Responsibilities:**
-- 
+- Attending all meetings and contributing the brain storming during those meetings. 
+- Creating the issue template.
+- Revising the [use case diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram).
+- Creating the logo design of the platform.
+- Documenting the work done after each and every work completed.
+- Reviewing the issues and pull requests of the fellow members when requested.
+- Implementing different aspects of the web application such as [profile pages](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js), [article cards](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/layouts/Article/Article.js), [labels](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Post/Post.js), and many more.
+- Taking notes during the Final Milestone Customer Presentation.
 
-  
 
 ### **Main contributions:**
-
-
-
+- I have helped the creation of multiple scenarios before the milestone presentations. Here is [one of them](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-1).
+- Implemented [Article card layout](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/layouts/Article) and Article cards.
+- Created an [Issue Template](https://github.com/bounswe/bounswe2022group5/wiki/Issue-Template) to be consistent within group.
+- Presenting the [logo](https://github.com/bounswe/bounswe2022group5/issues/401) to the teammates.
+- Implementing member and doctor [profile pages](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/pages/Profile/Profile.js).
+- Adding category selection and label addition to the [post creation page](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/pages/CreatePost).
+- Improving the profile pages by adding medical history for members and adding account deletion for every user.
+- Adding [category following mechanism](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/layouts/HomePage/HomePage.js) to the web application.
+- Adding article deletion feature to the [article display page](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/pages/Article).
+- Attaching [ontology](https://www.nlm.nih.gov/) suggested labels to the [post display page](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/pages/Post).
+- Testing [the components that I have created](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/components/Popup).
+- Maintaining the code I have written during the whole period of CMPE451.
+- Took notes during Customer Presentation and shared the observed feedback with team members.
+- Created the initial structure of all deliverables for team members to fill them up.
   
 
  
