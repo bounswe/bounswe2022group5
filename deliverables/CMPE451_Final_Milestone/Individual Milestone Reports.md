@@ -239,7 +239,7 @@ In addition to all these, I also helped my friends in the frontend and mobile te
 
      
      
-     </details>
+</details>
 
 
 
