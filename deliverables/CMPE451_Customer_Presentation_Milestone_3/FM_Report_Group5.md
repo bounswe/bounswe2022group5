@@ -66,16 +66,54 @@
 
 #### Kardelen Demiral
 
-
  
 |Issue Title|Link|
   |-----|:--------:|
-  |		|		|
+  |Updating Wiki Sidebar|[#172](https://github.com/bounswe/bounswe2022group5/issues/172)|
+  |Adding new tabs to the sidebar for Backend, Frontend and Mobile Team Meetings|[#176](https://github.com/bounswe/bounswe2022group5/issues/176)|
+  |Creating a Sign-up Screen - Mobile|[#193](https://github.com/bounswe/bounswe2022group5/issues/193)|
+  |Font Suggestions|[#209](https://github.com/bounswe/bounswe2022group5/issues/209)|
+  |Adding user type selection for Signup - Mobile|[#216](https://github.com/bounswe/bounswe2022group5/issues/216)|
+  |Adding Branch Field to Sign-up From for Doctors - Mobile|[#221](https://github.com/bounswe/bounswe2022group5/issues/221)|
+  |Editing the README file for mobile development|[#234](https://github.com/bounswe/bounswe2022group5/issues/234)|
+  |Adding an API service class to the mobile app|[#240](https://github.com/bounswe/bounswe2022group5/issues/240)|
+  |Handling the register API call for mobile|[#245](https://github.com/bounswe/bounswe2022group5/issues/245)|
+  |[Mobile] Login pages being on top of each other after sign-up needs to be fixed|[#277](https://github.com/bounswe/bounswe2022group5/issues/277)|
+  |[Mobile] Finalizing the Sign-up Page|[#293](https://github.com/bounswe/bounswe2022group5/issues/293)|
+  |[Mobile] Implementing mobile Post and Article Creation Pages|[#294](https://github.com/bounswe/bounswe2022group5/issues/294)|
+  |[Mobile] API Connection of Create Article and Create Post pages|[#330](https://github.com/bounswe/bounswe2022group5/issues/330)|
+  |[Mobile] Finalizing Signup API calls|[#352](https://github.com/bounswe/bounswe2022group5/issues/352)|
+  |[Mobile] Comment create page should be created|[#358](https://github.com/bounswe/bounswe2022group5/issues/358)|
+  |[Mobile] Upvote/Downvote functionalities should be implemented|[#359](https://github.com/bounswe/bounswe2022group5/issues/359)|
+  |[Mobile] Post/Comment/Article deletion functionalities should be implemented|[#360](https://github.com/bounswe/bounswe2022group5/issues/360)|
+   |[Mobile] Article/Post adding categories and labels|[#393](https://github.com/bounswe/bounswe2022group5/issues/393)|
+   |Milestone 2 Presentation Notes|[#428](https://github.com/bounswe/bounswe2022group5/issues/428)|
+   |[Mobile] Comment deletion functionality|[#456](https://github.com/bounswe/bounswe2022group5/issues/456)|
+   |[Mobile] Search Functionality Implementation|[#458](https://github.com/bounswe/bounswe2022group5/issues/458)|
+   |[Mobile] Category label will be added under post body|[#473](https://github.com/bounswe/bounswe2022group5/issues/473)|
+   |[Mobile] Category name overflow bugfix|[#515](https://github.com/bounswe/bounswe2022group5/issues/515)|
 
  
- |Pull Request Title|Link|
-  |-----|:--------:|
-  |		|		|
+|Pull Request Title|Link|
+ |-----|:--------:|
+ |Mobile/feature/sign up screen #193|[#215](https://github.com/bounswe/bounswe2022group5/pull/215)|
+ |Branch field is added for doctor sign-up|[#222](https://github.com/bounswe/bounswe2022group5/pull/222)|
+ |API service class is added to the mobile app|[#244](https://github.com/bounswe/bounswe2022group5/pull/244)|
+ |Register API call for mobile is handled|[#255](https://github.com/bounswe/bounswe2022group5/pull/255)|
+ |Login pages being on top of each other after sign-up is fixed|[#278](https://github.com/bounswe/bounswe2022group5/pull/278)|
+ |[Mobile] Initial implementations of "create post" and "create article" pages #294|[#296](https://github.com/bounswe/bounswe2022group5/pull/296)|
+ |Mobile/feature/create post article api calls#330|[#350](https://github.com/bounswe/bounswe2022group5/pull/350)|
+ |[Mobile] KVKK and Document Upload for Signup added|[#351](https://github.com/bounswe/bounswe2022group5/pull/351)|
+ |[Mobile] Singup is finalized|[#354](https://github.com/bounswe/bounswe2022group5/pull/354)|
+ |[Mobile] Comment Create Functionality Added|[#368](https://github.com/bounswe/bounswe2022group5/pull/368)|
+ |[Mobile] Create post and create article are revised|[#395](https://github.com/bounswe/bounswe2022group5/pull/395)|
+ |[Mobile] Upvote/Downvote Implemented|[#415](https://github.com/bounswe/bounswe2022group5/pull/415)|
+ |[Mobile] Post/Article Delete Implemented|[#419](https://github.com/bounswe/bounswe2022group5/pull/419)|
+ |[Mobile] Category label's for post and article|[#474](https://github.com/bounswe/bounswe2022group5/pull/474)|
+ |[Mobile] Search functionality implemented|[#487](https://github.com/bounswe/bounswe2022group5/pull/487)|
+ |[Mobile] Category name overflow is fixed #515|[#516](https://github.com/bounswe/bounswe2022group5/pull/516)|
+ |[Mobile] Comment deletion functionality implemented #456|[#519](https://github.com/bounswe/bounswe2022group5/pull/519)|
+  
   
 
 #### Oğuzhan Demirel
