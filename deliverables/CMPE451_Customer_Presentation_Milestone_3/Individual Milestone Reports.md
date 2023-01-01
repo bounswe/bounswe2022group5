@@ -283,40 +283,87 @@
      
 </details>
 
+
 <details><summary>Engin Oğuzhan Şenol</summary>
 
   
 
-###  Member: [Engin Oğuzhan Şenol](https://github.com/bounswe/bounswe2022group5/wiki/Engin-Oğuzhan-Şenol)
-
-  
+###  Member: [Engin Oğuzhan Şenol](https://github.com/bounswe/bounswe2022group5/wiki/Engin-Oğuzhan-Şenol), Group 5 - Mobile.
 
 ###  Responsibilities:
 
-  
-
-
+- Attending all the meetings
+- As a member of the mobile team, contributing to the implementation and debugging of the mobile application and the main decisions about the development and design.
+- Opening issues and creating pull requests from branches that related to these issues.
+- Reviewing some issues and pull requests of the mobile team.
+- Implementing the profile page, activity histories and edit profile page of the mobile application.
+- Implementing the chatbot of the mobile application.
+- Connecting the related API connections related to my responsibilities
 
 ###  Main Contributions:
 
-
-
-
-  
-
+- Development of [profile page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/profile.dart) of the mobile application.
+- Development of [articles page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/articles.dart) of the activity history of the mobile application.
+- Development of [posts page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/posts.dart) of the activity history of the mobile application.
+- Development of [comments page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/comments.dart) of the activity history of the mobile application.
+- Development of [article upvotes page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/upvotedArticles.dart) of the activity history of the mobile application.
+- Development of [post upvotes page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/postUpvotes.dart) of the activity history of the mobile application.
+- Development of [edit profile page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/editprofile.dart) of the mobile application.
+- Development of [doctor's profile page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/doctorProfile.dart) of the mobile application.
+- Development of [chatbot](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/chatbotScreen.dart) of the mobile application.
+- Development of [API connections](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/API_service.dart) for related pages.
+ 
+ 
 #### Code related significant issues:
+* [Issue #207](https://github.com/bounswe/bounswe2022group5/issues/207): Initial profile page is created.
+* [Issue #240](https://github.com/bounswe/bounswe2022group5/issues/240): API service class is added with all the mobile team.
+* [Issue #275](https://github.com/bounswe/bounswe2022group5/issues/275): Edit profile page is updated.
+* [Issue #318](https://github.com/bounswe/bounswe2022group5/issues/318): User's profile page is updated.
+* [Issue #399](https://github.com/bounswe/bounswe2022group5/issues/399): Activity history is implemented.
+* [Issue #426](https://github.com/bounswe/bounswe2022group5/issues/426): Comments activity history is implemented.
+* [Issue #465](https://github.com/bounswe/bounswe2022group5/issues/465): Chatbot is implemented.
+* [Issue #489](https://github.com/bounswe/bounswe2022group5/issues/489): The tree Q/A configurations of the ChatBot is created.
+* [Issue #490](https://github.com/bounswe/bounswe2022group5/issues/490):  Medical history is updated for members.
+* [Issue #491](https://github.com/bounswe/bounswe2022group5/issues/491): Redirecting to doctor's profile page is implemented.
+* [Issue #524](https://github.com/bounswe/bounswe2022group5/issues/524): Bug is fixed in post creation.
+* [Issue #529](https://github.com/bounswe/bounswe2022group5/issues/529): Bug  is fixed in chatbot.
+* [Issue #533](https://github.com/bounswe/bounswe2022group5/issues/533): Changing Profile Picture/Avatar.
 
 
-#### Management related significant issues:)
+#### Management related significant issues:
+* [Issue #173](https://github.com/bounswe/bounswe2022group5/issues/173): Questions and clarifications to refine the Requirements is listed.
+* [Issue #179](https://github.com/bounswe/bounswe2022group5/issues/179): Customer Meeting 5 notes are taken and uploaded.
+* [Issue #217](https://github.com/bounswe/bounswe2022group5/issues/217): Requirements are changed with respect to the discussion.
+* [Issue #266](https://github.com/bounswe/bounswe2022group5/issues/266): A scenario is created for Milestone 1 presentation.
+* [Issue #284](https://github.com/bounswe/bounswe2022group5/issues/284): An executive summary for Milestone 1 is added.
+* [Issue #541](https://github.com/bounswe/bounswe2022group5/issues/541): Status of the requirements is added to the Final Milestone report.
 
-  
 
-###  Pull Requests:
+### **Pull requests:**
+* [Pull Request #228](https://github.com/bounswe/bounswe2022group5/issues/228): Profile page is created.
+* [Pull Request #230](https://github.com/bounswe/bounswe2022group5/pull/230): Mobile screens are connected with all the mobile team.
+* [Pull Request #244](https://github.com/bounswe/bounswe2022group5/pull/244): API service class is added with all the mobile team.
+* [Pull Request #273](https://github.com/bounswe/bounswe2022group5/pull/273): Profile widgets are separated.
+* [Pull Request #276](https://github.com/bounswe/bounswe2022group5/pull/276): Edit profile page is added.
+* [Pull Request #346](https://github.com/bounswe/bounswe2022group5/pull/346): Initial pages of activity history and edit profile is created.
+* [Pull Request #398](https://github.com/bounswe/bounswe2022group5/pull/398): Edit profile page is updated.
+* [Pull Request #422](https://github.com/bounswe/bounswe2022group5/pull/422):  Activity history is added.
+* [Pull Request #427](https://github.com/bounswe/bounswe2022group5/pull/427): Comments activity history is added.
+* [Pull Request #496](https://github.com/bounswe/bounswe2022group5/pull/496): Doctor profile redirection is added.
+* [Pull Request #510](https://github.com/bounswe/bounswe2022group5/pull/510): Chatbot is implemented.
+* [Pull Request #526](https://github.com/bounswe/bounswe2022group5/pull/526): Bug fixed in home screen.
+* [Pull Request #532](https://github.com/bounswe/bounswe2022group5/pull/532): Bug fixed in chatbot.
+	
 
 
-  
+### **Unit tests:**
+Since I was new to the language Flutter, I was not able to perform and create and unit test for our mobile application. I could only devote time to improving the features. Yet, I tried my best to test and improve every created feature by using our mobile application in emulator. 
+
+### **Additional information:**
+Since it is the continuation of the CMPE 352 course we took last year, you can also find all the contributions I made in the previous semester on my [profile page](https://github.com/bounswe/bounswe2022group5/wiki/Engin-O%C4%9Fuzhan-%C5%9Eenol).
 
 </details>
+
 
 <details><summary>Yavuz Samet Topcuoglu</summary>
 
