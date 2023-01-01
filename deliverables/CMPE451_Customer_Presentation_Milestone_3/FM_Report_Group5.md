@@ -169,6 +169,7 @@
   |[Mobile] Bug Fix in Post Creation|[#524](https://github.com/bounswe/bounswe2022group5/issues/524)|
   |[Mobile] Bug Fix in Chatbot|[#529](https://github.com/bounswe/bounswe2022group5/issues/529)|
   |[Mobile] Changing Profile Picture/Avatar|[#533](https://github.com/bounswe/bounswe2022group5/issues/533)|
+  |[Final Milestone] Status of the requirements|[#541](https://github.com/bounswe/bounswe2022group5/issues/541)|
 
  
  |Pull Request Title|Link|
