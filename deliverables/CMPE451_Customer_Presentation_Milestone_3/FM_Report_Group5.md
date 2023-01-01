@@ -83,12 +83,20 @@
 
 |Issue Title|Link|
   |-----|:--------:|
-  |		|		|
+  |[Backend] Category Follow Implementation|[#431](https://github.com/bounswe/bounswe2022group5/issues/431)|
+  |[Backend] Followed Categories Endpoint|[#441](https://github.com/bounswe/bounswe2022group5/issues/441)|
+  |[Backend] Bookmark a Post implementation|[#462](https://github.com/bounswe/bounswe2022group5/issues/462)|
+  |[Backend] Bookmark an Article|[#471](https://github.com/bounswe/bounswe2022group5/issues/471)|
+  |[Backend] Delete account function|[#492](https://github.com/bounswe/bounswe2022group5/issues/492)|
 
  
  |Pull Request Title|Link|
   |-----|:--------:|
-  |		|		|
+  |[Backend] Category Follow Implementation|[#437](https://github.com/bounswe/bounswe2022group5/pull/437)|
+  |[Backend] Followed Categories Endpoint|[#442](https://github.com/bounswe/bounswe2022group5/pull/442)|
+  |[Backend] Bookmark a Post implementation|[#463](https://github.com/bounswe/bounswe2022group5/pull/463)|
+  |[Backend] Bookmark an Article|[#472](https://github.com/bounswe/bounswe2022group5/pull/472)|
+  |[Backend] Delete account function|[#494](https://github.com/bounswe/bounswe2022group5/pull/494)|
 
 #### Sinan Kerem Gündüz
 
