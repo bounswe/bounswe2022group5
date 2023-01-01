@@ -112,17 +112,64 @@
 
 ### Responsibilities:
 
+- Attending all the meetings.
+- As a member of the mobile team, contributing to the development of the mobile application and the main decisions about the development and design.
+-  Reviewing issues that I was assigned to as a reviewer.
+- Reviewing the code written by other mobile developers.
+- Taking notes in the Customer Milestone 2 Presentation.
 
 ### Main Contributions:
+- Development of the [sign-up screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/signup.dart).
+-  Development of the [create article screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createArticle.dart) for mobile application together with the backend connection. 
+-  Development of the [create post screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createPost.dart) for mobile application together with the backend connection. 
+-  Development of the [create comment screen](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createComment.dart) for mobile application together with the backend connection. 
+- Implementing upvote/downvote functionality for post/comment/article.
+- Implementing deletion functionality for post/article/comment.
+- Preparing the [User Interface/User Experience](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_2/M2_Report_Group5.md#user-interface--user-experience) section for mobile in the Milestone 2 Report.
+- Creating a [wiki page](https://github.com/bounswe/bounswe2022group5/wiki/Milestone-2-Presentation-Notes) for Milestone 2 Presentation notes  for the team members to get a feedback for later improvements.
+- Implementing keyword/category/geolocation search functionalities for the mobile application. 
 
-
-#### Code related significant issues:
-
-
-#### Management related significant issues:
+* *Code related significant issues:*
+	* Initial creation of the sign-up page for the mobile application: [#193](https://github.com/bounswe/bounswe2022group5/issues/193)
+	* Added the user type selection to the sign-up screen: [#216](https://github.com/bounswe/bounswe2022group5/issues/216)
+	* Added an API service class to the mobile app: [#240](https://github.com/bounswe/bounswe2022group5/issues/240) 
+	* Register API calls for signup, connected our signup screen to the backend service: [#245](https://github.com/bounswe/bounswe2022group5/issues/245)
+	* Bugfix about login pages being on top of each other after sign-up: [#277](https://github.com/bounswe/bounswe2022group5/issues/277)
+	* Finalizing the sign-up page: [#293](https://github.com/bounswe/bounswe2022group5/issues/293)
+	* Implementing mobile post and article creation pages: [#294](https://github.com/bounswe/bounswe2022group5/issues/294)
+	* API connections of create post and create article pages: [#330](https://github.com/bounswe/bounswe2022group5/issues/330)
+	* Finalizing signup API calls: [#352](https://github.com/bounswe/bounswe2022group5/issues/352)
+	* Implementing comment create page: [#358](https://github.com/bounswe/bounswe2022group5/issues/358)
+	* Implementing article/post/comment upvote/downvote functionalities: [#359](https://github.com/bounswe/bounswe2022group5/issues/359)
+	* Implementing article/post/comment deletion functionalities: [#360](https://github.com/bounswe/bounswe2022group5/issues/360)
+	* Adding categories and tags fields to the post/article API calls: [#393](https://github.com/bounswe/bounswe2022group5/issues/393)
+	* Comment deletion functionality implementation: [#456](https://github.com/bounswe/bounswe2022group5/issues/456)
+	* Search functionality implementation: [#458](https://github.com/bounswe/bounswe2022group5/issues/458)
+	* Category label added to post/article view pages: [#473](https://github.com/bounswe/bounswe2022group5/issues/473)
+	* Category name overflow bugfix: [#515](https://github.com/bounswe/bounswe2022group5/issues/515)
+* *Management related significant issues:*
+	* Creating a wiki page including Milestone 2 Presentation notes: [#428](https://github.com/bounswe/bounswe2022group5/issues/428)
+	* Opened an issue to ask members for font suggestions: [#209](https://github.com/bounswe/bounswe2022group5/issues/209)
+	* Edited the README file of the mobile application code to add a description and a guide about how to run the code: [#234](https://github.com/bounswe/bounswe2022group5/issues/234)
 
 ### Pull Requests:
-
+* Initial implementation of the sign-up screen: [#215](https://github.com/bounswe/bounswe2022group5/pull/215)
+* Branch field is added for doctor sign-up: [#222](https://github.com/bounswe/bounswe2022group5/pull/222)
+* API service class is added: [#244](https://github.com/bounswe/bounswe2022group5/pull/244)
+* Register API call for mobile is handled: [#255](https://github.com/bounswe/bounswe2022group5/pull/255)
+* Login pages being on top of each other after sign-up is fixed: [#278](https://github.com/bounswe/bounswe2022group5/pull/278)
+* Initial implementations of create post and create article pages: [#296](https://github.com/bounswe/bounswe2022group5/pull/296)
+* Create post/article api calls added: [#350](https://github.com/bounswe/bounswe2022group5/pull/350)
+* KVKK and Document Upload for Signup added: [#351](https://github.com/bounswe/bounswe2022group5/pull/351)
+* Signup is finalized: [#354](https://github.com/bounswe/bounswe2022group5/pull/354)
+* Comment create functionality added: [#368](https://github.com/bounswe/bounswe2022group5/pull/368)
+* Create post and create article are revised: [#395](https://github.com/bounswe/bounswe2022group5/pull/395)
+* Upvote/downvote implemented: [#415](https://github.com/bounswe/bounswe2022group5/pull/415)
+* Post/article delete implemented: [#419](https://github.com/bounswe/bounswe2022group5/pull/419)
+* Category label's for post and article: [#474](https://github.com/bounswe/bounswe2022group5/pull/474)
+* Search functionality implemented: [#487](https://github.com/bounswe/bounswe2022group5/pull/487)
+* Category name overflow is fixed: [#516](https://github.com/bounswe/bounswe2022group5/pull/516)
+* Comment deletion functionality implemented: [#519](https://github.com/bounswe/bounswe2022group5/pull/519)
 
      
 </details>
