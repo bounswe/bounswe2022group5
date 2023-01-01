@@ -165,22 +165,40 @@
 ## **Member:** [Sinan Kerem Gündüz](https://github.com/bounswe/bounswe2022group5/wiki/Sinan-Kerem-Gündüz), Group 5 - Frontend.
 
 ###  **Responsibilities:** 
-
+- Attending all meetings and contributing the discussions during those meetings. 
+- Documentation of every step and researches that have been made by me.
+- Adding Logo to the navigation bar in the website.
+- Detaily reviewing pull requests and in case of any need helping my teammates on discord.
+- Searching for a component to be used as a ChatBot in the frontend.
+- Integration of the Bot, ([Kommunicate](https://www.kommunicate.io)) that have been found on the website.
+- Filling the tree as leaves and nodes in the Bot Interface.
+- Implementing Deletion functionality and integrating it with Post deletion in the frontend.
+- Attending the Customer Milestone Presentation.
 
 ###  **Main contributions:** 
-
+- Attended almost all meetings and actively take a role in the discussions.
+- Implemented [Deletion Functionality](https://github.com/bounswe/bounswe2022group5/tree/master/app/frontend/src/components/Delete) and added it to Posts.
+- Integrated [ChatBot](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/App.js) on our App.js to be available on across website.
+- Filled the ChatBot tree to obtain more and more meaningful conversations for users.
+- Maintained the previous codes that I have been written
 
 
 
 #### Code related significant issues:
+* [Issue #466](https://github.com/bounswe/bounswe2022group5/issues/466): Implementing Chatbot on a modal (Changed with integrating the bot).
+* [Issue #493](https://github.com/bounswe/bounswe2022group5/issues/493): Deletion Functionality and implementation for the Posts.
+* [Issue #511](https://github.com/bounswe/bounswe2022group5/issues/511): Changing BotId to use together with Mobile Team.
 
 
 #### Management related significant issues:
-
+* [Issue #489](https://github.com/bounswe/bounswe2022group5/issues/489): Being in touch with Mobile Team and filling the ChatBot together.
 
 
 
 ### Pull Requests:
+* [Pull Request #513](https://github.com/bounswe/bounswe2022group5/pull/513): Bot ID change.
+* [Pull Request #491](https://github.com/bounswe/bounswe2022group5/pull/497): Post Deletion.
+* [Pull Request #488](https://github.com/bounswe/bounswe2022group5/pull/488): Integration of the chatbot.
 
 
  </details>
