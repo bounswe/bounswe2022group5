@@ -239,12 +239,11 @@
   |		|		|
 
   
-
  * ### Status of the requirements
 
 Before starting the last milestone, we met again as a team and discussed the [Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements) we had previously determined. After this talk, we determined which features of our application, which we have been working on for two semesters, could be implemented until the final milestone, which were prioritized, or which could be completed until the final version of the application. Upon the final decisions, our team member Canberk made the necessary changes in the requirements and documented the changes that made in [the created wiki page](https://github.com/bounswe/bounswe2022group5/wiki/Changes-in-Requirements).
 
-Since it was out final milestone, we can look at all the [Functional Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1-functional-requirements) that we have created and arranged, and to what extent we have completed them.
+Since it was our final milestone, we can look at all the [Functional Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1-functional-requirements) that we have created and arranged, and to what extent we have completed them.
 In the [User Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#11-user-requirements), we can firstly look to the [User Profile](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#111-user-profile) section. For this section, our first subcategory is the [Sign-up](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1111-sign-up), the part about where people register so they can post on our app. For this requirements, since we had not implemented the e-mail authentication for our application, the only requirement missing is:
 -   **1.1.1.1.8**  Guest users shall confirm their e-mail addresses via e-mail authentication while registering.
 
@@ -252,7 +251,7 @@ The other subcategory in this section is the [Sign-in & Sign-out](https://github
 - **1.1.1.2.1**  Members shall be able to sign-in to the system using their username or e-mail and their password.
 - **1.1.1.2.3** Registered users shall be able to sign-in if they forgot their password with _forgot password_ mechanism
 
-The third subcategory in this section is the [Profile Pages](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages). Since we had not implemented showing then verification of a doctor feature for mobile, we are not able to see the icon in doctor's profile page: 
+The third subcategory in this section is the [Profile Pages](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1113-profile-pages). Since we had not implemented showing the verification of a doctor feature for mobile, we are not able to see the icon in doctor's profile page: 
 -   **1.1.1.3.6**  Doctors shall have icons in their profiles showing that their accounts are verified.
 
 The last subcategory in this section is the [Settings](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1114-settings). Even editing the profile page is completed with all the features for Frontend, it is not finished for our mobile application. These features are:
@@ -260,13 +259,13 @@ The last subcategory in this section is the [Settings](https://github.com/bounsw
 - **1.1.1.4.3** Members shall be able to add/delete/change avatars.
 - **1.1.1.4.5** Registered users shall be able to delete their accounts.
 
-The other section, [Platforms](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#112-platforms), is about the posts and articles shared in our home pages. Users can share their thoughts, problems, anything related to the our application's content in these platforms. Also a user can use the chatbot, and followed the tags/categories that they are interested in. Our first subcategory for this section is the [Forum](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1121-forum). For these requirements, we had decided not giving the authorize for doctor to add/remove any tag for another user's post since it can lead to improper use. Also, a user cannot edit a post or comment that they shared in our mobile application. Last for this subsection, we had not implemented the report mechanism for both Frontend and Mobile:
+The other section, [Platforms](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#112-platforms), is about the posts and articles shared in our home pages. Users can share their thoughts, problems, anything related to our application's content in these platforms. Also a user can use the chatbot, and follow the tags/categories that they are interested in. Our first subcategory for this section is the [Forum](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1121-forum). For these requirements, we had decided not giving the authorization for a doctor to add/remove any tag for another user's post since it can lead to improper use. Also, a user cannot edit a post or comment that they shared in our mobile application. Last for this subsection, we had not implemented the report mechanism for both Frontend and Mobile but the endpoint is implemented and merged:
 -   **1.1.2.1.10**  Doctors shall be able to add or remove tags from an existing post.
 -   **1.1.2.1.14**  Registered users shall be able to report a post or comment to an admin if they think that it contains inappropriate or misleading content.
 -   **1.1.2.1.15**  Registered users should be able to edit their posts.
 -   **1.1.2.1.17**  Registered users should be able to edit their comments.
 
-The other subsection for Platforms requirements is [Chatbot](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1122-chatbot). We had successfully implemented Chatbot to our application. Yet, redirecting to the relative posts about a category could not implemented to the mobile due to HTML restrictions:
+The other subsection for Platforms requirements is [Chatbot](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1122-chatbot). We had successfully implemented Chatbot to our application. Yet, redirecting to the relative posts about a category could not be implemented to the mobile due to HTML restrictions:
 -   **1.1.2.2.1**  Users shall be able to reach posts related to the options they choose from chatbot decision tree.
 
 The third subcategory for this section is [Articles](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1123-articles). Since editing is not completed only in the mobile application, the only missing requirement is for mobile:
@@ -275,12 +274,13 @@ The third subcategory for this section is [Articles](https://github.com/bounswe/
 The last subcategory for this is [Following Tags/Categories](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1124-following-tagscategories), which is completed with all its requirements for all of our teams.
 
 Our other section [Search & Sort Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#113-search--sort-requirements), only includes the [Searching](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1131-searching) subcategory. For this subcategory, we had completed all of the requirements except the ones:
--   **1.1.3.1.4**  Users shall be able to search posts, articles and user profiles by the names of the doctors that contributed to them.
+-   **1.1.3.1.4**  Users shall be able to search posts, articles and user profiles by the names of the doctors that contributed to them (We can search posts and articles of a doctor via using a doctor's name in the search bar. But search mechanism is not used for profile search. A user must click on the doctor's name after finding the doctor's content.)
 -   **1.1.3.1.5**  Users shall be able to search posts, articles and user profiles by the usernames.
 
-The last section for Functional Requirements is [Admin](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#114-admin-requirements), which is completed with all of its features. Admins can use their panels to apply all of these requirements that mentioned in this section.
+The last section for Functional Requirements is [Admin](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#114-admin-requirements), which is completed with all of its features. Admins can use their panels to apply all of these requirements mentioned in this section.
 
 In the [System Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#12-system-requirements), there are two subcategories which are [Forum](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1211-forum), and [Chatbot](https://github.com/bounswe/bounswe2022group5/wiki/Requirements#1212-chatbot). Since we had completed all the necessary requirements for this, we do not to specify any requirement.
+
 
  
  * ### API endpoints
