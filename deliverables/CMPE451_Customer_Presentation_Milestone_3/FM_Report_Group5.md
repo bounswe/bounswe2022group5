@@ -146,18 +146,46 @@
 
   
   
-
 #### Engin Oğuzhan Şenol
 
 
 |Issue Title|Link|
   |-----|:--------:|
-  |		|		|
+  |Listing questions and clarifications to refine the Requirements|[#173](https://github.com/bounswe/bounswe2022group5/issues/173)|
+  |Uploading Customer Meeting 5 Notes|[#179](https://github.com/bounswe/bounswe2022group5/issues/179)|
+  |[Mobile] Creating Profile Page|[#207](https://github.com/bounswe/bounswe2022group5/issues/207)|
+  |Changing Requirements w.r.t Meeting 16.1 Discussion|[#217](https://github.com/bounswe/bounswe2022group5/issues/217)|
+  |Adding an API service class to the mobile app|[#240](https://github.com/bounswe/bounswe2022group5/issues/240)|
+  |Creating Scenario 2 for Milestone 1|[#266](https://github.com/bounswe/bounswe2022group5/issues/266)|
+  |[Mobile] Editing Profile Page|[#275](https://github.com/bounswe/bounswe2022group5/issues/275)|
+  |Milestone 1 Executive Summary|[#284](https://github.com/bounswe/bounswe2022group5/issues/284)|
+  |[Mobile] Updating Profile Page|[#318](https://github.com/bounswe/bounswe2022group5/issues/318)|
+  |[Mobile] Activity History Pages|[#399](https://github.com/bounswe/bounswe2022group5/issues/399)|
+  |[Mobile] Implementing Comments Activity History|[#426](https://github.com/bounswe/bounswe2022group5/issues/426)|
+  |[Mobile] Chatbot Implementation|[#465](https://github.com/bounswe/bounswe2022group5/issues/465)|
+  |[Frontend][Mobile] Implementing the tree Q/A configurations of the ChatBot.|[#489](https://github.com/bounswe/bounswe2022group5/issues/489)|
+  |[Mobile] Updating Medical History|[#490](https://github.com/bounswe/bounswe2022group5/issues/490)|
+  |[Mobile] Redirecting to Doctor's Profile Page|[#491](https://github.com/bounswe/bounswe2022group5/issues/491)|
+  |[Mobile] Bug Fix in Post Creation|[#524](https://github.com/bounswe/bounswe2022group5/issues/524)|
+  |[Mobile] Bug Fix in Chatbot|[#529](https://github.com/bounswe/bounswe2022group5/issues/529)|
+  |[Mobile] Changing Profile Picture/Avatar|[#533](https://github.com/bounswe/bounswe2022group5/issues/533)|
 
  
  |Pull Request Title|Link|
   |-----|:--------:|
-  |		|		|
+  |Mobile/feature/profile #207|[#228](https://github.com/bounswe/bounswe2022group5/issues/228)|
+  |Mobile screens are connected|[#230](https://github.com/bounswe/bounswe2022group5/issues/230)|
+  |API service class is added to the mobile app|[#244](https://github.com/bounswe/bounswe2022group5/issues/244)|
+  |[Mobile] Separating Profile Widgets|[#273](https://github.com/bounswe/bounswe2022group5/issues/273)|
+  |[Mobile] Editing Profile Page|[#276](https://github.com/bounswe/bounswe2022group5/issues/276)|
+  |[Mobile] Creating initial pages of activity history and edit profile|[#346](https://github.com/bounswe/bounswe2022group5/issues/346)|
+  |[Mobile] Edit Profile Page|[#398](https://github.com/bounswe/bounswe2022group5/issues/398)|
+  |[Mobile] Activity history is added|[#422](https://github.com/bounswe/bounswe2022group5/issues/422)|
+  |[Mobile] Comments Activity History|[#427](https://github.com/bounswe/bounswe2022group5/issues/427)|
+  |[Mobile] Redirecting to Doctor's Profile Page|[#496](https://github.com/bounswe/bounswe2022group5/issues/496)|
+  |[Mobile] Chatbot Implementation|[#510](https://github.com/bounswe/bounswe2022group5/issues/510)|
+  |[Mobile] Bug fixed in home screen.|[#526](https://github.com/bounswe/bounswe2022group5/issues/526)|
+  |[Mobile] Bug Fix in Chatbot|[#532](https://github.com/bounswe/bounswe2022group5/issues/532)|
 
 #### Yavuz Samet Topçuoğlu
 
