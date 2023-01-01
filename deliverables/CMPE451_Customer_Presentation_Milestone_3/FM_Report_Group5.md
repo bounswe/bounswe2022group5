@@ -253,106 +253,130 @@ In the [System Requirements](https://github.com/bounswe/bounswe2022group5/wiki/R
      
     ***Login Page***:
     - Code: [Login](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/login.dart)
-    - UI: 
-    <img width="311" alt="Ekran Resmi 2022-12-06 20 01 36" src="https://user-images.githubusercontent.com/74200767/205978231-d106157f-edc4-4963-a32b-137c68dd3ced.png">
+    - UI:
+    - <img src="https://user-images.githubusercontent.com/61624884/210175791-7d842e63-5db6-4538-82d6-9c43b3c264cc.png" alt="drawing" width="270"/>
     
      ***Signup Page***:
     - Code: [Signup](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/signup.dart)
     - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175806-9f3d9f31-0926-450b-a7ff-ca87c7c46106.png" alt="drawing" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175807-fac67cae-5334-433c-ba12-3e24c84ea5b1.png" alt="drawing" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175808-d9e66264-a191-4aae-960c-628249336ef0.png" alt="drawing" width="270"/>
 
-    <img width="297" alt="Ekran Resmi 2022-12-06 20 24 17" src="https://user-images.githubusercontent.com/74200767/205980198-3fa17a9e-b90e-4ae0-b6fc-e3df3f56a167.png"> <img width="299" alt="Ekran Resmi 2022-12-06 20 24 30" src="https://user-images.githubusercontent.com/74200767/205980235-b6badfc7-883e-435d-abb8-d6f9d3ccf0c3.png"> <img width="294" alt="Ekran Resmi 2022-12-06 20 24 39" src="https://user-images.githubusercontent.com/74200767/205980273-85b0d8fd-3ca4-4050-a1ee-3c274710c3e9.png">
 
     
      ***Home Page***:
     - Code: [Home](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/home.dart)
     - UI: 
-    
-    <img width="303" alt="Ekran Resmi 2022-12-06 21 08 01" src="https://user-images.githubusercontent.com/74200767/206289661-d1a92586-9cbf-42db-a56e-64fb9b62a0d0.png"> <img width="305" alt="Ekran Resmi 2022-12-06 20 17 28" src="https://user-images.githubusercontent.com/74200767/205978784-5864304c-121a-4fba-842b-aaed68da6cb5.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175789-adf724c0-1e5d-44de-af8b-b725701f3e1f.png"  width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175787-378a4b9d-e981-4e92-a02a-fad3ab8f61ff.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175788-92fdaf68-2ef1-4e66-b1cd-db6677e8ea14.png" width="270"/>
+
     
     ***Drawer***:
     - Code: [Drawer](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/widgets/MyDrawer.dart)
     - UI: 
-    
-    <img width="306" alt="Ekran Resmi 2022-12-06 20 21 39" src="https://user-images.githubusercontent.com/74200767/205979788-16baa33a-e1e9-4bd9-95e2-0a3d5dd14d5a.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175782-f7c5c86a-426c-4214-bce0-dda2e7c10b75.png" width="270"/>
+
 
      ***Profile Page***:
     - Code: [Profile](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/profile.dart)
     - UI: 
-    
-    <img width="304" alt="Ekran Resmi 2022-12-06 20 27 41" src="https://user-images.githubusercontent.com/74200767/205980779-519ae84f-4c66-4a82-9a0a-e92a243c2431.png"> 
-    
-    ***Posts of a User Page***:
-    - Code: [Posts of a User](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/userPostOverviewScreen.dart)
-    - UI: 
-    
-    <img width="300" alt="Ekran Resmi 2022-12-06 20 30 05" src="https://user-images.githubusercontent.com/74200767/205981371-2ac482ab-8e5b-4c0e-9e42-253de826ca52.png">
-    
-    ***Articles of a User Page***:
-    - Code: [Articles of a User](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/userArticleOverviewScreen.dart)
-    - UI: 
-    <img width="307" alt="Ekran Resmi 2022-12-06 20 36 49" src="https://user-images.githubusercontent.com/74200767/205982794-3160c65a-4546-47e2-9bdf-a8e91d245943.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175794-abe10369-5297-4096-b792-2efd81497e0e.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175793-f2bd03c3-4252-4759-b642-70dd0dc3b450.png" width="270"/>
 
     
-     ***Comments of a User Page***:
+    ***"Posts of a User" Page***:
+    - Code: [Posts of a User](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/userPostOverviewScreen.dart)
+    - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175792-33c43d3e-622c-448c-a59c-317ced5724ab.png" width="270"/>
+
+    
+    ***"Articles of a Doctor" Page***:
+    - Code: [Articles of a User](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/userArticleOverviewScreen.dart)
+    - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175770-c0aa126b-ba06-48bb-bfbf-68fd568d758d.png" width="270"/>
+
+    
+     ***"Comments of a User" Page***:
     - Code: [Comments of a User](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/userCommentsOverviewScreen.dart)
     - UI: 
-    <img width="300" alt="Ekran Resmi 2022-12-06 20 30 34" src="https://user-images.githubusercontent.com/74200767/205981662-c6451524-7abb-4785-a29f-fb020ff4bc07.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175776-2e582063-0c9b-449d-8b28-c07680c372a1.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175775-4f0bf29b-5e56-4625-ab37-f017d94dacbe.png" width="270"/>
     
-    ***Upvoted Posts of a User Page***:
+    ***"Upvoted Posts of a User" Page***:
     - Code: [Upvoted Posts of a User](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/upvotedPostsOverviewScreen.dart)
     - UI: 
-    <img width="300" alt="Ekran Resmi 2022-12-06 20 31 02" src="https://user-images.githubusercontent.com/74200767/205981895-a8a42f3b-d46a-4ef1-99bc-69ad030b2a00.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175811-944b391f-0097-4655-ac96-ca1b12e1f3c0.png" width="270"/>
     
-    ***Upvoted Articles of a User Page***:
+    ***"Upvoted Articles of a User" Page***:
     - Code: [Upvoted Articles of a User](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/upvotedArticlesOverviewScreen.dart)
     - UI: 
-    <img width="301" alt="Ekran Resmi 2022-12-06 20 39 21" src="https://user-images.githubusercontent.com/74200767/205983109-358f472c-7768-44ea-a5c5-138fc4fe2c8d.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175810-b57a168b-c6c7-4dc1-bbdd-31736c35829b.png" width="270"/>
     
      ***Edit Profile Page***:
     - Code: [Edit Profile](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/editprofile.dart)
     - UI: 
-    
-    <img width="300" alt="Ekran Resmi 2022-12-06 20 40 23" src="https://user-images.githubusercontent.com/74200767/205983805-a281e117-a3bd-4451-ae6b-83ee7a83d5a1.png"> <img width="304" alt="Ekran Resmi 2022-12-06 20 41 04" src="https://user-images.githubusercontent.com/74200767/205983848-7f69cc65-4a3a-4fe0-86f8-6df393a08476.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175784-73c8a829-5fe4-4650-af53-060a35847cb3.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175783-6de05740-1c67-45a0-b682-67e2e8c75339.png" width="270"/>
     
      ***View Post Page***:
     - Code: [View Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewPost.dart)
     - UI: 
-
-     <img width="304" alt="Ekran Resmi 2022-12-06 20 45 19" src="https://user-images.githubusercontent.com/74200767/205984713-63822a96-b616-46d8-9a85-260b9624bae1.png"> 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175818-05ca67fb-7792-4f5a-86f9-bc5a370ab7e5.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175816-3c4b71ba-3271-4791-ab3a-95111faa2eeb.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175821-801e3aa8-883d-4426-91c8-c062f6fd9037.png" width="270"/>
      
       ***Images Page***:
     - Code: [Images](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/imagesGrid.dart)
     - UI: 
-     
-     <img width="307" alt="Ekran Resmi 2022-12-06 20 45 32" src="https://user-images.githubusercontent.com/74200767/205984911-793a33a8-c4c1-4dab-b02f-c96b6c509eea.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175790-07b74cc2-b2b0-4729-a57f-208d716de480.png" width="270"/>
      
       ***View Article Page***:
     - Code: [View Article](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewArticle.dart)
     - UI: 
-
-     <img width="299" alt="Ekran Resmi 2022-12-06 20 46 34" src="https://user-images.githubusercontent.com/74200767/205985087-3ee3dc49-712e-4dc1-aeb5-2cffe2fdc9bd.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175815-9dfcf6ac-deed-4384-95e4-92446ea37177.png" width="270"/>
      
      ***Create Post Page***:
     - Code: [Create Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createPost.dart)
     - UI: 
-
-    <img width="305" alt="Ekran Resmi 2022-12-06 20 54 31" src="https://user-images.githubusercontent.com/74200767/205986706-60318f97-fa0c-4600-9b89-da37fb830c07.png"> <img width="303" alt="Ekran Resmi 2022-12-06 20 57 38" src="https://user-images.githubusercontent.com/74200767/205986741-40d65665-5782-40c0-8846-04bef05a1c94.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210175779-6e962e83-e25d-44e1-bbcd-392d932bf6f6.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175781-ab3c2da8-241f-4354-b707-ab8176df5f4a.png" width="270"/>
     
     ***Create Article Page***:
     - Code: [Create Article](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createArticle.dart)
     - UI: 
-
-     <img width="303" alt="Ekran Resmi 2022-12-06 21 00 15" src="https://user-images.githubusercontent.com/74200767/205987078-eef5a908-feab-4570-84f2-429b806ab547.png"> <img width="299" alt="Ekran Resmi 2022-12-06 21 00 23" src="https://user-images.githubusercontent.com/74200767/205987091-d0ae5d4e-83a7-469f-8592-689dfb3cbf48.png">
+    - <img src="https://user-images.githubusercontent.com/61624884/210180833-80d94dd7-6890-4443-8e83-41990637ebf3.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210180832-031c49b5-77fe-4b21-b67f-4fabc36b138d.png" width="270"/>
      
       ***Create Comment Page***:
     - Code: [Create Comment](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createComment.dart)
     - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175778-f84ba74a-ec75-4150-906f-1a8e4ce4eb5b.png" width="270"/>
 
-     <img width="303" alt="Ekran Resmi 2022-12-06 21 01 22" src="https://user-images.githubusercontent.com/74200767/205987554-9c7acede-0f2d-4b8d-b6fc-6a73f1b32026.png"> <img width="302" alt="Ekran Resmi 2022-12-06 21 02 16" src="https://user-images.githubusercontent.com/74200767/205987566-8b28a1ac-5b6e-4f65-bebc-426ee158a504.png">
-     
-     
-     
-     
+      ***Category Following Page***:
+    - Code: [Categories](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/categories.dart)
+    - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175771-196379bf-d936-4fff-891e-be91528a7a50.png" width="270"/>
+
+      ***Search Pages***:
+    - Code: [Starting Search](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/searchPage.dart)
+    - Code: [Search Article](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/searchArticle.dart)
+    - Code: [Search Post](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/searchPost.dart)
+    - Code: [Search Article by Category](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/articleSearchByCategory.dart)
+    - Code: [Search Article by Keyword](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/articleSearchByKeyword.dart)
+    - Code: [Search Article Results](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/articleSearchResults.dart)
+    - Code: [Search Post by Category](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/postSearchByCategory.dart)
+    - Code: [Search Post by Geolocation](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/postSearchByGeolocation.dart)
+    - Code: [Search Post by Keyword](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/postSearchByKeyword.dart)
+    - Code: [Search Post Results](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/postSearchResults.dart)
+    - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175804-ca43d361-205a-438a-a826-679b613552d8.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175801-44aa10ae-a20e-4446-babf-6b96db00bafa.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175795-a6de4275-a151-44d5-a070-846ec177e787.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175796-43b9061b-d993-4600-af03-dd312299081c.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175798-30603996-c89e-4b65-a0d6-58df066caac0.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175800-d560c920-992a-4b07-bb19-efd19946154d.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175803-a0b5b583-5b14-4931-9f71-3ca740e9196d.png" width="270"/>
+
+      ***Text Annotation Creation Page***:
+    - Code: [Selection Controls](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/CustomSelectionControls.dart)
+    - Code: [Create Comment](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/createTextAnnotation.dart)
+    - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175768-548130af-994e-4dff-9398-514f6da182ed.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175766-1d063ed8-2f89-49cb-b9b1-8d272ec79812.png" width="270"/>
+
+      ***Reading Text Annotations Page***:
+    - Code: [View Text Annotations](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewTextAnnotations.dart)
+    - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175805-e68a0269-f6e4-4ef9-aeaa-149b3da08b59.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175814-6b06ada4-f9aa-4272-a288-792ee25abbda.png" width="270"/>
+
+      ***Chatbot***:
+    - Code: [Chatbot Page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/chatbotScreen.dart)
+    - UI: 
+    - <img src="https://user-images.githubusercontent.com/61624884/210175772-33752ac7-4192-45af-b1c3-3a8d34c8b847.png" width="270"/> <img src="https://user-images.githubusercontent.com/61624884/210175773-76a487a5-49d4-4aad-812c-a40ad45f2248.png" width="270"/>
      
       #### Web Application:
      
