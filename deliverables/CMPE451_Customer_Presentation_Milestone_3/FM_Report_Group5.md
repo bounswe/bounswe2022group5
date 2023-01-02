@@ -340,28 +340,30 @@
   
 
 |Issue Title|Link|
-
-  
-
 |-----|:--------:|
+| Creating Login and Signup pages for Frontend|[#202](https://github.com/bounswe/bounswe2022group5/issues/202)|
+| Aligning signup form fields with Mobile Team|[#214](https://github.com/bounswe/bounswe2022group5/issues/214)|
+| [Frontend] Finalizing Login and Signup Page|[#289](https://github.com/bounswe/bounswe2022group5/issues/289)|
+| [Frontend] Implementing Discussion Thread Page|[#323](https://github.com/bounswe/bounswe2022group5/issues/323)|
+| [Frontend] Adding Geolocation Feature for Discussion Thread Page|[#364](https://github.com/bounswe/bounswe2022group5/issues/364)|
+| [Frontend] Implementing Article Display Page|[#374](https://github.com/bounswe/bounswe2022group5/issues/374)|
+| [Frontend] Initialization of Annotation Creation|[#455](https://github.com/bounswe/bounswe2022group5/issues/455)|
+| [Frontend] Implementing Backend API Connection for Annotation Functionality|[#457](https://github.com/bounswe/bounswe2022group5/issues/457)|
 
   
-
-| | |
-
-  
-
   
 
 |Pull Request Title|Link|
-
-  
-
 |-----|:--------:|
+| Login and Signup Pages are implemented in Frontend|[#252](https://github.com/bounswe/bounswe2022group5/pull/252)|
+| [Frontend] Discussion Thread Page is Implemented|[#349](https://github.com/bounswe/bounswe2022group5/pull/349)|
+| [Frontend] Adding Geolocation Functionality for Discussion Thread Page|[#375](https://github.com/bounswe/bounswe2022group5/pull/375)|
+| [Frontend] Implementing Article Display Page|[#392](https://github.com/bounswe/bounswe2022group5/pull/392)|
+| [Frontend] Initialization of Annotation Creation|[#480](https://github.com/bounswe/bounswe2022group5/pull/480)|
+| Implementing Backend Connections for Annotation Functionalities|[#481](https://github.com/bounswe/bounswe2022group5/pull/481)|
 
   
 
-| | |
 
   
 
