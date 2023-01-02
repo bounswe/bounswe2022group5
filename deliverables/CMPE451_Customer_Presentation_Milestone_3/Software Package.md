@@ -54,6 +54,24 @@ Latest released version can be found on [this link](https://github.com/bounswe/b
 5. Run the docker container
     - sudo docker run -d -p 3000:3000 frontend
 
+# Building Steps (of Mobile)
+
+1. Clone the git repo and proceed to the mobile folder
+    - git clone https://github.com/bounswe/bounswe2022group5.git
+    - cd bounswe2022group5/app/mobile/bounswe5_mobile
+
+2. Then:
+
+ * If you have a device connected to your pc or have an existing emulator on your pc to run the application on:
+     * After installing Flutter, you can run the following commands in the directory where the application code exists:
+     1. `flutter pub get`
+     2. `flutter run --no-sound-null-safety lib/main.dart`
+     3. Do not forget setting `--no-sound-null-safety` option
+ 
+ * If you do not connect any device to your computer, you will need an emulator to open the application: 
+     1. You can download an Android emulator with Android Studio through [this link](https://developer.android.com/studio).  
+     2. Then you can easily run the application on Android Studio following [this guide](https://www.geeksforgeeks.org/how-to-import-existing-flutter-project-in-android-studio/).
+
 # Database-Related Information & Example Data
   
 We use PostgreSQL as mentioned earlier, deployed on an EC2 instance, fully managed by us. 
