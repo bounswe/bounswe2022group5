@@ -33,7 +33,7 @@ Latest released version can be found on [this link](https://github.com/bounswe/b
 6. Go ahead and run the docker script
     - ./docker-compose up
 
-# Databasr-Related Information
+# Database-Related Information & Example Data
   
 We use PostgreSQL as mentioned earlier, deployed on an EC2 instance, fully managed by us. 
 
