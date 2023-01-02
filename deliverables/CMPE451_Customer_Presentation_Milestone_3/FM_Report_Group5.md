@@ -409,13 +409,16 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
 
 #### Ozan Kılıç
 
-  
 
   
 
 |Issue Title|Link|
 |-----|:--------:|
-| | |
+| Pagination for Posts and Articles at Home page|[Issue #367](https://github.com/bounswe/bounswe2022group5/issues/367)|
+| Making improvements on the forum|[Issue #302](https://github.com/bounswe/bounswe2022group5/issues/302)|
+| Adding categories to the sidebar|[#301](https://github.com/bounswe/bounswe2022group5/issues/301)|
+| Communication Plan for Frontend|[Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274)|
+| Coding conventions for Frontend|[Issue #263](https://github.com/bounswe/bounswe2022group5/issues/263)|
 
   
 
@@ -423,7 +426,9 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
 
 |Pull Request Title|Link|
 |-----|:--------:|
-| | |
+| Making categories bar homepage responsive|[#397](https://github.com/bounswe/bounswe2022group5/pull/397)|
+| Frontend/feature/forum improvements #302|[#385](https://github.com/bounswe/bounswe2022group5/pull/385)|
+| Frontend/feature/homepage pagination #367|[#369](https://github.com/bounswe/bounswe2022group5/pull/369)|
 
   
 
