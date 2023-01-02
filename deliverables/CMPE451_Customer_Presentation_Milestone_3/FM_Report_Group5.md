@@ -1666,5 +1666,7 @@ We have used [Natinonal Library of Medicine Ontology](https://www.nlm.nih.gov/?_
 
 The Medical Subject Headings (MeSH) thesaurus is a controlled and hierarchically-organized vocabulary produced by the National Library of Medicine. It is used for indexing, cataloging, and searching of biomedical and health-related information.
 
+We have build an API that works with tags user added to posts. With these tags we builds a SPARQL query to query MeSH Ontology in order to fetch broader, narrower and related descriptors of that label. Broader and narrow descriptors can be seen as parent and child class of this tag respectively. We iterates 2 times on ontology and fetches all the tags we can derive. Then our system attaches the tags to the related post.
+
 
 *  ### Scenarios
