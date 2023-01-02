@@ -190,16 +190,41 @@ We could have started using Postman at the beginning of the year. We are current
   
 
 |Issue Title|Link|
-|-----|:--------:|
-| | |
+  |-----|:--------:|
+  |Connecting DB Engine to Django app|[#197](https://github.com/bounswe/bounswe2022group5/issues/197)|
+  |Creating API documentation for Login|[#201](https://github.com/bounswe/bounswe2022group5/issues/201)|
+  |Editing the README file of the Backend part of the Project|[#237](https://github.com/bounswe/bounswe2022group5/issues/237)|
+  |Revising the Meeting Notes Template|[#168](https://github.com/bounswe/bounswe2022group5/issues/168)|
+  |Updating the Project Plan and RAM according to the Meeting 14.1|[#177](https://github.com/bounswe/bounswe2022group5/issues/177)|
+  |Adding New Labels to Distinguish Issues for Different Groups' Tasks|[#186](https://github.com/bounswe/bounswe2022group5/issues/186)|
+  |Deciding on Meeting Time and Platform for Backend Team|[#200](https://github.com/bounswe/bounswe2022group5/issues/200)|
+  |Documenting Backend code conventions|[#262](https://github.com/bounswe/bounswe2022group5/issues/262)|
+  |Creating Scenario 2 for Milestone 1|[#266](https://github.com/bounswe/bounswe2022group5/issues/266)|
+   |[Backend] Revising Database Schema with respect to new features|[#292](https://github.com/bounswe/bounswe2022group5/issues/292)|
+  |[Backend] Developing Personal Info API|[#316](https://github.com/bounswe/bounswe2022group5/issues/316)|
+  |Milestone 1 Presentation Note Taking|[#283](https://github.com/bounswe/bounswe2022group5/issues/283)|
+  |Improve meeting notes|[#319](https://github.com/bounswe/bounswe2022group5/issues/319)|
+  |Communication person in Communication Plan|[#320](https://github.com/bounswe/bounswe2022group5/issues/320)|
+  |[Milestone Presentation] Preparing scenarios for the Milestone 2|[#361](https://github.com/bounswe/bounswe2022group5/issues/361)|
+  |[Backend] Personal Info API Bug Fix|[#430](https://github.com/bounswe/bounswe2022group5/issues/430)|
+  |[Documentation] Chatbot conversations creation.|[#433](https://github.com/bounswe/bounswe2022group5/issues/433)|
+  |[Backend] Report Endpoint Implementation|[#478](https://github.com/bounswe/bounswe2022group5/issues/478)|
+  |[Documentation] Requirements editing for Final Milestone|[#479](https://github.com/bounswe/bounswe2022group5/issues/479)|
+  |Creating Scenarios for the Final Milestone Presentation|[#518](https://github.com/bounswe/bounswe2022group5/issues/518)|
+  |[Final Milestone] User Scenarios and Mockups|[#540](https://github.com/bounswe/bounswe2022group5/issues/540)|
+  |[Final Milestone] Other Project Artifacts: Part B, C, E, F|[#549](https://github.com/bounswe/bounswe2022group5/issues/549)|
+
 
   
-
-  
-
 |Pull Request Title|Link|
-|-----|:--------:|
-| | |
+  |-----|:--------:|
+  |Django App Connection to the DB|[#198](https://github.com/bounswe/bounswe2022group5/pull/198)|
+   |[Backend] Get, Update Personal Info Implementation|[#357](https://github.com/bounswe/bounswe2022group5/pull/357)|
+  |[Backend] Personal Info API Bugfix|[#432](https://github.com/bounswe/bounswe2022group5/pull/432)|
+  |[Backend] Report Endpoint Implementation|[#503](https://github.com/bounswe/bounswe2022group5/pull/503)|
+  |[Backend] Report unit tests|[#523](https://github.com/bounswe/bounswe2022group5/pull/523)|
+
+
 
   
 
