@@ -405,10 +405,10 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
 |Customer Milestone Meeting Notes For Milestone 1.|[#283](https://github.com/bounswe/bounswe2022group5/issues/283)|
 |Creating Scenario 2 for milestone 1.|[#266](https://github.com/bounswe/bounswe2022group5/issues/266)|
 |Updating Communication Plan.|[#174](https://github.com/bounswe/bounswe2022group5/issues/174)|
-|Revising the Use Case diagrams.[#178](https://github.com/bounswe/bounswe2022group5/issues/178)|
+|Revising the Use Case diagrams.|[#178](https://github.com/bounswe/bounswe2022group5/issues/178)|
 |Being in touch with Mobile Team and filling the ChatBot together.|[#489](https://github.com/bounswe/bounswe2022group5/issues/489)|
 |For System Manuel on the Final Milestone|[#547](https://github.com/bounswe/bounswe2022group5/issues/547)|
-|For System Manuel on the Final Milestone[#548](https://github.com/bounswe/bounswe2022group5/issues/548)|
+|For System Manuel on the Final Milestone|[#548](https://github.com/bounswe/bounswe2022group5/issues/548)|
 
   
 
