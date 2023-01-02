@@ -157,36 +157,61 @@ Here is my contributions overall
   
 
 ### **Responsibilities:**
-
-  
-  
+- Attending the meetings.
+- As a member of the mobile team, contributing to the development of the mobile application and the main decisions about the development and design.
+- Reviewing issues and pull requests that were assigned to me.
+- Creating issues and pull requests that are necessary.
+- Implementing design of the login page for mobile development.
+- Implementing design of the post viewing page for mobile development.
+- Implementing design of the article viewing page for mobile development.
+- Implementing design of the comments under viewing post screen for mobile development. 
+- Implementing initial design of the category following page for mobile development.
   
 
 ### **Main contributions:**
-
-  
-  
+- Development of [Login Page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/login.dart) of the mobile application.
+- Development of [Post Viewing Page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewPost.dart) of the mobile application.
+- Development of comments for [Post Viewing Page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewPost.dart) of the mobile application.
+- Development of [Article Viewing Page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/viewArticle.dart) of the mobile application.
+- Development of initial design for [Categories Page](https://github.com/bounswe/bounswe2022group5/blob/master/app/mobile/bounswe5_mobile/lib/screens/categories.dart) of the mobile application.
   
 
 #### Code related significant issues:
-
-  
+* [Issue #225](https://github.com/bounswe/bounswe2022group5/issues/225): Design of login page for mobile application.
+* [Issue #261](https://github.com/bounswe/bounswe2022group5/issues/261): Fixes of login page for mobile application.
+* [Issue #271](https://github.com/bounswe/bounswe2022group5/issues/271): API calls for login page for mobile application.
+* [Issue #310](https://github.com/bounswe/bounswe2022group5/issues/310): Post and article pages for mobile application.
+* [Issue #386](https://github.com/bounswe/bounswe2022group5/issues/386): Post page bug fixes for mobile application.
+* [Issue #387](https://github.com/bounswe/bounswe2022group5/issues/387): Dropdown for post page for mobile application.
+* [Issue #388](https://github.com/bounswe/bounswe2022group5/issues/388): Dropdown for article page for mobile application.
+* [Issue #460](https://github.com/bounswe/bounswe2022group5/issues/460): New screen for categories for mobile application.
+* [Issue #461](https://github.com/bounswe/bounswe2022group5/issues/461): Adding categories to sidebar for mobile application.
   
 
 #### Management related significant issues:
-
-  
-  
+* [Issue #175](https://github.com/bounswe/bounswe2022group5/issues/175): Managing of discord channel.
+* [Issue #227](https://github.com/bounswe/bounswe2022group5/issues/227): Communication plan for mobile application.
+* [Issue #264](https://github.com/bounswe/bounswe2022group5/issues/264): Mobile team code conventions.
+* [Issue #429](https://github.com/bounswe/bounswe2022group5/issues/429): Adding mobile screens to screnarios for milestone presentation.
   
 
 ### Pull Requests:
-
-  
+* [Pull Request #226](https://github.com/bounswe/bounswe2022group5/pull/226): Login page initial design.
+* [Pull Request #270](https://github.com/bounswe/bounswe2022group5/pull/270): Login page bug fixes.
+* [Pull Request #272](https://github.com/bounswe/bounswe2022group5/pull/272): API calls for login page.
+* [Pull Request #326](https://github.com/bounswe/bounswe2022group5/pull/326): Post viewing and article viewing pages.
+* [Pull Request #390](https://github.com/bounswe/bounswe2022group5/pull/390): Post viewing page bug fixes.
+* [Pull Request #394](https://github.com/bounswe/bounswe2022group5/pull/394): Adding dropdowns for post viewing page.
+* [Pull Request #396](https://github.com/bounswe/bounswe2022group5/pull/396): Adding dropdowns for article viewing page.
+* [Pull Request #506](https://github.com/bounswe/bounswe2022group5/pull/506): Categories screen.
+* [Pull Request #508](https://github.com/bounswe/bounswe2022group5/pull/508): Adding categories to sidebar.
+* [Pull Request #528](https://github.com/bounswe/bounswe2022group5/pull/528): Reverting a bug of a PR I reviewed.
   
 
 </details>
 
-  
+
+
   
 
 <details><summary>Irfan Bozkurt</summary>
