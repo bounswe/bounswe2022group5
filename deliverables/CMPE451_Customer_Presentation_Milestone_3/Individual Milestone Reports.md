@@ -412,10 +412,16 @@ Here is my contributions overall
 - Implemented an endpoint for [Delete an Account](https://github.com/bounswe/bounswe2022group5/issues/492).
 - Handled and fixed minor bugs.
 
-  
+		
+**Management related significant issues:** 
+* [Issue #266](https://github.com/bounswe/bounswe2022group5/issues/266): Reviewing the [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1), and giving some suggestions about that.
 
-  **Code related significant issues:**
+* [Issue #178](https://github.com/bounswe/bounswe2022group5/issues/178): Analyze the [Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram).
 
+**Code related significant issues:**
+* [Issue #262](https://github.com/bounswe/bounswe2022group5/issues/262): Analyzing the Backend code conventions page and giving some feedbacks about the document.
+* [Issue #184](https://github.com/bounswe/bounswe2022group5/issues/184): Making changes on [Pull Request Template](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1), and clarify some topics.
+* [Issue #218](https://github.com/bounswe/bounswe2022group5/issues/218): Reviewing the [Login](https://github.com/bounswe/bounswe2022group5/wiki/Login-API-Documentation) and [Signup](https://github.com/bounswe/bounswe2022group5/wiki/Signup-API-Documentation) Documentation and giving some suggestions about error cases.
 * [Issue #313](https://github.com/bounswe/bounswe2022group5/issues/313): Implemented voting system for Posts.
 
 * [Issue #312](https://github.com/bounswe/bounswe2022group5/issues/312): Implemented voting system for Articles.
@@ -427,9 +433,8 @@ Here is my contributions overall
     
 * [Issue #441](https://github.com/bounswe/bounswe2022group5/issues/441): Implemented get followed categories endpoint for showing all categories that a user followed.
     
-* [Issue #462](https://github.com/bounswe/bounswe2022group5/issues/462): 
-Implemented post bookmark functionalities. Added related unit tests.
-    
+* [Issue #462](https://github.com/bounswe/bounswe2022group5/issues/462): Implemented post bookmark functionalities. Added related unit tests.
+  
 * [Issue #471](https://github.com/bounswe/bounswe2022group5/issues/471): Implemented article bookmark functionalities. Added related unit tests.
     
 * [Issue #492](https://github.com/bounswe/bounswe2022group5/issues/492): Implemented delete an account endpoint. A user can delete his/her account whenever he/she want. Added related unit tests.
@@ -473,7 +478,6 @@ Implemented post bookmark functionalities. Added related unit tests.
 - [test_get_bookmarked_posts](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L71)
 - [test_get_bookmarked_articles](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L110)
 - [test_delete_an_account](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L123)
-
 </details>
 
   
