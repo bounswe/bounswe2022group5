@@ -23,4 +23,5 @@
 - [articles tests](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py)
 - [forum tests](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py)
 - [user_profile tests](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py)
+- [popup component test](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/tests/popup.test.js)
 
