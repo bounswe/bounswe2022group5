@@ -810,7 +810,7 @@ Since it is the continuation of the CMPE 352 course we took last year, you can a
 ##### Milestone 3:
 
 * [Issue #538](https://github.com/bounswe/bounswe2022group5/issues/538): Creating initial structure of all deliverables.
-
+* [Issue #542](https://github.com/bounswe/bounswe2022group5/issues/542): Creating customer presentation notes page.
   
 
 ### **Pull requests:**
