@@ -135,33 +135,42 @@
 ### **Responsibilities:**
 
   
-  
+- Attending the meetings. Keeping myself up-to-date whenever I have to miss one.
+- As a member of the backend team, contributing to the development of the server-side application and the main decisions about the development and design.
+- Reviewing all backend related issues and PRs, manual testing of these PRs, and providing corresponding feedback.
+- Performing deployment-related tasks to fit other teams' needs.
+- Brainstorming with team members to come up with efficient software design that eliminates errors / bugs.
   
 
-### **Main contributions:**
+### **Main contributions (Find links in following headers):**
 
-  
-  
-  
-  
+- Code writing 
+- Code refactoring
+- Bug fixing
+- Peer coding
+  - BRAINSTORMING: [Report Endpoint Implementation](https://github.com/bounswe/bounswe2022group5/issues/478)
+- Code reviewing
+  - REVIEW: [Category Follow Implementation](https://github.com/bounswe/bounswe2022group5/pull/437)
+  - REVIEW: [Annotation Data Model and Endpoints](https://github.com/bounswe/bounswe2022group5/pull/454)
+  - REVIEW: [Report unit tests](https://github.com/bounswe/bounswe2022group5/pull/523)
+- Database shaping & cleansing
+
 
 #### Code related significant issues:
-
   
-  
-
-#### Management related significant issues:
-
-  
-  
-  
-  
+- [Registration Bugfix](https://github.com/bounswe/bounswe2022group5/issues/443)
+- [Geospatial search](https://github.com/bounswe/bounswe2022group5/issues/440)
+- [Refactor search code](https://github.com/bounswe/bounswe2022group5/issues/445)
+- [Geospatial search implementation](https://github.com/bounswe/bounswe2022group5/issues/447)
+- [Get All Posts Bug](https://github.com/bounswe/bounswe2022group5/issues/495)
 
 ### **Pull requests:**
 
-  
-  
-  
+- [Registration Bugfix #444](https://github.com/bounswe/bounswe2022group5/pull/444)
+- [Search query simplified](https://github.com/bounswe/bounswe2022group5/pull/446)
+- [Post search based on distance](https://github.com/bounswe/bounswe2022group5/pull/450/files)
+- [Get All Posts Bug](https://github.com/bounswe/bounswe2022group5/pull/498)
+
 
 </details>
 
