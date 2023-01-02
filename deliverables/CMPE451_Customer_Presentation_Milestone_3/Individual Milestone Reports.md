@@ -680,6 +680,8 @@ Here is my contributions overall
 
 - Overall Research about possible components that we can use in the React Web App.
 
+- Writing System Manual and User Manual for the FrontEnd Web App for Final Milestone.
+
   
 
 ### **Main contributions:**
@@ -704,6 +706,9 @@ Here is my contributions overall
 
 - Researched about an input component to be used in Post/Article Creation pages. And, a ChatBot to use in the FrontEnd.
 
+- Wrote [System Manuel](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals/#system-manual-1) for the FrontEnd Web App.
+
+- Wrote [User Manuel](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals/#user-manual-1) together with [Ozan Kılıç](https://github.com/bounswe/bounswe2022group5/wiki/Ozan-Kılıç) for the FrontEnd Web App.
 
   
   
@@ -732,6 +737,10 @@ Here is my contributions overall
   
 
 #### Management related significant issues:
+
+* [Issue #548](https://github.com/bounswe/bounswe2022group5/issues/548): For System Manuel on the Final Milestone
+
+* [Issue #547](https://github.com/bounswe/bounswe2022group5/issues/547): For System Manuel on the Final Milestone
 
 * [Issue #489](https://github.com/bounswe/bounswe2022group5/issues/489): Being in touch with Mobile Team and filling the ChatBot together.
 
