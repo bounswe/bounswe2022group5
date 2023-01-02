@@ -135,7 +135,7 @@ Here is my contributions overall
 ### Additional Information:
 - I reported my reviews in this section of the other milestone reports. There are too many. Except maybe the first ones, almost all of them are in a standard format and they are detailed with provided comments, suggestions, helper links. 
 - Some of my good reviews are valuable in the sense that they bought us time (they saved time for my teammates).
-- All my revies were documented in my [weekly personal efforts](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balc%C4%B1#weekly-personal-effort) page.
+- All my reviews were documented in my [weekly personal efforts](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balc%C4%B1#weekly-personal-effort) page.
   
 
 </details>
