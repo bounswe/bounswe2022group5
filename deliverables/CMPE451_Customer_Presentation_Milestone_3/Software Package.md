@@ -9,6 +9,13 @@ Application uses PostgreSQL database as RDBMS, and this database application is 
 
 Application follows a **monorepo** structure where mobile, web, back-end code, static content, and deliverables are all contained within the same Git repository.
 
+# Deployment (Of frontend application)
+
+Our frontend application is written using React.js framework. This app is then Dockerized and can be ran on Linux-based, Windows, or MacOS systems seamlessly. 
+
+This application is deployed on AWS as one EC2 instance, without using any auto-managed tools.
+
+
 # Final Release
 
 Latest released version can be found on [this link](https://github.com/bounswe/bounswe2022group5/releases/tag/customer-presentation-3) in an appropriate format.
