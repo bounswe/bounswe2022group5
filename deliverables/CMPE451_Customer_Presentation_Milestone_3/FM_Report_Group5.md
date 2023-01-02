@@ -33,7 +33,12 @@ The project is maintained by a REST API developed by our backend team and presen
 
 ### Status of The Deliverables
 
-
+|**Deliverable**|**Status**|**Last Update Date**|
+|---|---|---|
+[Group Milestone Report](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_3/FM_Report_Group5.md)|No change|02.01.2023|
+[Project Artifacts](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_3/Project%20Artifacts.md)|No change|02.01.2023|
+[Software Package](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_3/Software%20Package.md)|No change|02.01.2023|
+[Individual Reports](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_3/Individual%20Milestone%20Reports.md)|No change|02.01.2023|
 
 ### Final Release Notes
 
