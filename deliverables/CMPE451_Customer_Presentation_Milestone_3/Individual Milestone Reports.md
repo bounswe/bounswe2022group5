@@ -595,35 +595,108 @@
 
 <details><summary>Halil Burak Pala</summary>
 
-### Member: [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala)
-
-  
+### Member: [Halil Burak Pala](https://github.com/bounswe/bounswe2022group5/wiki/Halil-Burak-Pala), Group 5 - Mobile
 
 ### Responsibilities:
-
+- Attending general and mobile team meetings. Taking notes during mobile meetings
+- Contributing to the creation of new pages and functionalities of the mobile application of our app
+- Reviewing issues and pull requests of my teammates
+- Helping my teammates with their code related problems
   
-
 ### Main Contributions:
-
-  
-  
-  
-  
+- Creating screens and their related custom widgets. Making necessary connections between them. Maintaining them when needed:
+	- Home page
+	- Post overview screen
+	- Article overview screen
+	- Category following page
+	- Image viewing page
+	- Viewing text annotations page
+	- Creating text annotation page
+	- Drawer
+- Implementing necessary API functions for
+	- Fetching Paginated Posts/Articles in the Home Page
+	- Fetching single Post, its comments and Article, their images
+	- Getting text annotations of a post/article
+	- Creating a text annotation
+	- Deleting a text annotation
+	- Getting categories and category following/unfollowing
+- Updating, making necessary changes when needed in mobile models, creating new ones. Creating and maintaining mock data
+- Implementing paginaton in mobile application
+- Implementing custom selection functionality
+- Updating the app theme and colors. Writing a [color selection guide](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Code-Conventions#app-theme-and-colors) for our team members
+- Fixing bugs
 
 #### Code related significant issues:
-
-  
-  
+##### Milestone 1
+* Creating initial mobile app structure: [#190](https://github.com/bounswe/bounswe2022group5/issues/190)
+* Creating a mobile home screen: [#192](https://github.com/bounswe/bounswe2022group5/issues/192)
+* Connecting all mobile pages (This is implemented with the participation of all mobile team): [#229](https://github.com/bounswe/bounswe2022group5/issues/229) 
+* Using Personal Information and Logout API services in the home page: [#260](https://github.com/bounswe/bounswe2022group5/issues/260)
+* Displaying user email in the home page's drawer head: [#279](https://github.com/bounswe/bounswe2022group5/issues/279)
+##### Milestone 2
+* Updating models and creating new ones: [#295](https://github.com/bounswe/bounswe2022group5/issues/295)
+* Creating articles home page: [#322](https://github.com/bounswe/bounswe2022group5/issues/322)
+* Updating the app theme: [#327](https://github.com/bounswe/bounswe2022group5/issues/327)
+* Changing model structure to have a single User class: [#340](https://github.com/bounswe/bounswe2022group5/issues/340)
+* Adding article creation floating button: [#341](https://github.com/bounswe/bounswe2022group5/issues/341)
+* Connecting post and article reading/creation pages to the home page: [#342](https://github.com/bounswe/bounswe2022group5/issues/342)
+* Implementing Home Page API connections: [#343](https://github.com/bounswe/bounswe2022group5/issues/343)
+* Updating the drawer: [#382](https://github.com/bounswe/bounswe2022group5/issues/382)
+* Getting posts and articles from backend: [#391](https://github.com/bounswe/bounswe2022group5/issues/391)
+* Getting a specific post and article from backend and displaying them: [#402](https://github.com/bounswe/bounswe2022group5/issues/402)
+* Fixing bugs in the comment dropdown menu: [#409](https://github.com/bounswe/bounswe2022group5/issues/409)
+* Updating pages after comment/article/post creations: [#411](https://github.com/bounswe/bounswe2022group5/issues/411)
+* Showing HTML body of a post/article: [#412](https://github.com/bounswe/bounswe2022group5/issues/412)
+* Showing images of Post/Article/Comment: [#421](https://github.com/bounswe/bounswe2022group5/issues/421)
+##### Final Milestone
+* Implementing text annotations [#459](https://github.com/bounswe/bounswe2022group5/issues/459)
+* Embedding App Logo and Textual Logo in the App [#504](https://github.com/bounswe/bounswe2022group5/issues/504)
+* Category following functionality [#509](https://github.com/bounswe/bounswe2022group5/issues/509)
+* Text Annotation Deletion [#520](https://github.com/bounswe/bounswe2022group5/issues/520)
+* Showing labels in a post [#522](https://github.com/bounswe/bounswe2022group5/issues/522)
+* Fixing Post/Article Overview Screen Bugs [#531](https://github.com/bounswe/bounswe2022group5/issues/531)
 
 #### Management related significant issues:
-
-  
+* Updating Wiki Home Page: [#171](https://github.com/bounswe/bounswe2022group5/issues/171)
+* Revising the Class Diagram: [#181](https://github.com/bounswe/bounswe2022group5/issues/181)
+* Rearranging the Repo Structure and Branches For Collaborative Work: [#188](https://github.com/bounswe/bounswe2022group5/issues/188)
+* Creating Scenario 1 for Milestone 1: [#268](https://github.com/bounswe/bounswe2022group5/issues/268)
 
 ### Pull Requests:
+##### Milestone 1
+* Initial directory structure for the app is created: [#189](https://github.com/bounswe/bounswe2022group5/pull/189)
+* Initial mobile app structure was created : [#191](https://github.com/bounswe/bounswe2022group5/pull/191)
+* Mobile Home Screen is Created: [#212](https://github.com/bounswe/bounswe2022group5/pull/244)
+* Home page is updated to use API services: [#269](https://github.com/bounswe/bounswe2022group5/pull/269)
+* Drawer head in the Home page is updated: [#280](https://github.com/bounswe/bounswe2022group5/issues/280)
+* Minor bug-fixes in the login page and AndroidManifest.xml: [#282](https://github.com/bounswe/bounswe2022group5/issues/282)
+##### Milestone 2 
+* Model updates and mock data creation has been done: [#317](https://github.com/bounswe/bounswe2022group5/pull/317)
+* Articles home page has been created : [#325](https://github.com/bounswe/bounswe2022group5/pull/325)
+* App theme has been updated: [#339](https://github.com/bounswe/bounswe2022group5/pull/339)
+* Change in model structure to have a single User class has been done: [#345](https://github.com/bounswe/bounswe2022group5/pull/345)
+* Floating action button for post/article creation has been implemented: [#347](https://github.com/bounswe/bounswe2022group5/pull/347)
+* Necessary page connections in the home page have been implemented: [#380](https://github.com/bounswe/bounswe2022group5/pull/380)
+* Drawer has been updated. getUserInfo API function has been redesigned: [#389](https://github.com/bounswe/bounswe2022group5/pull/389)
+* Getting posts and articles from the backend in the home page has been implemented: [#400](https://github.com/bounswe/bounswe2022group5/pull/400)
+* Showing a single post/article by fetching them from backend has been done: [#408](https://github.com/bounswe/bounswe2022group5/pull/408)
+* Necessary fixes in the comment dropdown have been implemented: [#410](https://github.com/bounswe/bounswe2022group5/pull/410)
+* Showing HTML has been implemented: [#418](https://github.com/bounswe/bounswe2022group5/pull/418)
+* Updating post page after new comment has been done: [#420](https://github.com/bounswe/bounswe2022group5/pull/420)
+* Images has been made reachable in post/comment/article pages: [#425](https://github.com/bounswe/bounswe2022group5/pull/425)
+##### Final Milestone
+  * Text annotation implementation has been completed: [#502](https://github.com/bounswe/bounswe2022group5/pull/502)
+  * App Logos have been embedded in the app: [#507](https://github.com/bounswe/bounswe2022group5/pull/507)
+  * Category follow functionality has been implemented: [#517](https://github.com/bounswe/bounswe2022group5/pull/517)
+  * Text annotation deletion has been implemented: [#525](https://github.com/bounswe/bounswe2022group5/pull/525)
+  * Labels shown in the post/article viewing page: [#530](https://github.com/bounswe/bounswe2022group5/pull/530)
+  * Overview screen bugs have been solved: [#534](https://github.com/bounswe/bounswe2022group5/pull/534)
 
-  
-  
-  
+### Additional Information
+* Attended general meetings: Meeting [13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1), [14.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-14.1), [15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1), [16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1), [18.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-18.1), [19.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-19.1), [20.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-20.1), [21.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-21.1), [23.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-23.1), [24.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-24.1)
+* Attended mobile meetings: Mobile Meeting [1](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-1), [2](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-2), [3](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-3), [4](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-), [5](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-5), [6](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Meeting-6)
+* Revised or contributed issues: [#168](https://github.com/bounswe/bounswe2022group5/issues/168), [#175](https://github.com/bounswe/bounswe2022group5/issues/175), [#178](https://github.com/bounswe/bounswe2022group5/issues/178), [#193](https://github.com/bounswe/bounswe2022group5/issues/193), [#214](https://github.com/bounswe/bounswe2022group5/issues/214), [#216](https://github.com/bounswe/bounswe2022group5/issues/216), [#227](https://github.com/bounswe/bounswe2022group5/issues/227), [#240](https://github.com/bounswe/bounswe2022group5/issues/240)
+* Reviewed PRs: [#215](https://github.com/bounswe/bounswe2022group5/pull/215), [#222](https://github.com/bounswe/bounswe2022group5/pull/222), [#228](https://github.com/bounswe/bounswe2022group5/pull/228), [#244](https://github.com/bounswe/bounswe2022group5/pull/244), [#272](https://github.com/bounswe/bounswe2022group5/pull/272), [#276](https://github.com/bounswe/bounswe2022group5/pull/276), [#296](https://github.com/bounswe/bounswe2022group5/pull/296), [#354](https://github.com/bounswe/bounswe2022group5/pull/354), [#394](https://github.com/bounswe/bounswe2022group5/pull/394), [#415](https://github.com/bounswe/bounswe2022group5/pull/415), [#419](https://github.com/bounswe/bounswe2022group5/pull/419), [#422](https://github.com/bounswe/bounswe2022group5/pull/422), [#487](https://github.com/bounswe/bounswe2022group5/pull/487), [#519](https://github.com/bounswe/bounswe2022group5/pull/519), [#532](https://github.com/bounswe/bounswe2022group5/pull/532)
   
 
 </details>
