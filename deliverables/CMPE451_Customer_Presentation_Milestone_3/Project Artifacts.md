@@ -3,6 +3,9 @@
 - [Mobile Manuals](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Manuals)
     - [Mobile User Manual](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Manuals#user-manual-1)
     - [Mobile System Manual](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Manuals#system-manual-1)
+- [FrontEnd Manuals](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals)
+    - [FrontEnd User Manual](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals/#user-manual)
+    - [FrontEnd System Manual](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals/#system-manual-1)
 
 ## B. Software Requirements Specification (SRS)
 - [Requirements](https://github.com/bounswe/bounswe2022group5/wiki/Requirements)
