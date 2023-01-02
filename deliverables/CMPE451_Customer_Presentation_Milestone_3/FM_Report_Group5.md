@@ -190,13 +190,7 @@ We could have started using Postman at the beginning of the year. We are current
   
 
 |Issue Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
@@ -204,13 +198,7 @@ We could have started using Postman at the beginning of the year. We are current
   
 
 |Pull Request Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
@@ -222,13 +210,7 @@ We could have started using Postman at the beginning of the year. We are current
   
 
 |Issue Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
@@ -236,13 +218,7 @@ We could have started using Postman at the beginning of the year. We are current
   
 
 |Pull Request Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
@@ -372,13 +348,7 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
   
 
 |Issue Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
@@ -386,13 +356,7 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
   
 
 |Pull Request Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
@@ -406,13 +370,7 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
   
 
 |Issue Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
@@ -420,13 +378,7 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
   
 
 |Pull Request Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
 | | |
 
   
