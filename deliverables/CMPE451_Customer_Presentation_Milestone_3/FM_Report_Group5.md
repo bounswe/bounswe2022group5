@@ -393,7 +393,22 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
 
 |Issue Title|Link|
 |-----|:--------:|
-| | |
+|Implementing Chatbot on a modal (Changed with integrating the bot).|[#466](https://github.com/bounswe/bounswe2022group5/issues/466)|
+|Deletion Functionality and implementation for the Posts.|[#493](https://github.com/bounswe/bounswe2022group5/issues/493)|
+|[Frontend] Changing BotId to use together with Mobile Team.|[#511](https://github.com/bounswe/bounswe2022group5/issues/511)|
+|Creating the navigation bar for the website.|[#235](https://github.com/bounswe/bounswe2022group5/issues/235)|
+|Creating the HomePage layout|[#250](https://github.com/bounswe/bounswe2022group5/issues/250)|
+|Integrating the Posts and Articles to the Homepage.|[#258](https://github.com/bounswe/bounswe2022group5/issues/258)|
+|Creating the post creation page for the website.|[#362](https://github.com/bounswe/bounswe2022group5/issues/362)|
+|Improving the Homepage and Navigation Bar by adding necessary buttons.|[#363](https://github.com/bounswe/bounswe2022group5/issues/363)|
+|Creating the article creation page for the website.|[#365](https://github.com/bounswe/bounswe2022group5/issues/365)|
+|Customer Milestone Meeting Notes For Milestone 1.|[#283](https://github.com/bounswe/bounswe2022group5/issues/283)|
+|Creating Scenario 2 for milestone 1.|[#266](https://github.com/bounswe/bounswe2022group5/issues/266)|
+|Updating Communication Plan.|[#174](https://github.com/bounswe/bounswe2022group5/issues/174)|
+|Revising the Use Case diagrams.[#178](https://github.com/bounswe/bounswe2022group5/issues/178)|
+|Being in touch with Mobile Team and filling the ChatBot together.|[#489](https://github.com/bounswe/bounswe2022group5/issues/489)|
+|For System Manuel on the Final Milestone|[#547](https://github.com/bounswe/bounswe2022group5/issues/547)|
+|For System Manuel on the Final Milestone[#548](https://github.com/bounswe/bounswe2022group5/issues/548)|
 
   
 
@@ -401,7 +416,14 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
 
 |Pull Request Title|Link|
 |-----|:--------:|
-| | |
+| Post Creation Page Implemented|[#377](https://github.com/bounswe/bounswe2022group5/pull/377)|
+| Article Creation Page Implemented|[#373](https://github.com/bounswe/bounswe2022group5/pull/373)|
+| Adding buttons to the Homepage and the Navbar|[#372](https://github.com/bounswe/bounswe2022group5/pull/372)|
+| Improvement in the HomePage buttons|[#267](https://github.com/bounswe/bounswe2022group5/pull/267)|
+| HomePage Layout and alignments|[#257](https://github.com/bounswe/bounswe2022group5/pull/257)|
+| Navigation Bar Implemented|[#249](https://github.com/bounswe/bounswe2022group5/pull/249)|
+| Post Deletion Implemented|[#497](https://github.com/bounswe/bounswe2022group5/pull/497)|
+| Bot ID change in Frontend|[#513](https://github.com/bounswe/bounswe2022group5/pull/513)|
 
   
 
