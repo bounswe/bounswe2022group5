@@ -1,6 +1,13 @@
 # Hippocrates Mobile Application
+Welcome to Android application of __Hippocrates__!
 
-This is the implementation of our project for Android platforms.
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/61624884/210238491-edbf888f-2fa8-46a9-aef2-2c816e57f64c.png" width="500"/>
+</p>
+
+Hippocrates is a __medical experience sharing plotform__. Users can share any medical-related issues by posts, comments and read articles written by doctors.
+
+You can read user and system manuals [here](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Manuals).
 
 ## How to run:
  * You can download APK version of the app from [here](https://drive.google.com/uc?export=download&id=1sWFPABsdkE-mAYlGDIR3v2rIHCELJCJn) and directly run it in your Android device.
