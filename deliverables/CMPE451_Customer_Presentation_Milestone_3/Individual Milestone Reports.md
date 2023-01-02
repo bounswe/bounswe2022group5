@@ -223,7 +223,7 @@
 
 - Implementing keyword/category/geolocation search functionalities for the mobile application.
 	
-- Preparing the searching subsection of the Mobile User Manual.
+- Preparing the searching subsection of the [Mobile User Manual](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Manuals#user-manual-1).
   
 
 *Code related significant issues:*
