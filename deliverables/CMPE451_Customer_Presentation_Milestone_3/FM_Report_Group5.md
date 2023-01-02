@@ -8,32 +8,85 @@
   
 
 ## Executive Summary
-
-  
+ 
 
 ### Summary of The Project Status
 
-  
+#### Introduction
+We are a group of 12 computer engineering students from Boğaziçi University who are taking the course “Project Development in Software Engineering” in the 2022 fall term. We have created a medical experience sharing platform for this course.
 
-  
+This is the final milestone of our project in this semester. It includes all progress so far and the deliverables.
+
+#### Description
+Our platform provides its users an environment to share their medical experiences with each other, being informed about medical topics and also gives them the opportunity to receive responses from verified doctors. Anyone can use Android and the web versions of our application without being charged.
+
+Anyone can register to our platform. There are two types of registered users; doctors and members.  Every registered user has their own profile pages. While registered users can benefit from all the features of our application, guest users can use some of them.
+There are three different parts that can be utilized in our application. First one is the Forum. In the forum, any registered user can share their medical experiences and get responses from other users including verified doctors. All users are able to view other discussion threads in the forum and make comments or upvote/downvote them. The second part is the Articles. Only doctors can publish an article in this part. All users can read an article on the platform and upvote/downvote it. The third part is the Chatbot. Register users are able to reach posts, articles and doctors related to the options they choose from the chatbot decision tree. Forum is the home page of our platform. The other parts can be reached through the buttons in the home page. 
+
+After Milestone 2 we have decided to implement doctor profiles, better labeling system, better search system,category follow, annotation and semantic search features. Apart from this, we carefully analyzed the feedbacks and decided to make the necessary corrections and bugfixes. 
+For Final Milestone, we have determined as a roadmap to satisfy the requirements we have defined as the basis and present them in a demo accompanied by a comprehensive scenario. 
+
+The detailed explanation of all features implemented are on Final Release Notes.
+
+The project is maintained by a REST API developed by our backend team and presented as a web application by our frontend team and as a mobile Android application by our mobile team.
+
 
 ### Status of The Deliverables
 
-  
+
+
+### Final Release Notes
+
+Main functionalities of the application are given below:
+
+- Signup / Login / Logout
+- Post create, read, update, delete, upvote, downvote operations in the _Forum_ section
+- Comment create, read, delete, upvote, downvote operations in the _Forum_ section
+- Article create, read, delete, upvote, downvote operations in the _Articles_ section
+- Adding images and location info to posts, comments, articles
+- Showing upvoted articles, posts, comments of a user
+- Editing user profile (profile image, medical history, personal info)
+- Following categories
+- Search bar have been optimized with category follow, user search and search by geolocation.
+- Doctor Profile with posts, articles of them. Other profile features enabled here.
+- Text Annotation
+- Image Annotation
+- Tag(Label) Suggestion with Semantic Search using Nation [Library of Medicine Ontology](https://www.nlm.nih.gov/)
+- Chatbot Support
+- Account Delete
+
+All users can read posts or comment on Forum, articles on Articles page, however only registered users can create, edit and delete them.
+
+Images and locations can be added to posts, comments and articles. Also text can be written in html format with hyperlinks, bold font, different size etc.
+
+Registered Users can also upvote or downvote post, articles and comments.
+
+Registered Users have profiles and doctor profiles are visible for every user. Profile picture, personal info and medical history is the core part of user profile. Also posts, comments of user and upovoted posts and articles are available in profile page. Accounts can be edited or deleted.
+
+There are also tags and a category can be added to discussion threads and articles. In the posts, our system can suggest some related tags to users and redirects them to wiki page of the tag. This is done via semantic search using ontology of [National Library of Medicine](https://www.nlm.nih.gov/). All the tags related that post are visible in the post page.
+
+Users search the posts with gelocation, tags, category, title, body and user of the post. Search is very optimized and works very well. Also category follow is implemented and following categories are used in the algorithm of Forum Page.
+
+Text Annotation and Image Annotation is available with create, edit and delete feature. Users see all annotation of a post. Standard and schema is explained in Annotation Section of the Report.
+
+Chatbot was implemented in order to support users that don't have any idea about web site and categories. It can help users to find related posts about their disease and problems. It works as a decision tree with respect to input from user.
 
   
 
 ### Changes and Improvements Since Milestone 2
 
-  
+For Milestone 2, we could not finish the Annotations although we plan to finish.
 
+One of the reasons for this was that Front, Mobile and Backend had problems with synchronization. This was very important, especially as we needed to work together to determine annotation schema and understand the W3 Data Model. After Milestone 2, we determined the topics that we need to align and put them in a higher priority order.
+
+Prioritizing actions in this way allowed us to see the process more clearly and enabled us to develop many features for the final milestone, along with the annotation feature.
+
+Apart from that, every member of the team tried to do their best for the final milestone and we found an increase in responsibility awareness.
   
 
 ### Reflections
 
-  
 
-  
 
 ## Progress Based on Teamwork
 
