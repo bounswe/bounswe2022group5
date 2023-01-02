@@ -11,36 +11,166 @@
 
 ### **Responsibilities:**
 
+- Attending all meetings and contributing the brain storming during those meetings. Staying in contact with course asistant.
+	
+- Taking notes during meetings.
+
+- Creating the pull request template.
+
+- Revising Scenario&Mockups and making changes on requirements according this revision
+	
+- Creating the logo design of the platform.
+
+- Documenting the work done after each and every work completed.
+
+- Reviewing the issues and pull requests of the fellow members when requested.
+
+- Deciding Roadmap of Backend Development
+
+- I expressed my ideas in the discussion topics, came up with new ideas and helped the team in determining the action items. 
+	
+- I fulfilled my responsibilities in the development, improvement and necessary bug fixes of Forum, Articles, Post, Comments and Profile pages, as well as the authentiocation implementation in the first milestone. I also played more of a role in Deploy processes in addition to previous milestones.
+In addition to all these, I also helped my friends in the frontend and mobile teams, especially when they had problems with getting data from the backend.
+	
+- Helping on deciding branch and PR conventions
+	
+- Documenting Tech Stack of project
+	
+- Creating initial base backend project with Django and Django REST
+	
+- Implementing Token Authentication on Backend
+	
+- Documenting APIs periodically.
+	
+- Implementing Login, Signup, Logout and Personal Info APIs
+	
+- Implemented [Forum module](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/forum). These module contatins necessary functionalities and models related to Posts, Comments and Upvote-Downvote system.
+	
+- Implemented [Articles module](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/articles). These module contatins necessary functionalities and models related to User and his/her Profile.
+	
+- Implemented Catalogs and Labels. 
+	
+- Implemented Search API among posts and articles
+	
+- Contributed to [User Profile module](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/user_profile). These module contatins necessary functionalities and models related to Articles and Upvote-Downvote system.
+	
+- Created the [API Documentation](https://github.com/bounswe/bounswe2022group5/wiki/API-Documentation-V2).
+	
+- Formatting responses of APIs and reinforced communication of backend with app.
+	
+- Fixing bugs related to backend.
+	
+- Searched W3 Web Annotation Data Model and created initial Annotation Server and implementing Annotation Backend.
+	
+- Implementing semantic search with National Library of Medicine Ontology
+	
+- Helping Mobile and Frontend Team to connect project to Backend
+	
+- Helping Team to create Scenarios for presentations and being a part of presentations
+
   
   
 
 ### **Main contributions:**
 
-  
-  
+In the first weeks I helped revise and make some changes to requirements and scenario&mockups. I helped create branches and PR conventions for collobrative work. After splitting into teams, I created a roadmap for the Backend Team. After deciding on Django as a technology, I created the inital project. After that, I implemented the Authentication settings and documented and implemented the Login, Signup, Logout and Personal Info endpoints with the help of Token Authentication. I helped frontend and mobile connect to backend. Then I have started to implement Forum module with post CRUD operations. After that I have implemented CRUD operations of Articles. Of course there are always bugs in codebase and some of my issues are about this bug fixes. 
+	
+For final milestone I have implemente Text Annotation, Image Annotation and Semantic Search with ontology I have mentioned in the issue.
+	
+#### Code related significant issues:
 
+* [Creating requirements.txt for backend development](https://github.com/bounswe/bounswe2022group5/issues/195)  after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
+* [Creating 'authentication' module inside the project](https://github.com/bounswe/bounswe2022group5/issues/204) after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
+* [Implementing Token Authentication with Django Rest Framework](https://github.com/bounswe/bounswe2022group5/issues/205) after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
+* [Creating the API documentation for Signup](https://github.com/bounswe/bounswe2022group5/issues/206) after [Backend Meeting 1.1](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.1)
+* [Implementing Login and Signup Endpoints](https://github.com/bounswe/bounswe2022group5/issues/218)  after [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
+* [Implementing Create, Update, Read and Delete operations related with Post](https://github.com/bounswe/bounswe2022group5/issues/290)
+* [Implementing Create, Update, Read and Delete operations related with Articles](https://github.com/bounswe/bounswe2022group5/issues/303)
+* [Fixing bugs and communication problems with app (mainly related to Posts and Articles](https://github.com/bounswe/bounswe2022group5/issues/338)
+* [Response formatting for Profile, Posts and Articles](https://github.com/bounswe/bounswe2022group5/issues/366)|
+* [Implementing Catalogs and Labels](https://github.com/bounswe/bounswe2022group5/issues/383)
+* [Annotation Data Model and Endpoints](https://github.com/bounswe/bounswe2022group5/pull/454)
+* [Enhancements about Search](https://github.com/bounswe/bounswe2022group5/pull/476))
+* [Semantic Search Labels and Other Search Features](https://github.com/bounswe/bounswe2022group5/pull/485)
+* Other non-significant issues available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
   
+#### Management related significant issues:
 
-**Code related significant issues:**
-
-  
-  
-  
-
-**Management related significant issues:**
-
-  
+* [Revising the Scenarios and Mockups, making adjustments needed.](https://github.com/bounswe/bounswe2022group5/issues/170)  after [Meeting 13.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-13.1)
+* [Revising the Scenarios and Mockups, make adjustments needed according to the changes done in the Requirements.](https://github.com/bounswe/bounswe2022group5/issues/182) after [Meeting 14.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-14.1)
+* [Deciding on Time and Platform for Backend Team First Meeting](https://github.com/bounswe/bounswe2022group5/issues/183)  
+* [Preparing the Pull Request Template](https://github.com/bounswe/bounswe2022group5/issues/184) after [Meeting 15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1)  
+* [Creating initial backend project on GitHub](https://github.com/bounswe/bounswe2022group5/issues/187) 
+* [Opening a wiki page for the Tech Stack](https://github.com/bounswe/bounswe2022group5/issues/210)  after [Meeting 15.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-15.1)
+* [Creating Scenario 1 for Milestone 1](https://github.com/bounswe/bounswe2022group5/issues/268)  after [Meeting 16.1](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-16.1)
+* [Creating scenarios with team members and preparing for demos](https://github.com/bounswe/bounswe2022group5/issues/401)
+* [Documenting Standard and Annotations for Final Milestone](https://github.com/bounswe/bounswe2022group5/issues/544)
+* [Documenting API Documentation and Collection for Final Milestone](https://github.com/bounswe/bounswe2022group5/issues/545)
+* [Documenting Executive Summary for Final Milestone](https://github.com/bounswe/bounswe2022group5/issues/546)
+* Other non-significant issues available on [Issues Page](https://github.com/bounswe/bounswe2022group5/issues)
   
 
 ### **Pull requests:**
-
-  
-  
-  
+* [Requirements added to repo](https://github.com/bounswe/bounswe2022group5/pull/196)
+* [Authentication Module Created](https://github.com/bounswe/bounswe2022group5/pull/208)
+* [Token auth and initial authentication](https://github.com/bounswe/bounswe2022group5/pull/211)
+* [Login and Signup endpoints finished](https://github.com/bounswe/bounswe2022group5/pull/219)
+* [Cors headers added](https://github.com/bounswe/bounswe2022group5/pull/239)
+* [Me endpoint added](https://github.com/bounswe/bounswe2022group5/pull/242)
+* [Implementing Create, Update, Read and Delete operations related with Post](https://github.com/bounswe/bounswe2022group5/pull/291)
+* [Implementing Create, Update, Read and Delete operations related with Articles](https://github.com/bounswe/bounswe2022group5/pull/304)
+* [Revising Auth APIs for guest users](https://github.com/bounswe/bounswe2022group5/pull/311)
+* [Extending upvote-downvote system for comments](https://github.com/bounswe/bounswe2022group5/pull/328)
+* [Fixing bugs and communication problems with app (mainly related to Posts and Articles)](https://github.com/bounswe/bounswe2022group5/pull/344)
+* [Adding voting info to post and comments](https://github.com/bounswe/bounswe2022group5/pull/348)
+* [Response formatting for Profile, Posts and Articles](https://github.com/bounswe/bounswe2022group5/pull/378)
+* [Fixing responses and implementing Search](https://github.com/bounswe/bounswe2022group5/pull/381)
+* [Implementing Catalogs and Labels](https://github.com/bounswe/bounswe2022group5/pull/403)
+* [Refactoring and Bug Fixes](https://github.com/bounswe/bounswe2022group5/pull/435)
+* [Annotation Data Model and Endpoints](https://github.com/bounswe/bounswe2022group5/pull/454)
+* [Fetching Upvoted Articles and Post by User Id](https://github.com/bounswe/bounswe2022group5/pull/468)
+* [Annotation Bugfix](https://github.com/bounswe/bounswe2022group5/pull/470)
+* [User search added to Search](https://github.com/bounswe/bounswe2022group5/pull/476)
+* [User search added to Search](https://github.com/bounswe/bounswe2022group5/pull/477)
+* [Semantic Search Labels and Other Search Features](https://github.com/bounswe/bounswe2022group5/pull/485)
+* [Urgent Bugfix about Annotation API](https://github.com/bounswe/bounswe2022group5/pull/537)
 
 ### **Unit tests:**
 
-  
+#### [General](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/tests)
+- test_admin_creation
+
+#### [Articles](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/articles)
+- test_create_article_valid
+- test_create_article_invalid
+- test_get_article
+- test_get_article_invalid_id
+- test_update_article_valid
+- test_update_article_missing_fields
+- test_update_article_invalid_id
+- test_delete_article
+- test_get_article_invalid_id
+
+#### [Posts](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/forum)
+- test_upvote_comment
+- test_upvote_comment_invalid_id
+- test_downvote_comment
+- test_downvote_comment_invalid_id
+- test_get_all_posts
+- test_get_all_posts_with_search_query
+- test_get_all_posts_with_user_search
+	
+#### [Annotation](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/annotation/tests.py)
+- createTestAnnotation
+- createImageAnnotation
+- getAnnotations
+- updateTestAnnotation
+- updateImageAnnotation
+- deleteAnnotations
+	
+#### [Profile](https://github.com/bounswe/bounswe2022group5/tree/master/app/backend/user_profile/tests.py)
+- test_get_upvoted_posts
+- test_get_upvoted_articles
   
 
 </details>
