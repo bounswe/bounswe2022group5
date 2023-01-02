@@ -118,28 +118,68 @@ We could have started using Postman at the beginning of the year. We are current
   
 
 |Issue Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
-| | |
-
-  
-
-  
-
+|Revising Scenarios and Mockup|[#170](https://github.com/bounswe/bounswe2022group5/issues/170)|
+|Making adjustments on Scenarios and Mockup w.r.t requirements|[#182](https://github.com/bounswe/bounswe2022group5/issues/182)|
+|Backend Team Meeting Time and Platform Decision|[#183](https://github.com/bounswe/bounswe2022group5/issues/183)|
+|Creating a Pull Request Template|[#184](https://github.com/bounswe/bounswe2022group5/issues/184)|
+|Creating Backend Initial Project|[#187](https://github.com/bounswe/bounswe2022group5/issues/187)|
+|Rearranging Repo Structure|[#188](https://github.com/bounswe/bounswe2022group5/issues/188)|
+|Creating requirements.txt for backend development|[#195](https://github.com/bounswe/bounswe2022group5/issues/195)|
+|Creating 'authentication' module inside the project|[#204](https://github.com/bounswe/bounswe2022group5/issues/204)|
+|Implementing Token Authentication with Django Rest Framework|[#205](https://github.com/bounswe/bounswe2022group5/issues/205)|
+|Creating the API documentation for Signup|[#206](https://github.com/bounswe/bounswe2022group5/issues/206)|
+|Opening a wiki page for the Tech Stack|[#210](https://github.com/bounswe/bounswe2022group5/issues/210)|
+|Implementing Login and Signup Endpoints|[#218](https://github.com/bounswe/bounswe2022group5/issues/218)|
+|Implementing and Documenting 'me' API|[#236](https://github.com/bounswe/bounswe2022group5/issues/236)|
+|Enabling CORS headers|[#238](https://github.com/bounswe/bounswe2022group5/issues/238)|
+|Creating Scenario 1 for Milestone 1|[#268](https://github.com/bounswe/bounswe2022group5/issues/268)|
+|Milestone 1 Evaluation of Status of Deliverables|[#285](https://github.com/bounswe/bounswe2022group5/issues/285)|
+|Implementing Create, Update, Read and Delete operations related with Post.|[Issue #290](https://github.com/bounswe/bounswe2022group5/issues/290)|
+|Implementing Create, Update, Read and Delete operations related with Articles.|[Issue #303](https://github.com/bounswe/bounswe2022group5/issues/303)|
+|Search about what is the best practice of Documentation. Created Postman Doc.|[Issue #305](https://github.com/bounswe/bounswe2022group5/issues/305)|
+|Revising Auth APIs for guest users.|[Issue #309](https://github.com/bounswe/bounswe2022group5/issues/309)|
+|Extending upvote-downvote system for comments.|[Issue #324](https://github.com/bounswe/bounswe2022group5/issues/324)|
+|Fixing bugs and communication problems with app (mainly related to Posts and Articles).|[Issue #338](https://github.com/bounswe/bounswe2022group5/issues/338)|
+|Response formatting for Profile, Posts and Articles.|[Issue #366](https://github.com/bounswe/bounswe2022group5/issues/366)|
+|Implementing Catalogs and Labels.|[Issue #383](https://github.com/bounswe/bounswe2022group5/issues/383)|
+|Creating scenarios with team members and preparing for demos.|[Issue #401](https://github.com/bounswe/bounswe2022group5/issues/401)|
+|Refactoring after Milestone 2|[Issue #434](https://github.com/bounswe/bounswe2022group5/issues/434)|
+|Creating Initial Annotation Endpoints and util functions|[Issue #436](https://github.com/bounswe/bounswe2022group5/issues/436)|
+|Implementing Annotation Data Model, CRUD operations|[Issue #453](https://github.com/bounswe/bounswe2022group5/issues/453)|
+|Implementing feature that enables fetching upvoted posts and articles by user id|[Issue #467](https://github.com/bounswe/bounswe2022group5/issues/467)|
+|Annotation Schema Bugfix|[Issue #469](https://github.com/bounswe/bounswe2022group5/issues/469)|
+|Adding user search to Search|[Issue #475](https://github.com/bounswe/bounswe2022group5/issues/475)|
+|Implementing Semantic Search with labeling system and [National Library of Medicine Ontology](https://www.nlm.nih.gov/)|[Issue #484](https://github.com/bounswe/bounswe2022group5/issues/484)|
+|Documenting Standard and Annotations for Final Milestone|[Issue #544](https://github.com/bounswe/bounswe2022group5/issues/544)|
+|Documenting API Documentation and Collection for Final Milestone|[Issue #545](https://github.com/bounswe/bounswe2022group5/issues/545)|
+|Documenting Executive Summary for Final Milestone|[Issue #546](https://github.com/bounswe/bounswe2022group5/issues/546)|
+ 
 |Pull Request Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
-| | |
+|Requirements added to repo|[#196](https://github.com/bounswe/bounswe2022group5/pull/196)|
+|Authentication Module Created|[#208](https://github.com/bounswe/bounswe2022group5/pull/208)|
+|token auth and initial authentication|[#211](https://github.com/bounswe/bounswe2022group5/pull/211)|
+|login and signup endpoints finished|[#219](https://github.com/bounswe/bounswe2022group5/pull/219)|
+|Cors headers added|[#239](https://github.com/bounswe/bounswe2022group5/pull/239)|
+|Me endpoint added|[#242](https://github.com/bounswe/bounswe2022group5/pull/242)|
+|Implementing Create, Update, Read and Delete operations related with Post.|[#291](https://github.com/bounswe/bounswe2022group5/pull/291)|
+|Implementing Create, Update, Read and Delete operations related with Articles.|[#304](https://github.com/bounswe/bounswe2022group5/pull/304)|
+|Revising Auth APIs for guest users.|[#311](https://github.com/bounswe/bounswe2022group5/pull/311)|
+|Extending upvote-downvote system for comments.|[#328](https://github.com/bounswe/bounswe2022group5/pull/328)|
+|Fixing bugs and communication problems with app (mainly related to Posts and Articles).|[#344](https://github.com/bounswe/bounswe2022group5/pull/344)|
+|Adding voting info to post and comments.|[#348](https://github.com/bounswe/bounswe2022group5/pull/348)|
+|Response formatting for Profile, Posts and Articles.|[#378](https://github.com/bounswe/bounswe2022group5/pull/378)|
+|Fixing responses and implementing Search.|[#381](https://github.com/bounswe/bounswe2022group5/pull/381)|
+|Implementing Catalogs and Labels.|[#403](https://github.com/bounswe/bounswe2022group5/pull/403)|
+|Refactoring and Bug Fixes|[#435](https://github.com/bounswe/bounswe2022group5/pull/435)|
+|Annotation Data Model and Endpoints|[#454](https://github.com/bounswe/bounswe2022group5/pull/454)|
+|Fetching Upvoted Articles and Post by User Id|[#468](https://github.com/bounswe/bounswe2022group5/pull/468)|
+|Annotation Bugfix|[#470](https://github.com/bounswe/bounswe2022group5/pull/470)|
+|User search added to Search|[#476](https://github.com/bounswe/bounswe2022group5/pull/476)|
+|User search added to Search|[#477](https://github.com/bounswe/bounswe2022group5/pull/477)|
+|Semantic Search Labels and Other Search Features|[#485](https://github.com/bounswe/bounswe2022group5/pull/485)|
+|Urgent Bugfix about Annotation API|[#537](https://github.com/bounswe/bounswe2022group5/pull/537)|
 
   
 
