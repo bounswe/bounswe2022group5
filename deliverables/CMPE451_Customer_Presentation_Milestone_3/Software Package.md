@@ -13,7 +13,7 @@ Application follows a **monorepo** structure where mobile, web, back-end code, s
 
 Latest released version can be found on [this link](https://github.com/bounswe/bounswe2022group5/releases/tag/customer-presentation-3) in an appropriate format.
 
-# Building Steps
+# Building Steps (of Backend)
 
 1. Make sure the server which is supposed to run the application is **up-to-date** in terms of software
     - apt-get update; apt-get install;
@@ -32,6 +32,20 @@ Latest released version can be found on [this link](https://github.com/bounswe/b
     - export AWS_SECRET_ACCESS_KEY=<_SECRET_>
 6. Go ahead and run the docker script
     - ./docker-compose up
+
+# Building Steps (of Frontend)
+
+1. Make sure the server which is supposed to run the application is **up-to-date** in terms of software
+    - apt-get update; apt-get install;
+2. Make sure Docker is installed and enabled as a service
+    - apt-get install docker; service docker start; usermod -a -G docker os_username; chkconfig docker on;
+3. Clone the git repo to the server and proceed to the back-end folder
+    - git clone https://github.com/bounswe/bounswe2022group5.git
+    - cd bounswe2022group5/app/frontend
+4. Create a docker image of the application
+    - sudo docker build -t frontend .
+5. Run the docker container
+    - sudo docker run -d -p 3000:3000 frontend
 
 # Database-Related Information & Example Data
   
