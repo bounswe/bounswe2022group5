@@ -385,35 +385,94 @@ Here is my contributions overall
 
   
 
-### **Responsibilities:**
+### Responsibilities:
 
+  
+
+- Attending all the meetings.
+
+- As a member of the backend team, contributing to the development of the backend services and the main decisions about the development and design.
+
+- Reviewing issues that I was assigned to as a reviewer.
+
+- Reviewing the code written by other backend developers.
   
   
 
 ### **Main contributions:**
 
-  
-  
-  
-
-  
-  
-
-#### Code related significant issues:
-
-  
-  
-
-#### Management related significant issues:
+- Implemented [Voting System for Posts](https://github.com/bounswe/bounswe2022group5/issues/313).
+- Implemented [Voting System for Articles](https://github.com/bounswe/bounswe2022group5/issues/312).
+- Implemented [Voting System Improvements](https://github.com/bounswe/bounswe2022group5/issues/329).
+- Implemented an endpoint for [Get a Doctor's all Articles](https://github.com/bounswe/bounswe2022group5/pull/355)
+- Implemented an endpoint for [Category Follow](https://github.com/bounswe/bounswe2022group5/issues/431).
+- Implemented an endpoint for [Followed Categories](https://github.com/bounswe/bounswe2022group5/issues/441).
+- Implemented an endpoint for [Bookmark a Post](https://github.com/bounswe/bounswe2022group5/issues/462).
+- Implemented an endpoint for [Bookmark an Article](https://github.com/bounswe/bounswe2022group5/issues/471).
+- Implemented an endpoint for [Delete an Account](https://github.com/bounswe/bounswe2022group5/issues/492).
+- Handled and fixed minor bugs.
 
   
 
+  **Code related significant issues:**
+
+* [Issue #313](https://github.com/bounswe/bounswe2022group5/issues/313): Implemented voting system for Posts.
+
+* [Issue #312](https://github.com/bounswe/bounswe2022group5/issues/312): Implemented voting system for Articles.
+
+* [Issue #329](https://github.com/bounswe/bounswe2022group5/issues/329): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed. 
+* [Issue #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
+
+* [Issue #431](https://github.com/bounswe/bounswe2022group5/issues/431): Implemented Category Follow function for all Categories.
+    
+* [Issue #441](https://github.com/bounswe/bounswe2022group5/issues/441): Implemented get followed categories endpoint for showing all categories that a user followed.
+    
+* [Issue #462](https://github.com/bounswe/bounswe2022group5/issues/462): 
+Implemented post bookmark functionalities. Added related unit tests.
+    
+* [Issue #471](https://github.com/bounswe/bounswe2022group5/issues/471): Implemented article bookmark functionalities. Added related unit tests.
+    
+* [Issue #492](https://github.com/bounswe/bounswe2022group5/issues/492): Implemented delete an account endpoint. A user can delete his/her account whenever he/she want. Added related unit tests.
+    
 ### **Pull requests:**
+- [Pull Request #321](https://github.com/bounswe/bounswe2022group5/pull/321): Implemented voting system for Posts.
+     
+- [Pull Request #314](https://github.com/bounswe/bounswe2022group5/pull/314): Implemented voting system for Articles.
+     
+- [Pull Request #331](https://github.com/bounswe/bounswe2022group5/pull/331): Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed.
+     
+- [Pull Request #355](https://github.com/bounswe/bounswe2022group5/pull/355): Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.
 
-  
-  
+- [Pull Request #437](https://github.com/bounswe/bounswe2022group5/pull/437): Implemented Category Follow function for all Categories.
 
+- [Pull Request #442](https://github.com/bounswe/bounswe2022group5/pull/442): Implemented get followed categories endpoint for showing all categories that a user followed.
+
+- [Pull Request #463](https://github.com/bounswe/bounswe2022group5/pull/463): Implemented post bookmark functionalities. Added related unit tests.
+    
+- [Pull Request #472](https://github.com/bounswe/bounswe2022group5/pull/472): Implemented article bookmark functionalities. Added related unit tests.
+    
+- [Pull Request #494](https://github.com/bounswe/bounswe2022group5/pull/494): Implemented delete an account endpoint. A user can delete his/her account whenever he/she want. Added related unit tests.
+    
 ### **Unit tests:**
+- [test_upvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L90)
+- [test_upvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L100)
+- [test_upvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L112)
+- [test_downvote_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L123)
+- [test_downvote_article_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L133)
+- [test_downvote_article_when_already_exist](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L144)
+- [test_upvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L12)
+- [test_upvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L21)
+- [test_upvote_post_when_already_upvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L32)
+- [test_downvote_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L42)
+- [test_downvote_post_invalid_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L51)
+- [test_downvote_post_when_already_downvoted](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L62)
+- [test_bookmark_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L156)
+- [test_bookmark_remove_article](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/articles/tests.py#L166)
+- [test_bookmark_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L177)
+- [test_bookmark_remove_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L188)
+- [test_get_bookmarked_posts](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L71)
+- [test_get_bookmarked_articles](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L110)
+- [test_delete_an_account](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L123)
 
 </details>
 
