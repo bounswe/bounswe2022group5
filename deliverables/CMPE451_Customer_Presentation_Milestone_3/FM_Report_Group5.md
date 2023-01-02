@@ -21,9 +21,9 @@ This is the final milestone of our project in this semester. It includes all pro
 Our platform provides its users an environment to share their medical experiences with each other, being informed about medical topics and also gives them the opportunity to receive responses from verified doctors. Anyone can use Android and the web versions of our application without being charged.
 
 Anyone can register to our platform. There are two types of registered users; doctors and members.  Every registered user has their own profile pages. While registered users can benefit from all the features of our application, guest users can use some of them.
-There are three different parts that can be utilized in our application. First one is the Forum. In the forum, any registered user can share their medical experiences and get responses from other users including verified doctors. All users are able to view other discussion threads in the forum and make comments or upvote/downvote them. The second part is the Articles. Only doctors can publish an article in this part. All users can read an article on the platform and upvote/downvote it. The third part is the Chatbot. Register users are able to reach posts, articles and doctors related to the options they choose from the chatbot decision tree. Forum is the home page of our platform. The other parts can be reached through the buttons in the home page. 
+There are three different parts that can be utilized in our application. First one is the Forum. In the forum, any registered user can share their medical experiences and get responses from other users including verified doctors. All users are able to view other discussion threads in the forum and make comments or upvote/downvote them. The second part is the Articles. Only doctors can publish an article in this part. All users can read an article on the platform and upvote/downvote it. The third part is the Chatbot. Registered users are able to reach posts, articles and doctors related to the options they choose from the chatbot decision tree. Forum is the home page of our platform. The other parts can be reached through the buttons in the home page. 
 
-After Milestone 2 we have decided to implement doctor profiles, better labeling system, better search system,category follow, annotation and semantic search features. Apart from this, we carefully analyzed the feedbacks and decided to make the necessary corrections and bugfixes. 
+After Milestone 2 we have decided to implement doctor profiles, better labeling system, better search system, category follow, annotation, and semantic search features. Apart from this, we carefully analyzed the feedbacks, and decided to make the necessary corrections and bug-fixes. 
 For Final Milestone, we have determined as a roadmap to satisfy the requirements we have defined as the basis and present them in a demo accompanied by a comprehensive scenario. 
 
 The detailed explanation of all features implemented are on Final Release Notes.
@@ -59,23 +59,23 @@ All users can read posts or comment on Forum, articles on Articles page, however
 
 Images and locations can be added to posts, comments and articles. Also text can be written in html format with hyperlinks, bold font, different size etc.
 
-Registered Users can also upvote or downvote post, articles and comments.
+Registered Users can also upvote or downvote posts, articles and comments.
 
-Registered Users have profiles and doctor profiles are visible for every user. Profile picture, personal info and medical history is the core part of user profile. Also posts, comments of user and upovoted posts and articles are available in profile page. Accounts can be edited or deleted.
+Registered Users have profiles, and doctor profiles are visible for every user. Profile picture, personal info and medical history are the core parts of user profile. Also posts, comments of user, and upvoted posts and articles are available in profile pages. Accounts can be edited or deleted.
 
-There are also tags and a category can be added to discussion threads and articles. In the posts, our system can suggest some related tags to users and redirects them to wiki page of the tag. This is done via semantic search using ontology of [National Library of Medicine](https://www.nlm.nih.gov/). All the tags related that post are visible in the post page.
+There are also tags, and a category can be added to posts and articles. In the posts, our system can suggest some related tags to users and redirects them to wiki page of the tag. This is done via semantic search using ontology of [National Library of Medicine](https://www.nlm.nih.gov/). All the tags related that post are visible in the post page.
 
-Users search the posts with gelocation, tags, category, title, body and user of the post. Search is very optimized and works very well. Also category follow is implemented and following categories are used in the algorithm of Forum Page.
+Users search the posts with gelocation, tags, category, title, body and author of the post. Search is very optimized and works very well. Also category follow is implemented and following categories are used in the algorithm of Forum Page.
 
-Text Annotation and Image Annotation is available with create, edit and delete feature. Users see all annotation of a post. Standard and schema is explained in Annotation Section of the Report.
+Text Annotation and Image Annotation are available with create, edit and delete feature. Users see all annotations of a post. Standard and schema are explained in Annotation Section of the Report.
 
-Chatbot was implemented in order to support users that don't have any idea about web site and categories. It can help users to find related posts about their disease and problems. It works as a decision tree with respect to input from user.
+Chatbot was implemented in order to support users that don't have any idea about the website and/or categories. It can help users to find related posts about their diseases and problems. It works as a decision tree with respect to input from user.
 
   
 
 ### Changes and Improvements Since Milestone 2
 
-For Milestone 2, we could not finish the Annotations although we plan to finish.
+For Milestone 2, we could not finish the Annotations although we plan to finish it.
 
 One of the reasons for this was that Front, Mobile and Backend had problems with synchronization. This was very important, especially as we needed to work together to determine annotation schema and understand the W3 Data Model. After Milestone 2, we determined the topics that we need to align and put them in a higher priority order.
 
@@ -86,21 +86,22 @@ Apart from that, every member of the team tried to do their best for the final m
 
 ### Reflections
 
-We knew that Final Milestone, unlike other Milestones, is a point where we would present the final and main version of our project and explain all the features using potential scenarios over a product we can call MVP. 
+We knew that Final Milestone, unlike other Milestones, is a point where we would present the final and main version of our project and explain all the features using potential scenarios over a product that we can call MVP. 
 
 In this direction, we focused our work on combining the separate parts and finishing the product we promised. So, we realized how helpful the documentation, notes and other wiki items throughout the term were. 
 
 We were able to successfully plan Final Milestone because we knew what we were doing and how quickly we were working backwards. The existence of such an experience, especially in order for the teams to align, is very beneficial for the developing a product that can be described as a final. 
 
-Another lesson we learned is how important feedback from previous milestones and presentations is. In particular, we tried to apply what we learned from these notes we took during the presentation in the last demos. Preparing a comprehensive scenario, not boring the audience and making an effective introduction form the basis of our methods for the last milestone.
+Another lesson we learned is how important feedback from previous milestones and presentations are. In particular, we tried to apply what we learned from these notes we took during the presentation in the last demos. Preparing a comprehensive scenario, not boring the audience and making an effective introduction form the basis of our methods for the last milestone presentation.
 
 ### What Could Be Done Differently
 
-Since we developed our final product to meet the requirements we set at the beginning, we see the project development process since start of term as a successful process. This is because of things we talked about above. But as with any project development process, we recognize that there are things to do better or different. 
+Since we developed our final product to meet the requirements we set at the beginning, we see the project development process since the start of the term as a successful process. This is because of the things we talked about above. But as with any project development process, we recognize that there are things to do better or different. 
 
 At the beginning of the term, we formed the teams with an equal number of members. However, adding more people to the frontend team, which requires a lot of effort, and especially the mobile development team where new technologies are learned, could speed up the work. In this direction, we could have given more importance to UI and visuality. 
 
 We could have started using Postman at the beginning of the year. We are currently using all APIs and documentation via Postman and are quite satisfied.
+
 
 
 ## Progress Based on Teamwork
