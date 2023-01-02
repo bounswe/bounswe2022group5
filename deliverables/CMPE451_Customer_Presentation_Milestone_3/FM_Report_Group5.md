@@ -143,33 +143,25 @@
 
 #### İrfan Bozkurt
 
-  
+This section only includes my work for the last milestone. In addition, not all my efforts have a corresponding issue or PR. Sometimes I needed to do something quick, or, the nature of the issue wasn't suitable to be planned or tracked.
 
-  
+To see all my work please visit [my personal efforts wiki page](https://github.com/bounswe/bounswe2022group5/wiki/Irfan-Bozkurt)
 
 |Issue Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
-| | |
-
-  
-
-  
+|Registration Bugfix | [#443](https://github.com/bounswe/bounswe2022group5/issues/443) |
+|Geospatial search - Research | [#440](https://github.com/bounswe/bounswe2022group5/issues/440) |
+|Refactor search code | [#445](https://github.com/bounswe/bounswe2022group5/issues/445) |
+|Geospatial search implementation | [#447](https://github.com/bounswe/bounswe2022group5/issues/447)
+|Get All Posts Bug | [#495](https://github.com/bounswe/bounswe2022group5/issues/495)
+|Software Package for Backend | [#543](https://github.com/bounswe/bounswe2022group5/issues/543)
 
 |Pull Request Title|Link|
-
-  
-
 |-----|:--------:|
-
-  
-
-| | |
+|Registration Bugfix | [#444](https://github.com/bounswe/bounswe2022group5/pull/444)
+|Search query simplified | [#446](https://github.com/bounswe/bounswe2022group5/pull/446)
+|Post search based on distance | [#450](https://github.com/bounswe/bounswe2022group5/pull/450/files)
+|Get All Posts Bug | [#498](https://github.com/bounswe/bounswe2022group5/pull/498)
 
   
 
