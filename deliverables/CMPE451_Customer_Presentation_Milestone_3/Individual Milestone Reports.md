@@ -50,33 +50,92 @@
 
 <details><summary>Alper Canberk Balcı</summary>
 
-### Member: [Alper Canberk Balcı - Group 5](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balcı)
+### Member: [Alper Canberk Balcı - Group 5](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balcı) - Backend
 
 ### Responsibilities:
-
-  
+My responsibilities with helper links.
+-   Attending weekly general meetings, and **taking meeting notes**, reviewing the notes that I didn't take. **Design** of [Meeting Notes Template](https://github.com/bounswe/bounswe2022group5/wiki/Meeting-Notes-Template).
+-   Attending backend team meetings and **contributing** in the design, implementation, and documentation in those meetings.
+- Revising the Requirements periodically.
+- Contribution to the design documents (with UML)
+-  Creating  [Backend Code Conventions](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Code-Conventions).
+-   [Revising and adding](https://github.com/bounswe/bounswe2022group5/issues/186)  new issue labels.
+-  Designing and revising  [Project Plan](https://github.com/bounswe/bounswe2022group5/wiki/Project-Plan)  and  [RAM](https://github.com/bounswe/bounswe2022group5/wiki/RAM).
+-  Contributing to designing  [Database Schema](https://github.com/bounswe/bounswe2022group5/wiki/Backend-Meeting-1.2#discussion).
+- Connecting DB Engine to Django app. See [Issue #197](https://github.com/bounswe/bounswe2022group5/issues/197)
+-   **Implementing**  `get_personal_info`,`update_personal_info`,  `get_doctor_info`  APIs. See  [Issue #316](https://github.com/bounswe/bounswe2022group5/issues/316), [Issue #430](https://github.com/bounswe/bounswe2022group5/issues/430)
+- **Implementing**  `report_content`. See [Issue #478](https://github.com/bounswe/bounswe2022group5/issues/478)
+-   _**Designing**_  the APIs  `get_upvoted_articles`,  `get_upvoted_posts`,  `get_posts_of_user`,  `get_articles_of_doctor`  and their algorithm/mechanism, in the weekly meetings with other members İrfan and Oğuzhan considering new features. At the end, of course,  **reviewing**  the implementations.
+-   Researching Ontologies, Semantic Search, Annotations Standards.
+-   Reviewing  _**most of the backend related**_  code, commits,  _Pull Requests_,  _Issues_, and documentation.
+-   Try and keep Sidebar and Wiki Home Page tidy and readable.
+-  Creating  [Scenario 2 for CMPE451:Milestone 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1).
+-   Creating  [Scenario 1 for CMPE451:Milestone 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-2),  [Scenario 2 for CMPE451:Milestone 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-2),  [Scenario 3 for CMPE451:Milestone 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-3-for-Milestone-2)  for the demo presentation. See  [Issue #361](https://github.com/bounswe/bounswe2022group5/issues/361).
+-   Presenting the  introduction  and  [Scenario 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Milestone-2)  parts of the demo in Milestone 2 Presentations.
+- Created the Chatbot Conversation Tree. See [Chatbot Conversation Tree](https://github.com/bounswe/bounswe2022group5/wiki/Chatbot-Conversation-Tree). 
+- Created the [Scenario 1 for CMPE451:Final Milestone](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-1-for-Final-Milestone), [Scenario 2 for CMPE451:Final Milestone](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Final-Milestone). See [Issue #518](https://github.com/bounswe/bounswe2022group5/issues/518)
+- Presented the Final Milestone Demo Presentation.
+- Documented the  [User Scenarios and Mockups](https://github.com/bounswe/bounswe2022group5/wiki/User-Scenarios-and-Mockups) for Final Milestone Deliverables.
   
 
 ### Main Contributions:
+Here is my contributions overall
+- Designing and implementing endpoints, writing unit-tests, also bugfix and documentation.
+- Reviewing **most of** the backend code diligently, detecting bugs.
+- Reviewing issues and work done, in detail, consistently.
+- Designing Database Schema, and design documents (with UML in 352), project plan and RAM.
+- Revising requirements.
+- Taking meeting notes. Meeting notes template design. 
+- Writing good issues, pull requests, reviews. Revising issue labels. Editing label usage of myself and other members time to time.
+- Creating scenarios and mockups.
+- Presentation of the demos.
+- Keeping sidebar and wiki home page tidy.
+- Milestone report contributions.
 
-  
 
 #### Code related significant issues:
-
-  
+-   [Connecting DB Engine to Django app](https://github.com/bounswe/bounswe2022group5/issues/197)
+-   [Creating API documentation for Login](https://github.com/bounswe/bounswe2022group5/issues/201)
+-   [Editing the README file of the Backend part of the Project](https://github.com/bounswe/bounswe2022group5/issues/237)
+ -   [[Backend] Revising Database Schema with respect to new features](https://github.com/bounswe/bounswe2022group5/issues/292)
+-   [[Backend] Developing Personal Info API](https://github.com/bounswe/bounswe2022group5/issues/316)
+- [[Backend] Personal Info API Bug Fix](https://github.com/bounswe/bounswe2022group5/issues/430)
+- [[Documentation] Chatbot conversations creation.](https://github.com/bounswe/bounswe2022group5/issues/433)
+- [[Backend] Report Endpoint Implementation](https://github.com/bounswe/bounswe2022group5/issues/478)
   
 
 #### Management related significant issues:
 
-  
-  
+  -   [Revising the Meeting Notes Template](https://github.com/bounswe/bounswe2022group5/issues/168)
+-   [Updating the Project Plan and RAM according to the Meeting 14.1](https://github.com/bounswe/bounswe2022group5/issues/177)
+-   [Adding New Labels to Distinguish Issues for Different Groups' Tasks](https://github.com/bounswe/bounswe2022group5/issues/186)
+-   [Documenting Backend code conventions](https://github.com/bounswe/bounswe2022group5/issues/262)
+-   [Creating Scenario 2 for Milestone 1](https://github.com/bounswe/bounswe2022group5/issues/266)
+ -   [Milestone 1 Presentation Note Taking](https://github.com/bounswe/bounswe2022group5/issues/283)
+-   [Improve meeting notes](https://github.com/bounswe/bounswe2022group5/issues/319)
+-   [[Milestone Presentation] Preparing scenarios for the Milestone 2](https://github.com/bounswe/bounswe2022group5/issues/361)
+- [[Documentation] Requirements editing for Final Milestone](https://github.com/bounswe/bounswe2022group5/issues/479)
+- [Creating Scenarios for the Final Milestone Presentation](https://github.com/bounswe/bounswe2022group5/issues/518)
+- [[Final Milestone] User Scenarios and Mockups](https://github.com/bounswe/bounswe2022group5/issues/540)
 
 ### Pull Requests:
-
-  
+-   [Django App Connection to the DB](https://github.com/bounswe/bounswe2022group5/pull/198)
+  -   [[Backend] Get, Update Personal Info Implementation](https://github.com/bounswe/bounswe2022group5/pull/357)
+  -  [[Backend] Personal Info API Bugfix](https://github.com/bounswe/bounswe2022group5/pull/432)
+  - [[Backend] Report Endpoint Implementation](https://github.com/bounswe/bounswe2022group5/pull/503)
+  - [[Backend] Report unit tests](https://github.com/bounswe/bounswe2022group5/pull/523)
 
 ### Unit Tests:
-
+- [test_get_personal_info](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L12)
+- [test_get_doctor_profile](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/user_profile/tests.py#L18)
+- [test_report_post](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L199)
+- [test_report_comment](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L215)
+- [test_report_invalid_content_type](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L233)
+-  [test_report_invalid_content_id](https://github.com/bounswe/bounswe2022group5/blob/master/app/backend/forum/tests.py#L246)
+### Additional Information:
+- I reported my reviews in this section of the other milestone reports. There are too many. Except maybe the first ones, almost all of them are in a standard format and they are detailed with provided comments, suggestions, helper links. 
+- Some of my good reviews are valuable in the sense that they bought us time (they saved time for my teammates).
+- All my revies were documented in my [weekly personal efforts](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balc%C4%B1#weekly-personal-effort) page.
   
 
 </details>
