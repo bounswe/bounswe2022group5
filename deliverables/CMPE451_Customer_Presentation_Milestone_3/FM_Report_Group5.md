@@ -1443,9 +1443,97 @@ with [Popup](https://github.com/bounswe/bounswe2022group5/blob/master/app/fronte
 
 *  ### Annotations
 
-  
+In Milestone 2 and Customer Demo we have explained how we will implement Annotations with [the Annotation Mockup](https://github.com/bounswe/bounswe2022group5/wiki#:~:text=Annot-,Annotation%20Mockup,-%F0%9F%8F%A0).
 
-  
+For Final Milestone and Customer Presentation we have implemented the text and image annotation by following [W3 Annotation Data Model](https://www.w3.org/TR/annotation-model/).
+
+We have researched the data model and created wiki page with results of this research. See [Wiki Page](https://github.com/bounswe/bounswe2022group5/wiki/Research-Items-for-Project#w3c-web-annotation-data-model)
+
+As they mentioned on documentation, the primary aim of the Web Annotation Data Model is to provide a standard description model and format to enable annotations to be shared between systems. This interoperability may be either for sharing with others, or the migration of private annotations between devices or platforms. The shared annotations must be able to be integrated into existing collections and reused without loss of significant information. The model should cover as many annotation use cases as possible, while keeping the simple annotations easy and expanding from that baseline to make complex uses possible.
+
+There are two schemes we have defined for annotations. Below is the schema we use for Text Annotation and Image Annotation, respectively:
+
+##### Text Annotation Schema
+
+```
+{
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "body": [
+        {
+            "created": "2022-12-17T21:01:59.693Z",
+            "creator": {
+                "id": "http://3.91.54.225:3000/profile/61",
+                "name": "Mehmet Emre Akbulut"
+            },
+            "modified": "2022-12-17T21:01:59.693Z",
+            "purpose": "commenting",
+            "type": "TextualBody",
+            "value": "Content of The Annotation"
+        }
+    ],
+    "id": "#id",
+    "target": {
+        "selector": [
+            {
+                "exact": "Exact String Selected",
+                "type": "TextQuoteSelector"
+            },
+            {
+                "start": 222,
+                "end": 234,
+                "type": "TextPositionSelector"
+            }
+        ]
+    },
+    "type": "Annotation"
+}
+```
+
+##### Image Annotation Schema:
+
+```
+{
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "body": [
+        {
+            "created": "2022-12-17T21:01:59.693Z",
+            "creator": {
+                "id": "http://3.91.54.225:3000/profile/61",
+                "name": "Mehmet Emre Akbulut"
+            },
+            "modified": "2022-12-17T21:01:59.693Z",
+            "purpose": "commenting",
+            "type": "TextualBody",
+            "value": "Content of The Annotation"
+        }
+    ],
+    "id": "#b3343k4klRANDOM3434fdfd",
+    "target": {
+        "selector": {
+            "conformsTo": "http://www.w3.org/TR/media-frags/",
+            "type": "FragmentSelector",
+            "value": "xywh=pixel:491.23232,323.23232,436.8787, 123.4343"
+        },
+        "source": "URL OF PHOTO"
+    },
+    "type": "Annotation"
+}
+```
+Annotation Status:
+
+Backend:
+This schemas are created on the Annotation Server. Link is 'ec2-18-209-24-202.compute-1.amazonaws.com:8000/'. They are stored in db and served to Frontend and Mobile when requested.
+
+Frontend:
+The annotation tool is available on the website and all Registered Users can annotate posts and see the annotations.
+For Text Annotation, a Registered User can select any text in post and annotate it. Also editing and deleting annotation is possible.
+For Image Annotation, a Registered User can select any text in post and annotate it. Also editing and deleting annotation is possible.
+Also Registered Users can view all text and image annotations.
+
+Mobile:
+The annotation tool is available on the mobile app and all Registered Users can annotate posts and see the annotations.
+For Text Annotation, a Registered User can select any text in post and annotate it. 
+Also Registered Users can view all text annotations.
 
 *  ### Standards
 
