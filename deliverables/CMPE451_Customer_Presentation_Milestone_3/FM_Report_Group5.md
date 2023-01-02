@@ -637,7 +637,7 @@ Our other section [Search & Sort Requirements](https://github.com/bounswe/bounsw
 
   
 
--  **1.1.3.1.4** Users shall be able to search posts, articles and user profiles by the names of the doctors that contributed to them (We can search posts and articles of a doctor via using a doctor's name in the search bar. But search mechanism is not used for profile search. A user must click on the doctor's name after finding the doctor's content.)
+-  **1.1.3.1.4** Users shall be able to search posts, articles and user profiles by the names of the doctors that contributed to them (We can search posts and articles of a doctor via using a doctor's name in the search bar. But search mechanism is not used for profile search. A user must click on the doctor's name after finding the doctor's content: One can see here: **1.1.3.1.6** Users shall be able to search among posts in the Forum with the titles, body, authors of the posts.)
 
   
 
