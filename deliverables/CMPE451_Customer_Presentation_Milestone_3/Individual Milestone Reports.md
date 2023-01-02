@@ -390,6 +390,16 @@
 
 - Attending the Customer Milestone Presentation.
 
+- Creating HomePage Layout and NavBar Components.
+
+- Article creation page that will be used by only doctors.
+
+- Post creation page which will be used by the registered users
+
+- Taking notes on the milestone presentation.
+
+- Overall Research about possible components that we can use in the React Web App.
+
   
 
 ### **Main contributions:**
@@ -404,6 +414,17 @@
 
 - Maintained the previous codes that I have been written
 
+- I have implemented the navigation bar and connect the login/logout/signup buttons with links and functionalities. Created the Navigation Bar as a component that can be used across all website.
+
+- I have also take a part in the creation of the [Scenario 2 For Milestone 1](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1) for the mockups.
+
+- Took notes on Milestone 1 Customer Presentation
+
+- Created Article Creation and Post Creation pages
+
+- Researched about an input component to be used in Post/Article Creation pages. And, a ChatBot to use in the FrontEnd.
+
+
   
   
   
@@ -416,6 +437,17 @@
 
 * [Issue #511](https://github.com/bounswe/bounswe2022group5/issues/511): Changing BotId to use together with Mobile Team.
 
+* [Issue #235](https://github.com/bounswe/bounswe2022group5/issues/235): This one is for creating the navigation bar for the website.
+
+* [Issue #250](https://github.com/bounswe/bounswe2022group5/issues/250): This one is for creating the HomePage layout as described above.
+
+* [Issue #258](https://github.com/bounswe/bounswe2022group5/issues/258): This one is for integrating the Posts and Articles to the Homepage.
+
+* [Issue #362](https://github.com/bounswe/bounswe2022group5/issues/362): This one is for creating the post creation page for the website.
+
+* [Issue #363](https://github.com/bounswe/bounswe2022group5/issues/363): This one is for improving the Homepage and Navigation Bar by adding necessary buttons.
+
+* [Issue #365](https://github.com/bounswe/bounswe2022group5/issues/365): This one is for creating the article creation page for the website.
   
   
 
@@ -423,6 +455,13 @@
 
 * [Issue #489](https://github.com/bounswe/bounswe2022group5/issues/489): Being in touch with Mobile Team and filling the ChatBot together.
 
+* [Issue #178](https://github.com/bounswe/bounswe2022group5/issues/178): Revising the Use Case diagrams.
+
+* [Issue #174](https://github.com/bounswe/bounswe2022group5/issues/174): Updating Communication Plan.
+
+* [Issue #266](https://github.com/bounswe/bounswe2022group5/issues/266): Creating Scenario 2 for milestone 1.
+
+* [Issue #283](https://github.com/bounswe/bounswe2022group5/issues/283): Customer Milestone Meeting Notes For Milestone 1.
   
   
   
@@ -435,8 +474,19 @@
 
 * [Pull Request #488](https://github.com/bounswe/bounswe2022group5/pull/488): Integration of the chatbot.
 
+* [Pull Request #249](https://github.com/bounswe/bounswe2022group5/pull/249): Navigation Bar.
+
+* [Pull Request #257](https://github.com/bounswe/bounswe2022group5/pull/257): HomePage Layout and alignments.
+
+* [Pull Request #267](https://github.com/bounswe/bounswe2022group5/pull/267): Improvement in the HomePage buttons.
   
-  
+* [Pull Request #371](https://github.com/bounswe/bounswe2022group5/pull/371): Post Creation Page, closed by me without merging.
+
+* [Pull Request #372](https://github.com/bounswe/bounswe2022group5/pull/372): Adding buttons to the Homepage and the Navbar.
+
+* [Pull Request #373](https://github.com/bounswe/bounswe2022group5/pull/373): Article Creation Page.
+
+* [Pull Request #377](https://github.com/bounswe/bounswe2022group5/pull/377): Post Creation Page, opened instead of the closed one.
 
 </details>
 
