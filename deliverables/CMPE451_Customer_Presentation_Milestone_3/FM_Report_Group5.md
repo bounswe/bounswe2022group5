@@ -319,6 +319,15 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
 
 |Issue Title|Link|
 |-----|:--------:|
+  |Analyzing the Backend code conventions page and giving some feedbacks about the document|[#262](https://github.com/bounswe/bounswe2022group5/issues/262)|
+  |Making changes on [Pull Request Template](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1), and clarify some topics|[#184](https://github.com/bounswe/bounswe2022group5/issues/184)|
+  |Reviewing the [Login](https://github.com/bounswe/bounswe2022group5/wiki/Login-API-Documentation) and [Signup](https://github.com/bounswe/bounswe2022group5/wiki/Signup-API-Documentation) Documentation and giving some suggestions about error cases.|[#218](https://github.com/bounswe/bounswe2022group5/issues/218)|
+  |Reviewing the [Scenario 2](https://github.com/bounswe/bounswe2022group5/wiki/Scenario-2-for-Milestone-1), and giving some suggestions about that.|[#266](https://github.com/bounswe/bounswe2022group5/issues/266)|
+  |Analyze the [Use Case Diagram](https://github.com/bounswe/bounswe2022group5/wiki/Use-Case-Diagram).|[#178](https://github.com/bounswe/bounswe2022group5/issues/178)|
+  | [Backend] Upvote and Downvote enpoints for Posts|[#313](https://github.com/bounswe/bounswe2022group5/issues/313)|
+  |[Backend] Implemented voting system for Articles.|[#312](https://github.com/bounswe/bounswe2022group5/issues/312)|
+  |[Backend] Improvements on voting system. Extra functionalities added on voting system. Some fields added on User, DB schema changed.|[#329](https://github.com/bounswe/bounswe2022group5/issues/329)|
+  |[Backend] Implemented an endpoint for get a doctor's all articles. It is used for doctor's profile page.|[#355](https://github.com/bounswe/bounswe2022group5/pull/355)|
 |[Backend] Category Follow Implementation|[#431](https://github.com/bounswe/bounswe2022group5/issues/431)|
 |[Backend] Followed Categories Endpoint|[#441](https://github.com/bounswe/bounswe2022group5/issues/441)|
 |[Backend] Bookmark a Post implementation|[#462](https://github.com/bounswe/bounswe2022group5/issues/462)|
@@ -336,6 +345,10 @@ To see all my work please visit [my personal efforts wiki page](https://github.c
 |[Backend] Bookmark a Post implementation|[#463](https://github.com/bounswe/bounswe2022group5/pull/463)|
 |[Backend] Bookmark an Article|[#472](https://github.com/bounswe/bounswe2022group5/pull/472)|
 |[Backend] Delete account function|[#494](https://github.com/bounswe/bounswe2022group5/pull/494)|
+  |[Backend] Vote endpoints for Posts|[#321](https://github.com/bounswe/bounswe2022group5/pull/321)|
+  | [Backend] Vote endpoints for Article|[#314](https://github.com/bounswe/bounswe2022group5/pull/314)|
+  | [Backend] Voting feature improvements|[#331](https://github.com/bounswe/bounswe2022group5/pull/331)|
+  | [Backend] Get a doctor's all articles|[#355](https://github.com/bounswe/bounswe2022group5/pull/355)|
 
   
 
