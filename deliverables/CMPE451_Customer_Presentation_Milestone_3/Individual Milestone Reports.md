@@ -136,6 +136,10 @@ Here is my contributions overall
 - I reported my reviews in this section of the other milestone reports. There are too many. Except maybe the first ones, almost all of them are in a standard format and they are detailed with provided comments, suggestions, helper links. 
 - Some of my good reviews are valuable in the sense that they bought us time (they saved time for my teammates).
 - All my reviews were documented in my [weekly personal efforts](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balc%C4%B1#weekly-personal-effort) page.
+- My additional information section from before: [Milestone 1](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_1/M1_Report_Group5.md#additional-information)
+- Issue reviews from [Milestone 2](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_2/M2_Report_Group5.md#code-related-significant-issues), 
+- PR reviews from [Milestone 2](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_2/M2_Report_Group5.md#pull-requests-1)
+- Reviews After Milestone 2 and until Final Milestone can be found in my [weekly personal efforts](https://github.com/bounswe/bounswe2022group5/wiki/Alper-Canberk-Balc%C4%B1#weekly-personal-effort) page.
   
 
 </details>
