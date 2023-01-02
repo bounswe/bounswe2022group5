@@ -1,8 +1,9 @@
-
-
-
-## Users and Their Personae
-### User 1: Ali Tokses
+## A. Manuals
+## B. Software Requirements Specification (SRS)
+## C. Software design documents (using UML)
+## D. User Scenarios and Mockups
+### Users and Their Personae
+#### User 1: Ali Tokses
 * **Photo** 
 <img widht=200 height=200 src="https://user-images.githubusercontent.com/47902320/210182188-b898bdfd-1472-49d1-be5c-a3d89da87e2d.png">
 
@@ -16,12 +17,12 @@
     * He thought he got the flu and didn't bother to think about it that much and went to sleep.
     * Today he is in a worse shape, coughs are more painful now.
 
-## Preconditions
+### Preconditions
 * Ali is already registered to the website already.
 * Ali is logged in already.
 * Ali is a new user, he doesn't have any posts or comments yet. But reads the Forum section daily.
 
-## Goals
+### Goals
 * Ali aims to see posts and articles on the website.
 * Ali aims to edit his profile page.
 * Ali aims to use the chatbot.
@@ -44,19 +45,19 @@
     * Fatma is a verified doctor in our application. She has been using our app for a long time.
     * She opened the website today, as usual, and she starts with looking at the Forum Section.
 
-## Preconditions
+### Preconditions
 * Fatma is already registered to the website already.
 * Fatma is logged in already.
 * Fatma is a long time user, she follows the Respirology and 
 
-## Goals
+### Goals
 * Fatma aims to see posts and articles on the website.
 * Fatma aims to comment under posts.
 * Fatma aims to write annotations.
 * Fatma aims to search by geolocation.
 * Fatma aims to create a post.
 
-## Ali's Actions
+### Ali's Actions
 **1.** Ali enters to website/landing page.
 <img width="1275" alt="Screen Shot 2022-12-10 at 01 08 24" src="https://user-images.githubusercontent.com/47902320/210182632-6a98901d-45c6-40a6-b48f-d520ef100558.png">
 
@@ -137,7 +138,7 @@
 
 
 **21.** He waits an answer from a doctor, exits the application.
-## Fatma's Actions
+### Fatma's Actions
 **1.** Fatma enters to website/landing page. She already follows Respirology and Otolaryngology. 
 
 ![image](https://user-images.githubusercontent.com/47902320/210245654-4b404bdc-5185-41e2-8ebb-56f92b783f75.png)
@@ -168,7 +169,7 @@
 ![image](https://user-images.githubusercontent.com/47902320/210247742-dc6f6496-9768-402f-834b-842cf0b2adf5.png)
 
 
-## Acceptance Criteria
+### Acceptance Criteria
 - **1.1.1.2.1** Members shall be able to sign-in to the system using their username or e-mail and their password.
 -   **1.1.1.2.2**  Doctors shall be able to sign-in to the system using their e-mail and their password.
 -   **1.1.1.3.1**  Registered users shall have profile pages.
@@ -205,6 +206,6 @@
 -   **1.2.1.2.2**  Chatbot shall use categories to find posts and articles related to user decisions.
 -   **1.2.1.2.3**  Chatbot shall offer some suggestions after the query, including related categories to the discomfort and links to related posts under the given tags.
 
-
-
+## E. Project plan
+## F. Unit Tests
 
