@@ -54,6 +54,8 @@ Latest released version can be found on [this link](https://github.com/bounswe/b
 
 # Building Steps (of Mobile)
 
+Detailed info can be found in the [system manual](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Manuals#system-manual-1).
+
 1. Clone the git repo and proceed to the mobile folder
     - git clone https://github.com/bounswe/bounswe2022group5.git
     - cd bounswe2022group5/app/mobile/bounswe5_mobile
