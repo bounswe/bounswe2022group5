@@ -51,7 +51,7 @@ Main functionalities of the application are given below:
 - Doctor Profile with posts, articles of them. Other profile features enabled here.
 - Text Annotation
 - Image Annotation
-- Tag(Label) Suggestion with Semantic Search using Nation [Library of Medicine Ontology](https://www.nlm.nih.gov/)
+- Tag(Label) Suggestion with Semantic Search using [National Library of Medicine Ontology](https://www.nlm.nih.gov/)
 - Chatbot Support
 - Account Delete
 
@@ -1497,7 +1497,7 @@ with [Popup](https://github.com/bounswe/bounswe2022group5/blob/master/app/fronte
 
 *  ### Annotations
 
-In Milestone 2 and Customer Demo we have explained how we will implement Annotations with [the Annotation Mockup](https://github.com/bounswe/bounswe2022group5/wiki#:~:text=Annot-,Annotation%20Mockup,-%F0%9F%8F%A0).
+In Milestone 2 and Customer Demo we have explained how we will implement Annotations with [the Annotation Mockup](https://github.com/bounswe/bounswe2022group5/wiki/Annotation-Mockup).
 
 For Final Milestone and Customer Presentation we have implemented the text and image annotation by following [W3 Annotation Data Model](https://www.w3.org/TR/annotation-model/).
 
