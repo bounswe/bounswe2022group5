@@ -1696,4 +1696,4 @@ We have build an API that works with tags user added to posts. With these tags w
 
 *  ### Scenarios
 
--   [User Scenarios and Mockups](https://github.com/bounswe/bounswe2022group5/wiki/User-Scenarios-and-Mockups), detailed evaluation is written at the bottom.
+-   [User Scenarios and Mockups](https://github.com/bounswe/bounswe2022group5/wiki/User-Scenarios-and-Mockups), detailed evaluation of work done is written at the [bottom](https://github.com/bounswe/bounswe2022group5/wiki/User-Scenarios-and-Mockups#work-done).
