@@ -787,32 +787,72 @@ Here is my contributions overall
 <details><summary>Ozan Kılıç</summary>
 
 ## **Member:** [Ozan Kılıç](https://github.com/bounswe/bounswe2022group5/wiki/Ozan-K%C4%B1l%C4%B1%C3%A7), Group 5 - Frontend.
-
-  
+	
 
 ### **Responsibilities:**
 
-  
-  
-  
+- Attending meeting and discussions in the team.
+	
+- Attending the Customer Milestone Presentation.
+
+- Taking notes at presentations and giving feedbacks.
+
+- Documentating the task that I worked on.
+
+- Reviewing pull requests and giving feedbacks.
+
+- Chatbot implementation of frontend side of the application
+
+- Chatbot reseach of the current applications.
+
+- Filling tree structure of the chatbot with recommendation links.
+
+- Creating form page of the frontend side of the application.
+
+- Documenting code conventions of frontend.
+
+- Making communication plan for frontend team.
+
+- Adding categories part to the sidebar of the frontend main page.
+
+- Coding pagination at posts and articles sections.
+
+- Writing User Manual for the FrontEnd Web App.
+
   
 
 ### **Main contributions:**
 
-  
-  
+- Implemented [Forumpage](https://github.com/bounswe/bounswe2022group5/issues/223)
+	
+- Implemented [Categories part](https://github.com/bounswe/bounswe2022group5/issues/301)
 
+- Implemented [ChatBot](https://github.com/bounswe/bounswe2022group5/blob/master/app/frontend/src/App.js)
+
+- Chatbot communication tree is filled.
+	
+- Implemented [Pagination](https://github.com/bounswe/bounswe2022group5/issues/367)
+
+- Wrote [System Manuel](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals/#system-manual-1) for frontend.
+
+- User manual [User Manuel](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals/#user-manual-1) together with [Kerem Gündüz](https://github.com/bounswe/bounswe2022group5/wiki/Sinan-Kerem-Gündüz) 
+  
 #### Code related significant issues:
 
-  
-  
+* Pagination for Posts and Articles at Home page|[Issue #367](https://github.com/bounswe/bounswe2022group5/issues/367)|
+* Making improvements on the forum|[Issue #302](https://github.com/bounswe/bounswe2022group5/issues/302)|
+* Adding categories to the sidebar|[#301](https://github.com/bounswe/bounswe2022group5/issues/301)|
 
+  
+  
 #### Management related significant issues:
-
-  
+* Communication Plan for Frontend|[Issue #274](https://github.com/bounswe/bounswe2022group5/issues/274):|
+* Coding conventions for Frontend|[Issue #263](https://github.com/bounswe/bounswe2022group5/issues/263):|
 
 ### **Pull requests:**
-
+* Making categories bar homepage responsive|[#397](https://github.com/bounswe/bounswe2022group5/pull/397)|
+* Frontend/feature/forum improvements #302|[#385](https://github.com/bounswe/bounswe2022group5/pull/385)|
+* Frontend/feature/homepage pagination #367|[#369](https://github.com/bounswe/bounswe2022group5/pull/369)|
   
   
 
