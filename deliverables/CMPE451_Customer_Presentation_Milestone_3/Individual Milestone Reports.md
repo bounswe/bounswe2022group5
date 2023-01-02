@@ -219,15 +219,14 @@
 
 - Implementing deletion functionality for post/article/comment.
 
-- Preparing the [User Interface/User Experience](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Milestone_2/M2_Report_Group5.md#user-interface--user-experience) section for mobile in the Milestone 2 Report.
-
 - Creating a [wiki page](https://github.com/bounswe/bounswe2022group5/wiki/Milestone-2-Presentation-Notes) for Milestone 2 Presentation notes for the team members to get a feedback for later improvements.
 
 - Implementing keyword/category/geolocation search functionalities for the mobile application.
-
+	
+- Preparing the searching subsection of the Mobile User Manual.
   
 
-*  *Code related significant issues:*
+*Code related significant issues:*
 
 * Initial creation of the sign-up page for the mobile application: [#193](https://github.com/bounswe/bounswe2022group5/issues/193)
 
@@ -263,7 +262,7 @@
 
 * Category name overflow bugfix: [#515](https://github.com/bounswe/bounswe2022group5/issues/515)
 
-*  *Management related significant issues:*
+*Management related significant issues:*
 
 * Creating a wiki page including Milestone 2 Presentation notes: [#428](https://github.com/bounswe/bounswe2022group5/issues/428)
 
