@@ -13,8 +13,6 @@ Application follows a **monorepo** structure where mobile, web, back-end code, s
 
 Our frontend application is written using React.js framework. This app is then Dockerized and can be ran on Linux-based, Windows, or MacOS systems seamlessly. 
 
-This application is deployed on AWS as one EC2 instance, without using any auto-managed tools.
-
 
 # Final Release
 
@@ -46,7 +44,7 @@ Latest released version can be found on [this link](https://github.com/bounswe/b
     - apt-get update; apt-get install;
 2. Make sure Docker is installed and enabled as a service
     - apt-get install docker; service docker start; usermod -a -G docker os_username; chkconfig docker on;
-3. Clone the git repo to the server and proceed to the back-end folder
+3. Clone the git repo to the server and proceed to the frontend folder
     - git clone https://github.com/bounswe/bounswe2022group5.git
     - cd bounswe2022group5/app/frontend
 4. Create a docker image of the application
