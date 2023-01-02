@@ -1520,18 +1520,18 @@ There are two schemes we have defined for annotations. Below is the schema we us
     "type": "Annotation"
 }
 ```
-Annotation Status:
+#### Annotation Status:
 
-Backend:
+##### Backend:
 This schemas are created on the Annotation Server. Link is 'ec2-18-209-24-202.compute-1.amazonaws.com:8000/'. They are stored in db and served to Frontend and Mobile when requested.
 
-Frontend:
+##### Frontend:
 The annotation tool is available on the website and all Registered Users can annotate posts and see the annotations.
 For Text Annotation, a Registered User can select any text in post and annotate it. Also editing and deleting annotation is possible.
 For Image Annotation, a Registered User can select any text in post and annotate it. Also editing and deleting annotation is possible.
 Also Registered Users can view all text and image annotations.
 
-Mobile:
+##### Mobile:
 The annotation tool is available on the mobile app and all Registered Users can annotate posts and see the annotations.
 For Text Annotation, a Registered User can select any text in post and annotate it. 
 Also Registered Users can view all text annotations.
