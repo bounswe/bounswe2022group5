@@ -468,56 +468,56 @@
 
 |Pull Request Title|Link|
 
-|-----|:--------:|
+  |-----|:--------:|
 
-|Article cards are available to be displayed on the homepage.|[#243](https://github.com/bounswe/bounswe2022group5/pull/243)|
-|Profile page creation.|[#356](https://github.com/bounswe/bounswe2022group5/pull/356)|
+  |Article cards are available to be displayed on the homepage.|[#243](https://github.com/bounswe/bounswe2022group5/pull/243)|
+  |Profile page creation.|[#356](https://github.com/bounswe/bounswe2022group5/pull/356)|
 
-|Implementing functionalities to the profile page.|[#384](https://github.com/bounswe/bounswe2022group5/pull/384)|
+  |Implementing functionalities to the profile page.|[#384](https://github.com/bounswe/bounswe2022group5/pull/384)|
 
-|Bug Fix: Notification messages, API calls are fixed.|[#405](https://github.com/bounswe/bounswe2022group5/pull/405)|
+  |Bug Fix: Notification messages, API calls are fixed.|[#405](https://github.com/bounswe/bounswe2022group5/pull/405)|
 
-|Category functionality added to the post creation page and Post and Article Card navigation handled.|[#407](https://github.com/bounswe/bounswe2022group5/pull/407)|
+  |Category functionality added to the post creation page and Post and Article Card navigation handled.|[#407](https://github.com/bounswe/bounswe2022group5/pull/407)|
 
-|Bug Fix: Voting mechanism for guest users is disabled.|[#414](https://github.com/bounswe/bounswe2022group5/pull/414)|
+  |Bug Fix: Voting mechanism for guest users is disabled.|[#414](https://github.com/bounswe/bounswe2022group5/pull/414)|
 
-|Implementing label functionality to the post creation page.|[#417](https://github.com/bounswe/bounswe2022group5/pull/417)|
+  |Implementing label functionality to the post creation page.|[#417](https://github.com/bounswe/bounswe2022group5/pull/417)|
 
-|Enhancements on the profile page, medical history for members are added.|[#424](https://github.com/bounswe/bounswe2022group5/pull/424)|
+  |Enhancements on the profile page, medical history for members are added.|[#424](https://github.com/bounswe/bounswe2022group5/pull/424)|
 
 
-|Medical history editing feature added.|[ #439](https://github.com/bounswe/bounswe2022group5/pull/439)|
+  |Medical history editing feature added.|[ #439](https://github.com/bounswe/bounswe2022group5/pull/439)|
 
-  
+    
 
-|Following and unfollowing categories implemented.| [#449](https://github.com/bounswe/bounswe2022group5/pull/449)|
+  |Following and unfollowing categories implemented.| [#449](https://github.com/bounswe/bounswe2022group5/pull/449)|
 
-  
+    
 
-|Labels are visualized.| [#452](https://github.com/bounswe/bounswe2022group5/pull/452)|
+  |Labels are visualized.| [#452](https://github.com/bounswe/bounswe2022group5/pull/452)|
 
-  
+    
 
-| Doctor profile pages are created.| [#482](https://github.com/bounswe/bounswe2022group5/pull/482)|
-  
+  | Doctor profile pages are created.| [#482](https://github.com/bounswe/bounswe2022group5/pull/482)|
+    
 
-| Ontology suggested labels are attached to the posts.| [#486](https://github.com/bounswe/bounswe2022group5/pull/486)|
+  | Ontology suggested labels are attached to the posts.| [#486](https://github.com/bounswe/bounswe2022group5/pull/486)|
 
-  
+    
 
-| Account deletion feature implemented.| [#500](https://github.com/bounswe/bounswe2022group5/pull/500)|
+  | Account deletion feature implemented.| [#500](https://github.com/bounswe/bounswe2022group5/pull/500)|
 
-  
+    
 
-| Article deletion feature implemented.| [#505](https://github.com/bounswe/bounswe2022group5/pull/505)|
+  | Article deletion feature implemented.| [#505](https://github.com/bounswe/bounswe2022group5/pull/505)|
 
-  
+    
 
-| Popup component tested.| [#514](https://github.com/bounswe/bounswe2022group5/pull/514)|
+  | Popup component tested.| [#514](https://github.com/bounswe/bounswe2022group5/pull/514)|
 
-  
+    
 
-| Doctor profile redirection fix.| [#535](https://github.com/bounswe/bounswe2022group5/pull/535)|
+  | Doctor profile redirection fix.| [#535](https://github.com/bounswe/bounswe2022group5/pull/535)|
 
   
 
