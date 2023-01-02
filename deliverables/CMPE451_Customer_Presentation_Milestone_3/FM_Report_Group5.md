@@ -1537,8 +1537,15 @@ Also Registered Users can view all text annotations.
 
 *  ### Standards
 
-  
+In Software Engineering, standards help make systems interoperable. Standards are important in effective communication between disparate systems. Standards also make it easier to track and monitor transactions, metrics and more. Systems that are developed to standards also make them more credible.
 
-  
+As we mentioned in Annotation Section, we have followed [W3 Annotation Data Model](https://www.w3.org/TR/annotation-model/).
+
+The Web Annotation Data Model specification describes a structured model and format to enable annotations to be shared and reused across different hardware and software platforms. 
+
+We have used [Natinonal Library of Medicine Ontology](https://www.nlm.nih.gov/?_gl=1*139qbsh*_ga*MTU1MDQ0MzM5MS4xNjcwMTcxODEy*_ga_P1FPTH9PL4*MTY3MjY3MTcwNC45LjEuMTY3MjY3MTgwMy4wLjAuMA..) with [Medical Subject Headings](https://meshb.nlm.nih.gov/) for semantic search.
+
+The Medical Subject Headings (MeSH) thesaurus is a controlled and hierarchically-organized vocabulary produced by the National Library of Medicine. It is used for indexing, cataloging, and searching of biomedical and health-related information.
+
 
 *  ### Scenarios
