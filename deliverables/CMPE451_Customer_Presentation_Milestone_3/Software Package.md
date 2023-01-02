@@ -1,3 +1,8 @@
+# Deployed Versions of the App
+- Backend: http://ec2-3-87-119-148.compute-1.amazonaws.com:8000/
+- Annotations: http://ec2-18-209-24-202.compute-1.amazonaws.com:8000/
+- Frontend: http://54.144.16.67:3000/
+
 
 # Deployment (Of back-end application)
 
