@@ -27,9 +27,9 @@ Latest released version can be found on [this link](https://github.com/bounswe/b
     - sudo chmod +x docker-compose
 5. Set the environment variables
     - export DATABASE_HOST=ec2-100-24-23-233.compute-1.amazonaws.com
-    - export DATABASE_PW=<SECRET>
-    - export AWS_ACCESS_KEY_ID=<SECRET>
-    - export AWS_SECRET_ACCESS_KEY=<SECRET>
+    - export DATABASE_PW=<_SECRET_>
+    - export AWS_ACCESS_KEY_ID=<_SECRET_>
+    - export AWS_SECRET_ACCESS_KEY=<_SECRET_>
 6. Go ahead and run the docker script
     - ./docker-compose up
 
