@@ -12,7 +12,15 @@ Hippocrates is a __medical experience sharing plotform__.
 - Doctors can create articles about medical issues, users can read them.
 - Users can use our chatbot to navigate through our app, discover which medical category is relevant to their problem.
 
-For more information, you can visit our [wiki page](https://github.com/bounswe/bounswe2022group5/wiki).
+- You can visit our website [here](http://54.144.16.67:3000/).
+
+- You can download APK version of our Android application from [here](https://drive.google.com/uc?export=download&id=1sWFPABsdkE-mAYlGDIR3v2rIHCELJCJn).
+
+- FrontEnd manuals can be found [here](https://github.com/bounswe/bounswe2022group5/wiki/FrontEnd-Manuals).
+
+- Mobile manuals can be found [here](https://github.com/bounswe/bounswe2022group5/wiki/Mobile-Manuals).
+
+- For more information, you can visit our [wiki page](https://github.com/bounswe/bounswe2022group5/wiki).
 
 
 ## Our Group
