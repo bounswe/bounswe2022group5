@@ -140,7 +140,7 @@
 - Reviewing all backend related issues and PRs, manual testing of these PRs, and providing corresponding feedback.
 - Performing deployment-related tasks to fit other teams' needs.
 - Brainstorming with team members to come up with efficient software design that eliminates errors / bugs.
-  
+- Contributing to the final deliverables
 
 ### **Main contributions (Find links in following headers):**
 
@@ -154,6 +154,8 @@
   - REVIEW: [Annotation Data Model and Endpoints](https://github.com/bounswe/bounswe2022group5/pull/454)
   - REVIEW: [Report unit tests](https://github.com/bounswe/bounswe2022group5/pull/523)
 - Database shaping & cleansing
+- Documentation
+  - Writing the [Software Package.md](https://github.com/bounswe/bounswe2022group5/blob/master/deliverables/CMPE451_Customer_Presentation_Milestone_3/Software%20Package.md)
 
 
 #### Code related significant issues:
@@ -164,6 +166,10 @@
 - [Geospatial search implementation](https://github.com/bounswe/bounswe2022group5/issues/447)
 - [Get All Posts Bug](https://github.com/bounswe/bounswe2022group5/issues/495)
 
+#### Management related significant issues:  
+
+- [Software Package for Backend](https://github.com/bounswe/bounswe2022group5/issues/543)
+  
 ### **Pull requests:**
 
 - [Registration Bugfix #444](https://github.com/bounswe/bounswe2022group5/pull/444)
