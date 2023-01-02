@@ -86,6 +86,21 @@ Apart from that, every member of the team tried to do their best for the final m
 
 ### Reflections
 
+We knew that Final Milestone, unlike other Milestones, is a point where we would present the final and main version of our project and explain all the features using potential scenarios over a product we can call MVP. 
+
+In this direction, we focused our work on combining the separate parts and finishing the product we promised. So, we realized how helpful the documentation, notes and other wiki items throughout the term were. 
+
+We were able to successfully plan Final Milestone because we knew what we were doing and how quickly we were working backwards. The existence of such an experience, especially in order for the teams to align, is very beneficial for the developing a product that can be described as a final. 
+
+Another lesson we learned is how important feedback from previous milestones and presentations is. In particular, we tried to apply what we learned from these notes we took during the presentation in the last demos. Preparing a comprehensive scenario, not boring the audience and making an effective introduction form the basis of our methods for the last milestone.
+
+### What Could Be Done Differently
+
+Since we developed our final product to meet the requirements we set at the beginning, we see the project development process since start of term as a successful process. This is because of things we talked about above. But as with any project development process, we recognize that there are things to do better or different. 
+
+At the beginning of the term, we formed the teams with an equal number of members. However, adding more people to the frontend team, which requires a lot of effort, and especially the mobile development team where new technologies are learned, could speed up the work. In this direction, we could have given more importance to UI and visuality. 
+
+We could have started using Postman at the beginning of the year. We are currently using all APIs and documentation via Postman and are quite satisfied.
 
 
 ## Progress Based on Teamwork
