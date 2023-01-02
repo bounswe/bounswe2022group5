@@ -661,7 +661,16 @@ In the [System Requirements](https://github.com/bounswe/bounswe2022group5/wiki/R
 
 *  ### API endpoints
 
-  
+We have migrated the Documentation to a Postman Doc Page.
+Also you can fork the collection via link below.
+
+##### [Postman Documentation](https://documenter.getpostman.com/view/14834467/2s8YswSXdA)
+
+To use API fork the Postman collection. Application and Annotation API is in the same **Collection**.
+- For Application API use host: ec2-3-87-119-148.compute-1.amazonaws.com:8000/
+- For Annotation API use host: ec2-18-209-24-202.compute-1.amazonaws.com:8000/
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/14834467-bea9ded4-7ac4-4a3d-899c-7c1a74174864?action=collection%2Ffork&collection-url=entityId%3D14834467-bea9ded4-7ac4-4a3d-899c-7c1a74174864%26entityType%3Dcollection%26workspaceId%3D046b467d-a616-49f1-8160-7043503e5889)
 
 *  ### User Interface / User Experience
 
